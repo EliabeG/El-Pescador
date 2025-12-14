@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Pescador - Equipamentos de Pesca Esportiva, Pesca Sub e Caça</title>
+    <title>El Pescador - Material de Pesca | Pesca Sub, Mergulho e Caça</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;700&family=Pinyon+Script&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-blue: #0D3B66;
+            --accent-cyan: #00D4FF;
             --accent-orange: #F4A836;
             --dark-green: #1D4E4F;
             --dark-gray: #1C2833;
+            --black: #000000;
             --white: #FFFFFF;
             --light-gray: #F8F9FA;
             --danger-red: #E74C3C;
@@ -44,7 +46,7 @@
 
         /* Ad Bar */
         .ad-bar {
-            background: var(--primary-blue);
+            background: var(--black);
             color: var(--white);
             padding: 10px 0;
             font-size: 14px;
@@ -60,6 +62,7 @@
 
         .ad-bar-item {
             white-space: nowrap;
+            color: var(--accent-cyan);
         }
 
         @keyframes scroll {
@@ -69,7 +72,7 @@
 
         /* Header */
         .header {
-            background: var(--primary-blue);
+            background: var(--black);
             padding: 15px 0;
             position: sticky;
             top: 0;
@@ -83,19 +86,45 @@
             gap: 30px;
         }
 
+        /* Logo Styling - Matching the brand */
         .logo {
-            font-family: 'Oswald', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--white);
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            text-decoration: none;
         }
 
-        .logo-icon {
+        .logo-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 15px;
+        }
+
+        .logo-name {
+            font-family: 'Pinyon Script', cursive;
             font-size: 36px;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .logo-tagline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 12px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .search-box {
@@ -107,9 +136,9 @@
         .search-box input {
             width: 100%;
             padding: 12px 50px 12px 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 4px;
-            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 25px;
+            background: rgba(255,255,255,0.1);
             color: var(--white);
             font-size: 14px;
         }
@@ -120,12 +149,12 @@
 
         .search-box button {
             position: absolute;
-            right: 10px;
+            right: 15px;
             top: 50%;
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: var(--white);
+            color: var(--accent-cyan);
             cursor: pointer;
             font-size: 18px;
         }
@@ -140,14 +169,19 @@
             text-decoration: none;
             font-size: 24px;
             position: relative;
+            transition: color 0.3s;
+        }
+
+        .header-icon:hover {
+            color: var(--accent-cyan);
         }
 
         .cart-count {
             position: absolute;
             top: -8px;
             right: -8px;
-            background: var(--accent-orange);
-            color: var(--dark-gray);
+            background: var(--accent-cyan);
+            color: var(--black);
             font-size: 11px;
             font-weight: 700;
             width: 18px;
@@ -160,8 +194,8 @@
 
         /* Navigation */
         .nav {
-            background: var(--primary-blue);
-            border-top: 1px solid rgba(255,255,255,0.1);
+            background: var(--black);
+            border-top: 1px solid rgba(0,212,255,0.2);
         }
 
         .nav-list {
@@ -179,18 +213,34 @@
             font-size: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: opacity 0.3s;
+            transition: color 0.3s;
+            position: relative;
         }
 
         .nav-list a:hover {
-            opacity: 0.8;
+            color: var(--accent-cyan);
+        }
+
+        .nav-list a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s;
+        }
+
+        .nav-list a:hover::after {
+            width: 100%;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-green) 100%);
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a2e 50%, var(--dark-green) 100%);
             color: var(--white);
-            padding: 80px 0;
+            padding: 100px 0;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -203,8 +253,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90" opacity="0.05">🎣</text></svg>') repeat;
-            background-size: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90" opacity="0.03">🐟</text></svg>') repeat;
+            background-size: 150px;
+            animation: float 30s linear infinite;
+        }
+
+        @keyframes float {
+            0% { background-position: 0 0; }
+            100% { background-position: 150px 150px; }
         }
 
         .hero-content {
@@ -212,13 +268,39 @@
             z-index: 1;
         }
 
+        .hero-logo {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
         .hero h1 {
-            font-size: 48px;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 64px;
+            margin-bottom: 10px;
+            font-weight: 400;
+            text-shadow: 0 0 20px rgba(0,212,255,0.5);
+        }
+
+        .hero .subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            color: var(--accent-cyan);
             margin-bottom: 20px;
+            letter-spacing: 3px;
         }
 
         .hero p {
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 30px;
             opacity: 0.9;
         }
@@ -230,32 +312,34 @@
             font-size: 16px;
             text-transform: uppercase;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 30px;
             transition: all 0.3s;
             cursor: pointer;
             border: none;
+            letter-spacing: 1px;
         }
 
         .btn-primary {
-            background: var(--accent-orange);
-            color: var(--dark-gray);
+            background: var(--accent-cyan);
+            color: var(--black);
         }
 
         .btn-primary:hover {
-            background: #e09a2f;
+            background: #00b8e6;
             transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,212,255,0.4);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--white);
-            border: 2px solid var(--white);
+            border: 2px solid var(--accent-cyan);
             margin-left: 15px;
         }
 
         .btn-secondary:hover {
-            background: var(--white);
-            color: var(--primary-blue);
+            background: var(--accent-cyan);
+            color: var(--black);
         }
 
         /* Services Section */
@@ -304,24 +388,31 @@
             color: var(--dark-gray);
         }
 
+        .section-title span {
+            color: var(--accent-cyan);
+        }
+
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 20px;
         }
 
         .category-card {
             position: relative;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             aspect-ratio: 1;
-            background: linear-gradient(135deg, var(--primary-blue), var(--dark-green));
+            background: linear-gradient(135deg, var(--black), var(--dark-green));
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
         }
 
         .category-card:hover {
             transform: scale(1.05);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 30px rgba(0,212,255,0.3);
         }
 
         .category-card::before {
@@ -331,25 +422,27 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
         }
 
         .category-content {
             position: absolute;
             bottom: 20px;
-            left: 20px;
-            right: 20px;
+            left: 15px;
+            right: 15px;
             color: var(--white);
             z-index: 1;
+            text-align: center;
         }
 
         .category-icon {
-            font-size: 50px;
+            font-size: 45px;
             margin-bottom: 10px;
         }
 
         .category-content h3 {
-            font-size: 18px;
+            font-size: 14px;
+            letter-spacing: 1px;
         }
 
         /* Products Section */
@@ -366,9 +459,10 @@
 
         .product-card {
             background: var(--white);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             transition: box-shadow 0.3s, transform 0.3s;
+            border: 1px solid #eee;
         }
 
         .product-card:hover {
@@ -378,7 +472,7 @@
 
         .product-image {
             aspect-ratio: 1;
-            background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+            background: linear-gradient(135deg, #1a1a2e, #2d2d44);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -392,14 +486,26 @@
             left: 10px;
             background: var(--danger-red);
             color: var(--white);
-            padding: 5px 10px;
+            padding: 5px 12px;
             font-size: 12px;
             font-weight: 700;
-            border-radius: 4px;
+            border-radius: 20px;
+        }
+
+        .product-badge.sold-out {
+            background: #666;
         }
 
         .product-info {
             padding: 20px;
+        }
+
+        .product-category {
+            font-size: 11px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
         .product-info h3 {
@@ -408,13 +514,15 @@
             font-weight: 600;
             margin-bottom: 10px;
             text-transform: none;
+            line-height: 1.4;
         }
 
         .product-price {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
         }
 
         .price-old {
@@ -424,37 +532,59 @@
         }
 
         .price-current {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--dark-gray);
         }
 
-        .price-installments {
+        .price-discount {
+            background: var(--accent-cyan);
+            color: var(--black);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .free-shipping {
             font-size: 12px;
-            color: var(--accent-orange);
+            color: #27ae60;
+            margin-bottom: 15px;
         }
 
         .product-btn {
             width: 100%;
             padding: 12px;
-            background: var(--accent-orange);
-            color: var(--dark-gray);
+            background: var(--black);
+            color: var(--white);
             border: none;
             font-family: 'Oswald', sans-serif;
             font-size: 14px;
             text-transform: uppercase;
             cursor: pointer;
             transition: background 0.3s;
+            border-radius: 6px;
+            letter-spacing: 1px;
         }
 
         .product-btn:hover {
-            background: #e09a2f;
+            background: var(--accent-cyan);
+            color: var(--black);
+        }
+
+        .product-btn.disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
 
         /* Brands Section */
         .brands {
             padding: 60px 0;
-            background: var(--white);
+            background: var(--black);
+        }
+
+        .brands .section-title {
+            color: var(--white);
         }
 
         .brands-grid {
@@ -468,68 +598,27 @@
         .brand-item {
             width: 120px;
             height: 60px;
-            background: var(--light-gray);
+            background: rgba(255,255,255,0.1);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Oswald', sans-serif;
             font-weight: 700;
-            color: var(--dark-gray);
+            color: var(--white);
             opacity: 0.7;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s, border-color 0.3s;
+            border: 1px solid transparent;
         }
 
         .brand-item:hover {
             opacity: 1;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 60px 0;
-            background: var(--light-gray);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .testimonial-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .testimonial-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--primary-blue);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            margin: 0 auto 20px;
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 15px;
-            color: #666;
-        }
-
-        .testimonial-name {
-            font-weight: 700;
-            color: var(--dark-gray);
+            border-color: var(--accent-cyan);
         }
 
         /* Newsletter */
         .newsletter {
-            background: var(--primary-blue);
+            background: linear-gradient(135deg, var(--dark-green) 0%, var(--black) 100%);
             color: var(--white);
             padding: 60px 0;
             text-align: center;
@@ -538,6 +627,10 @@
         .newsletter h2 {
             font-size: 32px;
             margin-bottom: 10px;
+        }
+
+        .newsletter h2 span {
+            color: var(--accent-cyan);
         }
 
         .newsletter p {
@@ -555,9 +648,9 @@
         .newsletter-form input {
             flex: 1;
             padding: 15px 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 4px;
-            background: transparent;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 30px;
+            background: rgba(255,255,255,0.1);
             color: var(--white);
             font-size: 14px;
         }
@@ -568,22 +661,43 @@
 
         /* Footer */
         .footer {
-            background: var(--dark-gray);
+            background: var(--black);
             color: var(--white);
             padding: 60px 0 30px;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
             gap: 40px;
             margin-bottom: 40px;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 42px;
+            color: var(--white);
+            margin-bottom: 5px;
+        }
+
+        .footer-logo-tagline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 12px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
         }
 
         .footer-col h4 {
             font-size: 16px;
             margin-bottom: 20px;
-            color: var(--accent-orange);
+            color: var(--accent-cyan);
         }
 
         .footer-col ul {
@@ -602,7 +716,7 @@
         }
 
         .footer-col a:hover {
-            color: var(--white);
+            color: var(--accent-cyan);
         }
 
         .footer-social {
@@ -620,12 +734,14 @@
             align-items: center;
             justify-content: center;
             font-size: 18px;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s;
+            border: 1px solid transparent;
         }
 
         .footer-social a:hover {
-            background: var(--accent-orange);
-            color: var(--dark-gray);
+            background: var(--accent-cyan);
+            color: var(--black);
+            transform: translateY(-3px);
         }
 
         .footer-bottom {
@@ -636,10 +752,43 @@
             opacity: 0.7;
         }
 
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 999;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(37,211,102,0.5);
+        }
+
         /* Responsive */
+        @media (max-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         @media (max-width: 992px) {
-            .services-grid,
-            .categories-grid,
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -648,14 +797,23 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .testimonials-grid {
-                grid-template-columns: 1fr;
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
         @media (max-width: 768px) {
             .header-content {
                 flex-wrap: wrap;
+            }
+
+            .logo-container {
+                width: 80px;
+                height: 80px;
+            }
+
+            .logo-name {
+                font-size: 28px;
             }
 
             .search-box {
@@ -666,17 +824,20 @@
 
             .nav-list {
                 flex-wrap: wrap;
-                gap: 20px;
+                gap: 15px;
+                font-size: 13px;
             }
 
             .hero h1 {
-                font-size: 32px;
+                font-size: 42px;
             }
 
-            .services-grid,
-            .categories-grid,
-            .products-grid {
-                grid-template-columns: 1fr 1fr;
+            .hero .subtitle {
+                font-size: 18px;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .newsletter-form {
@@ -694,13 +855,23 @@
         }
 
         @media (max-width: 480px) {
-            .categories-grid {
+            .services-grid,
+            .products-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr 1fr;
             }
 
             .btn-secondary {
                 display: block;
                 margin: 15px auto 0;
+            }
+
+            .hero-logo {
+                width: 150px;
+                height: 150px;
             }
         }
     </style>
@@ -710,10 +881,10 @@
     <div class="ad-bar">
         <div class="ad-bar-content">
             <span class="ad-bar-item">🎣 FRETE GRÁTIS em compras acima de R$300</span>
-            <span class="ad-bar-item">🐟 Equipamentos profissionais para todas as modalidades</span>
+            <span class="ad-bar-item">🤿 Equipamentos profissionais para Pesca Sub e Mergulho</span>
             <span class="ad-bar-item">🏆 +10 anos equipando pescadores</span>
             <span class="ad-bar-item">🎣 FRETE GRÁTIS em compras acima de R$300</span>
-            <span class="ad-bar-item">🐟 Equipamentos profissionais para todas as modalidades</span>
+            <span class="ad-bar-item">🤿 Equipamentos profissionais para Pesca Sub e Mergulho</span>
             <span class="ad-bar-item">🏆 +10 anos equipando pescadores</span>
         </div>
     </div>
@@ -723,8 +894,28 @@
         <div class="container">
             <div class="header-content">
                 <a href="#" class="logo">
-                    <span class="logo-icon">🎣</span>
-                    EL PESCADOR
+                    <div class="logo-container">
+                        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Outer wavy border -->
+                            <path d="M60,5 Q75,5 85,15 Q95,25 95,40 Q100,55 95,70 Q90,85 75,95 Q60,105 45,95 Q30,85 25,70 Q20,55 25,40 Q25,25 35,15 Q45,5 60,5" fill="#000" stroke="#00D4FF" stroke-width="3"/>
+                            <!-- Fisherman silhouette -->
+                            <g fill="#fff" transform="translate(25, 30) scale(0.5)">
+                                <ellipse cx="30" cy="20" rx="12" ry="14"/>
+                                <path d="M20,35 Q15,60 25,90 L35,90 Q45,60 40,35"/>
+                                <path d="M35,45 Q60,20 90,10" stroke="#fff" stroke-width="2" fill="none"/>
+                            </g>
+                            <!-- Fish silhouette -->
+                            <g fill="#fff" transform="translate(55, 45) scale(0.4)">
+                                <ellipse cx="40" cy="25" rx="35" ry="18"/>
+                                <polygon points="80,25 100,10 100,40"/>
+                                <circle cx="20" cy="22" r="3" fill="#000"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">El Pescador</span>
+                        <span class="logo-tagline">Material de Pesca</span>
+                    </div>
                 </a>
                 <div class="search-box">
                     <input type="text" placeholder="Buscar produtos...">
@@ -734,7 +925,7 @@
                     <a href="#" class="header-icon">👤</a>
                     <a href="#" class="header-icon">
                         🛒
-                        <span class="cart-count">3</span>
+                        <span class="cart-count">0</span>
                     </a>
                 </div>
             </div>
@@ -746,11 +937,11 @@
         <div class="container">
             <ul class="nav-list">
                 <li><a href="#">Início</a></li>
-                <li><a href="#">Pesca Esportiva</a></li>
                 <li><a href="#">Pesca Sub</a></li>
+                <li><a href="#">Mergulho</a></li>
+                <li><a href="#">Pesca Esportiva</a></li>
+                <li><a href="#">Roupas</a></li>
                 <li><a href="#">Caça</a></li>
-                <li><a href="#">Camping</a></li>
-                <li><a href="#">Ofertas</a></li>
                 <li><a href="#">Contato</a></li>
             </ul>
         </div>
@@ -760,10 +951,11 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Bem-vindo ao El Pescador</h1>
-                <p>Sua loja especializada em pesca esportiva, pesca sub e caça.<br>Equipamentos profissionais para todas as modalidades.</p>
-                <a href="#" class="btn btn-primary">Ver Produtos</a>
-                <a href="#" class="btn btn-secondary">Saiba Mais</a>
+                <h1>El Pescador</h1>
+                <p class="subtitle">Material de Pesca</p>
+                <p>Sua loja especializada em pesca sub, mergulho, pesca esportiva e caça.<br>Equipamentos profissionais para todas as modalidades.</p>
+                <a href="#produtos" class="btn btn-primary">Ver Produtos</a>
+                <a href="#categorias" class="btn btn-secondary">Categorias</a>
             </div>
         </div>
     </section>
@@ -797,16 +989,10 @@
     </section>
 
     <!-- Categories Section -->
-    <section class="categories">
+    <section class="categories" id="categorias">
         <div class="container">
-            <h2 class="section-title">Categorias</h2>
+            <h2 class="section-title">Nossas <span>Categorias</span></h2>
             <div class="categories-grid">
-                <div class="category-card">
-                    <div class="category-content">
-                        <div class="category-icon">🎣</div>
-                        <h3>Pesca Esportiva</h3>
-                    </div>
-                </div>
                 <div class="category-card">
                     <div class="category-content">
                         <div class="category-icon">🤿</div>
@@ -815,14 +1001,26 @@
                 </div>
                 <div class="category-card">
                     <div class="category-content">
-                        <div class="category-icon">🏹</div>
-                        <h3>Caça</h3>
+                        <div class="category-icon">🫧</div>
+                        <h3>Mergulho</h3>
                     </div>
                 </div>
                 <div class="category-card">
                     <div class="category-content">
-                        <div class="category-icon">⛺</div>
-                        <h3>Camping</h3>
+                        <div class="category-icon">🎣</div>
+                        <h3>Pesca Esportiva</h3>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-content">
+                        <div class="category-icon">👕</div>
+                        <h3>Roupas</h3>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-content">
+                        <div class="category-icon">🏹</div>
+                        <h3>Caça</h3>
                     </div>
                 </div>
             </div>
@@ -830,63 +1028,135 @@
     </section>
 
     <!-- Products Section -->
-    <section class="products">
+    <section class="products" id="produtos">
         <div class="container">
-            <h2 class="section-title">Produtos em Destaque</h2>
+            <h2 class="section-title">Produtos em <span>Destaque</span></h2>
             <div class="products-grid">
                 <div class="product-card">
                     <div class="product-image">
+                        <span class="product-badge">-13%</span>
+                        🥽
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Mergulho</span>
+                        <h3>Máscara de Mergulho e Snorkel</h3>
+                        <div class="product-price">
+                            <span class="price-old">R$ 150,00</span>
+                            <span class="price-current">R$ 130,00</span>
+                        </div>
+                        <div class="free-shipping">🚚 Frete Grátis</div>
+                        <button class="product-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">-6%</span>
+                        🥽
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Mergulho</span>
+                        <h3>Máscara de Mergulho Cressi Metis Hunter</h3>
+                        <div class="product-price">
+                            <span class="price-old">R$ 350,00</span>
+                            <span class="price-current">R$ 330,00</span>
+                        </div>
+                        <div class="free-shipping">🚚 Frete Grátis</div>
+                        <button class="product-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">-25%</span>
+                        🥽
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Mergulho</span>
+                        <h3>Máscara Espelhada</h3>
+                        <div class="product-price">
+                            <span class="price-old">R$ 200,00</span>
+                            <span class="price-current">R$ 150,00</span>
+                        </div>
+                        <div class="free-shipping">🚚 Frete Grátis</div>
+                        <button class="product-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">-9%</span>
+                        🦺
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">Mergulho</span>
+                        <h3>Roupa de Mergulho Neoprene 3mm</h3>
+                        <div class="product-price">
+                            <span class="price-old">R$ 550,00</span>
+                            <span class="price-current">R$ 499,00</span>
+                        </div>
+                        <div class="free-shipping">🚚 Frete Grátis</div>
+                        <button class="product-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
                         <span class="product-badge">-20%</span>
-                        🎣
+                        🔦
                     </div>
                     <div class="product-info">
-                        <h3>Vara de Pesca Profissional Carbon Pro 2.70m</h3>
+                        <span class="product-category">Mergulho</span>
+                        <h3>Lanterna Para Mergulho</h3>
                         <div class="product-price">
-                            <span class="price-old">R$ 599,90</span>
-                            <span class="price-current">R$ 479,90</span>
+                            <span class="price-old">R$ 50,00</span>
+                            <span class="price-current">R$ 40,00</span>
                         </div>
-                        <div class="price-installments">12x de R$ 39,99 sem juros</div>
+                        <div class="free-shipping">🚚 Frete Grátis</div>
                         <button class="product-btn">Adicionar ao Carrinho</button>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-image">
-                        🎡
+                        <span class="product-badge">-15%</span>
+                        🦶
                     </div>
                     <div class="product-info">
-                        <h3>Molinete Shimano FX 4000 Drag 8.5kg</h3>
+                        <span class="product-category">Pesca Sub</span>
+                        <h3>Nadadeira Seasub Velox Camuflada</h3>
                         <div class="product-price">
-                            <span class="price-current">R$ 289,90</span>
+                            <span class="price-old">R$ 350,00</span>
+                            <span class="price-current">R$ 299,00</span>
                         </div>
-                        <div class="price-installments">12x de R$ 24,16 sem juros</div>
+                        <div class="free-shipping">🚚 Frete Grátis</div>
                         <button class="product-btn">Adicionar ao Carrinho</button>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-image">
-                        <span class="product-badge">Novo</span>
-                        🦈
+                        <span class="product-badge">-35%</span>
+                        🏹
                     </div>
                     <div class="product-info">
-                        <h3>Kit Isca Artificial 30 peças Sortidas</h3>
+                        <span class="product-category">Pesca Sub</span>
+                        <h3>Flecha Inox PK Sub</h3>
                         <div class="product-price">
-                            <span class="price-current">R$ 159,90</span>
+                            <span class="price-old">R$ 200,00</span>
+                            <span class="price-current">R$ 130,00</span>
                         </div>
-                        <div class="price-installments">12x de R$ 13,33 sem juros</div>
+                        <div class="free-shipping">🚚 Frete Grátis</div>
                         <button class="product-btn">Adicionar ao Carrinho</button>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-image">
-                        🤿
+                        <span class="product-badge">-20%</span>
+                        🎯
                     </div>
                     <div class="product-info">
-                        <h3>Arbalete Pesca Sub Alumínio 90cm</h3>
+                        <span class="product-category">Pesca Sub</span>
+                        <h3>Elástico Para Arbalete 18mm</h3>
                         <div class="product-price">
-                            <span class="price-old">R$ 899,90</span>
-                            <span class="price-current">R$ 749,90</span>
+                            <span class="price-old">R$ 250,00</span>
+                            <span class="price-current">R$ 200,00</span>
                         </div>
-                        <div class="price-installments">12x de R$ 62,49 sem juros</div>
+                        <div class="free-shipping">🚚 Frete Grátis</div>
                         <button class="product-btn">Adicionar ao Carrinho</button>
                     </div>
                 </div>
@@ -897,38 +1167,14 @@
     <!-- Brands Section -->
     <section class="brands">
         <div class="container">
-            <h2 class="section-title">Marcas que Confiamos</h2>
+            <h2 class="section-title">Marcas <span>Parceiras</span></h2>
             <div class="brands-grid">
-                <div class="brand-item">SHIMANO</div>
-                <div class="brand-item">MARINE</div>
-                <div class="brand-item">RAPALA</div>
-                <div class="brand-item">DAIWA</div>
-                <div class="brand-item">PENN</div>
-                <div class="brand-item">OKUMA</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">O que Nossos Pescadores Dizem</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-avatar">👨</div>
-                    <p class="testimonial-text">"Excelente atendimento e produtos de primeira qualidade. Minha vara favorita comprei aqui."</p>
-                    <span class="testimonial-name">Carlos M.</span>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-avatar">👨</div>
-                    <p class="testimonial-text">"Envio rápido e muito bem embalado. 100% recomendado para pescadores."</p>
-                    <span class="testimonial-name">Roberto S.</span>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-avatar">👨</div>
-                    <p class="testimonial-text">"Grande variedade de iscas e equipamentos de pesca sub. Voltarei a comprar."</p>
-                    <span class="testimonial-name">Miguel A.</span>
-                </div>
+                <div class="brand-item">CRESSI</div>
+                <div class="brand-item">SEASUB</div>
+                <div class="brand-item">MARES</div>
+                <div class="brand-item">BEUCHAT</div>
+                <div class="brand-item">OMER</div>
+                <div class="brand-item">SALVIMAR</div>
             </div>
         </div>
     </section>
@@ -936,7 +1182,7 @@
     <!-- Newsletter -->
     <section class="newsletter">
         <div class="container">
-            <h2>Junte-se à Tripulação</h2>
+            <h2>Junte-se à <span>Tripulação</span></h2>
             <p>Inscreva-se e receba ofertas exclusivas, dicas de pesca e novidades.</p>
             <form class="newsletter-form">
                 <input type="email" placeholder="Seu melhor e-mail">
@@ -949,9 +1195,10 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>El Pescador</h4>
-                    <p style="font-size: 14px; opacity: 0.8; margin-bottom: 15px;">Sua loja especializada em pesca esportiva, pesca sub e caça desde 2014.</p>
+                <div class="footer-col footer-brand">
+                    <span class="footer-logo">El Pescador</span>
+                    <span class="footer-logo-tagline">Material de Pesca</span>
+                    <p style="font-size: 14px; opacity: 0.8; margin-bottom: 15px;">Sua loja especializada em pesca sub, mergulho, pesca esportiva e caça. Equipamentos de qualidade para todas as modalidades.</p>
                     <div class="footer-social">
                         <a href="#">📘</a>
                         <a href="#">📸</a>
@@ -962,11 +1209,11 @@
                 <div class="footer-col">
                     <h4>Categorias</h4>
                     <ul>
-                        <li><a href="#">Pesca Esportiva</a></li>
                         <li><a href="#">Pesca Sub</a></li>
+                        <li><a href="#">Mergulho</a></li>
+                        <li><a href="#">Pesca Esportiva</a></li>
+                        <li><a href="#">Roupas</a></li>
                         <li><a href="#">Caça</a></li>
-                        <li><a href="#">Camping</a></li>
-                        <li><a href="#">Acessórios</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -982,17 +1229,21 @@
                 <div class="footer-col">
                     <h4>Contato</h4>
                     <ul>
-                        <li><a href="#">📞 (11) 99999-9999</a></li>
                         <li><a href="#">📧 contato@elpescador.com.br</a></li>
-                        <li><a href="#">📍 São Paulo, SP</a></li>
+                        <li><a href="#">📍 Ceará, Brasil</a></li>
                         <li><a href="#">⏰ Seg-Sex: 9h às 18h</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2024 El Pescador. Todos os direitos reservados.</p>
+                <p>© 2024 El Pescador - Material de Pesca. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="#" class="whatsapp-float" title="Fale conosco pelo WhatsApp">
+        💬
+    </a>
 </body>
 </html>

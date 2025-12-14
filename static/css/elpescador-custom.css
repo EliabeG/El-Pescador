@@ -1,0 +1,430 @@
+/* ============================================
+   EL PESCADOR - CSS CUSTOMIZADO
+   Para uso com tema Nuvemshop
+   ============================================ */
+
+:root {
+    --ep-accent-cyan: #00D4FF;
+    --ep-dark-green: #1D4E4F;
+    --ep-dark-gray: #1C2833;
+    --ep-black: #000000;
+    --ep-white: #FFFFFF;
+    --ep-light-gray: #F8F9FA;
+    --ep-danger-red: #E74C3C;
+}
+
+/* ============================================
+   CONTAINER
+============================================ */
+
+.ep-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ============================================
+   HERO SECTION - El Pescador
+============================================ */
+
+.ep-hero {
+    background: linear-gradient(135deg, var(--ep-black) 0%, #1a1a2e 50%, var(--ep-dark-green) 100%);
+    color: var(--ep-white);
+    padding: 80px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ep-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90" opacity="0.03">🐟</text></svg>') repeat;
+    background-size: 150px;
+    animation: ep-float 30s linear infinite;
+}
+
+@keyframes ep-float {
+    0% { background-position: 0 0; }
+    100% { background-position: 150px 150px; }
+}
+
+.ep-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.ep-hero-logo {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.ep-hero-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ep-hero .ep-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    color: var(--ep-accent-cyan);
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.ep-hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+/* ============================================
+   BOTÕES - El Pescador
+============================================ */
+
+.ep-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 1px;
+}
+
+.ep-btn-primary {
+    background: var(--ep-accent-cyan);
+    color: var(--ep-black);
+}
+
+.ep-btn-primary:hover {
+    background: #00b8e6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,212,255,0.4);
+}
+
+.ep-btn-secondary {
+    background: transparent;
+    color: var(--ep-white);
+    border: 2px solid var(--ep-accent-cyan);
+    margin-left: 15px;
+}
+
+.ep-btn-secondary:hover {
+    background: var(--ep-accent-cyan);
+    color: var(--ep-black);
+}
+
+/* ============================================
+   SEÇÃO DE CATEGORIAS - El Pescador
+============================================ */
+
+.ep-categories {
+    padding: 60px 0;
+    background: var(--ep-white);
+}
+
+.ep-section-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: var(--ep-dark-gray);
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+}
+
+.ep-section-title span {
+    color: var(--ep-accent-cyan);
+}
+
+.ep-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.ep-category-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--ep-black), var(--ep-dark-green));
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid transparent;
+    text-decoration: none;
+}
+
+.ep-category-card:hover {
+    transform: scale(1.05);
+    border-color: var(--ep-accent-cyan);
+    box-shadow: 0 10px 30px rgba(0,212,255,0.3);
+}
+
+.ep-category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+}
+
+.ep-category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
+}
+
+.ep-category-content {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    right: 15px;
+    color: var(--ep-white);
+    z-index: 2;
+    text-align: center;
+}
+
+.ep-category-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.ep-category-content h3 {
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    color: var(--ep-white);
+}
+
+/* ============================================
+   PRODUTOS - El Pescador
+============================================ */
+
+.ep-products {
+    padding: 60px 0;
+    background: var(--ep-light-gray);
+}
+
+.ep-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.ep-product-card {
+    background: var(--ep-white);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+    border: 1px solid #eee;
+}
+
+.ep-product-card:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transform: translateY(-5px);
+}
+
+.ep-product-image {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.ep-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ep-product-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--ep-danger-red);
+    color: var(--ep-white);
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 20px;
+    font-family: 'Oswald', sans-serif;
+}
+
+.ep-product-info {
+    padding: 20px;
+}
+
+.ep-product-category {
+    font-size: 11px;
+    color: var(--ep-accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.ep-product-info h3 {
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: none;
+    line-height: 1.4;
+    color: var(--ep-dark-gray);
+}
+
+.ep-product-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.ep-price-old {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 14px;
+}
+
+.ep-price-current {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ep-accent-cyan);
+    font-family: 'Oswald', sans-serif;
+}
+
+.ep-free-shipping {
+    font-size: 12px;
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+
+.ep-product-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--ep-black);
+    color: var(--ep-white);
+    border: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-radius: 6px;
+    letter-spacing: 1px;
+}
+
+.ep-product-btn:hover {
+    background: var(--ep-accent-cyan);
+    color: var(--ep-black);
+}
+
+/* ============================================
+   MARCAS - El Pescador
+============================================ */
+
+.ep-brands {
+    padding: 60px 0;
+    background: var(--ep-black);
+}
+
+.ep-brands .ep-section-title {
+    color: var(--ep-white);
+}
+
+.ep-brands-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.ep-brand-item {
+    width: 120px;
+    height: 60px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    color: var(--ep-white);
+    opacity: 0.7;
+    transition: opacity 0.3s, border-color 0.3s;
+    border: 1px solid transparent;
+}
+
+.ep-brand-item:hover {
+    opacity: 1;
+    border-color: var(--ep-accent-cyan);
+}
+
+/* ============================================
+   RESPONSIVO
+============================================ */
+
+@media (max-width: 1024px) {
+    .ep-categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .ep-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ep-categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .ep-hero {
+        padding: 60px 0;
+    }
+
+    .ep-hero-logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .ep-categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ep-btn-secondary {
+        display: block;
+        margin: 15px auto 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .ep-products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ep-categories-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

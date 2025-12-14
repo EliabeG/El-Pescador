@@ -1,4 +1,9 @@
-{% if section_select == 'slider' %}
+{% if section_select == 'hero_elpescador' %}
+
+	{#  **** El Pescador Hero ****  #}
+	{% include 'snipplets/home/home-hero-elpescador.tpl' %}
+
+{% elseif section_select == 'slider' %}
 	{#  **** Home slider ****  #}
 
 	{% set has_mobile_slider = settings.toggle_slider_mobile and settings.slider_mobile and settings.slider_mobile is not empty %}

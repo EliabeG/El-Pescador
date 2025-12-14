@@ -70,6 +70,9 @@
 
         <link rel="stylesheet" href="{{ 'css/style-async.scss' | static_url }}" media="print" onload="this.media='all'">
 
+        {# El Pescador - CSS Customizado (carregado como arquivo externo) #}
+        {{ 'css/elpescador-custom.css' | static_url | css_tag }}
+
         {# Loads custom CSS added from Advanced Settings on the admin´s theme customization screen #}
 
         <style>

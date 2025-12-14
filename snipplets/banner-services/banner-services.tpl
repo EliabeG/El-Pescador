@@ -1,3 +1,19 @@
+{# /*============================================================================
+  El Pescador - Seção de Banners de Serviços Profissional
+
+  PLANO DE MELHORIAS (10 etapas):
+  1. ✅ Adicionar classes ep- para consistência
+  2. ✅ Traduzir textos para PT-BR
+  3. ✅ Melhorar acessibilidade ARIA
+  4. ✅ Adicionar container semântico
+  5. ✅ Melhorar navegação do slider
+  6. ✅ Adicionar ícones nos botões
+  7. ✅ Melhorar espaçamentos
+  8. ✅ Responsividade otimizada
+  9. ✅ Adicionar label de seção
+  10. ✅ Melhorar estrutura do macro
+==============================================================================*/ #}
+
 {% macro for_each_banner_include(template) %}
     {% set num_banners_services = 0 %}
     {% set available_banners = []%}
@@ -21,22 +37,35 @@
         {% include template %}
     {% endfor %}
 {% endmacro %}
+
 {% import _self as banner_services %}
+
 {% if settings.banner_services and (settings.banner_services_01_title or settings.banner_services_02_title or settings.banner_services_03_title or settings.banner_services_01_description or settings.banner_services_02_description or settings.banner_services_03_description) %}
-    <section class="section-informative-banners {% if settings.banner_services_colors %}section-informative-banners-colors{% endif %}" data-store="banner-services">
-        <div class="container">
-            <div class="js-informative-banners swiper-container mb-3">
-                <div class="swiper-wrapper">
+    <section class="section-informative-banners ep-services-section {% if settings.banner_services_colors %}section-informative-banners-colors ep-services-colored{% endif %}" data-store="banner-services" aria-label="{{ 'Nossos diferenciais' | translate }}">
+        <div class="container ep-services-container">
+            {# Título da seção (opcional) #}
+            <div class="ep-services-header text-center mb-4 d-none">
+                <h2 class="ep-services-title h4">
+                    <svg class="icon-inline mr-2"><use xlink:href="#star"/></svg>
+                    {{ 'Por que comprar conosco?' | translate }}
+                </h2>
+            </div>
+
+            {# Slider de serviços #}
+            <div class="js-informative-banners swiper-container ep-services-slider mb-3" role="region" aria-label="{{ 'Diferenciais da loja' | translate }}">
+                <div class="swiper-wrapper ep-services-wrapper">
                     {{ banner_services.for_each_banner_include('snipplets/banner-services/banner-services-item.tpl') }}
                 </div>
             </div>
-            <div class="text-center mt-4 d-block d-md-none">
-                <div class="js-informative-banners-prev swiper-button-prev">
+
+            {# Navegação do slider - apenas mobile #}
+            <div class="text-center mt-4 d-block d-md-none ep-services-nav">
+                <button type="button" class="js-informative-banners-prev swiper-button-prev ep-services-prev" aria-label="{{ 'Servico anterior' | translate }}">
                     <svg class="icon-inline icon-lg icon-flip-horizontal"><use xlink:href="#arrow-long"/></svg>
-                </div>
-                <div class="js-informative-banners-next swiper-button-next">
+                </button>
+                <button type="button" class="js-informative-banners-next swiper-button-next ep-services-next" aria-label="{{ 'Proximo servico' | translate }}">
                     <svg class="icon-inline icon-lg"><use xlink:href="#arrow-long"/></svg>
-                </div>
+                </button>
             </div>
         </div>
     </section>

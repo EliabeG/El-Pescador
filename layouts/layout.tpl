@@ -864,6 +864,112 @@
             .swiper-pagination-bullet-active {
                 background-color: #E67E22 !important;
             }
+
+            /* ============================================
+               OVERRIDE AGRESSIVO - REMOVER TODO CIANO
+            ============================================ */
+
+            /* Todos os botões - forçar laranja */
+            .btn,
+            button,
+            [class*="btn-"],
+            .btn-link,
+            .btn-primary,
+            .btn-secondary,
+            .btn-outline,
+            .js-addtocart,
+            .js-prod-submit-btn,
+            a.btn {
+                border-color: #E67E22 !important;
+            }
+
+            .btn-primary,
+            .btn-primary:visited,
+            .btn-primary:active,
+            .btn-primary:focus,
+            button[type="submit"],
+            input[type="submit"],
+            .js-addtocart,
+            .js-prod-submit-btn {
+                background-color: #E67E22 !important;
+                border-color: #E67E22 !important;
+                color: #FFFFFF !important;
+            }
+
+            .btn-primary:hover {
+                background-color: #D35400 !important;
+                border-color: #D35400 !important;
+            }
+
+            /* Botões outline/secondary - borda navy, não ciano */
+            .btn-secondary,
+            .btn-outline-primary,
+            .btn-link,
+            .section-welcome-home .btn-link,
+            .section-welcome-home .btn-secondary {
+                background-color: transparent !important;
+                border: 2px solid #FFFFFF !important;
+                color: #FFFFFF !important;
+            }
+
+            .btn-secondary:hover,
+            .btn-outline-primary:hover,
+            .btn-link:hover {
+                background-color: #FFFFFF !important;
+                color: #1B3A57 !important;
+                border-color: #FFFFFF !important;
+            }
+
+            /* Títulos de seção - span em laranja */
+            .section-title span,
+            .home-section-title span,
+            h2 span,
+            .h2 span {
+                color: #E67E22 !important;
+            }
+
+            /* Remover qualquer cor ciano restante */
+            [style*="#00D4FF"],
+            [style*="#00d4ff"],
+            [style*="cyan"] {
+                color: #E67E22 !important;
+                border-color: #E67E22 !important;
+                background-color: transparent !important;
+            }
+
+            /* Grid de produtos - 4 colunas */
+            .section-featured-home .row,
+            .js-products-featured-grid,
+            .products-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 20px !important;
+            }
+
+            @media (max-width: 992px) {
+                .section-featured-home .row,
+                .js-products-featured-grid,
+                .products-grid {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .section-featured-home .row,
+                .js-products-featured-grid,
+                .products-grid {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+            /* Garantir que colunas funcionem no grid */
+            .section-featured-home .row > [class*="col-"],
+            .js-products-featured-grid > [class*="col-"],
+            .products-grid > [class*="col-"] {
+                max-width: 100% !important;
+                flex: none !important;
+                width: 100% !important;
+            }
         </style>
 
         {#/*============================================================================

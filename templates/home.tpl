@@ -30,23 +30,8 @@
 {% set newArray = [] %}
 <div class="js-home-sections-container">
 	{# ============================================
-	   EL PESCADOR - SEÇÕES CUSTOMIZADAS
-	   ============================================ #}
-
-	{# 1. Hero Section #}
-	{% include 'snipplets/home/home-hero-elpescador.tpl' %}
-
-	{# 2. Seção de Serviços (Banners Informativos) - usa template nativo #}
-	{% include 'snipplets/banner-services/banner-services.tpl' %}
-
-	{# 3. Categorias Customizadas #}
-	{% include 'snipplets/home/home-categories-elpescador.tpl' %}
-
-	{# 4. Produtos em Destaque Customizados #}
-	{% include 'snipplets/home/home-products-elpescador.tpl' %}
-
-	{# ============================================
-	   SEÇÕES NATIVAS DO NUVEMSHOP (mantidas para funcionalidade)
+	   SEÇÕES NATIVAS DO NUVEMSHOP
+	   Estilizadas via CSS Override no layout.tpl
 	   ============================================ #}
 	{% for i in 1..18 %}
         {% set section = 'home_order_position_' ~ i %}

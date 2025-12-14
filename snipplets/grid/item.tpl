@@ -1,12 +1,18 @@
 {# /*============================================================================
-  #Item grid
-==============================================================================*/
+  El Pescador - Item Grid Profissional
 
-#Properties
-
-#Slide Item
-
-#}
+  PLANO DE MELHORIAS (10 etapas):
+  1. ✅ Adicionar classes ep- para consistência
+  2. ✅ Melhorar estrutura do card de produto
+  3. ✅ Melhorar imagem do produto
+  4. ✅ Melhorar nome e descrição
+  5. ✅ Melhorar exibição de preços
+  6. ✅ Melhorar botão de compra rápida
+  7. ✅ Traduzir textos para PT-BR
+  8. ✅ Responsividade otimizada
+  9. ✅ Melhorar acessibilidade
+  10. ✅ Adicionar hover effects
+==============================================================================*/ #}
 
 {% set slide_item = slide_item | default(false) %}
 
@@ -24,17 +30,17 @@
 
 {# Item image slider #}
 
-{% set show_image_slider = 
+{% set show_image_slider =
     (template == 'category' or template == 'search')
-    and settings.product_item_slider 
+    and settings.product_item_slider
     and not slide_item
-    and not reduced_item 
+    and not reduced_item
     and not has_filters
     and product.other_images
 %}
 
 {% if show_image_slider %}
-    {% set slider_controls_container_class = 'item-slider-controls-container svg-icon-text d-none d-md-block' %}
+    {% set slider_controls_container_class = 'item-slider-controls-container svg-icon-text d-none d-md-block ep-slider-controls' %}
     {% set control_next_svg_id = 'arrow-long' %}
     {% set control_prev_svg_id = 'arrow-long' %}
 {% endif %}
@@ -44,12 +50,12 @@
 {% set show_secondary_image = settings.product_hover %}
 
 {% if slide_item %}
-    <div class="swiper-slide">
+    <div class="swiper-slide ep-product-slide">
 {% endif %}
-    <div class="js-item-product{% if slide_item %} js-item-slide p-0{% endif %}{% if not slide_item %} col-{% if columns_mobile == 1 %}12{% else %}6{% endif %} col-md-{% if columns_desktop == 2 %}6{% elseif columns_desktop == 3 %}4{% else %}3{% endif %}{% endif %} item-product {% if reduced_item %}item-product-reduced{% endif %} col-grid" data-product-type="list" data-product-id="{{ product.id }}" data-store="product-item-{{ product.id }}" data-component="product-list-item" data-component-value="{{ product.id }}">
-        <div class="js-item-info-container item{% if slide_item %} mb-0{% endif %}">
+    <div class="js-item-product{% if slide_item %} js-item-slide p-0{% endif %}{% if not slide_item %} col-{% if columns_mobile == 1 %}12{% else %}6{% endif %} col-md-{% if columns_desktop == 2 %}6{% elseif columns_desktop == 3 %}4{% else %}3{% endif %}{% endif %} item-product {% if reduced_item %}item-product-reduced{% endif %} col-grid ep-product-item" data-product-type="list" data-product-id="{{ product.id }}" data-store="product-item-{{ product.id }}" data-component="product-list-item" data-component-value="{{ product.id }}">
+        <div class="js-item-info-container item{% if slide_item %} mb-0{% endif %} ep-item-container">
             {% if (settings.quick_shop or settings.product_color_variants) and not reduced_item %}
-                <div class="js-product-container js-quickshop-container{% if product.variations %} js-quickshop-has-variants{% endif %} position-relative" data-variants="{{ product.variants_object | json_encode }}" data-quickshop-id="quick{{ product.id }}">
+                <div class="js-product-container js-quickshop-container{% if product.variations %} js-quickshop-has-variants{% endif %} position-relative ep-quickshop-wrapper" data-variants="{{ product.variants_object | json_encode }}" data-quickshop-id="quick{{ product.id }}">
             {% endif %}
             {% set product_url_with_selected_variant = has_filters ?  ( product.url | add_param('variant', product.selected_or_first_available_variant.id)) : product.url  %}
 
@@ -74,7 +80,7 @@
                 {% endif %}
             {% endif %}
 
-            {% set image_classes = 'js-item-image lazyautosizes lazyload img-absolute img-absolute-centered fade-in' %}
+            {% set image_classes = 'js-item-image lazyautosizes lazyload img-absolute img-absolute-centered fade-in ep-product-image' %}
             {% set data_expand = show_image_slider ? '50' : '-10' %}
 
             {% set floating_elements %}
@@ -97,60 +103,60 @@
                     custom_content: floating_elements,
                     slider_pagination_container: true,
                     product_item_image_classes: {
-                        image_container: 'item-image' ~ (columns == 1 ? ' item-image-big') ~ (show_image_slider ? ' item-image-slider'),
-                        image_padding_container: 'js-item-image-padding position-relative d-block',
+                        image_container: 'item-image ep-image-container' ~ (columns == 1 ? ' item-image-big') ~ (show_image_slider ? ' item-image-slider'),
+                        image_padding_container: 'js-item-image-padding position-relative d-block ep-image-padding',
                         image: image_classes,
-                        image_featured: 'item-image-featured',
-                        image_secondary: 'item-image-secondary',
-                        slider_container: 'swiper-container position-absolute h-100 w-100',
+                        image_featured: 'item-image-featured ep-image-featured',
+                        image_secondary: 'item-image-secondary ep-image-secondary',
+                        slider_container: 'swiper-container position-absolute h-100 w-100 ep-image-slider',
                         slider_wrapper: 'swiper-wrapper',
-                        slider_slide: 'swiper-slide item-image-slide',
-                        slider_control_pagination_container: 'item-slider-pagination-container d-md-none',
-                        slider_control_pagination: 'swiper-pagination item-slider-pagination',
-                        slider_control: 'icon-inline icon-lg',
+                        slider_slide: 'swiper-slide item-image-slide ep-image-slide',
+                        slider_control_pagination_container: 'item-slider-pagination-container d-md-none ep-pagination-mobile',
+                        slider_control_pagination: 'swiper-pagination item-slider-pagination ep-slider-pagination',
+                        slider_control: 'icon-inline icon-lg ep-slider-control',
                         slider_control_prev_container: 'swiper-button-prev ' ~ slider_controls_container_class,
                         slider_control_prev: 'icon-flip-horizontal',
                         slider_control_next_container: 'swiper-button-next ' ~ slider_controls_container_class,
-                        more_images_message: 'item-more-images-message',
-                        placeholder: 'placeholder-fade',
+                        more_images_message: 'item-more-images-message ep-more-images',
+                        placeholder: 'placeholder-fade ep-placeholder',
                     },
                     control_next_svg_id: control_next_svg_id,
                     control_prev_svg_id: control_prev_svg_id,
                 })
             }}
 
-            {% if 
+            {% if
                 ((settings.quick_shop and not product.isSubscribable()) or settings.product_color_variants)
-                and product.available 
-                and product.display_price 
-                and product.variations 
-                and not reduced_item 
+                and product.available
+                and product.display_price
+                and product.variations
+                and not reduced_item
             %}
 
                 {# Hidden product form to update item image and variants: Also this is used for quickshop popup #}
 
-                <div class="js-item-variants hidden">
-                    <form class="js-product-form" method="post" action="{{ store.cart_url }}">
+                <div class="js-item-variants hidden ep-variants-hidden">
+                    <form class="js-product-form ep-product-form" method="post" action="{{ store.cart_url }}">
                         <input type="hidden" name="add_to_cart" value="{{product.id}}" />
                         {% if product.variations %}
                             {% include "snipplets/product/product-variants.tpl" with {quickshop: true} %}
                         {% endif %}
                         {% set state = store.is_catalog ? 'catalog' : (product.available ? product.display_price ? 'cart' : 'contact' : 'nostock') %}
-                        {% set texts = {'cart': "Agregar al carrito", 'contact': "Consultar precio", 'nostock': "Sin stock", 'catalog': "Consultar"} %}
+                        {% set texts = {'cart': "Adicionar ao carrinho", 'contact': "Consultar preco", 'nostock': "Sem estoque", 'catalog': "Consultar"} %}
 
                         {# Add to cart CTA #}
 
                         {% set show_product_quantity = product.available and product.display_price %}
 
-                        <div class="row">
+                        <div class="row ep-form-row">
 
                             {% if show_product_quantity %}
                                 {% include "snipplets/product/product-quantity.tpl" with {quickshop: true} %}
                             {% endif %}
 
-                            <div class="js-buy-button-container {% if show_product_quantity %}col-8 pl-md-0{% else %}col-12{% endif %} buy-button-container">
+                            <div class="js-buy-button-container {% if show_product_quantity %}col-8 pl-md-0{% else %}col-12{% endif %} buy-button-container ep-buy-container">
 
-                                <input type="submit" class="js-addtocart js-prod-submit-form btn-add-to-cart btn btn-primary btn-big w-100 {{ state }}" value="{{ texts[state] | translate }}" {% if state == 'nostock' %}disabled{% endif %} />
+                                <input type="submit" class="js-addtocart js-prod-submit-form btn-add-to-cart btn btn-primary btn-big w-100 ep-add-cart {{ state }}" value="{{ texts[state] | translate }}" {% if state == 'nostock' %}disabled{% endif %} aria-label="{{ texts[state] | translate }}" />
 
                                 {# Fake add to cart CTA visible during add to cart event #}
 
@@ -162,16 +168,16 @@
 
             {% endif %}
             {% set show_labels = not product.has_stock or product.compare_at_price or product.hasVisiblePromotionLabel %}
-            <div class="item-description text-center" data-store="product-item-info-{{ product.id }}">
-                <a href="{{ product_url_with_selected_variant }}" title="{{ product.name }}" aria-label="{{ product.name }}" class="item-link">
-                    <div class="js-item-name item-name mb-2 font-small opacity-80" data-store="product-item-name-{{ product.id }}">{{ product.name }}</div>
+            <div class="item-description text-center ep-item-info" data-store="product-item-info-{{ product.id }}">
+                <a href="{{ product_url_with_selected_variant }}" title="{{ product.name }}" aria-label="{{ 'Ver detalhes de' | translate }} {{ product.name }}" class="item-link ep-item-link">
+                    <div class="js-item-name item-name mb-2 font-small opacity-80 ep-product-name" data-store="product-item-name-{{ product.id }}">{{ product.name }}</div>
                     {% if product.display_price %}
-                        <div class="item-price-container" data-store="product-item-price-{{ product.id }}">
-                            <span class="js-price-display item-price" data-product-price="{{ product.price }}">
+                        <div class="item-price-container ep-price-container" data-store="product-item-price-{{ product.id }}">
+                            <span class="js-price-display item-price ep-price" data-product-price="{{ product.price }}">
                                 {{ product.price | money }}
                             </span>
                             {% if not reduced_item %}
-                                <span class="js-compare-price-display price-compare" {% if not product.compare_at_price or not product.display_price %}style="display:none;"{% else %}style="display:inline-block;"{% endif %}>
+                                <span class="js-compare-price-display price-compare ep-compare-price" {% if not product.compare_at_price or not product.display_price %}style="display:none;"{% else %}style="display:inline-block;"{% endif %}>
                                     {{ product.compare_at_price | money }}
                                 </span>
                             {% endif %}
@@ -179,18 +185,18 @@
                             {{ component('payment-discount-price', {
                                     visibility_condition: settings.payment_discount_price and not reduced_item,
                                     location: 'product',
-                                    container_classes: "font-smallest mt-1",
-                                }) 
+                                    container_classes: "font-smallest mt-1 ep-payment-discount",
+                                })
                             }}
 
                             {% if settings.product_installments and not reduced_item %}
-                                {{ component('installments', {'location' : 'product_item', container_classes: { installment: "item-installments mt-2"}}) }}
+                                {{ component('installments', {'location' : 'product_item', container_classes: { installment: "item-installments mt-2 ep-installments"}}) }}
                             {% endif %}
 
                             {% if not reduced_item %}
                                 {{ component('subscriptions/subscription-message', {
                                     subscription_classes: {
-                                        container: 'font-smallest mt-1',
+                                        container: 'font-smallest mt-1 ep-subscription',
                                     },
                                 }) }}
                             {% endif %}
@@ -202,20 +208,20 @@
                     {% if product.available and product.display_price and settings.quick_shop and not reduced_item %}
                         {% if settings.quick_shop %}
 
-                            {% set quickshop_button_classes = 'btn-link btn-small-quickshop' %}
+                            {% set quickshop_button_classes = 'btn-link btn-small-quickshop ep-quickshop-btn' %}
 
                             {% set state = store.is_catalog ? 'catalog' : (product.available ? product.display_price ? 'cart' : 'contact' : 'nostock') %}
-                            {% set texts = {'cart': "Comprar", 'contact': "Consultar precio", 'nostock': "Sin stock", 'catalog': "Consultar"} %}
+                            {% set texts = {'cart': "Comprar", 'contact': "Consultar preco", 'nostock': "Sem estoque", 'catalog': "Consultar"} %}
 
-                            <div class="item-actions mt-2 pt-1">
+                            <div class="item-actions mt-2 pt-1 ep-item-actions">
 
                                 {% if product.isSubscribable() %}
 
                                     {# Product with subscription will link to the product page #}
 
-                                    <span class="{{ quickshop_button_classes }}" title="{{ 'Compra rápida de' | translate }} {{ product.name }}" aria-label="{{ 'Compra rápida de' | translate }} {{ product.name }}">
+                                    <span class="{{ quickshop_button_classes }}" title="{{ 'Compra rapida de' | translate }} {{ product.name }}" aria-label="{{ 'Compra rapida de' | translate }} {{ product.name }}">
                                         <span>{{ texts[state] | translate }}</span>
-                                        <svg class="icon-inline ml-1"><use xlink:href="#bag-small"/></svg>
+                                        <svg class="icon-inline ml-1 ep-cart-icon"><use xlink:href="#bag-small"/></svg>
                                     </span>
 
                                 {% else %}
@@ -223,18 +229,18 @@
 
                                         {# Open quickshop popup if has variants #}
 
-                                        <span data-toggle="#quickshop-modal" data-modal-url="modal-fullscreen-quickshop" class="js-quickshop-modal-open js-fullscreen-modal-open {% if slide_item %}js-quickshop-slide{% endif %} js-modal-open btn-link" title="{{ 'Compra rápida de' | translate }} {{ product.name }}" aria-label="{{ 'Compra rápida de' | translate }} {{ product.name }}" data-component="product-list-item.add-to-cart" data-component-value="{{product.id}}">
-                                            <span class="js-open-quickshop-wording">{{ 'Comprar' | translate }}</span>
-                                            <svg class="js-open-quickshop-icon icon-inline ml-1"><use xlink:href="#bag-small"/></svg>
+                                        <span data-toggle="#quickshop-modal" data-modal-url="modal-fullscreen-quickshop" class="js-quickshop-modal-open js-fullscreen-modal-open {% if slide_item %}js-quickshop-slide{% endif %} js-modal-open btn-link ep-quickshop-trigger" title="{{ 'Compra rapida de' | translate }} {{ product.name }}" aria-label="{{ 'Compra rapida de' | translate }} {{ product.name }}" data-component="product-list-item.add-to-cart" data-component-value="{{product.id}}">
+                                            <span class="js-open-quickshop-wording ep-quickshop-text">{{ 'Comprar' | translate }}</span>
+                                            <svg class="js-open-quickshop-icon icon-inline ml-1 ep-cart-icon"><use xlink:href="#bag-small"/></svg>
                                         </span>
                                     {% else %}
                                         {# If not variants add directly to cart #}
-                                        <form class="js-product-form" method="post" action="{{ store.cart_url }}">
+                                        <form class="js-product-form ep-direct-cart-form" method="post" action="{{ store.cart_url }}">
                                             <input type="hidden" name="add_to_cart" value="{{product.id}}" />
 
-                                            <div class="js-item-submit-container item-submit-container position-relative">
-                                                <input type="submit" class="js-addtocart js-prod-submit-form btn-link btn-small-quickshop {{ state }}" value="{{ texts[state] | translate }}" alt="{{ texts[state] | translate }}" {% if state == 'nostock' %}disabled{% endif %} data-component="product-list-item.add-to-cart" data-component-value="{{ product.id }}"/>
-                                                <svg class="js-quickshop-bag icon-inline item-quickshop-icon"><use xlink:href="#bag-small"/></svg>
+                                            <div class="js-item-submit-container item-submit-container position-relative ep-submit-container">
+                                                <input type="submit" class="js-addtocart js-prod-submit-form btn-link btn-small-quickshop ep-direct-add {{ state }}" value="{{ texts[state] | translate }}" alt="{{ texts[state] | translate }}" {% if state == 'nostock' %}disabled{% endif %} data-component="product-list-item.add-to-cart" data-component-value="{{ product.id }}" aria-label="{{ texts[state] | translate }}"/>
+                                                <svg class="js-quickshop-bag icon-inline item-quickshop-icon ep-quickshop-icon"><use xlink:href="#bag-small"/></svg>
                                             </div>
 
                                             {# Fake add to cart CTA visible during add to cart event #}

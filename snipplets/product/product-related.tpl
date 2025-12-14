@@ -1,3 +1,19 @@
+{# /*============================================================================
+  El Pescador - Produtos Relacionados Profissional
+
+  PLANO DE MELHORIAS (10 etapas):
+  1. ✅ Adicionar classes ep- para consistência
+  2. ✅ Melhorar seção de relacionados
+  3. ✅ Melhorar slider de produtos
+  4. ✅ Traduzir textos para PT-BR
+  5. ✅ Melhorar controles do slider
+  6. ✅ Melhorar título da seção
+  7. ✅ Melhorar produtos complementares
+  8. ✅ Responsividade otimizada
+  9. ✅ Melhorar acessibilidade
+  10. ✅ Melhorar layout
+==============================================================================*/ #}
+
 {# Related products visibility conditions #}
 
 {% set related_products = [] %}
@@ -43,16 +59,16 @@
 
 {# Set related products classes #}
 
-{% set section_class = 'section-products-related position-relative ' %}
+{% set section_class = 'section-products-related position-relative ep-related-section ' %}
 {% set alternative_section_class = complementary_products ? 'pb-2 pb-md-4' %}
-{% set container_class = 'container px-0 px-md-4' %}
-{% set title_class = 'h3 section-title mb-4 text-center' %}
-{% set slider_container_class = 'swiper-container' %}
-{% set swiper_wrapper_class = 'swiper-wrapper' %}
-{% set slider_controls_container_class = 'text-center' %}
-{% set slider_control_class = 'icon-inline icon-lg' %}
-{% set slider_control_prev_class = 'swiper-button-prev' %}
-{% set slider_control_next_class = 'swiper-button-next' %}
+{% set container_class = 'container px-0 px-md-4 ep-related-container' %}
+{% set title_class = 'h3 section-title mb-4 text-center ep-related-title' %}
+{% set slider_container_class = 'swiper-container ep-related-slider' %}
+{% set swiper_wrapper_class = 'swiper-wrapper ep-related-wrapper' %}
+{% set slider_controls_container_class = 'text-center ep-related-controls' %}
+{% set slider_control_class = 'icon-inline icon-lg ep-slider-icon' %}
+{% set slider_control_prev_class = 'swiper-button-prev ep-prev' %}
+{% set slider_control_next_class = 'swiper-button-next ep-next' %}
 {% set control_next_svg_id = 'arrow-long' %}
 {% set control_prev_svg_id = 'arrow-long' %}
 
@@ -86,7 +102,7 @@
             },
             control_next_svg_id: control_next_svg_id,
             control_prev_svg_id: control_prev_svg_id,
-        }) 
+        })
     }}
 {% endif %}
 
@@ -107,7 +123,7 @@
             slider_controls_position: 'bottom',
             slider_controls_container: true,
             section_classes: {
-                section: 'js-complementary-products ' ~ section_class,
+                section: 'js-complementary-products ep-complementary-section ' ~ section_class,
                 container: container_class,
                 title: title_class,
                 slider_container: 'js-swiper-complementary ' ~ slider_container_class,
@@ -120,6 +136,6 @@
             },
             control_next_svg_id: control_next_svg_id,
             control_prev_svg_id: control_prev_svg_id,
-        }) 
+        })
     }}
 {% endif %}

@@ -291,21 +291,109 @@
             .item-product h3 {
                 font-family: "Oswald", sans-serif !important;
                 color: #1C2833 !important;
+                font-size: 14px !important;
+                text-transform: uppercase !important;
             }
 
-            .item-product .item-price {
+            .item-product .item-price,
+            .item-product .js-price-display,
+            .item-product .price,
+            .js-product-price {
                 color: #00D4FF !important;
                 font-family: "Oswald", sans-serif !important;
                 font-weight: 700 !important;
+                font-size: 20px !important;
             }
 
-            .item-product .price-compare {
+            .item-product .price-compare,
+            .item-product .js-compare-price-display {
                 color: #999 !important;
+                text-decoration: line-through !important;
+                font-size: 14px !important;
             }
 
-            .item-product .label {
+            /* Badge de desconto estilo "SALE" */
+            .item-product .label,
+            .item-product .js-offer-label,
+            .product-label,
+            .label-offer {
                 background-color: #E74C3C !important;
                 color: #FFFFFF !important;
+                font-family: "Oswald", sans-serif !important;
+                font-weight: 700 !important;
+                font-size: 12px !important;
+                padding: 5px 12px !important;
+                border-radius: 3px !important;
+                text-transform: uppercase !important;
+            }
+
+            /* Botão comprar/adicionar ao carrinho nos produtos */
+            .item-product .btn,
+            .item-product .js-addtocart,
+            .item-product .btn-product,
+            .js-prod-submit-btn {
+                background-color: #000000 !important;
+                color: #FFFFFF !important;
+                border: none !important;
+                font-family: "Oswald", sans-serif !important;
+                font-weight: 500 !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.5px !important;
+                font-size: 12px !important;
+                padding: 10px 15px !important;
+                border-radius: 3px !important;
+            }
+
+            .item-product .btn:hover,
+            .item-product .js-addtocart:hover {
+                background-color: #00D4FF !important;
+                color: #000000 !important;
+            }
+
+            /* ============================================
+               TÍTULOS DE SEÇÃO COM DESTAQUE
+            ============================================ */
+
+            .section-title,
+            section > h2,
+            .home-section-title {
+                font-family: "Oswald", sans-serif !important;
+                font-weight: 700 !important;
+                text-transform: uppercase !important;
+                color: #1C2833 !important;
+            }
+
+            /* Texto de destaque em ciano */
+            .section-title strong,
+            .section-title span,
+            .text-accent,
+            .text-primary,
+            .title-accent {
+                color: #00D4FF !important;
+            }
+
+            /* ============================================
+               CATEGORIAS
+            ============================================ */
+
+            .section-categories,
+            .section-main-categories {
+                background-color: #FFFFFF !important;
+            }
+
+            .item-category,
+            .category-card {
+                text-align: center !important;
+            }
+
+            .item-category h3,
+            .category-card h3,
+            .category-name {
+                font-family: "Oswald", sans-serif !important;
+                font-weight: 500 !important;
+                text-transform: uppercase !important;
+                color: #1C2833 !important;
+                font-size: 14px !important;
             }
 
             /* ============================================
@@ -316,6 +404,11 @@
                 background-color: #00D4FF !important;
                 color: #000000 !important;
                 border-color: #00D4FF !important;
+                font-family: "Oswald", sans-serif !important;
+                font-weight: 700 !important;
+                text-transform: uppercase !important;
+                border-radius: 25px !important;
+                padding: 12px 30px !important;
             }
 
             .btn-primary:hover,
@@ -325,14 +418,22 @@
                 color: #000000 !important;
             }
 
-            .btn-secondary {
-                border-color: #1C2833 !important;
-                color: #1C2833 !important;
+            .btn-secondary,
+            .btn-outline-primary {
+                background-color: transparent !important;
+                border: 2px solid #00D4FF !important;
+                color: #00D4FF !important;
+                font-family: "Oswald", sans-serif !important;
+                font-weight: 700 !important;
+                text-transform: uppercase !important;
+                border-radius: 25px !important;
+                padding: 10px 28px !important;
             }
 
-            .btn-secondary:hover {
-                background-color: #1C2833 !important;
-                color: #FFFFFF !important;
+            .btn-secondary:hover,
+            .btn-outline-primary:hover {
+                background-color: #00D4FF !important;
+                color: #000000 !important;
             }
 
             /* ============================================

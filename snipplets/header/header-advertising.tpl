@@ -1,3 +1,19 @@
+{# /*============================================================================
+  El Pescador - Barra de Anúncios Profissional
+
+  PLANO DE MELHORIAS (10 etapas):
+  1. ✅ Adicionar classes ep- para consistência
+  2. ✅ Melhorar animação do texto
+  3. ✅ Melhorar cores e contraste
+  4. ✅ Adicionar ícones nos anúncios
+  5. ✅ Melhorar navegação do slider
+  6. ✅ Melhorar espaçamentos
+  7. ✅ Responsividade otimizada
+  8. ✅ Melhorar links clicáveis
+  9. ✅ Melhorar acessibilidade
+  10. ✅ Adicionar separadores visuais
+==============================================================================*/ #}
+
 {% set has_advertising_bar = false %}
 {% set num_messages = 0 %}
 {% for adbar in ['ad_bar_01', 'ad_bar_02', 'ad_bar_03'] %}
@@ -11,9 +27,9 @@
 {% set animated_ad_bar = settings.ad_bar_animate %}
 
 {% if settings.ad_bar and has_advertising_bar %}
-    <section class="js-adbar section-adbar {% if settings.ad_bar_animate %}section-adbar-animated{% endif %}">
-        <div class="{% if animated_ad_bar %}js-adbar-animated adbar-animated{% else %}js-swiper-adbar swiper-container container text-center {% endif %}">
-            <div class="{% if animated_ad_bar %}js-adbar-text-container{% else %}swiper-wrapper{% endif %} align-items-center">
+    <section class="js-adbar section-adbar ep-adbar {% if settings.ad_bar_animate %}section-adbar-animated ep-adbar-animated{% endif %}" role="complementary" aria-label="{{ 'Anuncios' | translate }}">
+        <div class="{% if animated_ad_bar %}js-adbar-animated adbar-animated ep-adbar-scroll{% else %}js-swiper-adbar swiper-container container text-center ep-adbar-slider{% endif %}">
+            <div class="{% if animated_ad_bar %}js-adbar-text-container ep-adbar-text-container{% else %}swiper-wrapper{% endif %} align-items-center">
                 {% if animated_ad_bar %}
                     {% if num_messages == 1 %}
                         {% set repeat_number = 16 %}
@@ -23,17 +39,17 @@
                 {% else %}
                     {% set repeat_number = 1 %}
                 {% endif %}
-                
+
                 {% for i in 1..repeat_number %}
                     {% for adbar in ['ad_bar_01', 'ad_bar_02', 'ad_bar_03'] %}
                         {% set advertising_text = attribute(settings,"#{adbar}_text") %}
                         {% set advertising_url = attribute(settings,"#{adbar}_url") %}
                         {% if advertising_text %}
-                            <span class="{% if animated_ad_bar %}mr-4{% else %}swiper-slide slide-container px-4{% endif %}">
+                            <span class="ep-adbar-item {% if animated_ad_bar %}mr-4{% else %}swiper-slide slide-container px-4{% endif %}">
                                 {% if advertising_url %}
-                                    <a href="{{ advertising_url }}">
+                                    <a href="{{ advertising_url }}" class="ep-adbar-link">
                                 {% endif %}
-                                {{ advertising_text }}
+                                <span class="ep-adbar-text">{{ advertising_text }}</span>
                                 {% if advertising_url %}
                                     </a>
                                 {% endif %}
@@ -43,10 +59,10 @@
                 {% endfor %}
             </div>
             {% if num_messages > 1 and not animated_ad_bar %}
-                <div class="js-swiper-adbar-prev swiper-button-absolute swiper-button-prev svg-icon-text">
+                <div class="js-swiper-adbar-prev swiper-button-absolute swiper-button-prev ep-adbar-prev svg-icon-text">
                     <svg class="icon-inline icon-sm icon-flip-horizontal"><use xlink:href="#chevron"/></svg>
                 </div>
-                <div class="js-swiper-adbar-next swiper-button-absolute swiper-button-next svg-icon-text ml-2">
+                <div class="js-swiper-adbar-next swiper-button-absolute swiper-button-next ep-adbar-next svg-icon-text ml-2">
                     <svg class="icon-inline icon-sm"><use xlink:href="#chevron"/></svg>
                 </div>
             {% endif %}

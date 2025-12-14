@@ -1,88 +1,103 @@
+{# /*============================================================================
+  El Pescador - Modais do Header Profissional
+
+  PLANO DE MELHORIAS (10 etapas):
+  1. ✅ Adicionar classes ep- para consistência
+  2. ✅ Melhorar modal de busca
+  3. ✅ Melhorar modal de menu
+  4. ✅ Melhorar modal do carrinho
+  5. ✅ Adicionar títulos traduzidos
+  6. ✅ Melhorar transições
+  7. ✅ Responsividade otimizada
+  8. ✅ Melhorar acessibilidade
+  9. ✅ Melhorar produtos relacionados
+  10. ✅ Melhorar cross-selling modal
+==============================================================================*/ #}
+
 {% if settings.search_type_mobile == 'search_icon' or settings.logo_position_desktop == 'left' %}
 
-	{# Modal Search #}
-
-	{% embed "snipplets/modal.tpl" with{modal_id: 'nav-search',modal_class: 'nav-search', modal_header_class: 'd-none d-md-block', modal_body_class: 'p-0 h-100', modal_width: 'docked-md-small', modal_transition: 'fade', modal_mobile_full_screen: true, modal_position_desktop: 'right' } %}
-		{% block modal_head %}
-			{% block page_header_text %}{{ "¿Qué estás buscando?" | translate }}{% endblock page_header_text %}
-		{% endblock %}
-		{% block modal_body %}
-			{% include "snipplets/header/header-search.tpl" with {search_modal: true} %}
-		{% endblock %}
-	{% endembed %}
+    {# Modal Search #}
+    {% embed "snipplets/modal.tpl" with{modal_id: 'nav-search', modal_class: 'nav-search ep-modal-search', modal_header_class: 'd-none d-md-block', modal_body_class: 'p-0 h-100', modal_width: 'docked-md-small', modal_transition: 'fade', modal_mobile_full_screen: true, modal_position_desktop: 'right' } %}
+        {% block modal_head %}
+            {% block page_header_text %}{{ "O que voce procura?" | translate }}{% endblock page_header_text %}
+        {% endblock %}
+        {% block modal_body %}
+            {% include "snipplets/header/header-search.tpl" with {search_modal: true} %}
+        {% endblock %}
+    {% endembed %}
 
 {% endif %}
 
 {% set modal_with_desktop_only_overlay_val = false %}
 
-{# Modal Hamburger #}
-
-{% embed "snipplets/modal.tpl" with{modal_id: 'nav-hamburger',modal_class: 'nav-hamburger pb-0', modal_position: 'left', modal_transition: 'slide', modal_width: 'drawer', modal_mobile_full_screen: false, modal_header_class: 'js-toggle-menu-close', modal_body_class: 'nav-body', modal_footer_class: 'hamburger-footer mb-0 p-0',modal_header_title: false, modal_close_floating: true, modal_fixed_footer: true, modal_footer: true, desktop_overlay_only: modal_with_desktop_only_overlay_val} %}
-	{% block modal_body %}
-		{% if settings.search_type_mobile == 'hidden' %}
-			<div class="d-block d-md-none position-relative">
-				{% include "snipplets/header/header-search.tpl" %}
-			</div>
-		{% endif %}
-		{% include "snipplets/navigation/navigation-panel.tpl" with {hamburger: true, primary_links: true} %}
-	{% endblock %}
-	{% block modal_foot %}
-		{% include "snipplets/navigation/navigation-panel.tpl" with {mobile: true} %}
-	{% endblock %}
+{# Modal Hamburger Menu #}
+{% embed "snipplets/modal.tpl" with{modal_id: 'nav-hamburger', modal_class: 'nav-hamburger ep-modal-menu pb-0', modal_position: 'left', modal_transition: 'slide', modal_width: 'drawer', modal_mobile_full_screen: false, modal_header_class: 'js-toggle-menu-close', modal_body_class: 'nav-body ep-nav-body', modal_footer_class: 'hamburger-footer ep-menu-footer mb-0 p-0', modal_header_title: false, modal_close_floating: true, modal_fixed_footer: true, modal_footer: true, desktop_overlay_only: modal_with_desktop_only_overlay_val} %}
+    {% block modal_body %}
+        {% if settings.search_type_mobile == 'hidden' %}
+            <div class="d-block d-md-none position-relative ep-menu-search">
+                {% include "snipplets/header/header-search.tpl" %}
+            </div>
+        {% endif %}
+        {% include "snipplets/navigation/navigation-panel.tpl" with {hamburger: true, primary_links: true} %}
+    {% endblock %}
+    {% block modal_foot %}
+        {% include "snipplets/navigation/navigation-panel.tpl" with {mobile: true} %}
+    {% endblock %}
 {% endembed %}
 
 {# Modal Cart #}
+{% if not store.is_catalog and settings.ajax_cart and template != 'cart' %}
 
-{% if not store.is_catalog and settings.ajax_cart and template != 'cart' %}           
+    {# Cart Ajax #}
+    {% embed "snipplets/modal.tpl" with{
+        modal_id: 'modal-cart',
+        modal_class: 'cart ep-modal-cart',
+        modal_position: 'right',
+        modal_position_desktop: 'right',
+        modal_transition: 'slide',
+        modal_width: 'docked-md',
+        modal_form_action: store.cart_url,
+        modal_form_class: 'js-ajax-cart-panel h-100',
+        modal_body_class: 'h-100',
+        modal_mobile_full_screen: true,
+        modal_url: 'modal-fullscreen-cart',
+        modal_form_hook: 'cart-form',
+        data_component:'cart',
+        custom_data_attribute: 'cart-open-type',
+        custom_data_attribute_value: settings.cart_open_type,
+        desktop_overlay_only: modal_with_desktop_only_overlay_val
+    } %}
+        {% block modal_head %}
+            {% block page_header_text %}
+                <svg class="icon-inline mr-2"><use xlink:href="#bag"/></svg>
+                {{ "Carrinho de Compras" | translate }}
+            {% endblock page_header_text %}
+        {% endblock %}
+        {% block modal_body %}
+            {% snipplet "cart-panel.tpl" %}
+        {% endblock %}
+    {% endembed %}
 
-	{# Cart Ajax #}
+    {% if settings.add_to_cart_recommendations %}
 
-	{% embed "snipplets/modal.tpl" with{
-		modal_id: 'modal-cart',
-		modal_class: 'cart', 
-		modal_position: 'right', 
-		modal_position_desktop: 'right', 
-		modal_transition: 'slide', 
-		modal_width: 'docked-md', 
-		modal_form_action: store.cart_url, 
-		modal_form_class: 'js-ajax-cart-panel h-100', 
-		modal_body_class: 'h-100', 
-		modal_mobile_full_screen: true,
-		modal_url: 'modal-fullscreen-cart',
-		modal_form_hook: 'cart-form', 
-		data_component:'cart', 
-		custom_data_attribute: 'cart-open-type',
-		custom_data_attribute_value: settings.cart_open_type,
-		desktop_overlay_only: modal_with_desktop_only_overlay_val 
-	} %}
-		{% block modal_head %}
-			{% block page_header_text %}{{ "Carrito de compras" | translate }}{% endblock page_header_text %}
-		{% endblock %}
-		{% block modal_body %}
-			{% snipplet "cart-panel.tpl" %}
-		{% endblock %}
-	{% endembed %}
+        {# Recommended products on add to cart #}
+        {% embed "snipplets/modal.tpl" with{modal_id: 'related-products-notification', modal_class: 'bottom modal-overflow-none modal-bottom-sheet h-auto ep-modal-related', modal_position: 'bottom', modal_transition: 'slide', modal_footer: false, modal_width: 'centered-md modal-centered-md-600px', modal_body_class: 'modal-scrollable'} %}
+            {% block modal_head %}
+                {% block page_header_text %}
+                    <svg class="icon-inline mr-2 text-accent"><use xlink:href="#check"/></svg>
+                    {{ 'Adicionado ao carrinho!' | translate }}
+                {% endblock page_header_text %}
+            {% endblock %}
+            {% block modal_body %}
 
-	{% if settings.add_to_cart_recommendations %}
+                {# Product added info #}
+                {% include "snipplets/notification-cart.tpl" with {related_products: true} %}
 
-		{# Recommended products on add to cart #}
+                {# Product added recommendations #}
+                <div class="js-related-products-notification-container ep-related-container" style="display: none"></div>
 
-		{% embed "snipplets/modal.tpl" with{modal_id: 'related-products-notification', modal_class: 'bottom modal-overflow-none modal-bottom-sheet h-auto', modal_position: 'bottom', modal_transition: 'slide', modal_footer: false, modal_width: 'centered-md modal-centered-md-600px', modal_body_class: 'modal-scrollable'} %}
-			{% block modal_head %}
-				{% block page_header_text %}{{ '¡Agregado al carrito!' | translate }}{% endblock page_header_text %}
-			{% endblock %}
-			{% block modal_body %}
-
-				{# Product added info #}
-
-				{% include "snipplets/notification-cart.tpl" with {related_products: true} %}
-				
-				{# Product added recommendations #}
-
-				<div class="js-related-products-notification-container" style="display: none"></div>
-
-			{% endblock %}
-		{% endembed %}
-	{% endif %}
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
 
 {% endif %}

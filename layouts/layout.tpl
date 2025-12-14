@@ -76,6 +76,84 @@
             {{ settings.css_code | raw }}
         </style>
 
+        {# El Pescador - Final Override CSS to guarantee colors and fonts #}
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap');
+
+            :root {
+                --main-foreground: #1C2833 !important;
+                --main-background: #FFFFFF !important;
+                --accent-color: #00D4FF !important;
+                --button-background: #00D4FF !important;
+                --button-foreground: #000000 !important;
+                --label-background: #E74C3C !important;
+                --label-foreground: #FFFFFF !important;
+                --adbar-background: #000000 !important;
+                --adbar-foreground: #00D4FF !important;
+                --header-background: #000000 !important;
+                --header-foreground: #FFFFFF !important;
+                --footer-background: #000000 !important;
+                --footer-foreground: #FFFFFF !important;
+                --newsletter-background: #1D4E4F !important;
+                --newsletter-foreground: #FFFFFF !important;
+                --services-background: #1D4E4F !important;
+                --services-foreground: #FFFFFF !important;
+                --heading-font: "Oswald", sans-serif !important;
+                --body-font: "Open Sans", sans-serif !important;
+            }
+
+            body {
+                font-family: "Open Sans", sans-serif !important;
+            }
+
+            h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+                font-family: "Oswald", sans-serif !important;
+            }
+
+            .head-main {
+                background-color: #000000 !important;
+                color: #FFFFFF !important;
+            }
+
+            .head-main a, .head-main .svg-icon-text {
+                color: #FFFFFF !important;
+                fill: #FFFFFF !important;
+            }
+
+            .section-adbar {
+                background-color: #000000 !important;
+                color: #00D4FF !important;
+            }
+
+            .section-adbar a, .section-adbar span {
+                color: #00D4FF !important;
+            }
+
+            footer {
+                background-color: #000000 !important;
+                color: #FFFFFF !important;
+            }
+
+            footer a {
+                color: #FFFFFF !important;
+            }
+
+            .btn-primary {
+                background-color: #00D4FF !important;
+                color: #000000 !important;
+            }
+
+            .section-informative-banners-colors {
+                background-color: #1D4E4F !important;
+                color: #FFFFFF !important;
+            }
+
+            .section-newsletter-home-colors {
+                background-color: #1D4E4F !important;
+                color: #FFFFFF !important;
+            }
+        </style>
+
         {#/*============================================================================
             #Javascript: Needed before HTML loads
         ==============================================================================*/#}

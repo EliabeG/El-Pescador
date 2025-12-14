@@ -1,187 +1,114 @@
-{# /* Style tokens */ #}
+{# /* Style tokens - El Pescador Theme */ #}
 
 :root {
 
   {#/*============================================================================
-    #Colors - El Pescador Theme (Hardcoded)
+    #Colors - El Pescador (Direct CSS - No Template Variables)
   ==============================================================================*/#}
 
-  {#### El Pescador Colors - Forced override #}
+  /* Main colors - El Pescador */
+  --main-foreground: #1C2833;
+  --main-background: #FFFFFF;
 
-  {# Main colors - El Pescador #}
+  --accent-color: #00D4FF;
 
-  {% set main_background = '#FFFFFF' %}
-  {% set main_foreground = '#1C2833' %}
+  --button-background: #00D4FF;
+  --button-foreground: #000000;
 
-  {% set accent_color = '#00D4FF' %}
+  --label-background: #E74C3C;
+  --label-foreground: #FFFFFF;
 
-  {% set button_background = '#00D4FF' %}
-  {% set button_foreground = '#000000' %}
+  /* Header/Footer/Navigation - El Pescador */
+  --adbar-background: #000000;
+  --adbar-foreground: #00D4FF;
 
-  {% set label_background = '#E74C3C' %}
-  {% set label_foreground = '#FFFFFF' %}
+  --header-background: #000000;
+  --header-foreground: #FFFFFF;
+  --header-transparent-foreground: #FFFFFF;
 
-  {# Optional colors - El Pescador #}
+  --footer-background: #000000;
+  --footer-foreground: #FFFFFF;
 
-  {% set adbar_background = '#000000' %}
-  {% set adbar_foreground = '#00D4FF' %}
+  --newsletter-background: #1D4E4F;
+  --newsletter-foreground: #FFFFFF;
 
-  {% set header_background = '#000000' %}
-  {% set header_foreground = '#FFFFFF' %}
+  --services-background: #1D4E4F;
+  --services-foreground: #FFFFFF;
 
-  {% set header_transparent_foreground = '#FFFFFF' %}
+  /* Color shades - opacity variants */
+  --main-foreground-opacity-03: #1C283308;
+  --main-foreground-opacity-05: #1C28330D;
+  --main-foreground-opacity-07: #1C283312;
+  --main-foreground-opacity-10: #1C28331A;
+  --main-foreground-opacity-20: #1C283333;
+  --main-foreground-opacity-30: #1C28334D;
+  --main-foreground-opacity-40: #1C283366;
+  --main-foreground-opacity-50: #1C283380;
+  --main-foreground-opacity-80: #1C2833CC;
 
-  {% set footer_background = '#000000' %}
-  {% set footer_foreground = '#FFFFFF' %}
+  --main-background-opacity-20: #FFFFFF33;
+  --main-background-opacity-30: #FFFFFF4D;
+  --main-background-opacity-50: #FFFFFF80;
+  --main-background-opacity-80: #FFFFFFCC;
+  --main-background-opacity-90: #FFFFFFE6;
+  --main-background-opacity-95: #FFFFFFF2;
 
-  {% set newsletter_background = '#1D4E4F' %}
-  {% set newsletter_foreground = '#FFFFFF' %}
+  --header-foreground-opacity-20: #FFFFFF33;
+  --header-foreground-opacity-30: #FFFFFF4D;
 
-  {% set banner_services_background = '#1D4E4F' %}
-  {% set banner_services_foreground = '#FFFFFF' %}
+  --news-foreground-opacity-30: #FFFFFF4D;
+  --news-foreground-opacity-50: #FFFFFF80;
 
-  {#### CSS Colors #}
+  --footer-foreground-opacity-10: #FFFFFF1A;
+  --footer-foreground-opacity-20: #FFFFFF33;
+  --footer-foreground-opacity-30: #FFFFFF4D;
+  --footer-foreground-opacity-60: #FFFFFF99;
+  --footer-foreground-opacity-80: #FFFFFFCC;
 
-  {# Main colors #}
-
-  --main-foreground: {{ main_foreground }};
-  --main-background: {{ main_background }};
-
-  --accent-color: {{ accent_color }};
-
-  --button-background: {{ button_background }};
-  --button-foreground: {{ button_foreground }};
-
-  --label-background: {{ label_background }};
-  --label-foreground: {{ label_foreground }};
-
-  {# Optional colors #}
-
-  --adbar-background: {{ adbar_background }};
-  --adbar-foreground: {{ adbar_foreground }};
-
-  --header-background: {{ header_background }};
-  --header-foreground: {{ header_foreground }};
-  --header-transparent-foreground: {{ header_transparent_foreground }};
-
-  --footer-background: {{ footer_background }};
-  --footer-foreground: {{ footer_foreground }};
-
-  --newsletter-background: {{ newsletter_background }};
-  --newsletter-foreground: {{ newsletter_foreground }};
-
-  --services-background: {{ banner_services_background }};
-  --services-foreground: {{ banner_services_foreground }};
-
-  {# Color shades #}
-
-  {# Opacity hex levels #}
-
-  {% set opacity_03 = '08' %}
-  {% set opacity_05 = '0D' %}
-  {% set opacity_07 = '12' %}
-  {% set opacity_10 = '1A' %}
-  {% set opacity_20 = '33' %}
-  {% set opacity_30 = '4D' %}
-  {% set opacity_40 = '66' %}
-  {% set opacity_50 = '80' %}
-  {% set opacity_60 = '99' %}
-  {% set opacity_70 = 'B3' %}
-  {% set opacity_80 = 'CC' %}
-  {% set opacity_90 = 'E6' %}
-  {% set opacity_95 = 'F2' %}
-
-  --main-foreground-opacity-03: {{ main_foreground }}{{ opacity_03 }};
-  --main-foreground-opacity-05: {{ main_foreground }}{{ opacity_05 }};
-  --main-foreground-opacity-07: {{ main_foreground }}{{ opacity_07 }};
-  --main-foreground-opacity-10: {{ main_foreground }}{{ opacity_10 }};
-  --main-foreground-opacity-20: {{ main_foreground }}{{ opacity_20 }};
-  --main-foreground-opacity-30: {{ main_foreground }}{{ opacity_30 }};
-  --main-foreground-opacity-40: {{ main_foreground }}{{ opacity_40 }};
-  --main-foreground-opacity-50: {{ main_foreground }}{{ opacity_50 }};
-  --main-foreground-opacity-80: {{ main_foreground }}{{ opacity_80 }};
-
-  --main-background-opacity-20: {{ main_background }}{{ opacity_20 }};
-  --main-background-opacity-30: {{ main_background }}{{ opacity_30 }};
-  --main-background-opacity-50: {{ main_background }}{{ opacity_50 }};
-  --main-background-opacity-80: {{ main_background }}{{ opacity_80 }};
-  --main-background-opacity-90: {{ main_background }}{{ opacity_90 }};
-  --main-background-opacity-95: {{ main_background }}{{ opacity_95 }};
-
-  --header-foreground-opacity-20: {{ header_foreground }}{{ opacity_20 }};
-  --header-foreground-opacity-30: {{ header_foreground }}{{ opacity_30 }};
-
-  --news-foreground-opacity-30: {{ newsletter_foreground }}{{ opacity_30 }};
-  --news-foreground-opacity-50: {{ newsletter_foreground }}{{ opacity_50 }};
-
-  --footer-foreground-opacity-10: {{ footer_foreground }}{{ opacity_10 }};
-  --footer-foreground-opacity-20: {{ footer_foreground }}{{ opacity_20 }};
-  --footer-foreground-opacity-30: {{ footer_foreground }}{{ opacity_30 }};
-  --footer-foreground-opacity-60: {{ footer_foreground }}{{ opacity_60 }};
-  --footer-foreground-opacity-80: {{ footer_foreground }}{{ opacity_80 }};
-
-  {# Alert colors CSS #}
-
+  /* Alert colors */
   --success: #4bb98c;
   --danger: #dd7774;
   --warning: #dc8f38;
   --info: #71b5dc;
 
   {#/*============================================================================
-    #Fonts
+    #Fonts - El Pescador (Oswald + Open Sans)
   ==============================================================================*/#}
-
-  {# Font families - El Pescador forced #}
 
   --heading-font: "Oswald", sans-serif;
   --body-font: "Open Sans", sans-serif;
 
-  {# Font sizes #}
+  /* Font sizes */
+  --h1: 32px;
+  --h1-huge: 34px;
+  --h1-huge-md: 48px;
+  --h2: 28px;
+  --h3: 24px;
+  --h4: 22px;
+  --h5: 20px;
+  --h6: 18px;
+  --h6-small: 16px;
 
-  {% set heading_size = settings.headings_size %}
+  --font-huge: 24px;
+  --font-large: 18px;
+  --font-big: 16px;
+  --font-base: 14px;
+  --font-small: 12px;
+  --font-smallest: 10px;
 
-  --h1: {{ heading_size }}px;
-  --h1-huge: {{ heading_size + 2 }}px;
-  --h1-huge-md: {{ heading_size + 16 }}px;
-  --h2: {{ heading_size - 4 }}px;
-  --h3: {{ heading_size - 8 }}px;
-  --h4: {{ heading_size - 10 }}px;
-  --h5: {{ heading_size - 12 }}px;
-  --h6: {{ heading_size - 14 }}px;
-  --h6-small: {{ heading_size - 16 }}px;
- 
-  {% set font_rest_size = settings.font_rest_size %}
-
-  --font-huge: {{ font_rest_size + 10 }}px;
-  --font-large: {{ font_rest_size + 4 }}px;
-  --font-big: {{ font_rest_size + 2 }}px;
-  --font-base: {{ font_rest_size }}px;
-  --font-small: {{ font_rest_size - 2 }}px;
-  --font-smallest: {{ font_rest_size - 4 }}px;
-
-  {# Titles weight #}
-
-  {% set title_weight = settings.headings_bold ? '700' : '400' %}
-
-  --title-font-weight: {{ title_weight }};
+  --title-font-weight: 700;
 
   {#/*============================================================================
     #Width
   ==============================================================================*/#}
 
-  {# Container #}
-
-  {% set container_width = settings.container_width %}
-
-  --container-width: {{ container_width + 60 }}px;
-  --container-width-large: {{ container_width }}px;
-  --container-width-medium: {{ container_width - 240 }}px;
+  --container-width: 1260px;
+  --container-width-large: 1200px;
+  --container-width-medium: 960px;
 
   {#/*============================================================================
     #Spacing
   ==============================================================================*/#}
-
-  {# Gutters #}
 
   --gutter: 15px;
   --guter-container: 30px;
@@ -195,16 +122,12 @@
     #Misc
   ==============================================================================*/#}
 
-  {# Borders #}
-
   --border-radius: 4px;
   --border-radius-half: calc(var(--border-radius) / 2);
   --border-radius-quarter: calc(var(--border-radius) / 4);
   --border-radius-circle: 100%;
   --border-solid: 1px solid;
   --border-dashed: 1px dashed;
-
-  {# Shadows #}
 
   --shadow-distance: 0 0 5px;
 

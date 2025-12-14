@@ -37,10 +37,10 @@ Colores de tu marca
 		palettes
 			palette_1
 				background_color = #FFFFFF
-				accent_color = #80AA8D
-				text_color = #333333
-				button_background_color = #2D3E46
-				button_foreground_color = #FFFFFF
+				accent_color = #00D4FF
+				text_color = #1C2833
+				button_background_color = #00D4FF
+				button_foreground_color = #000000
 			palette_2
 				background_color = #F2F1ED
 				accent_color = #6A6060

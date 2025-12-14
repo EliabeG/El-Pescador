@@ -3,42 +3,42 @@
 :root {
 
   {#/*============================================================================
-    #Colors
+    #Colors - El Pescador Theme (Hardcoded)
   ==============================================================================*/#}
-  
-  {#### Colors settings #}
 
-  {# Main colors #}
+  {#### El Pescador Colors - Forced override #}
 
-  {% set main_background = settings.background_color %}
-  {% set main_foreground = settings.text_color %}
+  {# Main colors - El Pescador #}
 
-  {% set accent_color = settings.accent_color %}
+  {% set main_background = '#FFFFFF' %}
+  {% set main_foreground = '#1C2833' %}
 
-  {% set button_background = settings.button_background_color %}
-  {% set button_foreground = settings.button_foreground_color %}
-  
-  {% set label_background = settings.label_background_color %}
-  {% set label_foreground = settings.label_foreground_color %}
+  {% set accent_color = '#00D4FF' %}
 
-  {# Optional colors #}
+  {% set button_background = '#00D4FF' %}
+  {% set button_foreground = '#000000' %}
 
-  {% set adbar_background = settings.adbar_colors ? settings.adbar_background_color : main_background %}
-  {% set adbar_foreground = settings.adbar_colors ? settings.adbar_foreground_color : main_foreground %}
+  {% set label_background = '#E74C3C' %}
+  {% set label_foreground = '#FFFFFF' %}
 
-  {% set header_background = settings.header_colors ? settings.header_background_color : main_background %}
-  {% set header_foreground = settings.header_colors ? settings.header_foreground_color : main_foreground %}
+  {# Optional colors - El Pescador #}
 
-  {% set header_transparent_foreground = settings.head_transparent_contrast_options ? settings.header_transparent_foreground_color : '' %}
+  {% set adbar_background = '#000000' %}
+  {% set adbar_foreground = '#00D4FF' %}
 
-  {% set footer_background = settings.footer_colors ? settings.footer_background_color : main_background %}
-  {% set footer_foreground = settings.footer_colors ? settings.footer_foreground_color : main_foreground %}
+  {% set header_background = '#000000' %}
+  {% set header_foreground = '#FFFFFF' %}
 
-  {% set newsletter_background = settings.home_news_background_color %}
-  {% set newsletter_foreground = settings.home_news_foreground_color %}
+  {% set header_transparent_foreground = '#FFFFFF' %}
 
-  {% set banner_services_background = settings.banner_services_colors ? settings.banner_services_background_color : '' %}
-  {% set banner_services_foreground = settings.banner_services_colors ? settings.banner_services_foreground_color : '' %}
+  {% set footer_background = '#000000' %}
+  {% set footer_foreground = '#FFFFFF' %}
+
+  {% set newsletter_background = '#1D4E4F' %}
+  {% set newsletter_foreground = '#FFFFFF' %}
+
+  {% set banner_services_background = '#1D4E4F' %}
+  {% set banner_services_foreground = '#FFFFFF' %}
 
   {#### CSS Colors #}
 
@@ -131,10 +131,10 @@
     #Fonts
   ==============================================================================*/#}
 
-  {# Font families #}
+  {# Font families - El Pescador forced #}
 
-  --heading-font: {{ settings.font_headings | raw }};
-  --body-font: {{ settings.font_rest | raw }};
+  --heading-font: "Oswald", sans-serif;
+  --body-font: "Open Sans", sans-serif;
 
   {# Font sizes #}
 

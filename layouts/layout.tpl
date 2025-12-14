@@ -14,11 +14,13 @@
         {% set welcome_italic_font = settings.welcome_text and settings.welcome_italic %}
         {% set institutional_italic_font = settings.institutional_text and settings.institutional_italic %}
         {% set testimonial_italic_font = settings.testimonials_italic %}
-        
+
         {% set italic_font = params.preview or (not params.preview and template == 'home' and welcome_italic_font or institutional_italic_font or testimonial_italic_font) %}
         {% set google_fonts_weights = italic_font ? '400,400italic,700' : '400,700' %}
-        
-        <link rel="preload" as="style" href="{{ [settings.font_headings, settings.font_rest] | google_fonts_url(google_fonts_weights) }}" />
+
+        {# El Pescador - Force Oswald and Open Sans fonts #}
+        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap" />
         <link rel="preload" href="{{ 'css/style-critical.scss' | static_url }}" as="style" />
         <link rel="preload" href="{{ 'css/style-colors.scss' | static_url }}" as="style" />
 
@@ -35,14 +37,20 @@
         {# Critical CSS needed to show first elements of store while CSS async is loading #}
 
         <style>
-            {# Font families #}
-            
-            {{ component(
-                'fonts',{
-                    font_weights: google_fonts_weights,
-                    font_settings: 'settings.font_headings, settings.font_rest'
-                })
-            }}
+            {# Font families - El Pescador forced fonts #}
+
+            @font-face {
+                font-family: 'Oswald';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: 'Open Sans';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+            }
 
             {# General CSS Tokens #}
 

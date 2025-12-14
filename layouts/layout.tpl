@@ -224,7 +224,8 @@
 
             .section-slider,
             .section-slider-home,
-            .section-welcome {
+            .section-welcome,
+            .section-welcome-home {
                 background-color: #1D4E4F !important;
             }
 
@@ -238,13 +239,21 @@
             .section-welcome h1,
             .section-welcome h2,
             .section-welcome h3,
-            .section-welcome p {
+            .section-welcome p,
+            .section-welcome-home,
+            .section-welcome-home h1,
+            .section-welcome-home h2,
+            .section-welcome-home h3,
+            .section-welcome-home p,
+            .section-welcome-home .js-welcome-message-text,
+            .section-welcome-home .js-welcome-message-button {
                 color: #FFFFFF !important;
             }
 
             .section-slider .subtitle,
             .section-welcome .h5,
-            .section-welcome h5 {
+            .section-welcome h5,
+            .section-welcome-home .js-welcome-message-title {
                 color: #00D4FF !important;
             }
 

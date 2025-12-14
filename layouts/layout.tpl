@@ -937,38 +937,17 @@
                 background-color: transparent !important;
             }
 
-            /* Grid de produtos - 4 colunas */
-            .section-featured-home .row,
-            .js-products-featured-grid,
-            .products-grid {
-                display: grid !important;
-                grid-template-columns: repeat(4, 1fr) !important;
-                gap: 20px !important;
+            /* Grid de produtos - NÃO interferir no Bootstrap */
+            /* Apenas garantir espaçamento adequado */
+            .section-featured-home .row {
+                margin-left: -10px !important;
+                margin-right: -10px !important;
             }
 
-            @media (max-width: 992px) {
-                .section-featured-home .row,
-                .js-products-featured-grid,
-                .products-grid {
-                    grid-template-columns: repeat(2, 1fr) !important;
-                }
-            }
-
-            @media (max-width: 576px) {
-                .section-featured-home .row,
-                .js-products-featured-grid,
-                .products-grid {
-                    grid-template-columns: 1fr !important;
-                }
-            }
-
-            /* Garantir que colunas funcionem no grid */
-            .section-featured-home .row > [class*="col-"],
-            .js-products-featured-grid > [class*="col-"],
-            .products-grid > [class*="col-"] {
-                max-width: 100% !important;
-                flex: none !important;
-                width: 100% !important;
+            .section-featured-home .row > [class*="col-"] {
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+                margin-bottom: 20px !important;
             }
         </style>
 

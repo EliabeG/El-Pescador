@@ -79,34 +79,45 @@
             {{ settings.css_code | raw }}
         </style>
 
-        {# El Pescador - CSS Override - Versão Conservadora (Apenas Cores e Fontes) #}
+        {# El Pescador - CSS Override - Nova Identidade Visual (Natureza/Pesca) #}
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap');
 
             /* ============================================
                CSS VARIÁVEIS - El Pescador
+               Nova Paleta: Branco + Navy Blue + Laranja
             ============================================ */
 
             :root {
-                --main-foreground: #1C2833 !important;
-                --main-background: #FFFFFF !important;
-                --accent-color: #00D4FF !important;
-                --button-background: #00D4FF !important;
-                --button-foreground: #000000 !important;
+                --main-foreground: #2C3E50 !important;
+                --main-background: #F5F7FA !important;
+                --accent-color: #E67E22 !important;
+                --button-background: #E67E22 !important;
+                --button-foreground: #FFFFFF !important;
                 --label-background: #E74C3C !important;
                 --label-foreground: #FFFFFF !important;
-                --adbar-background: #000000 !important;
-                --adbar-foreground: #00D4FF !important;
-                --header-background: #000000 !important;
+                --adbar-background: #1B3A57 !important;
+                --adbar-foreground: #FFFFFF !important;
+                --header-background: #1B3A57 !important;
                 --header-foreground: #FFFFFF !important;
-                --footer-background: #000000 !important;
+                --footer-background: #1B3A57 !important;
                 --footer-foreground: #FFFFFF !important;
-                --newsletter-background: #1D4E4F !important;
+                --newsletter-background: #1B3A57 !important;
                 --newsletter-foreground: #FFFFFF !important;
-                --services-background: #1D4E4F !important;
-                --services-foreground: #FFFFFF !important;
+                --services-background: #FFFFFF !important;
+                --services-foreground: #2C3E50 !important;
                 --heading-font: "Oswald", sans-serif !important;
                 --body-font: "Open Sans", sans-serif !important;
+
+                /* Cores El Pescador */
+                --ep-navy: #1B3A57;
+                --ep-navy-dark: #152D45;
+                --ep-orange: #E67E22;
+                --ep-orange-dark: #D35400;
+                --ep-gray-light: #F5F7FA;
+                --ep-gray: #95A5A6;
+                --ep-text: #2C3E50;
+                --ep-white: #FFFFFF;
             }
 
             /* ============================================
@@ -115,20 +126,22 @@
 
             body {
                 font-family: "Open Sans", sans-serif !important;
-                color: #1C2833 !important;
+                color: #2C3E50 !important;
+                background-color: #F5F7FA !important;
             }
 
             h1, h2, h3, h4, h5, h6,
             .h1, .h2, .h3, .h4, .h5, .h6 {
                 font-family: "Oswald", sans-serif !important;
+                color: #2C3E50 !important;
             }
 
             /* ============================================
-               AD BAR - Barra de Anúncios
+               AD BAR - Barra de Anúncios (Navy Blue)
             ============================================ */
 
             .section-adbar {
-                background-color: #000000 !important;
+                background-color: #1B3A57 !important;
             }
 
             .section-adbar,
@@ -137,16 +150,20 @@
             .section-adbar .svg-icon-text,
             .section-adbar .swiper-button-prev,
             .section-adbar .swiper-button-next {
-                color: #00D4FF !important;
-                fill: #00D4FF !important;
+                color: #FFFFFF !important;
+                fill: #FFFFFF !important;
+            }
+
+            .section-adbar a:hover {
+                color: #E67E22 !important;
             }
 
             /* ============================================
-               HEADER - Cabeçalho
+               HEADER - Cabeçalho (Navy Blue)
             ============================================ */
 
             .head-main {
-                background-color: #000000 !important;
+                background-color: #1B3A57 !important;
             }
 
             .head-main,
@@ -158,13 +175,13 @@
 
             .head-main a:hover,
             .head-main .svg-icon-text:hover {
-                color: #00D4FF !important;
-                fill: #00D4FF !important;
+                color: #E67E22 !important;
+                fill: #E67E22 !important;
             }
 
             .head-main .form-control {
                 background-color: rgba(255,255,255,0.1) !important;
-                border: 1px solid #00D4FF !important;
+                border: 1px solid rgba(255,255,255,0.3) !important;
                 color: #FFFFFF !important;
             }
 
@@ -173,17 +190,17 @@
             }
 
             .head-main .js-cart-widget-amount {
-                background-color: #00D4FF !important;
-                color: #000000 !important;
+                background-color: #E67E22 !important;
+                color: #FFFFFF !important;
             }
 
             /* ============================================
-               NAVEGAÇÃO
+               NAVEGAÇÃO (Navy Blue)
             ============================================ */
 
             .desktop-nav-col,
             .nav-desktop {
-                background-color: #000000 !important;
+                background-color: #1B3A57 !important;
             }
 
             .nav-desktop-list a {
@@ -192,16 +209,16 @@
             }
 
             .nav-desktop-list a:hover {
-                color: #00D4FF !important;
+                color: #E67E22 !important;
             }
 
             .nav-desktop-list .nav-item.active > a {
-                color: #00D4FF !important;
+                color: #E67E22 !important;
             }
 
             .nav-desktop-list .dropdown-menu {
-                background-color: #000000 !important;
-                border-color: #00D4FF !important;
+                background-color: #1B3A57 !important;
+                border-color: rgba(255,255,255,0.2) !important;
             }
 
             .nav-desktop-list .dropdown-item {
@@ -209,8 +226,8 @@
             }
 
             .nav-desktop-list .dropdown-item:hover {
-                background-color: rgba(0,212,255,0.1) !important;
-                color: #00D4FF !important;
+                background-color: rgba(230,126,34,0.2) !important;
+                color: #E67E22 !important;
             }
 
             .nav-hamburger-list a {
@@ -218,24 +235,24 @@
             }
 
             .js-modal-nav .modal-content {
-                background-color: #000000 !important;
+                background-color: #1B3A57 !important;
             }
 
             /* ============================================
-               HERO / SLIDER / WELCOME
+               HERO / SLIDER / WELCOME - Design Limpo
             ============================================ */
 
-            /* Hero/Slider com gradiente e overlay para contraste */
+            /* Hero com gradiente suave navy */
             .section-slider,
             .section-slider-home,
             .section-welcome,
             .section-welcome-home {
-                background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #1D4E4F 100%) !important;
+                background: linear-gradient(135deg, #1B3A57 0%, #2C5282 50%, #1B3A57 100%) !important;
                 position: relative !important;
-                padding: 80px 0 !important;
+                padding: 60px 0 !important;
             }
 
-            /* Overlay escuro para melhor contraste do texto */
+            /* Overlay suave */
             .section-slider::before,
             .section-slider-home::before,
             .section-welcome::before,
@@ -246,7 +263,7 @@
                 left: 0 !important;
                 right: 0 !important;
                 bottom: 0 !important;
-                background: rgba(0,0,0,0.3) !important;
+                background: rgba(27,58,87,0.4) !important;
                 z-index: 1 !important;
             }
 
@@ -259,13 +276,12 @@
                 z-index: 2 !important;
             }
 
-            /* Textos do Hero */
+            /* Textos do Hero - SEM logo grande */
             .section-slider,
             .section-slider h1,
             .section-slider h2,
             .section-slider h3,
             .section-slider p,
-            .section-slider a,
             .section-welcome,
             .section-welcome h1,
             .section-welcome h2,
@@ -279,49 +295,53 @@
             .section-welcome-home .js-welcome-message-text,
             .section-welcome-home .js-welcome-message-button {
                 color: #FFFFFF !important;
-                text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+                text-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
             }
 
-            /* Título principal grande */
+            /* Título principal - Frase impactante */
             .section-welcome-home h2,
             .section-welcome h2,
             .section-slider h1 {
-                font-size: 36px !important;
+                font-size: 42px !important;
                 font-weight: 700 !important;
                 margin-bottom: 15px !important;
+                line-height: 1.2 !important;
             }
 
+            /* Subtítulo */
             .section-slider .subtitle,
             .section-welcome .h5,
             .section-welcome h5,
             .section-welcome-home .js-welcome-message-title {
-                color: #00D4FF !important;
-                font-size: 18px !important;
-                letter-spacing: 3px !important;
+                color: #E67E22 !important;
+                font-size: 16px !important;
+                letter-spacing: 2px !important;
                 text-transform: uppercase !important;
                 text-shadow: none !important;
+                font-weight: 600 !important;
             }
 
-            /* Botões CTA no Hero */
+            /* Botões CTA no Hero - LARANJA */
             .section-slider .btn-primary,
             .section-welcome .btn-primary,
             .section-welcome-home .btn-primary {
-                background-color: #FF6B35 !important;
+                background-color: #E67E22 !important;
                 color: #FFFFFF !important;
                 border: none !important;
-                padding: 15px 40px !important;
-                font-size: 16px !important;
-                border-radius: 30px !important;
+                padding: 14px 35px !important;
+                font-size: 15px !important;
+                border-radius: 5px !important;
                 text-shadow: none !important;
-                margin: 10px !important;
+                margin: 8px !important;
+                font-weight: 600 !important;
             }
 
             .section-slider .btn-primary:hover,
             .section-welcome .btn-primary:hover,
             .section-welcome-home .btn-primary:hover {
-                background-color: #E85A2A !important;
+                background-color: #D35400 !important;
                 transform: translateY(-2px) !important;
-                box-shadow: 0 5px 20px rgba(255,107,53,0.4) !important;
+                box-shadow: 0 4px 15px rgba(230,126,34,0.4) !important;
             }
 
             .section-slider .btn-secondary,
@@ -330,52 +350,60 @@
             .section-welcome-home .btn-link {
                 background: transparent !important;
                 color: #FFFFFF !important;
-                border: 2px solid #00D4FF !important;
-                padding: 13px 38px !important;
-                border-radius: 30px !important;
+                border: 2px solid #FFFFFF !important;
+                padding: 12px 33px !important;
+                border-radius: 5px !important;
                 text-shadow: none !important;
-                margin: 10px !important;
+                margin: 8px !important;
             }
 
             .section-slider .btn-secondary:hover,
             .section-welcome .btn-secondary:hover,
             .section-welcome-home .btn-secondary:hover,
             .section-welcome-home .btn-link:hover {
-                background: #00D4FF !important;
-                color: #000000 !important;
+                background: #FFFFFF !important;
+                color: #1B3A57 !important;
             }
 
             /* ============================================
-               SEÇÃO DE SERVIÇOS / BANNERS INFORMATIVOS
+               SEÇÃO DE SERVIÇOS - FUNDO BRANCO
             ============================================ */
 
             .section-informative-banners,
             .section-informative-banners-colors {
-                background-color: #1D4E4F !important;
+                background-color: #FFFFFF !important;
+                border-top: 1px solid #E8E8E8 !important;
+                border-bottom: 1px solid #E8E8E8 !important;
             }
 
-            .section-informative-banners,
             .section-informative-banners h3,
             .section-informative-banners h4,
             .section-informative-banners p,
-            .section-informative-banners-colors,
             .section-informative-banners-colors h3,
             .section-informative-banners-colors h4,
             .section-informative-banners-colors p {
-                color: #FFFFFF !important;
+                color: #2C3E50 !important;
             }
 
             .section-informative-banners .svg-icon-text,
             .section-informative-banners-colors .svg-icon-text {
-                fill: #00D4FF !important;
-                color: #00D4FF !important;
+                fill: #1B3A57 !important;
+                color: #1B3A57 !important;
+            }
+
+            /* Ícones com círculo navy */
+            .section-informative-banners .service-icon-container,
+            .section-informative-banners .banner-service-icon {
+                background-color: #F5F7FA !important;
+                border-radius: 50% !important;
+                padding: 15px !important;
             }
 
             /* ============================================
-               PRODUTOS - GRID ALINHADO (Fix "Dente de Serra")
+               PRODUTOS - GRID ALINHADO
             ============================================ */
 
-            /* 1. FORÇAR IMAGENS QUADRADAS - Corrige alinhamento */
+            /* Card de produto - fundo branco */
             .item-product {
                 display: flex !important;
                 flex-direction: column !important;
@@ -383,12 +411,13 @@
                 background: #FFFFFF !important;
                 border-radius: 8px !important;
                 overflow: hidden !important;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.08) !important;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
                 transition: box-shadow 0.3s ease, transform 0.3s ease !important;
+                border: 1px solid #E8E8E8 !important;
             }
 
             .item-product:hover {
-                box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
                 transform: translateY(-3px) !important;
             }
 
@@ -400,7 +429,7 @@
                 width: 100% !important;
                 overflow: hidden !important;
                 position: relative !important;
-                background: #F8F9FA !important;
+                background: #FFFFFF !important;
             }
 
             /* Imagem preenche o container quadrado */
@@ -411,60 +440,62 @@
                 height: 100% !important;
                 object-fit: contain !important;
                 object-position: center !important;
-                background: #F8F9FA !important;
+                background: #FFFFFF !important;
                 padding: 10px !important;
             }
 
-            /* 2. INFO DO PRODUTO - Altura flexível para alinhar botões */
+            /* INFO DO PRODUTO */
             .item-product .item-info,
             .item-product .item-description {
                 flex: 1 !important;
                 display: flex !important;
                 flex-direction: column !important;
-                padding: 20px 15px !important;
-                text-align: center !important;
+                padding: 15px !important;
+                text-align: left !important;
             }
 
-            /* Nome do produto - altura fixa para alinhar */
+            /* Nome do produto - SEM MAIÚSCULAS */
             .item-product .item-name,
-            .item-product h3 {
+            .item-product .item-name a,
+            .item-product h3,
+            .item-product h3 a {
                 font-family: "Open Sans", sans-serif !important;
                 font-weight: 600 !important;
-                color: #1C2833 !important;
-                font-size: 13px !important;
+                color: #2C3E50 !important;
+                font-size: 14px !important;
                 text-transform: none !important;
                 line-height: 1.4 !important;
-                min-height: 36px !important;
-                max-height: 36px !important;
+                min-height: 40px !important;
+                max-height: 40px !important;
                 overflow: hidden !important;
                 display: -webkit-box !important;
                 -webkit-line-clamp: 2 !important;
                 -webkit-box-orient: vertical !important;
-                margin-bottom: 10px !important;
+                margin-bottom: 8px !important;
             }
 
-            /* 3. PREÇO - Hierarquia visual (preço maior que nome) */
+            /* PREÇO - Navy Blue */
             .item-product .item-price,
             .item-product .js-price-display,
             .item-product .price,
             .js-product-price {
-                color: #00D4FF !important;
+                color: #1B3A57 !important;
                 font-family: "Oswald", sans-serif !important;
                 font-weight: 700 !important;
-                font-size: 24px !important;
+                font-size: 22px !important;
                 margin-top: auto !important;
                 margin-bottom: 5px !important;
             }
 
             .item-product .price-compare,
             .item-product .js-compare-price-display {
-                color: #999 !important;
+                color: #95A5A6 !important;
                 text-decoration: line-through !important;
-                font-size: 14px !important;
+                font-size: 13px !important;
                 margin-bottom: 3px !important;
             }
 
-            /* Badge de desconto */
+            /* Badge de desconto - Laranja */
             .item-product .label,
             .item-product .js-offer-label,
             .product-label,
@@ -472,88 +503,83 @@
                 position: absolute !important;
                 top: 10px !important;
                 left: 10px !important;
-                background-color: #FF6B35 !important;
+                background-color: #E67E22 !important;
                 color: #FFFFFF !important;
                 font-family: "Oswald", sans-serif !important;
                 font-weight: 700 !important;
                 font-size: 12px !important;
-                padding: 6px 14px !important;
-                border-radius: 20px !important;
+                padding: 5px 12px !important;
+                border-radius: 3px !important;
                 text-transform: uppercase !important;
                 z-index: 2 !important;
             }
 
-            /* 4. BOTÃO COMPRAR - Cor vibrante de ação (Laranja) */
+            /* BOTÃO COMPRAR - LARANJA */
             .item-product .btn,
             .item-product .js-addtocart,
             .item-product .btn-product,
             .js-prod-submit-btn {
-                background-color: #FF6B35 !important;
+                background-color: #E67E22 !important;
                 color: #FFFFFF !important;
                 border: none !important;
-                font-family: "Oswald", sans-serif !important;
+                font-family: "Open Sans", sans-serif !important;
                 font-weight: 600 !important;
-                text-transform: uppercase !important;
-                letter-spacing: 1px !important;
+                text-transform: none !important;
                 font-size: 13px !important;
-                padding: 12px 20px !important;
-                border-radius: 25px !important;
-                margin-top: 15px !important;
+                padding: 10px 18px !important;
+                border-radius: 5px !important;
+                margin-top: 12px !important;
                 transition: all 0.3s ease !important;
             }
 
             .item-product .btn:hover,
             .item-product .js-addtocart:hover {
-                background-color: #E85A2A !important;
+                background-color: #D35400 !important;
                 color: #FFFFFF !important;
-                transform: scale(1.02) !important;
             }
 
-            /* Botão Ver Carrinho também laranja */
+            /* Botão Ver Carrinho */
             .js-cart-widget .btn,
             .cart-btn,
             a[href*="cart"] .btn {
-                background-color: #FF6B35 !important;
+                background-color: #E67E22 !important;
                 color: #FFFFFF !important;
             }
 
             /* ============================================
-               ESPAÇAMENTO (RESPIRO) - White Space
+               ESPAÇAMENTO - White Space
             ============================================ */
 
-            /* Seções com mais padding */
             section,
             .section-featured-home,
             .section-categories,
             .section-main-categories,
             .section-banners-home {
-                padding: 60px 0 !important;
+                padding: 50px 0 !important;
+                background-color: #F5F7FA !important;
             }
 
-            /* Espaço entre título e conteúdo */
             .section-title,
             section > h2,
             .home-section-title {
-                margin-bottom: 50px !important;
+                margin-bottom: 40px !important;
             }
 
-            /* Espaçamento no grid de produtos */
             .row-grid,
             .products-grid,
             .js-products-featured-grid,
             .js-products-new-grid,
             .js-products-sale-grid {
-                gap: 25px !important;
+                gap: 20px !important;
             }
 
-            /* Container com padding lateral */
             .container {
-                padding-left: 20px !important;
-                padding-right: 20px !important;
+                padding-left: 15px !important;
+                padding-right: 15px !important;
             }
 
             /* ============================================
-               TÍTULOS DE SEÇÃO - Hierarquia Visual
+               TÍTULOS DE SEÇÃO
             ============================================ */
 
             .section-title,
@@ -562,32 +588,31 @@
                 font-family: "Oswald", sans-serif !important;
                 font-weight: 700 !important;
                 text-transform: uppercase !important;
-                color: #1C2833 !important;
-                font-size: 28px !important;
-                letter-spacing: 2px !important;
+                color: #2C3E50 !important;
+                font-size: 26px !important;
+                letter-spacing: 1px !important;
                 text-align: center !important;
                 position: relative !important;
                 padding-bottom: 15px !important;
             }
 
-            /* Linha decorativa abaixo do título */
+            /* Linha decorativa - Laranja */
             .section-title::after,
             section > h2::after {
                 content: '' !important;
                 display: block !important;
-                width: 60px !important;
+                width: 50px !important;
                 height: 3px !important;
-                background: #00D4FF !important;
-                margin: 15px auto 0 !important;
+                background: #E67E22 !important;
+                margin: 12px auto 0 !important;
             }
 
-            /* Texto de destaque em ciano */
             .section-title strong,
             .section-title span,
             .text-accent,
             .text-primary,
             .title-accent {
-                color: #00D4FF !important;
+                color: #E67E22 !important;
             }
 
             /* ============================================
@@ -596,12 +621,16 @@
 
             .section-categories,
             .section-main-categories {
-                background-color: #FFFFFF !important;
+                background-color: #F5F7FA !important;
             }
 
             .item-category,
             .category-card {
                 text-align: center !important;
+                background: #FFFFFF !important;
+                border-radius: 8px !important;
+                padding: 20px !important;
+                border: 1px solid #E8E8E8 !important;
             }
 
             .item-category h3,
@@ -610,92 +639,174 @@
                 font-family: "Oswald", sans-serif !important;
                 font-weight: 500 !important;
                 text-transform: uppercase !important;
-                color: #1C2833 !important;
+                color: #2C3E50 !important;
                 font-size: 14px !important;
             }
 
             /* ============================================
-               BOTÕES
+               BOTÕES GERAIS
             ============================================ */
 
             .btn-primary {
-                background-color: #00D4FF !important;
-                color: #000000 !important;
-                border-color: #00D4FF !important;
-                font-family: "Oswald", sans-serif !important;
-                font-weight: 700 !important;
-                text-transform: uppercase !important;
-                border-radius: 25px !important;
-                padding: 12px 30px !important;
+                background-color: #E67E22 !important;
+                color: #FFFFFF !important;
+                border-color: #E67E22 !important;
+                font-family: "Open Sans", sans-serif !important;
+                font-weight: 600 !important;
+                text-transform: none !important;
+                border-radius: 5px !important;
+                padding: 12px 28px !important;
             }
 
             .btn-primary:hover,
             .btn-primary:focus {
-                background-color: #00B8E6 !important;
-                border-color: #00B8E6 !important;
-                color: #000000 !important;
+                background-color: #D35400 !important;
+                border-color: #D35400 !important;
+                color: #FFFFFF !important;
             }
 
             .btn-secondary,
             .btn-outline-primary {
                 background-color: transparent !important;
-                border: 2px solid #00D4FF !important;
-                color: #00D4FF !important;
-                font-family: "Oswald", sans-serif !important;
-                font-weight: 700 !important;
-                text-transform: uppercase !important;
-                border-radius: 25px !important;
-                padding: 10px 28px !important;
+                border: 2px solid #1B3A57 !important;
+                color: #1B3A57 !important;
+                font-family: "Open Sans", sans-serif !important;
+                font-weight: 600 !important;
+                text-transform: none !important;
+                border-radius: 5px !important;
+                padding: 10px 26px !important;
             }
 
             .btn-secondary:hover,
             .btn-outline-primary:hover {
-                background-color: #00D4FF !important;
-                color: #000000 !important;
-            }
-
-            /* ============================================
-               NEWSLETTER
-            ============================================ */
-
-            .section-newsletter-home,
-            .section-newsletter-home-colors {
-                background-color: #1D4E4F !important;
-            }
-
-            .section-newsletter-home h2,
-            .section-newsletter-home-colors h2,
-            .section-newsletter-home p,
-            .section-newsletter-home-colors p {
+                background-color: #1B3A57 !important;
                 color: #FFFFFF !important;
             }
 
             /* ============================================
-               FOOTER
+               DEPOIMENTOS - Com Estrelas
+            ============================================ */
+
+            .section-testimonials-home {
+                background-color: #FFFFFF !important;
+            }
+
+            .section-testimonials-home .testimonial-item,
+            .testimonial-card {
+                background: #F5F7FA !important;
+                border-radius: 8px !important;
+                padding: 25px !important;
+                text-align: center !important;
+            }
+
+            /* Estrelas de avaliação */
+            .section-testimonials-home .testimonial-item::before,
+            .testimonial-card::before {
+                content: '★★★★★' !important;
+                display: block !important;
+                color: #F39C12 !important;
+                font-size: 20px !important;
+                margin-bottom: 15px !important;
+                letter-spacing: 3px !important;
+            }
+
+            .section-testimonials-home .testimonial-text,
+            .testimonial-card p {
+                font-size: 16px !important;
+                line-height: 1.6 !important;
+                color: #2C3E50 !important;
+                font-style: italic !important;
+            }
+
+            .section-testimonials-home .testimonial-author,
+            .testimonial-card .author {
+                font-weight: 700 !important;
+                color: #1B3A57 !important;
+                margin-top: 15px !important;
+            }
+
+            /* Avatar */
+            .section-testimonials-home .testimonial-avatar,
+            .testimonial-card .avatar {
+                width: 60px !important;
+                height: 60px !important;
+                border-radius: 50% !important;
+                margin: 0 auto 15px !important;
+                background: #1B3A57 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                color: #FFFFFF !important;
+                font-size: 24px !important;
+            }
+
+            /* ============================================
+               NEWSLETTER - Navy Blue, Compacto
+            ============================================ */
+
+            .section-newsletter-home,
+            .section-newsletter-home-colors {
+                background-color: #1B3A57 !important;
+                padding: 40px 0 !important;
+            }
+
+            .section-newsletter-home h2,
+            .section-newsletter-home-colors h2 {
+                color: #FFFFFF !important;
+                font-size: 22px !important;
+                margin-bottom: 10px !important;
+            }
+
+            .section-newsletter-home p,
+            .section-newsletter-home-colors p {
+                color: rgba(255,255,255,0.8) !important;
+                font-size: 14px !important;
+            }
+
+            .section-newsletter-home .form-control {
+                border-radius: 5px 0 0 5px !important;
+                border: none !important;
+            }
+
+            .section-newsletter-home .btn {
+                background-color: #E67E22 !important;
+                border-radius: 0 5px 5px 0 !important;
+                border: none !important;
+            }
+
+            /* ============================================
+               FOOTER - Navy Blue
             ============================================ */
 
             footer,
             .js-footer {
-                background-color: #000000 !important;
+                background-color: #1B3A57 !important;
             }
 
             footer,
             footer p,
             footer a,
-            footer h4,
-            footer .h4,
             footer li {
-                color: #FFFFFF !important;
+                color: rgba(255,255,255,0.8) !important;
             }
 
             footer h4,
             footer .h4 {
-                color: #00D4FF !important;
+                color: #FFFFFF !important;
                 font-family: "Oswald", sans-serif !important;
+                font-size: 16px !important;
+                margin-bottom: 15px !important;
             }
 
             footer a:hover {
-                color: #00D4FF !important;
+                color: #E67E22 !important;
+            }
+
+            /* Rodapé inferior - mais escuro */
+            .footer-bottom,
+            footer .copyright {
+                background-color: #152D45 !important;
+                border-top: 1px solid rgba(255,255,255,0.1) !important;
             }
 
             /* ============================================
@@ -704,11 +815,15 @@
 
             .text-accent,
             .text-primary {
-                color: #00D4FF !important;
+                color: #E67E22 !important;
             }
 
             .breadcrumb a {
-                color: #00D4FF !important;
+                color: #1B3A57 !important;
+            }
+
+            .breadcrumb a:hover {
+                color: #E67E22 !important;
             }
 
             .whatsapp-btn,
@@ -721,17 +836,33 @@
             ============================================ */
 
             .modal-header {
-                background-color: #000000 !important;
+                background-color: #1B3A57 !important;
                 color: #FFFFFF !important;
             }
 
             /* ============================================
-               SWIPER / CARROSSEL - Não interferir
+               LINKS E INTERAÇÕES
             ============================================ */
 
-            .swiper-wrapper,
-            .swiper-slide {
-                /* Manter comportamento original */
+            a {
+                color: #1B3A57 !important;
+            }
+
+            a:hover {
+                color: #E67E22 !important;
+            }
+
+            /* ============================================
+               SWIPER / CARROSSEL
+            ============================================ */
+
+            .swiper-button-prev,
+            .swiper-button-next {
+                color: #1B3A57 !important;
+            }
+
+            .swiper-pagination-bullet-active {
+                background-color: #E67E22 !important;
             }
         </style>
 

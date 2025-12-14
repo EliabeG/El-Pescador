@@ -1,16 +1,19 @@
 /* ============================================
    EL PESCADOR - CSS CUSTOMIZADO
-   Para uso com tema Nuvemshop
+   Nova Identidade: Navy Blue + Laranja + Branco
    ============================================ */
 
 :root {
-    --ep-accent-cyan: #00D4FF;
-    --ep-dark-green: #1D4E4F;
-    --ep-dark-gray: #1C2833;
-    --ep-black: #000000;
+    --ep-navy: #1B3A57;
+    --ep-navy-dark: #152D45;
+    --ep-orange: #E67E22;
+    --ep-orange-dark: #D35400;
+    --ep-gray-light: #F5F7FA;
+    --ep-gray: #95A5A6;
+    --ep-text: #2C3E50;
     --ep-white: #FFFFFF;
-    --ep-light-gray: #F8F9FA;
-    --ep-danger-red: #E74C3C;
+    --ep-border: #E8E8E8;
+    --ep-gold: #F39C12;
 }
 
 /* ============================================
@@ -24,11 +27,11 @@
 }
 
 /* ============================================
-   HERO SECTION - El Pescador
+   HERO SECTION - Design Limpo
 ============================================ */
 
 .ep-hero {
-    background: linear-gradient(135deg, var(--ep-black) 0%, #1a1a2e 50%, var(--ep-dark-green) 100%);
+    background: linear-gradient(135deg, var(--ep-navy) 0%, #2C5282 50%, var(--ep-navy) 100%);
     color: var(--ep-white);
     padding: 80px 0;
     text-align: center;
@@ -43,111 +46,128 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90" opacity="0.03">🐟</text></svg>') repeat;
-    background-size: 150px;
-    animation: ep-float 30s linear infinite;
-}
-
-@keyframes ep-float {
-    0% { background-position: 0 0; }
-    100% { background-position: 150px 150px; }
+    background: rgba(27,58,87,0.3);
+    z-index: 1;
 }
 
 .ep-hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.ep-hero-logo {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 30px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.ep-hero-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.ep-hero .ep-subtitle {
-    font-family: 'Oswald', sans-serif;
-    font-size: 24px;
-    color: var(--ep-accent-cyan);
+.ep-hero-subtitle {
+    display: inline-block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ep-orange);
     margin-bottom: 20px;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
-.ep-hero p {
+.ep-hero-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: var(--ep-white);
+}
+
+.ep-hero-title span {
+    color: var(--ep-orange);
+}
+
+.ep-hero-text {
     font-size: 18px;
     margin-bottom: 30px;
     opacity: 0.9;
+    line-height: 1.6;
+    color: var(--ep-white);
+}
+
+.ep-hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 /* ============================================
-   BOTÕES - El Pescador
+   BOTOES - El Pescador
 ============================================ */
 
 .ep-btn {
     display: inline-block;
-    padding: 15px 40px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 16px;
-    text-transform: uppercase;
+    padding: 14px 35px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
     text-decoration: none;
-    border-radius: 30px;
+    border-radius: 5px;
     transition: all 0.3s;
     cursor: pointer;
     border: none;
-    letter-spacing: 1px;
 }
 
 .ep-btn-primary {
-    background: var(--ep-accent-cyan);
-    color: var(--ep-black);
+    background: var(--ep-orange);
+    color: var(--ep-white);
 }
 
 .ep-btn-primary:hover {
-    background: #00b8e6;
+    background: var(--ep-orange-dark);
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(0,212,255,0.4);
+    box-shadow: 0 4px 15px rgba(230,126,34,0.4);
+    color: var(--ep-white);
 }
 
 .ep-btn-secondary {
     background: transparent;
     color: var(--ep-white);
-    border: 2px solid var(--ep-accent-cyan);
-    margin-left: 15px;
+    border: 2px solid var(--ep-white);
 }
 
 .ep-btn-secondary:hover {
-    background: var(--ep-accent-cyan);
-    color: var(--ep-black);
+    background: var(--ep-white);
+    color: var(--ep-navy);
 }
 
 /* ============================================
-   SEÇÃO DE CATEGORIAS - El Pescador
+   SECAO DE CATEGORIAS
 ============================================ */
 
 .ep-categories {
     padding: 60px 0;
-    background: var(--ep-white);
+    background: var(--ep-gray-light);
 }
 
 .ep-section-title {
     text-align: center;
-    font-size: 32px;
+    font-size: 28px;
     margin-bottom: 40px;
-    color: var(--ep-dark-gray);
+    color: var(--ep-text);
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.ep-section-title::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: var(--ep-orange);
+    margin: 12px auto 0;
 }
 
 .ep-section-title span {
-    color: var(--ep-accent-cyan);
+    color: var(--ep-orange);
 }
 
 .ep-categories-grid {
@@ -158,27 +178,25 @@
 
 .ep-category-card {
     position: relative;
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
     aspect-ratio: 1;
-    background: linear-gradient(135deg, var(--ep-black), var(--ep-dark-green));
+    background: var(--ep-white);
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
-    border: 2px solid transparent;
+    border: 1px solid var(--ep-border);
     text-decoration: none;
 }
 
 .ep-category-card:hover {
-    transform: scale(1.05);
-    border-color: var(--ep-accent-cyan);
-    box-shadow: 0 10px 30px rgba(0,212,255,0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(27,58,87,0.15);
 }
 
 .ep-category-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.7;
 }
 
 .ep-category-card::before {
@@ -188,7 +206,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.4);
+    background: linear-gradient(to top, rgba(27,58,87,0.9), rgba(27,58,87,0.3));
     z-index: 1;
 }
 
@@ -203,7 +221,7 @@
 }
 
 .ep-category-icon {
-    font-size: 45px;
+    font-size: 40px;
     margin-bottom: 10px;
 }
 
@@ -216,65 +234,67 @@
 }
 
 /* ============================================
-   PRODUTOS - El Pescador
+   PRODUTOS
 ============================================ */
 
 .ep-products {
     padding: 60px 0;
-    background: var(--ep-light-gray);
+    background: var(--ep-gray-light);
 }
 
 .ep-products-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
+    gap: 20px;
 }
 
 .ep-product-card {
     background: var(--ep-white);
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
     transition: box-shadow 0.3s, transform 0.3s;
-    border: 1px solid #eee;
+    border: 1px solid var(--ep-border);
 }
 
 .ep-product-card:hover {
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
 }
 
 .ep-product-image {
     aspect-ratio: 1;
     position: relative;
     overflow: hidden;
+    background: var(--ep-white);
 }
 
 .ep-product-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    padding: 10px;
 }
 
 .ep-product-badge {
     position: absolute;
     top: 10px;
     left: 10px;
-    background: var(--ep-danger-red);
+    background: var(--ep-orange);
     color: var(--ep-white);
     padding: 5px 12px;
     font-size: 12px;
     font-weight: 700;
-    border-radius: 20px;
+    border-radius: 3px;
     font-family: 'Oswald', sans-serif;
 }
 
 .ep-product-info {
-    padding: 20px;
+    padding: 15px;
 }
 
 .ep-product-category {
     font-size: 11px;
-    color: var(--ep-accent-cyan);
+    color: var(--ep-gray);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 5px;
@@ -287,7 +307,17 @@
     margin-bottom: 10px;
     text-transform: none;
     line-height: 1.4;
-    color: var(--ep-dark-gray);
+    color: var(--ep-text);
+    min-height: 40px;
+}
+
+.ep-product-info h3 a {
+    color: var(--ep-text);
+    text-decoration: none;
+}
+
+.ep-product-info h3 a:hover {
+    color: var(--ep-orange);
 }
 
 .ep-product-price {
@@ -300,54 +330,65 @@
 
 .ep-price-old {
     text-decoration: line-through;
-    color: #999;
-    font-size: 14px;
+    color: var(--ep-gray);
+    font-size: 13px;
 }
 
 .ep-price-current {
     font-size: 22px;
     font-weight: 700;
-    color: var(--ep-accent-cyan);
+    color: var(--ep-navy);
     font-family: 'Oswald', sans-serif;
 }
 
 .ep-free-shipping {
     font-size: 12px;
     color: #27ae60;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .ep-product-btn {
     width: 100%;
-    padding: 12px;
-    background: var(--ep-black);
+    padding: 10px;
+    background: var(--ep-orange);
     color: var(--ep-white);
     border: none;
-    font-family: 'Oswald', sans-serif;
-    font-size: 14px;
-    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.3s;
-    border-radius: 6px;
-    letter-spacing: 1px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
 }
 
 .ep-product-btn:hover {
-    background: var(--ep-accent-cyan);
-    color: var(--ep-black);
+    background: var(--ep-orange-dark);
+    color: var(--ep-white);
+}
+
+.ep-product-btn.disabled {
+    background: var(--ep-gray);
+    cursor: not-allowed;
 }
 
 /* ============================================
-   MARCAS - El Pescador
+   MARCAS
 ============================================ */
 
 .ep-brands {
     padding: 60px 0;
-    background: var(--ep-black);
+    background: var(--ep-navy);
 }
 
 .ep-brands .ep-section-title {
     color: var(--ep-white);
+}
+
+.ep-brands .ep-section-title::after {
+    background: var(--ep-orange);
 }
 
 .ep-brands-grid {
@@ -376,7 +417,7 @@
 
 .ep-brand-item:hover {
     opacity: 1;
-    border-color: var(--ep-accent-cyan);
+    border-color: var(--ep-orange);
 }
 
 /* ============================================
@@ -386,6 +427,10 @@
 @media (max-width: 1024px) {
     .ep-categories-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ep-hero-title {
+        font-size: 38px;
     }
 }
 
@@ -404,18 +449,22 @@
         padding: 60px 0;
     }
 
-    .ep-hero-logo {
-        width: 150px;
-        height: 150px;
+    .ep-hero-title {
+        font-size: 32px;
     }
 
     .ep-categories-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .ep-btn-secondary {
-        display: block;
-        margin: 15px auto 0;
+    .ep-hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ep-btn {
+        width: 100%;
+        max-width: 280px;
     }
 }
 
@@ -426,5 +475,9 @@
 
     .ep-categories-grid {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .ep-hero-title {
+        font-size: 28px;
     }
 }

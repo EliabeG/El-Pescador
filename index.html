@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Pescador - Equipamentos de Pesca Esportiva, Pesca Sub e Caça</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0D3B66;
+            --accent-orange: #F4A836;
+            --dark-green: #1D4E4F;
+            --dark-gray: #1C2833;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --danger-red: #E74C3C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Ad Bar */
+        .ad-bar {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 10px 0;
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        .ad-bar-content {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            animation: scroll 20s linear infinite;
+        }
+
+        .ad-bar-item {
+            white-space: nowrap;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary-blue);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 36px;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 50px 12px 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--white);
+            font-size: 14px;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-icon {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 24px;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-orange);
+            color: var(--dark-gray);
+            font-size: 11px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--primary-blue);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            list-style: none;
+            padding: 15px 0;
+        }
+
+        .nav-list a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: opacity 0.3s;
+        }
+
+        .nav-list a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-green) 100%);
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90" opacity="0.05">🎣</text></svg>') repeat;
+            background-size: 100px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 16px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: var(--dark-gray);
+        }
+
+        .btn-primary:hover {
+            background: #e09a2f;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-blue);
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--dark-green);
+            color: var(--white);
+            padding: 40px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .service-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .service-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .service-item h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .service-item p {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: var(--dark-gray);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-green));
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .category-content {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            color: var(--white);
+            z-index: 1;
+        }
+
+        .category-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .category-content h3 {
+            font-size: 18px;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 60px 0;
+            background: var(--light-gray);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            position: relative;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--danger-red);
+            color: var(--white);
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 4px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            font-size: 14px;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: none;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price-old {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .price-current {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark-gray);
+        }
+
+        .price-installments {
+            font-size: 12px;
+            color: var(--accent-orange);
+        }
+
+        .product-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-orange);
+            color: var(--dark-gray);
+            border: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .product-btn:hover {
+            background: #e09a2f;
+        }
+
+        /* Brands Section */
+        .brands {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .brands-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .brand-item {
+            width: 120px;
+            height: 60px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            color: var(--dark-gray);
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .brand-item:hover {
+            opacity: 1;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 60px 0;
+            background: var(--light-gray);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 20px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            color: var(--dark-gray);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .newsletter p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
+            background: transparent;
+            color: var(--white);
+            font-size: 14px;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: var(--accent-orange);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--white);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--accent-orange);
+            color: var(--dark-gray);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .services-grid,
+            .categories-grid,
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+
+            .search-box {
+                order: 3;
+                max-width: 100%;
+                margin-top: 15px;
+            }
+
+            .nav-list {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .services-grid,
+            .categories-grid,
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-secondary {
+                display: block;
+                margin: 15px auto 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ad Bar -->
+    <div class="ad-bar">
+        <div class="ad-bar-content">
+            <span class="ad-bar-item">🎣 FRETE GRÁTIS em compras acima de R$300</span>
+            <span class="ad-bar-item">🐟 Equipamentos profissionais para todas as modalidades</span>
+            <span class="ad-bar-item">🏆 +10 anos equipando pescadores</span>
+            <span class="ad-bar-item">🎣 FRETE GRÁTIS em compras acima de R$300</span>
+            <span class="ad-bar-item">🐟 Equipamentos profissionais para todas as modalidades</span>
+            <span class="ad-bar-item">🏆 +10 anos equipando pescadores</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <span class="logo-icon">🎣</span>
+                    EL PESCADOR
+                </a>
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar produtos...">
+                    <button>🔍</button>
+                </div>
+                <div class="header-icons">
+                    <a href="#" class="header-icon">👤</a>
+                    <a href="#" class="header-icon">
+                        🛒
+                        <span class="cart-count">3</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Pesca Esportiva</a></li>
+                <li><a href="#">Pesca Sub</a></li>
+                <li><a href="#">Caça</a></li>
+                <li><a href="#">Camping</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Bem-vindo ao El Pescador</h1>
+                <p>Sua loja especializada em pesca esportiva, pesca sub e caça.<br>Equipamentos profissionais para todas as modalidades.</p>
+                <a href="#" class="btn btn-primary">Ver Produtos</a>
+                <a href="#" class="btn btn-secondary">Saiba Mais</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">🚚</div>
+                    <h4>Entrega em Todo Brasil</h4>
+                    <p>Receba seu equipamento onde estiver</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">💳</div>
+                    <h4>Até 12x sem Juros</h4>
+                    <p>Em todos os cartões</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🔒</div>
+                    <h4>Compra Segura</h4>
+                    <p>Protegemos seus dados</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">💬</div>
+                    <h4>Atendimento WhatsApp</h4>
+                    <p>Assessoria na sua compra</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Categorias</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-content">
+                        <div class="category-icon">🎣</div>
+                        <h3>Pesca Esportiva</h3>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-content">
+                        <div class="category-icon">🤿</div>
+                        <h3>Pesca Sub</h3>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-content">
+                        <div class="category-icon">🏹</div>
+                        <h3>Caça</h3>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-content">
+                        <div class="category-icon">⛺</div>
+                        <h3>Camping</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Produtos em Destaque</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">-20%</span>
+                        🎣
+                    </div>
+                    <div class="product-info">
+                        <h3>Vara de Pesca Profissional Carbon Pro 2.70m</h3>
+                        <div class="product-price">
+                            <span class="price-old">R$ 599,90</span>
+                            <span class="price-current">R$ 479,90</span>
+                        </div>
+                        <div class="price-installments">12x de R$ 39,99 sem juros</div>
+                        <button class="product-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        🎡
+                    </div>
+                    <div class="product-info">
+                        <h3>Molinete Shimano FX 4000 Drag 8.5kg</h3>
+                        <div class="product-price">
+                            <span class="price-current">R$ 289,90</span>
+                        </div>
+                        <div class="price-installments">12x de R$ 24,16 sem juros</div>
+                        <button class="product-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="product-badge">Novo</span>
+                        🦈
+                    </div>
+                    <div class="product-info">
+                        <h3>Kit Isca Artificial 30 peças Sortidas</h3>
+                        <div class="product-price">
+                            <span class="price-current">R$ 159,90</span>
+                        </div>
+                        <div class="price-installments">12x de R$ 13,33 sem juros</div>
+                        <button class="product-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        🤿
+                    </div>
+                    <div class="product-info">
+                        <h3>Arbalete Pesca Sub Alumínio 90cm</h3>
+                        <div class="product-price">
+                            <span class="price-old">R$ 899,90</span>
+                            <span class="price-current">R$ 749,90</span>
+                        </div>
+                        <div class="price-installments">12x de R$ 62,49 sem juros</div>
+                        <button class="product-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section class="brands">
+        <div class="container">
+            <h2 class="section-title">Marcas que Confiamos</h2>
+            <div class="brands-grid">
+                <div class="brand-item">SHIMANO</div>
+                <div class="brand-item">MARINE</div>
+                <div class="brand-item">RAPALA</div>
+                <div class="brand-item">DAIWA</div>
+                <div class="brand-item">PENN</div>
+                <div class="brand-item">OKUMA</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">O que Nossos Pescadores Dizem</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">👨</div>
+                    <p class="testimonial-text">"Excelente atendimento e produtos de primeira qualidade. Minha vara favorita comprei aqui."</p>
+                    <span class="testimonial-name">Carlos M.</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">👨</div>
+                    <p class="testimonial-text">"Envio rápido e muito bem embalado. 100% recomendado para pescadores."</p>
+                    <span class="testimonial-name">Roberto S.</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">👨</div>
+                    <p class="testimonial-text">"Grande variedade de iscas e equipamentos de pesca sub. Voltarei a comprar."</p>
+                    <span class="testimonial-name">Miguel A.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Junte-se à Tripulação</h2>
+            <p>Inscreva-se e receba ofertas exclusivas, dicas de pesca e novidades.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Seu melhor e-mail">
+                <button type="submit" class="btn btn-primary">Inscrever</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>El Pescador</h4>
+                    <p style="font-size: 14px; opacity: 0.8; margin-bottom: 15px;">Sua loja especializada em pesca esportiva, pesca sub e caça desde 2014.</p>
+                    <div class="footer-social">
+                        <a href="#">📘</a>
+                        <a href="#">📸</a>
+                        <a href="#">▶️</a>
+                        <a href="#">💬</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="#">Pesca Esportiva</a></li>
+                        <li><a href="#">Pesca Sub</a></li>
+                        <li><a href="#">Caça</a></li>
+                        <li><a href="#">Camping</a></li>
+                        <li><a href="#">Acessórios</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                        <li><a href="#">Fale Conosco</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><a href="#">📞 (11) 99999-9999</a></li>
+                        <li><a href="#">📧 contato@elpescador.com.br</a></li>
+                        <li><a href="#">📍 São Paulo, SP</a></li>
+                        <li><a href="#">⏰ Seg-Sex: 9h às 18h</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 El Pescador. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

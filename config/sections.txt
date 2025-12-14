@@ -1,12 +1,12 @@
 primary
-	name = Destacados
-	description = Los productos aparecen destacados en la página de inicio (hasta 40 productos).
+	name = Equipamentos em Destaque
+	description = Os produtos aparecem em destaque na página inicial (até 40 produtos). Ideal para varas, molinetes e carretilhas.
 new
-	name = Novedades
-	description = Los productos aparecen como nuevos en la página de inicio (hasta 40 productos).
+	name = Novidades
+	description = Os produtos aparecem como novidades na página inicial (até 40 produtos). Lance os últimos lançamentos aqui.
 sale
-	name = Ofertas
-	description = Los productos aparecen en oferta en la página de inicio (hasta 40 productos).
+	name = Ofertas Especiais
+	description = Os produtos aparecem em oferta na página inicial (até 40 produtos). Promoções imperdíveis para pescadores.
 featured
-	name = Principal
-	description = El producto principal aparece en la página de inicio (1 producto).
+	name = Produto Principal
+	description = O produto principal aparece em destaque na página inicial (1 produto). Escolha seu equipamento estrela.

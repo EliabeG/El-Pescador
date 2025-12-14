@@ -937,17 +937,65 @@
                 background-color: transparent !important;
             }
 
-            /* Grid de produtos - NÃO interferir no Bootstrap */
-            /* Apenas garantir espaçamento adequado */
+            /* Grid de produtos - 3 COLUNAS */
             .section-featured-home .row {
-                margin-left: -10px !important;
-                margin-right: -10px !important;
+                margin-left: -8px !important;
+                margin-right: -8px !important;
             }
 
             .section-featured-home .row > [class*="col-"] {
-                padding-left: 10px !important;
-                padding-right: 10px !important;
-                margin-bottom: 20px !important;
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+                margin-bottom: 16px !important;
+                flex: 0 0 33.333% !important;
+                max-width: 33.333% !important;
+            }
+
+            /* Produtos menores */
+            .item-product .item-image,
+            .item-product .product-image-container,
+            .item-product > a:first-child {
+                aspect-ratio: 1 / 1 !important;
+                max-height: 220px !important;
+            }
+
+            .item-product .item-info,
+            .item-product .item-description {
+                padding: 12px !important;
+            }
+
+            .item-product .item-name,
+            .item-product .item-name a,
+            .item-product h3,
+            .item-product h3 a {
+                font-size: 13px !important;
+                min-height: 36px !important;
+                max-height: 36px !important;
+            }
+
+            .item-product .item-price,
+            .item-product .js-price-display,
+            .item-product .price {
+                font-size: 20px !important;
+            }
+
+            .item-product .btn {
+                padding: 8px 14px !important;
+                font-size: 12px !important;
+            }
+
+            @media (max-width: 768px) {
+                .section-featured-home .row > [class*="col-"] {
+                    flex: 0 0 50% !important;
+                    max-width: 50% !important;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .section-featured-home .row > [class*="col-"] {
+                    flex: 0 0 100% !important;
+                    max-width: 100% !important;
+                }
             }
         </style>
 

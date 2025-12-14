@@ -1,38 +1,38 @@
-Colores de tu marca
+Cores da sua marca
 	meta
 		icon = paint-brush
 		advanced = false
 	color
 		name = background_color
-		description = Color de fondo
+		description = Cor de fundo
 	color
 		name = text_color
-		description = Color de textos
+		description = Cor dos textos
 	color
 		name = accent_color
-		description = Color de acento
+		description = Cor de destaque
 	subtitle
-		subtitle = <div class='js-color-description'>Aplica a textos de descuento, envío gratis y cuotas sin interés.</div>
+		subtitle = <div class='js-color-description'>Aplicado a textos de desconto, frete grátis e parcelas sem juros.</div>
 	collapse
-		title = Botón principal
+		title = Botão principal
 	color
 		name = button_background_color
-		description = Color de fondo
+		description = Cor de fundo
 	color
 		name = button_foreground_color
-		description = Color de texto
+		description = Cor do texto
 	collapse
-		title = Etiquetas de promoción
+		title = Etiquetas de promoção
 	color
 		name = label_background_color
-		description = Color de fondo
+		description = Cor de fundo
 	color
 		name = label_foreground_color
-		description = Color de texto
+		description = Cor do texto
 	collapse
-		title = Combinaciones predeterminadas
+		title = Combinações predefinidas
 	description
-		description = Ideales para restablecer los colores por defecto del diseño.
+		description = Ideais para restaurar as cores padrão do design.
 	palettes
 		palettes
 			palette_1
@@ -66,9 +66,9 @@ Colores de tu marca
 				button_background_color = #000000
 				button_foreground_color = #FFFFFF
 	subtitle
-		subtitle = <a target='_blank' href='https://ayuda.tiendanube.com/es_ES/124497-colores-de-tu-marca/como-cambiar-los-colores-de-mi-diseno/?utm_source=admin-desktop&utm_medium=feature-page&utm_campaign=help'>¿Cómo cambio los colores de mi diseño?</a>
-		
-Tipo de letra
+		subtitle = <a target='_blank' href='https://atendimento.nuvemshop.com.br/pt_BR/como-mudar-as-cores-do-meu-layout/?utm_source=admin-desktop&utm_medium=feature-page&utm_campaign=help'>Como mudar as cores do meu layout?</a>
+
+Tipo de fonte
 	meta
 		icon = font
 		advanced = false
@@ -76,8 +76,8 @@ Tipo de letra
 		title = Títulos
 	font
 		name = font_headings
-		title = Fuentes para títulos
-		description = Fuente
+		title = Fontes para títulos
+		description = Fonte
 		values
 			"Almarai", sans-serif = Almarai
 			"Archivo", sans-serif = Archivo
@@ -160,22 +160,22 @@ Tipo de letra
 			"Zilla Slab", serif = Zilla Slab
 	range_number
 		name = headings_size
-		description = Tamaño
+		description = Tamanho
 		min = 28
 		max = 48
 	form_group
 		label = Estilo
 		checkbox_headings_bold
 			name = headings_bold
-			description = Negrita
+			description = Negrito
 			type = icon_button
 			icon = bold
 	title
 		title = Textos
 	font
 		name = font_rest
-		title = Fuentes para textos
-		description = Fuente
+		title = Fontes para textos
+		description = Fonte
 		values
 			"Almarai", sans-serif = Almarai
 			"Archivo", sans-serif = Archivo
@@ -258,125 +258,125 @@ Tipo de letra
 			"Zilla Slab", serif = Zilla Slab
 	range_number
 		name = font_rest_size
-		description = Tamaño
+		description = Tamanho
 		min = 12
 		max = 16
 
-Opciones de diseño
+Opções de design
 	meta
 		icon = cog
 		advanced = false
 	title
-		title = Ancho de página
+		title = Largura da página
 	description
-		description = Definí el ancho principal de la página (solo en computadoras)
+		description = Defina a largura principal da página (apenas em computadores)
 	range_number
 		name = container_width
-		description = Ancho
+		description = Largura
 		min = 960
 		max = 1600
 		step = 20
-Encabezado
+Cabeçalho
 	meta
 		icon = arrow-up
 		advanced = true
 	title
-		title = Colores
+		title = Cores
 	checkbox
 		name = header_colors
-		description = Usar estos colores para el encabezado
+		description = Usar estas cores para o cabeçalho
 	color
 		name = header_background_color
-		description = Color de fondo
+		description = Cor de fundo
 	color
 		name = header_foreground_color
-		description = Color de textos e íconos
+		description = Cor de textos e ícones
 	title
 		title = Logo
 	dropdown
 		name = logo_size
-		description = Tamaño del logo
+		description = Tamanho do logo
 		values
-			default = Predeterminado
-			small = Chico
-			medium = Mediano
+			default = Padrão
+			small = Pequeno
+			medium = Médio
 			big = Grande
 	title
-		title = Idiomas y monedas
+		title = Idiomas e moedas
 	checkbox
 		name = languages_header
-		description = Mostrar idiomas y monedas en el encabezado
+		description = Mostrar idiomas e moedas no cabeçalho
 	collapse
-		title = Encabezado transparente
+		title = Cabeçalho transparente
 	checkbox
 		name = head_transparent
-		description = Mostrar el fondo del encabezado transparente
+		description = Mostrar o fundo do cabeçalho transparente
 	dropdown
 		name = head_transparent_type
-		description = Aplicar transparencia sobre:
+		description = Aplicar transparência sobre:
 		values
-			slider_and_video = El carrusel de imágenes y el video
-			all = Toda la tienda
+			slider_and_video = O carrossel de imagens e o vídeo
+			all = Toda a loja
 	checkbox
 		name = head_transparent_contrast_options
-		description = Usar color y logo alternativos sobre el carrusel de imágenes y video
+		description = Usar cor e logo alternativos sobre o carrossel de imagens e vídeo
 	color
 		name = header_transparent_foreground_color
-		description = Color de textos e íconos
+		description = Cor de textos e ícones
 	image
 		original = logo-transparent.jpg
 		title = Logo alternativo (opcional)
 	collapse
-		title = Encabezado en celulares
+		title = Cabeçalho em celulares
 	dropdown
 		name = logo_position_mobile
-		description = Ubicación del logo
+		description = Localização do logo
 		values
-			center = Centrado
-			left = Izquierda
-			below = Centrado y debajo de los íconos
+			center = Centralizado
+			left = Esquerda
+			below = Centralizado e abaixo dos ícones
 	dropdown
 		name = search_type_mobile
-		description = Visibilidad del buscador
+		description = Visibilidade da busca
 		values
-			search_icon = Ícono
+			search_icon = Ícone
 			search_big = Grande
-			hidden = Oculto (se mostrará dentro del menú)
+			hidden = Oculto (será mostrado dentro do menu)
 	collapse
-		title = Encabezado en computadoras
+		title = Cabeçalho em computadores
 	checkbox
 		name = head_fix_desktop
-		description = Encabezado siempre visible al navegar la tienda
+		description = Cabeçalho sempre visível ao navegar na loja
 	dropdown
 		name = logo_position_desktop
-		description = Ubicación del logo
+		description = Localização do logo
 		values
-			center = Centrado
-			left = Izquierda
+			center = Centralizado
+			left = Esquerda
 	checkbox
 		name = search_big_desktop
-		description = Mostrar el buscador grande
+		description = Mostrar a busca grande
 	collapse
-		title = Barra de anuncio
+		title = Barra de anúncio
 	checkbox
 		name = ad_bar
-		description = Mostrar barra de anuncio
+		description = Mostrar barra de anúncio
 	checkbox
 		name = adbar_colors
-		description = Usar estos colores para la barra de anuncio
+		description = Usar estas cores para a barra de anúncio
 	color
 		name = adbar_background_color
-		description = Color de fondo
+		description = Cor de fundo
 	color
 		name = adbar_foreground_color
-		description = Color de texto
+		description = Cor do texto
 	title
-		title = Mensajes
+		title = Mensagens
 	checkbox
 		name = ad_bar_animate
-		description = Animar texto de derecha a izquierda
+		description = Animar texto da direita para a esquerda
 	subtitle
-		subtitle = Mensaje 1
+		subtitle = Mensagem 1
 	i18n_input
 		name = ad_bar_01_text
 		description = Texto
@@ -384,7 +384,7 @@ Encabezado
 		name = ad_bar_01_url
 		description = Link (opcional)
 	subtitle
-		subtitle = Mensaje 2
+		subtitle = Mensagem 2
 	i18n_input
 		name = ad_bar_02_text
 		description = Texto
@@ -392,7 +392,7 @@ Encabezado
 		name = ad_bar_02_url
 		description = Link (opcional)
 	subtitle
-		subtitle = Mensaje 3
+		subtitle = Mensagem 3
 	i18n_input
 		name = ad_bar_03_text
 		description = Texto
@@ -400,100 +400,100 @@ Encabezado
 		name = ad_bar_03_url
 		description = Link (opcional)
 
-Página de inicio
+Página inicial
 	meta
 		icon = home
 		advanced = true
 		default = home_order_position
 	collapse
-		title = Carrusel de imágenes
+		title = Carrossel de imagens
 		backto = home_order_position
 	checkbox
 		name = slider_full
-		description = Extender al ancho de la pantalla
+		description = Estender à largura da tela
 	checkbox
 		name = slider_animation
-		description = Agregar efecto de movimiento a las imágenes del carrusel
+		description = Adicionar efeito de movimento às imagens do carrossel
 	subtitle
-		subtitle = Imágenes para computadoras
+		subtitle = Imagens para computadores
 	gallery
 		name = slider
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 1920
 		gallery_height = 900
 		gallery_more_info = true
 	subtitle
-		subtitle = Imágenes para celulares
+		subtitle = Imagens para celulares
 	description
-		description = Mejorá la calidad y velocidad de carga con esta opción
+		description = Melhore a qualidade e velocidade de carregamento com esta opção
 	checkbox
 		name = toggle_slider_mobile
-		description = Cargar otras imágenes para celulares
+		description = Carregar outras imagens para celulares
 	gallery
 		name = slider_mobile
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 820
 		gallery_height = 1000
 		gallery_more_info = true
 	subtitle
-		subtitle = <a target='_blank' data-toggle-info='show-on_slider_mobile-inactive' href='https://ayuda.tiendanube.com/es/articles/3297783-como-usar-el-carrusel-de-imagenes-para-las-plantillas-idea-bahia-y-amazonas'>¿Cómo diseñar las imágenes para tu carrusel?</a>
+		subtitle = <a target='_blank' data-toggle-info='show-on_slider_mobile-inactive' href='https://atendimento.nuvemshop.com.br/pt_BR/como-usar-o-carrossel-de-imagens'>Como criar as imagens para o seu carrossel?</a>
 	collapse
-		title = Categorías principales
+		title = Categorias principais
 		backto = home_order_position
 	checkbox
 		name = main_categories
-		description = Mostrar categorías en la página principal
+		description = Mostrar categorias na página principal
 	i18n_input
 		name = main_categories_title
 		description = Título
 	gallery
 		name = slider_categories
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 170
 		gallery_height = 80
 	collapse
-		title = Información de envíos, pagos y compra
+		title = Informações de envio, pagamento e compra
 		backto = home_order_position
 	checkbox
 		name = banner_services_colors
-		description = Usar estos colores para la sección
+		description = Usar estas cores para a seção
 	color
 		name = banner_services_background_color
-		description = Color de fondo
+		description = Cor de fundo
 	color
 		name = banner_services_foreground_color
-		description = Color de texto
+		description = Cor do texto
 	checkbox
 		name = banner_services
-		description = Mostrar los banners en la página principal
+		description = Mostrar os banners na página principal
 	subtitle
 		subtitle = BANNER 1
 	image
 		original = banner_services_01.jpg
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		width = 120
 		height = 120
 	dropdown
 		name = banner_services_01_icon
-		description = Ícono
+		description = Ícone
 		values
-			image = Imagen propia
-			shipping = Envíos
-			card = Tarjetas de crédito
-			security = Seguridad
-			returns = Cambios y devoluciones
+			image = Imagem própria
+			shipping = Envios
+			card = Cartões de crédito
+			security = Segurança
+			returns = Trocas e devoluções
 			whatsapp = WhatsApp
-			promotions = Promociones
-			cash = Pago en efectivo
+			promotions = Promoções
+			cash = Pagamento em dinheiro
 	i18n_input
 		name = banner_services_01_title
 		description = Título
 	i18n_input
 		name = banner_services_01_description
-		description = Descripción
+		description = Descrição
 	i18n_input
 		name = banner_services_01_url
 		description = Link
@@ -501,27 +501,27 @@ Página de inicio
 		subtitle = BANNER 2
 	image
 		original = banner_services_02.jpg
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		width = 120
 		height = 120
 	dropdown
 		name = banner_services_02_icon
-		description = Ícono
+		description = Ícone
 		values
-			image = Imagen propia
-			shipping = Envíos
-			card = Tarjetas de crédito
-			security = Seguridad
-			returns = Cambios y devoluciones
+			image = Imagem própria
+			shipping = Envios
+			card = Cartões de crédito
+			security = Segurança
+			returns = Trocas e devoluções
 			whatsapp = WhatsApp
-			promotions = Promociones
-			cash = Pago en efectivo
+			promotions = Promoções
+			cash = Pagamento em dinheiro
 	i18n_input
 		name = banner_services_02_title
 		description = Título
 	i18n_input
 		name = banner_services_02_description
-		description = Descripción
+		description = Descrição
 	i18n_input
 		name = banner_services_02_url
 		description = Link
@@ -529,27 +529,27 @@ Página de inicio
 		subtitle = BANNER 3
 	image
 		original = banner_services_03.jpg
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		width = 120
 		height = 120
 	dropdown
 		name = banner_services_03_icon
-		description = Ícono
+		description = Ícone
 		values
-			image = Imagen propia
-			shipping = Envíos
-			card = Tarjetas de crédito
-			security = Seguridad
-			returns = Cambios y devoluciones
+			image = Imagem própria
+			shipping = Envios
+			card = Cartões de crédito
+			security = Segurança
+			returns = Trocas e devoluções
 			whatsapp = WhatsApp
-			promotions = Promociones
-			cash = Pago en efectivo
+			promotions = Promoções
+			cash = Pagamento em dinheiro
 	i18n_input
 		name = banner_services_03_title
 		description = Título
 	i18n_input
 		name = banner_services_03_description
-		description = Descripción
+		description = Descrição
 	i18n_input
 		name = banner_services_03_url
 		description = Link
@@ -557,32 +557,32 @@ Página de inicio
 		subtitle = BANNER 4
 	image
 		original = banner_services_04.jpg
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		width = 120
 		height = 120
 	dropdown
 		name = banner_services_04_icon
-		description = Ícono
+		description = Ícone
 		values
-			image = Imagen propia
-			shipping = Envíos
-			card = Tarjetas de crédito
-			security = Seguridad
-			returns = Cambios y devoluciones
+			image = Imagem própria
+			shipping = Envios
+			card = Cartões de crédito
+			security = Segurança
+			returns = Trocas e devoluções
 			whatsapp = WhatsApp
-			promotions = Promociones
-			cash = Pago en efectivo
+			promotions = Promoções
+			cash = Pagamento em dinheiro
 	i18n_input
 		name = banner_services_04_title
 		description = Título
 	i18n_input
 		name = banner_services_04_description
-		description = Descripción
+		description = Descrição
 	i18n_input
 		name = banner_services_04_url
 		description = Link
 	collapse
-		title = Mensaje de bienvenida
+		title = Mensagem de boas-vindas
 		backto = home_order_position
 	i18n_input
 		name = welcome_message
@@ -592,15 +592,15 @@ Página de inicio
 		description = Título
 	checkbox
 		name = welcome_italic
-		description = Usar texto en cursiva para el título.
+		description = Usar texto em itálico para o título.
 	i18n_input
 		name = welcome_link
 		description = Link
 	i18n_input
 		name = welcome_button
-		description = Texto del botón
+		description = Texto do botão
 	collapse
-		title = Mensaje institucional
+		title = Mensagem institucional
 		backto = home_order_position
 	i18n_input
 		name = institutional_message
@@ -610,290 +610,290 @@ Página de inicio
 		description = Título
 	checkbox
 		name = institutional_italic
-		description = Usar texto en cursiva para el título.
+		description = Usar texto em itálico para o título.
 	i18n_input
 		name = institutional_link
 		description = Link
 	i18n_input
 		name = institutional_button
-		description = Texto del botón
+		description = Texto do botão
 	collapse
-		title = Productos destacados
+		title = Produtos em destaque
 		backto = home_order_position
 	i18n_input
 		name = featured_products_title
 		description = Título
 	dropdown
 		name = featured_products_format
-		description = Mostrar los productos como:
+		description = Mostrar os produtos como:
 		values
-			grid = Grilla
-			slider = Carrusel
+			grid = Grade
+			slider = Carrossel
 	dropdown
 		name = featured_products_mobile
-		description = Cantidad de productos por fila en celulares
+		description = Quantidade de produtos por linha em celulares
 		values
-			1 = 1 producto
-			2 = 2 productos
+			1 = 1 produto
+			2 = 2 produtos
 	dropdown
 		name = featured_products_desktop
-		description = Cantidad de productos por fila en computadoras
+		description = Quantidade de produtos por linha em computadores
 		values
-			2 = 2 productos
-			3 = 3 productos
-			4 = 4 productos
+			2 = 2 produtos
+			3 = 3 produtos
+			4 = 4 produtos
 	subtitle
-		subtitle = <a target='_blank' href='/admin/themes/settings/product_order/'>Elegí cuáles vas a destacar</a>
+		subtitle = <a target='_blank' href='/admin/themes/settings/product_order/'>Escolha quais você vai destacar</a>
 	collapse
-		title = Productos nuevos
+		title = Produtos novos
 		backto = home_order_position
 	i18n_input
 		name = new_products_title
 		description = Título
 	dropdown
 		name = new_products_format
-		description = Mostrar los productos como:
+		description = Mostrar os produtos como:
 		values
-			grid = Grilla
-			slider = Carrusel
+			grid = Grade
+			slider = Carrossel
 	dropdown
 		name = new_products_mobile
-		description = Cantidad de productos por fila en celulares
+		description = Quantidade de produtos por linha em celulares
 		values
-			1 = 1 producto
-			2 = 2 productos
+			1 = 1 produto
+			2 = 2 produtos
 	dropdown
 		name = new_products_desktop
-		description = Cantidad de productos por fila en computadoras
+		description = Quantidade de produtos por linha em computadores
 		values
-			2 = 2 productos
-			3 = 3 productos
-			4 = 4 productos
+			2 = 2 produtos
+			3 = 3 produtos
+			4 = 4 produtos
 	subtitle
-		subtitle = <a target='_blank' href='/admin/themes/settings/product_order/'>Elegí cuáles vas a destacar</a>
+		subtitle = <a target='_blank' href='/admin/themes/settings/product_order/'>Escolha quais você vai destacar</a>
 	collapse
-		title = Productos en oferta
+		title = Produtos em oferta
 		backto = home_order_position
 	i18n_input
 		name = sale_products_title
 		description = Título
 	dropdown
 		name = sale_products_format
-		description = Mostrar los productos como:
+		description = Mostrar os produtos como:
 		values
-			grid = Grilla
-			slider = Carrusel
+			grid = Grade
+			slider = Carrossel
 	dropdown
 		name = sale_products_mobile
-		description = Cantidad de productos por fila en celulares
+		description = Quantidade de produtos por linha em celulares
 		values
-			1 = 1 producto
-			2 = 2 productos
+			1 = 1 produto
+			2 = 2 produtos
 	dropdown
 		name = sale_products_desktop
-		description = Cantidad de productos por fila en computadoras
+		description = Quantidade de produtos por linha em computadores
 		values
-			2 = 2 productos
-			3 = 3 productos
-			4 = 4 productos
+			2 = 2 produtos
+			3 = 3 produtos
+			4 = 4 produtos
 	subtitle
-		subtitle = <a target='_blank' href='/admin/themes/settings/product_order/'>Elegí cuáles vas a destacar</a>
+		subtitle = <a target='_blank' href='/admin/themes/settings/product_order/'>Escolha quais você vai destacar</a>
 	collapse
-		title = Producto principal
+		title = Produto principal
 		backto = home_order_position
 	description
-		description = Se va a mostrar un solo producto de la sección 'Principal'.
+		description = Será mostrado um único produto da seção 'Principal'.
 	dropdown
 		name = main_product_type
 		description = Mostrar:
 		values
-			first = El primero de la lista
-			random = En forma aleatoria
+			first = O primeiro da lista
+			random = De forma aleatória
 	subtitle
-		subtitle = <a target='_blank' href='/admin/themes/settings/product_order/'>Elegí cuál vas a destacar</a>
+		subtitle = <a target='_blank' href='/admin/themes/settings/product_order/'>Escolha qual você vai destacar</a>
 	collapse
-		title = Banners de categorías
+		title = Banners de categorias
 		backto = home_order_position
 	description
-		description = Podés cargar los banners que necesites, sin límite de cantidad.
+		description = Você pode carregar os banners que precisar, sem limite de quantidade.
 	i18n_input
 		name = banner_title
-		description = Título para los banners de categorías
+		description = Título para os banners de categorias
 	checkbox
 		name = banner_text_outside
-		description = Mostrar texto fuera de la imagen
+		description = Mostrar texto fora da imagem
 	checkbox
 		name = banner_slider
-		description = Mostrar banners dentro de un carrusel
+		description = Mostrar banners dentro de um carrossel
 	checkbox
 		name = banner_same_size
-		description = Usar el mismo alto para todos los banners
+		description = Usar a mesma altura para todos os banners
 	checkbox
 		name = banner_without_margins
-		description = Quitar espacios entre los banners
+		description = Remover espaços entre os banners
 	dropdown
 		name = banner_align
-		description = Alineación del texto
+		description = Alinhamento do texto
 		values
-			left = Izquierda
-			center = Centrado
+			left = Esquerda
+			center = Centralizado
 	subtitle
-		subtitle = Imágenes para computadoras
+		subtitle = Imagens para computadores
 	dropdown
 		name = banner_columns_desktop
-		description = Disposición:
+		description = Disposição:
 		values
-			1 = 1 banner por fila
-			2 = 2 banners por fila
-			3 = 3 banners por fila
-			4 = 4 banners por fila
+			1 = 1 banner por linha
+			2 = 2 banners por linha
+			3 = 3 banners por linha
+			4 = 4 banners por linha
 	gallery
 		name = banner
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 1920
 		gallery_height = 900
 		gallery_more_info = true
 	subtitle
-		subtitle = Imágenes para celulares
+		subtitle = Imagens para celulares
 	checkbox
 		name = toggle_banner_mobile
-		description = Cargar otras imágenes para celulares
+		description = Carregar outras imagens para celulares
 	gallery
 		name = banner_mobile
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 820
 		gallery_height = 1000
 		gallery_more_info = true
 	collapse
-		title = Banners promocionales
+		title = Banners promocionais
 		backto = home_order_position
 	description
-		description = Podés cargar los banners que necesites, sin límite de cantidad.
+		description = Você pode carregar os banners que precisar, sem limite de quantidade.
 	i18n_input
 		name = banner_promotional_title
-		description = Título para los banners promocionales
+		description = Título para os banners promocionais
 	checkbox
 		name = banner_promotional_text_outside
-		description = Mostrar texto fuera de la imagen
+		description = Mostrar texto fora da imagem
 	checkbox
 		name = banner_promotional_slider
-		description = Mostrar banners dentro de un carrusel
+		description = Mostrar banners dentro de um carrossel
 	checkbox
 		name = banner_promotional_same_size
-		description = Usar el mismo alto para todos los banners
+		description = Usar a mesma altura para todos os banners
 	checkbox
 		name = banner_promotional_without_margins
-		description = Quitar espacios entre los banners
+		description = Remover espaços entre os banners
 	dropdown
 		name = banner_promotional_align
-		description = Alineación del texto
+		description = Alinhamento do texto
 		values
-			left = Izquierda
-			center = Centrado
+			left = Esquerda
+			center = Centralizado
 	subtitle
-		subtitle = Imágenes para computadoras
+		subtitle = Imagens para computadores
 	dropdown
 		name = banner_promotional_columns_desktop
-		description = Disposición:
+		description = Disposição:
 		values
-			1 = 1 banner por fila
-			2 = 2 banners por fila
-			3 = 3 banners por fila
-			4 = 4 banners por fila
+			1 = 1 banner por linha
+			2 = 2 banners por linha
+			3 = 3 banners por linha
+			4 = 4 banners por linha
 	gallery
 		name = banner_promotional
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 1920
 		gallery_height = 900
 		gallery_more_info = true
 	subtitle
-		subtitle = Imágenes para celulares
+		subtitle = Imagens para celulares
 	checkbox
 		name = toggle_banner_promotional_mobile
-		description = Cargar otras imágenes para celulares
+		description = Carregar outras imagens para celulares
 	gallery
 		name = banner_promotional_mobile
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 820
 		gallery_height = 1000
 		gallery_more_info = true
 	collapse
-		title = Banners de novedades
+		title = Banners de novidades
 		backto = home_order_position
 	description
-		description = Podés cargar los banners que necesites, sin límite de cantidad.
+		description = Você pode carregar os banners que precisar, sem limite de quantidade.
 	i18n_input
 		name = banner_news_title
-		description = Título para los banners de novedades
+		description = Título para os banners de novidades
 	checkbox
 		name = banner_news_text_outside
-		description = Mostrar texto fuera de la imagen
+		description = Mostrar texto fora da imagem
 	checkbox
 		name = banner_news_slider
-		description = Mostrar banners dentro de un carrusel
+		description = Mostrar banners dentro de um carrossel
 	checkbox
 		name = banner_news_same_size
-		description = Usar el mismo alto para todos los banners
+		description = Usar a mesma altura para todos os banners
 	checkbox
 		name = banner_news_without_margins
-		description = Quitar espacios entre los banners
+		description = Remover espaços entre os banners
 	dropdown
 		name = banner_news_align
-		description = Alineación del texto
+		description = Alinhamento do texto
 		values
-			left = Izquierda
-			center = Centrado
+			left = Esquerda
+			center = Centralizado
 	subtitle
-		subtitle = Imágenes para computadoras
+		subtitle = Imagens para computadores
 	dropdown
 		name = banner_news_columns_desktop
-		description = Disposición:
+		description = Disposição:
 		values
-			1 = 1 banner por fila
-			2 = 2 banners por fila
-			3 = 3 banners por fila
-			4 = 4 banners por fila
+			1 = 1 banner por linha
+			2 = 2 banners por linha
+			3 = 3 banners por linha
+			4 = 4 banners por linha
 	gallery
 		name = banner_news
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 1920
 		gallery_height = 900
 		gallery_more_info = true
 	subtitle
-		subtitle = Imágenes para celulares
+		subtitle = Imagens para celulares
 	checkbox
 		name = toggle_banner_news_mobile
-		description = Cargar otras imágenes para celulares
+		description = Carregar outras imagens para celulares
 	gallery
 		name = banner_news_mobile
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 820
 		gallery_height = 1000
 		gallery_more_info = true
 	collapse
-		title = Módulos de imagen y texto
+		title = Módulos de imagem e texto
 		backto = home_order_position
 	description
-		description = Podés cargar los módulos que necesites, sin límite de cantidad.
+		description = Você pode carregar os módulos que precisar, sem limite de quantidade.
 	checkbox
 		name = module_slider
-		description = Mostrar los módulos dentro de un carrusel
+		description = Mostrar os módulos dentro de um carrossel
 	checkbox
 		name = module_same_size
-		description = Usar el mismo alto para todos los módulos
+		description = Usar a mesma altura para todos os módulos
 	checkbox
 		name = module_without_margins
-		description = Quitar espacios entre los módulos
+		description = Remover espaços entre os módulos
 	gallery
 		name = module
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 1920
 		gallery_height = 900
 		gallery_more_info = true
@@ -904,41 +904,41 @@ Página de inicio
 		name = brands_format
 		description = Mostrar como:
 		values
-			grid = Grilla
-			slider = Carrusel
+			grid = Grade
+			slider = Carrossel
 	i18n_input
 		name = brands_title
 		description = Título
 	gallery
 		name = brands
-		gallery_image = Agregar imagen
-		gallery_link = [Opcional] Página web a la que quieres que te lleve la imagen al hacer click
+		gallery_image = Adicionar imagem
+		gallery_link = [Opcional] Página web para a qual a imagem levará ao clicar
 		gallery_width = 200
 		gallery_height = 200
 	collapse
-		title = Video
+		title = Vídeo
 		backto = home_order_position
 	checkbox
 		name = video_full
-		description = Extender al ancho de la pantalla
+		description = Estender à largura da tela
 	dropdown
 		name = video_type
-		description = Tipo de reproducción
+		description = Tipo de reprodução
 		values
-			autoplay = Automática y sin sonido
-			sound = Con sonido y sin reproducción automática
+			autoplay = Automática e sem som
+			sound = Com som e sem reprodução automática
 	i18n_input
 		name = video_embed
-		description = Link de YouTube
+		description = Link do YouTube
 	description
-		description = Ej: https://www.youtube.com/watch?v=Yn19Od1H0S4
+		description = Ex: https://www.youtube.com/watch?v=Yn19Od1H0S4
 	subtitle
-		subtitle = Imagen del video
+		subtitle = Imagem do vídeo
 	description
-		description = No aplica si el tipo de reproducción es automática y el video no está en la primera posición
+		description = Não se aplica se o tipo de reprodução for automática e o vídeo não estiver na primeira posição
 	image
 		original = video_image.jpg
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		width = 1920
 		height = 1080
 	i18n_input
@@ -946,36 +946,36 @@ Página de inicio
 		description = Título
 	i18n_input
 		name = video_text
-		description = Descripción
+		description = Descrição
 	i18n_input
 		name = video_button
-		description = Texto del botón
+		description = Texto do botão
 	i18n_input
 		name = video_button_url
-		description = Link del botón
+		description = Link do botão
 	checkbox
 		name = video_vertical_mobile
-		description = Usar formato vertical en celulares
+		description = Usar formato vertical em celulares
 	collapse
 		title = Newsletter
 		backto = home_order_position
 	checkbox
 		name = home_news_full
-		description = Extender al ancho de la pantalla
+		description = Estender à largura da tela
 	checkbox
 		name = home_news_colors
-		description = Usar estos colores para el newsletter
+		description = Usar estas cores para o newsletter
 	color
 		name = home_news_background_color
-		description = Color de fondo
+		description = Cor de fundo
 	color
 		name = home_news_foreground_color
-		description = Color de texto
+		description = Cor do texto
 	description
-		description = Imagen
+		description = Imagem
 	image
 		original = home_news_image.jpg
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		width = 800
 		height = 480
 	i18n_input
@@ -983,65 +983,65 @@ Página de inicio
 		description = Título
 	i18n_input
 		name = home_news_text
-		description = Descripción
+		description = Descrição
 	collapse
-		title = Testimonios
+		title = Depoimentos
 		backto = home_order_position
 	checkbox
 		name = testimonials_italic
-		description = Usar texto en cursiva para las descripciones.
+		description = Usar texto em itálico para as descrições.
 	i18n_input
 		name = testimonials_title
 		description = Título
 	subtitle
-		subtitle = Testimonio 1
+		subtitle = Depoimento 1
 	image
 		original = testimonial_01.jpg
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		width = 250
 		height = 250
 	i18n_input
 		name = testimonial_01_name
-		description = Nombre
+		description = Nome
 	i18n_input
 		name = testimonial_01_description
-		description = Descripción
+		description = Descrição
 	subtitle
-		subtitle = Testimonio 2
+		subtitle = Depoimento 2
 	image
 		original = testimonial_02.jpg
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		width = 250
 		height = 250
 	i18n_input
 		name = testimonial_02_name
-		description = Nombre
+		description = Nome
 	i18n_input
 		name = testimonial_02_description
-		description = Descripción
+		description = Descrição
 	subtitle
-		subtitle = Testimonio 3
+		subtitle = Depoimento 3
 	image
 		original = testimonial_03.jpg
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		width = 250
 		height = 250
 	i18n_input
 		name = testimonial_03_name
-		description = Nombre
+		description = Nome
 	i18n_input
 		name = testimonial_03_description
-		description = Descripción
+		description = Descrição
 	collapse
-		title = Publicaciones de Instagram
+		title = Publicações do Instagram
 		backto = home_order_position
 	description
-		description = El Feed de Instagram muestra automáticamente tus últimas publicaciones en la página de inicio de tu tienda. Tu perfil debe ser público.
+		description = O Feed do Instagram mostra automaticamente suas últimas publicações na página inicial da sua loja. Seu perfil deve ser público.
 	checkbox
 		name = show_instafeed
-		description = Mostrar tus publicaciones de Instagram en la página de inicio de tu tienda
+		description = Mostrar suas publicações do Instagram na página inicial da sua loja
 	subtitle
-		subtitle = Para mostrar tus publicaciones necesitás generar un token, <a target='_blank' href='https://ayuda.tiendanube.com/es_ES/123224-redes-sociales/como-mostrar-mis-publicaciones-de-instagram-en-mi-tiendanube'>¿cómo configurarlo?</a>
+		subtitle = Para mostrar suas publicações você precisa gerar um token, <a target='_blank' href='https://atendimento.nuvemshop.com.br/pt_BR/como-mostrar-minhas-publicacoes-do-instagram-na-minha-loja'>como configurar?</a>
 	collapse
 		title = Pop-up promocional
 		backto = home_order_position
@@ -1050,7 +1050,7 @@ Página de inicio
 		description = Mostrar pop-up
 	image
 		original = home_popup_image.jpg
-		title = Imagen para el pop-up
+		title = Imagem para o pop-up
 		width = 375
 		height = 190
 	i18n_input
@@ -1058,112 +1058,112 @@ Página de inicio
 		description = Título
 	i18n_input
 		name = home_popup_txt
-		description = Descripción
+		description = Descrição
 	i18n_input
 		name = home_popup_btn
-		description = Texto del botón
+		description = Texto do botão
 	i18n_input
 		name = home_popup_url
-		description = Link del botón
+		description = Link do botão
 	checkbox
 		name = home_news_box
-		description = Permitir que tus clientes se suscriban al newsletter
+		description = Permitir que seus clientes se inscrevam na newsletter
 	subtitle
-		subtitle = <span class='legend'>El texto y link del botón no se van a mostrar si está habilitada la suscripción al newsletter</span>
+		subtitle = <span class='legend'>O texto e link do botão não serão mostrados se a inscrição na newsletter estiver habilitada</span>
 	collapse
-		title = Página de inicio
+		title = Página inicial
 		backto = _top
 	section_order
 		name = home_order_position
 		start_index = 1
 		sections
-			slider = Carrusel de imágenes
-			main_categories = Categorías principales
-			products = Productos destacados
-			new = Productos nuevos
-			sale = Productos en oferta
-			informatives = Información de envíos, pagos y compra
-			welcome = Mensaje de bienvenida
-			institutional = Mensaje institucional
-			categories = Banners de categorías
-			promotional = Banners promocionales
-			news_banners = Banners de novedades
-			modules = Módulos de imagen y texto
+			slider = Carrossel de imagens
+			main_categories = Categorias principais
+			products = Produtos em destaque
+			new = Produtos novos
+			sale = Produtos em oferta
+			informatives = Informações de envio, pagamento e compra
+			welcome = Mensagem de boas-vindas
+			institutional = Mensagem institucional
+			categories = Banners de categorias
+			promotional = Banners promocionais
+			news_banners = Banners de novidades
+			modules = Módulos de imagem e texto
 			brands = Marcas
-			video = Video
+			video = Vídeo
 			newsletter = Newsletter
-			main_product = Producto principal
-			instafeed = Publicaciones de Instagram
-			testimonials = Testimonios
+			main_product = Produto principal
+			instafeed = Publicações do Instagram
+			testimonials = Depoimentos
 	link
 		text = Pop-up promocional
 		linkto = home_promotional_popup
 
-Listado de productos
+Listagem de produtos
 	meta
 		icon = th-large
 		advanced = true
 	title
-		title = Imagen para las categorías
+		title = Imagem para as categorias
 	image
-		title = Cargar imagen (JPG, GIF, PNG)
+		title = Carregar imagem (JPG, GIF, PNG)
 		original = banner-products.jpg
 		width = 930
 		height = 465
 	subtitle
-		subtitle = Podés subir una imagen diferente para cada categoría <a target='_blank' href='/admin/categories/'>desde acá</a>
+		subtitle = Você pode subir uma imagem diferente para cada categoria <a target='_blank' href='/admin/categories/'>por aqui</a>
 	title
 		title = Filtros
 	subtitle
-		subtitle = <span class='js-description-html'><strong>Configurá los filtros</strong> de tu tienda desde <a target='_blank' href='/admin/v2/filters' class='font-bold'>el administrador</a></span>
+		subtitle = <span class='js-description-html'><strong>Configure os filtros</strong> da sua loja no <a target='_blank' href='/admin/v2/filters' class='font-bold'>administrador</a></span>
 	title
-		title = Productos en el listado
+		title = Produtos na listagem
 	dropdown
 		name = grid_columns_mobile
-		description = Cantidad de productos por fila en celulares
+		description = Quantidade de produtos por linha em celulares
 		values
-			1 = 1 producto
-			2 = 2 productos
+			1 = 1 produto
+			2 = 2 produtos
 	dropdown
 		name = grid_columns_desktop
-		description = Cantidad de productos por fila en computadoras
+		description = Quantidade de produtos por linha em computadores
 		values
-			2 = 2 productos
-			3 = 3 productos
-			4 = 4 productos
+			2 = 2 produtos
+			3 = 3 produtos
+			4 = 4 produtos
 	dropdown
 		name = pagination
-		description = Mostrar los productos usando:
+		description = Mostrar os produtos usando:
 		values
-			classic = Navegación entre páginas
-			infinite = Carga infinita
+			classic = Navegação entre páginas
+			infinite = Carregamento infinito
 	title
 		title = Compra rápida
 	checkbox
 		name = quick_shop
-		description = Permitir que tus clientes puedan agregar productos a su carrito rápidamente desde el listado de productos
+		description = Permitir que seus clientes adicionem produtos ao carrinho rapidamente a partir da listagem de produtos
 	title
-		title = Variantes de color
+		title = Variantes de cor
 	checkbox
 		name = product_color_variants
-		description = Mostrar variantes de color en listado de productos
+		description = Mostrar variantes de cor na listagem de produtos
 	title
-		title = Fotos del producto
+		title = Fotos do produto
 	checkbox
 		name = product_hover
-		description = Mostrar la segunda foto al posar el mouse
+		description = Mostrar a segunda foto ao passar o mouse
 	checkbox
 		name = product_item_slider
-		description = Mostrar las fotos en un carrusel para cada producto
+		description = Mostrar as fotos em um carrossel para cada produto
 	subtitle
-		subtitle = <span class='js-description-html legend d-block p-top-half'>El carrusel aplica sólo a listados de categorías y resultados de búsqueda</span>
+		subtitle = <span class='js-description-html legend d-block p-top-half'>O carrossel se aplica apenas a listagens de categorias e resultados de busca</span>
 	title
-		title = Información de cuotas
+		title = Informação de parcelas
 	checkbox
 		name = product_installments
-		description = Mostrar cuotas en listado de productos
+		description = Mostrar parcelas na listagem de produtos
 
-Detalle de producto
+Detalhes do produto
 	meta
 		icon = cube
 		advanced = true
@@ -1171,210 +1171,210 @@ Detalle de producto
 		title = Formas de entrega
 	checkbox_global
 		name = shipping_calculator_product_page
-		description = Mostrar el calculador de costos de envío y locales físicos en la página de producto
+		description = Mostrar o calculador de custos de envio e lojas físicas na página do produto
 	subtitle
-		subtitle = <a target='_blank' href='/admin/shipping/'>Agregar medios de envío o locales físicos</a>
+		subtitle = <a target='_blank' href='/admin/shipping/'>Adicionar meios de envio ou lojas físicas</a>
 	collapse
-		title = Información de cuotas
+		title = Informação de parcelas
 	checkbox
 		name = product_detail_installments
-		description = Mostrar cuotas en la página de producto
+		description = Mostrar parcelas na página do produto
 	collapse
-		title = Descuento por medio de pago
+		title = Desconto por meio de pagamento
 	checkbox
 		name = payment_discount_price
-		description = Mostrar el precio con mayor descuento en los listados, el detalle de producto y el carrito de compras
+		description = Mostrar o preço com maior desconto nas listagens, no detalhe do produto e no carrinho de compras
 	subtitle
-		subtitle = <a target='_blank' href='/admin/payments/'>Configurá descuentos para tus medios de pago.</a>
+		subtitle = <a target='_blank' href='/admin/payments/'>Configure descontos para seus meios de pagamento.</a>
 	collapse
-		title = Variantes del producto
+		title = Variantes do produto
 	checkbox
 		name = bullet_variants
-		description = Mostrar como botones
+		description = Mostrar como botões
 	subtitle
-		subtitle = Variantes de color
+		subtitle = Variantes de cor
 	checkbox
 		name = image_color_variants
-		description = Mostrar la foto de la variante del color como botón
+		description = Mostrar a foto da variante da cor como botão
 	collapse
-		title = Guía de talles
+		title = Guia de tamanhos
 	subtitle
-		subtitle = Cuando un producto tenga variantes de 'Talle', podés mostrar un pop-up con las medidas. Solo necesitás <a target='_blank' href='/admin/pages/'>crear una página</a> e incluir su link debajo.
+		subtitle = Quando um produto tiver variantes de 'Tamanho', você pode mostrar um pop-up com as medidas. Basta <a target='_blank' href='/admin/pages/'>criar uma página</a> e incluir o link abaixo.
 	i18n_input
 		name = size_guide_url
-		description = Link de la página
+		description = Link da página
 	description
-		description = Ej: https://tudominio.com/guia-de-talles/
+		description = Ex: https://seudominio.com/guia-de-tamanhos/
 	collapse
 		title = SKU
 	checkbox
 		name = product_sku
 		description = Mostrar código SKU
 	collapse
-		title = Stock
+		title = Estoque
 	checkbox
 		name = product_stock
-		description = Mostrar stock disponible
+		description = Mostrar estoque disponível
 	subtitle
-		subtitle = Último producto en stock
+		subtitle = Último produto em estoque
 	checkbox
 		name = last_product
-		description = Mostrar un mensaje para incentivar la compra cuando quede la última unidad de un producto
+		description = Mostrar uma mensagem para incentivar a compra quando restar a última unidade de um produto
 	i18n_input
-		description = Mensaje
+		description = Mensagem
 		name = last_product_text
 	collapse
-		title = Descripción del producto
+		title = Descrição do produto
 	checkbox
 		name = full_width_description
-		description = Mostrar la descripción ocupando todo el ancho de la pantalla (solo en computadoras)
+		description = Mostrar a descrição ocupando toda a largura da tela (apenas em computadores)
 	collapse
 		title = Facebook
 	subtitle
-		subtitle = Comentarios en el producto
+		subtitle = Comentários no produto
 	checkbox
 		name = show_product_fb_comment_box
-		description = Permitir que tus clientes te dejen comentarios con su usuario de Facebook en la página de producto
+		description = Permitir que seus clientes deixem comentários com seu usuário do Facebook na página do produto
 	text
 		name = fb_admins
-		description = ID de tu perfil de Facebook
+		description = ID do seu perfil do Facebook
 	subtitle
-		subtitle = Es necesario si querés moderar los comentarios. Podés obtenerlo <a target='_blank' href='https://findmyfbid.in/'>acá</a>
+		subtitle = É necessário se você quiser moderar os comentários. Você pode obtê-lo <a target='_blank' href='https://findmyfbid.in/'>aqui</a>
 	collapse
-		title = Productos relacionados
+		title = Produtos relacionados
 	i18n_input
-		description = Título para los productos alternativos
+		description = Título para os produtos alternativos
 		name = products_related_title
 	i18n_input
-		description = Título para los productos complementarios
+		description = Título para os produtos complementares
 		name = products_complementary_title
 
-Carrito de compras
+Carrinho de compras
 	meta
 		icon = shopping-cart
 		advanced = true
 	checkbox
 		name = continue_buying
-		description = Mostrar el botón 'Ver más productos' en el carrito de compras
+		description = Mostrar o botão 'Ver mais produtos' no carrinho de compras
 	title
-		title = Monto mínimo de compra
+		title = Valor mínimo de compra
 	text
 		name = cart_minimum_value
-		description = ¿Cuál es el monto mínimo que tus clientes deben gastar?
-		placeholder = Ej.: 3000
+		description = Qual é o valor mínimo que seus clientes devem gastar?
+		placeholder = Ex.: 3000
 	subtitle
-		subtitle = <span class='legend'>Ingresá solamente números</span>
+		subtitle = <span class='legend'>Digite apenas números</span>
 	title
-		title = Carrito de compras rápidas
+		title = Carrinho de compras rápidas
 	checkbox
 		name = ajax_cart
-		description = Permitir que tus clientes agreguen productos al carrito sin necesidad de ir a otra página
+		description = Permitir que seus clientes adicionem produtos ao carrinho sem precisar ir para outra página
 	dropdown
 		name = cart_open_type
-		description = Acción al agregar un producto al carrito:
+		description = Ação ao adicionar um produto ao carrinho:
 		values
-			show_notification = Mostrar una notificación
-			show_cart = Abrir el carrito
+			show_notification = Mostrar uma notificação
+			show_cart = Abrir o carrinho
 	title
-		title = Recomendaciones de productos
+		title = Recomendações de produtos
 	checkbox
 		name = add_to_cart_recommendations
-		description = Sugerir productos complementarios al agregar uno al carrito de compras rápidas
+		description = Sugerir produtos complementares ao adicionar um ao carrinho de compras rápidas
 	subtitle
-		subtitle = <a target='_blank' href='https://ayuda.tiendanube.com/es_AR/123159-detalle-del-producto/como-seleccionar-los-productos-relacionados-en-tiendanube' class='js-checkbox-help-link'>Más sobre productos relacionados</a>
+		subtitle = <a target='_blank' href='https://atendimento.nuvemshop.com.br/pt_BR/como-selecionar-os-produtos-relacionados' class='js-checkbox-help-link'>Mais sobre produtos relacionados</a>
 	title
 		title = Formas de entrega
 	checkbox_global
 		name = shipping_calculator_cart_page
-		description = Mostrar el calculador de costos de envío y locales físicos en el carrito
+		description = Mostrar o calculador de custos de envio e lojas físicas no carrinho
 	subtitle
-		subtitle = <a target='_blank' href='/admin/shipping/'>Agregar medios de envío o locales físicos</a>
+		subtitle = <a target='_blank' href='/admin/shipping/'>Adicionar meios de envio ou lojas físicas</a>
 
-Pie de página
+Rodapé
 	meta
 		icon = arrow-down
 		advanced = true
 	title
-		title = Colores
+		title = Cores
 	checkbox
 		name = footer_colors
-		description = Usar estos colores para el pie de página
+		description = Usar estas cores para o rodapé
 	color
 		name = footer_background_color
-		description = Color de fondo
+		description = Cor de fundo
 	color
 		name = footer_foreground_color
-		description = Color de textos e íconos
+		description = Cor de textos e ícones
 	title
 		title = Logo
 	description
-		description = Elegí un logo para el pie de página (opcional)
+		description = Escolha um logo para o rodapé (opcional)
 	image
 		original = footer_logo.jpg
-		title = Imagen del logo
+		title = Imagem do logo
 		width = 60
 		height = 40
 	title
-		title = Idiomas y monedas
+		title = Idiomas e moedas
 	checkbox
 		name = languages_footer
-		description = Mostrar idiomas y monedas en el pie de página
+		description = Mostrar idiomas e moedas no rodapé
 	title
-		title = Menúes
+		title = Menus
 	subtitle
-		subtitle = Elegí el menú para el final de la página (footer). Si aún no configuraste ninguno, podés hacerlo <a target='_blank' href='/admin/navigation/?ref=submenu'>desde acá</a>
+		subtitle = Escolha o menu para o final da página (footer). Se ainda não configurou nenhum, você pode fazer isso <a target='_blank' href='/admin/navigation/?ref=submenu'>por aqui</a>
 	checkbox
 		name = footer_menu_show
-		description = Mostrar menú
+		description = Mostrar menu
 	menu
 		name = footer_menu
-		description = ¿Qué menú vas a mostrar al final de la página?
+		description = Qual menu você vai mostrar no final da página?
 	subtitle
-		subtitle = <a target='_blank' href='https://ayuda.tiendanube.com/es_AR/123259-menues/como-cambiar-el-menu-inferior-de-mi-tienda'>¿Cómo cambio el menú inferior de mi tienda?</a>
+		subtitle = <a target='_blank' href='https://atendimento.nuvemshop.com.br/pt_BR/como-mudar-o-menu-inferior-da-minha-loja'>Como mudar o menu inferior da minha loja?</a>
 	title
 		title = Newsletter
 	checkbox
 		name = news_show
-		description = Permitir que tus clientes se registren para recibir novedades
+		description = Permitir que seus clientes se cadastrem para receber novidades
 	title
-		title = Datos de contacto
+		title = Dados de contato
 	checkbox
 		name = footer_contact_show
-		description = Mostrar datos de contacto
+		description = Mostrar dados de contato
 	title
-		title = Medios de envío
+		title = Meios de envio
 	checkbox_global
 		name = shipping_show
-		description = Mostrar medios de envío en tu tienda
+		description = Mostrar meios de envio na sua loja
 	title
-		title = Medios de pago
+		title = Meios de pagamento
 	checkbox_global
 		name = payments_show
-		description = Mostrar medios de pago en tu tienda
+		description = Mostrar meios de pagamento na sua loja
 	title
-		title = Sellos personalizados en el footer
+		title = Selos personalizados no footer
 	description
-		description = Podés agregar sellos de dos formas: subiendo una imagen o pegando el código Javascript o HTML
+		description = Você pode adicionar selos de duas formas: subindo uma imagem ou colando o código Javascript ou HTML
 	image
-		title = Imagen del sello
+		title = Imagem do selo
 		original = seal_img.jpg
 		width = 24
 		height = 24
 		url = seal_url
-		url_description = [Opcional] Página web externa a la que llevará la imagen del sello al hacer clic
+		url_description = [Opcional] Página web externa para a qual a imagem do selo levará ao clicar
 	subtitle
-		subtitle = Código Javascript o HTML del sello
+		subtitle = Código Javascript ou HTML do selo
 	textarea
 		name = custom_seal_code
 
-Edición avanzada de CSS
+Edição avançada de CSS
 	meta
 		icon = code
 		advanced = true
 	title
-		title = Para diseñadores web
+		title = Para designers web
 	css_code
 		name = css_code
-		description = Acá podes escribir código CSS para que se muestre en tu tienda
+		description = Aqui você pode escrever código CSS para ser exibido na sua loja
 	subtitle
-		subtitle = <a target='_blank' href='https://ayuda.tiendanube.com/es_ES/123225-edicion-avanzada-de-css/como-editar-el-diseno-con-codigo-css'>¿Cómo edito el código CSS de mi tienda?</a>
+		subtitle = <a target='_blank' href='https://atendimento.nuvemshop.com.br/pt_BR/como-editar-o-design-com-codigo-css'>Como editar o código CSS da minha loja?</a>

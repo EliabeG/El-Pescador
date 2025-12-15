@@ -79,45 +79,46 @@
             {{ settings.css_code | raw }}
         </style>
 
-        {# El Pescador - CSS Override - Nova Identidade Visual (Natureza/Pesca) #}
+        {# El Pescador - CSS Override - Nova Identidade Visual (Preto + Ciano) #}
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap');
 
             /* ============================================
                CSS VARIÁVEIS - El Pescador
-               Nova Paleta: Branco + Navy Blue + Laranja
+               Nova Paleta: Preto + Ciano + Laranja
             ============================================ */
 
             :root {
-                --main-foreground: #2C3E50 !important;
-                --main-background: #F5F7FA !important;
-                --accent-color: #E67E22 !important;
-                --button-background: #E67E22 !important;
-                --button-foreground: #FFFFFF !important;
+                --main-foreground: #1C2833 !important;
+                --main-background: #F8F9FA !important;
+                --accent-color: #00D4FF !important;
+                --button-background: #00D4FF !important;
+                --button-foreground: #000000 !important;
                 --label-background: #E74C3C !important;
                 --label-foreground: #FFFFFF !important;
-                --adbar-background: #1B3A57 !important;
-                --adbar-foreground: #FFFFFF !important;
-                --header-background: #1B3A57 !important;
+                --adbar-background: #000000 !important;
+                --adbar-foreground: #00D4FF !important;
+                --header-background: #000000 !important;
                 --header-foreground: #FFFFFF !important;
-                --footer-background: #1B3A57 !important;
+                --footer-background: #000000 !important;
                 --footer-foreground: #FFFFFF !important;
-                --newsletter-background: #1B3A57 !important;
+                --newsletter-background: #1D4E4F !important;
                 --newsletter-foreground: #FFFFFF !important;
-                --services-background: #FFFFFF !important;
-                --services-foreground: #2C3E50 !important;
+                --services-background: #1D4E4F !important;
+                --services-foreground: #FFFFFF !important;
                 --heading-font: "Oswald", sans-serif !important;
                 --body-font: "Open Sans", sans-serif !important;
 
-                /* Cores El Pescador */
-                --ep-navy: #1B3A57;
-                --ep-navy-dark: #152D45;
-                --ep-orange: #E67E22;
-                --ep-orange-dark: #D35400;
-                --ep-gray-light: #F5F7FA;
-                --ep-gray: #95A5A6;
-                --ep-text: #2C3E50;
+                /* Cores El Pescador - Nova Paleta */
+                --ep-primary-blue: #0D3B66;
+                --ep-accent-cyan: #00D4FF;
+                --ep-accent-orange: #F4A836;
+                --ep-dark-green: #1D4E4F;
+                --ep-dark-gray: #1C2833;
+                --ep-black: #000000;
                 --ep-white: #FFFFFF;
+                --ep-light-gray: #F8F9FA;
+                --ep-danger-red: #E74C3C;
             }
 
             /* ============================================
@@ -126,22 +127,22 @@
 
             body {
                 font-family: "Open Sans", sans-serif !important;
-                color: #2C3E50 !important;
-                background-color: #F5F7FA !important;
+                color: #1C2833 !important;
+                background-color: #F8F9FA !important;
             }
 
             h1, h2, h3, h4, h5, h6,
             .h1, .h2, .h3, .h4, .h5, .h6 {
                 font-family: "Oswald", sans-serif !important;
-                color: #2C3E50 !important;
+                color: #1C2833 !important;
             }
 
             /* ============================================
-               AD BAR - Barra de Anúncios (Navy Blue)
+               AD BAR - Barra de Anúncios (Preto)
             ============================================ */
 
             .section-adbar {
-                background-color: #1B3A57 !important;
+                background-color: #000000 !important;
             }
 
             .section-adbar,
@@ -150,20 +151,20 @@
             .section-adbar .svg-icon-text,
             .section-adbar .swiper-button-prev,
             .section-adbar .swiper-button-next {
-                color: #FFFFFF !important;
-                fill: #FFFFFF !important;
+                color: #00D4FF !important;
+                fill: #00D4FF !important;
             }
 
             .section-adbar a:hover {
-                color: #E67E22 !important;
+                color: #F4A836 !important;
             }
 
             /* ============================================
-               HEADER - Cabeçalho (Navy Blue)
+               HEADER - Cabeçalho (Preto)
             ============================================ */
 
             .head-main {
-                background-color: #1B3A57 !important;
+                background-color: #000000 !important;
             }
 
             .head-main,
@@ -175,50 +176,68 @@
 
             .head-main a:hover,
             .head-main .svg-icon-text:hover {
-                color: #E67E22 !important;
-                fill: #E67E22 !important;
+                color: #00D4FF !important;
+                fill: #00D4FF !important;
             }
 
             .head-main .form-control {
                 background-color: rgba(255,255,255,0.1) !important;
-                border: 1px solid rgba(255,255,255,0.3) !important;
+                border: 2px solid #00D4FF !important;
+                border-radius: 25px !important;
                 color: #FFFFFF !important;
             }
 
             .head-main .form-control::placeholder {
-                color: rgba(255,255,255,0.6) !important;
+                color: rgba(255,255,255,0.7) !important;
             }
 
             .head-main .js-cart-widget-amount {
-                background-color: #E67E22 !important;
-                color: #FFFFFF !important;
+                background-color: #00D4FF !important;
+                color: #000000 !important;
             }
 
             /* ============================================
-               NAVEGAÇÃO (Navy Blue)
+               NAVEGAÇÃO (Preto com Ciano)
             ============================================ */
 
             .desktop-nav-col,
             .nav-desktop {
-                background-color: #1B3A57 !important;
+                background-color: #000000 !important;
+                border-top: 1px solid rgba(0,212,255,0.2) !important;
             }
 
             .nav-desktop-list a {
                 color: #FFFFFF !important;
                 font-family: "Oswald", sans-serif !important;
+                position: relative !important;
             }
 
             .nav-desktop-list a:hover {
-                color: #E67E22 !important;
+                color: #00D4FF !important;
+            }
+
+            .nav-desktop-list a::after {
+                content: '' !important;
+                position: absolute !important;
+                bottom: -5px !important;
+                left: 0 !important;
+                width: 0 !important;
+                height: 2px !important;
+                background: #00D4FF !important;
+                transition: width 0.3s !important;
+            }
+
+            .nav-desktop-list a:hover::after {
+                width: 100% !important;
             }
 
             .nav-desktop-list .nav-item.active > a {
-                color: #E67E22 !important;
+                color: #00D4FF !important;
             }
 
             .nav-desktop-list .dropdown-menu {
-                background-color: #1B3A57 !important;
-                border-color: rgba(255,255,255,0.2) !important;
+                background-color: #000000 !important;
+                border-color: rgba(0,212,255,0.3) !important;
             }
 
             .nav-desktop-list .dropdown-item {
@@ -226,8 +245,8 @@
             }
 
             .nav-desktop-list .dropdown-item:hover {
-                background-color: rgba(230,126,34,0.2) !important;
-                color: #E67E22 !important;
+                background-color: rgba(0,212,255,0.2) !important;
+                color: #00D4FF !important;
             }
 
             .nav-hamburger-list a {
@@ -235,24 +254,25 @@
             }
 
             .js-modal-nav .modal-content {
-                background-color: #1B3A57 !important;
+                background-color: #000000 !important;
             }
 
             /* ============================================
-               HERO / SLIDER / WELCOME - Design Limpo
+               HERO / SLIDER / WELCOME - Preto + Ciano
             ============================================ */
 
-            /* Hero com gradiente suave navy */
+            /* Hero com gradiente Preto + Verde Escuro */
             .section-slider,
             .section-slider-home,
             .section-welcome,
             .section-welcome-home {
-                background: linear-gradient(135deg, #1B3A57 0%, #2C5282 50%, #1B3A57 100%) !important;
+                background: linear-gradient(135deg, #000000 0%, #1a1a2e 50%, #1D4E4F 100%) !important;
                 position: relative !important;
-                padding: 60px 0 !important;
+                padding: 100px 0 !important;
+                overflow: hidden !important;
             }
 
-            /* Overlay suave */
+            /* Pattern de peixe animado */
             .section-slider::before,
             .section-slider-home::before,
             .section-welcome::before,
@@ -263,8 +283,15 @@
                 left: 0 !important;
                 right: 0 !important;
                 bottom: 0 !important;
-                background: rgba(27,58,87,0.4) !important;
+                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90" opacity="0.03">🐟</text></svg>') repeat !important;
+                background-size: 150px !important;
+                animation: ep-float 30s linear infinite !important;
                 z-index: 1 !important;
+            }
+
+            @keyframes ep-float {
+                0% { background-position: 0 0; }
+                100% { background-position: 150px 150px; }
             }
 
             /* Conteúdo acima do overlay */
@@ -276,7 +303,7 @@
                 z-index: 2 !important;
             }
 
-            /* Textos do Hero - SEM logo grande */
+            /* Textos do Hero */
             .section-slider,
             .section-slider h1,
             .section-slider h2,
@@ -295,53 +322,55 @@
             .section-welcome-home .js-welcome-message-text,
             .section-welcome-home .js-welcome-message-button {
                 color: #FFFFFF !important;
-                text-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
             }
 
-            /* Título principal - Frase impactante */
+            /* Título principal */
             .section-welcome-home h2,
             .section-welcome h2,
             .section-slider h1 {
-                font-size: 42px !important;
+                font-size: 48px !important;
                 font-weight: 700 !important;
-                margin-bottom: 15px !important;
+                margin-bottom: 20px !important;
                 line-height: 1.2 !important;
             }
 
-            /* Subtítulo */
+            /* Subtítulo - CIANO */
             .section-slider .subtitle,
             .section-welcome .h5,
             .section-welcome h5,
             .section-welcome-home .js-welcome-message-title {
-                color: #E67E22 !important;
-                font-size: 16px !important;
-                letter-spacing: 2px !important;
+                color: #00D4FF !important;
+                font-size: 24px !important;
+                letter-spacing: 3px !important;
                 text-transform: uppercase !important;
                 text-shadow: none !important;
-                font-weight: 600 !important;
+                font-weight: 500 !important;
             }
 
-            /* Botões CTA no Hero - LARANJA */
+            /* Botões CTA no Hero - CIANO */
             .section-slider .btn-primary,
             .section-welcome .btn-primary,
             .section-welcome-home .btn-primary {
-                background-color: #E67E22 !important;
-                color: #FFFFFF !important;
+                background-color: #00D4FF !important;
+                color: #000000 !important;
                 border: none !important;
-                padding: 14px 35px !important;
-                font-size: 15px !important;
-                border-radius: 5px !important;
+                padding: 15px 40px !important;
+                font-size: 16px !important;
+                border-radius: 30px !important;
                 text-shadow: none !important;
                 margin: 8px !important;
-                font-weight: 600 !important;
+                font-weight: 700 !important;
+                text-transform: uppercase !important;
+                letter-spacing: 1px !important;
             }
 
             .section-slider .btn-primary:hover,
             .section-welcome .btn-primary:hover,
             .section-welcome-home .btn-primary:hover {
-                background-color: #D35400 !important;
+                background-color: #00b8e6 !important;
                 transform: translateY(-2px) !important;
-                box-shadow: 0 4px 15px rgba(230,126,34,0.4) !important;
+                box-shadow: 0 5px 20px rgba(0,212,255,0.4) !important;
             }
 
             .section-slider .btn-secondary,
@@ -350,30 +379,32 @@
             .section-welcome-home .btn-link {
                 background: transparent !important;
                 color: #FFFFFF !important;
-                border: 2px solid #FFFFFF !important;
-                padding: 12px 33px !important;
-                border-radius: 5px !important;
+                border: 2px solid #00D4FF !important;
+                padding: 13px 38px !important;
+                border-radius: 30px !important;
                 text-shadow: none !important;
                 margin: 8px !important;
+                text-transform: uppercase !important;
+                letter-spacing: 1px !important;
             }
 
             .section-slider .btn-secondary:hover,
             .section-welcome .btn-secondary:hover,
             .section-welcome-home .btn-secondary:hover,
             .section-welcome-home .btn-link:hover {
-                background: #FFFFFF !important;
-                color: #1B3A57 !important;
+                background: #00D4FF !important;
+                color: #000000 !important;
             }
 
             /* ============================================
-               SEÇÃO DE SERVIÇOS - FUNDO BRANCO
+               SEÇÃO DE SERVIÇOS - FUNDO VERDE ESCURO
             ============================================ */
 
             .section-informative-banners,
             .section-informative-banners-colors {
-                background-color: #FFFFFF !important;
-                border-top: 1px solid #E8E8E8 !important;
-                border-bottom: 1px solid #E8E8E8 !important;
+                background-color: #1D4E4F !important;
+                border: none !important;
+                padding: 40px 0 !important;
             }
 
             .section-informative-banners h3,
@@ -382,19 +413,19 @@
             .section-informative-banners-colors h3,
             .section-informative-banners-colors h4,
             .section-informative-banners-colors p {
-                color: #2C3E50 !important;
+                color: #FFFFFF !important;
             }
 
             .section-informative-banners .svg-icon-text,
             .section-informative-banners-colors .svg-icon-text {
-                fill: #1B3A57 !important;
-                color: #1B3A57 !important;
+                fill: #FFFFFF !important;
+                color: #FFFFFF !important;
             }
 
-            /* Ícones com círculo navy */
+            /* Ícones */
             .section-informative-banners .service-icon-container,
             .section-informative-banners .banner-service-icon {
-                background-color: #F5F7FA !important;
+                background-color: transparent !important;
                 border-radius: 50% !important;
                 padding: 15px !important;
             }
@@ -409,16 +440,16 @@
                 flex-direction: column !important;
                 height: 100% !important;
                 background: #FFFFFF !important;
-                border-radius: 8px !important;
+                border-radius: 12px !important;
                 overflow: hidden !important;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
                 transition: box-shadow 0.3s ease, transform 0.3s ease !important;
-                border: 1px solid #E8E8E8 !important;
+                border: 1px solid #eee !important;
             }
 
             .item-product:hover {
-                box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
-                transform: translateY(-3px) !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+                transform: translateY(-5px) !important;
             }
 
             /* Container da imagem - SEMPRE QUADRADO */
@@ -450,8 +481,18 @@
                 flex: 1 !important;
                 display: flex !important;
                 flex-direction: column !important;
-                padding: 15px !important;
+                padding: 20px !important;
                 text-align: left !important;
+            }
+
+            /* Categoria do produto - CIANO */
+            .item-product .product-category,
+            .item-product .item-category {
+                font-size: 11px !important;
+                color: #00D4FF !important;
+                text-transform: uppercase !important;
+                letter-spacing: 1px !important;
+                margin-bottom: 5px !important;
             }
 
             /* Nome do produto - SEM MAIÚSCULAS */
@@ -461,7 +502,7 @@
             .item-product h3 a {
                 font-family: "Open Sans", sans-serif !important;
                 font-weight: 600 !important;
-                color: #2C3E50 !important;
+                color: #1C2833 !important;
                 font-size: 14px !important;
                 text-transform: none !important;
                 line-height: 1.4 !important;
@@ -471,15 +512,20 @@
                 display: -webkit-box !important;
                 -webkit-line-clamp: 2 !important;
                 -webkit-box-orient: vertical !important;
-                margin-bottom: 8px !important;
+                margin-bottom: 10px !important;
             }
 
-            /* PREÇO - Navy Blue */
+            .item-product .item-name a:hover,
+            .item-product h3 a:hover {
+                color: #00D4FF !important;
+            }
+
+            /* PREÇO - Dark Gray */
             .item-product .item-price,
             .item-product .js-price-display,
             .item-product .price,
             .js-product-price {
-                color: #1B3A57 !important;
+                color: #1C2833 !important;
                 font-family: "Oswald", sans-serif !important;
                 font-weight: 700 !important;
                 font-size: 22px !important;
@@ -489,13 +535,13 @@
 
             .item-product .price-compare,
             .item-product .js-compare-price-display {
-                color: #95A5A6 !important;
+                color: #999 !important;
                 text-decoration: line-through !important;
-                font-size: 13px !important;
+                font-size: 14px !important;
                 margin-bottom: 3px !important;
             }
 
-            /* Badge de desconto - Laranja */
+            /* Badge de desconto - VERMELHO */
             .item-product .label,
             .item-product .js-offer-label,
             .product-label,
@@ -503,47 +549,48 @@
                 position: absolute !important;
                 top: 10px !important;
                 left: 10px !important;
-                background-color: #E67E22 !important;
+                background-color: #E74C3C !important;
                 color: #FFFFFF !important;
                 font-family: "Oswald", sans-serif !important;
                 font-weight: 700 !important;
                 font-size: 12px !important;
                 padding: 5px 12px !important;
-                border-radius: 3px !important;
+                border-radius: 20px !important;
                 text-transform: uppercase !important;
                 z-index: 2 !important;
             }
 
-            /* BOTÃO COMPRAR - LARANJA */
+            /* BOTÃO COMPRAR - PRETO com hover CIANO */
             .item-product .btn,
             .item-product .js-addtocart,
             .item-product .btn-product,
             .js-prod-submit-btn {
-                background-color: #E67E22 !important;
+                background-color: #000000 !important;
                 color: #FFFFFF !important;
                 border: none !important;
-                font-family: "Open Sans", sans-serif !important;
-                font-weight: 600 !important;
-                text-transform: none !important;
-                font-size: 13px !important;
-                padding: 10px 18px !important;
-                border-radius: 5px !important;
+                font-family: "Oswald", sans-serif !important;
+                font-weight: 500 !important;
+                text-transform: uppercase !important;
+                font-size: 14px !important;
+                padding: 12px 18px !important;
+                border-radius: 6px !important;
                 margin-top: 12px !important;
                 transition: all 0.3s ease !important;
+                letter-spacing: 1px !important;
             }
 
             .item-product .btn:hover,
             .item-product .js-addtocart:hover {
-                background-color: #D35400 !important;
-                color: #FFFFFF !important;
+                background-color: #00D4FF !important;
+                color: #000000 !important;
             }
 
             /* Botão Ver Carrinho */
             .js-cart-widget .btn,
             .cart-btn,
             a[href*="cart"] .btn {
-                background-color: #E67E22 !important;
-                color: #FFFFFF !important;
+                background-color: #00D4FF !important;
+                color: #000000 !important;
             }
 
             /* ============================================
@@ -588,23 +635,18 @@
                 font-family: "Oswald", sans-serif !important;
                 font-weight: 700 !important;
                 text-transform: uppercase !important;
-                color: #2C3E50 !important;
-                font-size: 26px !important;
+                color: #1C2833 !important;
+                font-size: 32px !important;
                 letter-spacing: 1px !important;
                 text-align: center !important;
                 position: relative !important;
                 padding-bottom: 15px !important;
             }
 
-            /* Linha decorativa - Laranja */
+            /* Linha decorativa removida para visual mais limpo */
             .section-title::after,
             section > h2::after {
-                content: '' !important;
-                display: block !important;
-                width: 50px !important;
-                height: 3px !important;
-                background: #E67E22 !important;
-                margin: 12px auto 0 !important;
+                display: none !important;
             }
 
             .section-title strong,
@@ -612,25 +654,37 @@
             .text-accent,
             .text-primary,
             .title-accent {
-                color: #E67E22 !important;
+                color: #00D4FF !important;
             }
 
             /* ============================================
-               CATEGORIAS
+               CATEGORIAS - Grid com Cards Escuros
             ============================================ */
 
             .section-categories,
             .section-main-categories {
-                background-color: #F5F7FA !important;
+                background-color: #FFFFFF !important;
+                padding: 60px 0 !important;
             }
 
             .item-category,
             .category-card {
                 text-align: center !important;
-                background: #FFFFFF !important;
-                border-radius: 8px !important;
-                padding: 20px !important;
-                border: 1px solid #E8E8E8 !important;
+                background: linear-gradient(135deg, #000000, #1D4E4F) !important;
+                border-radius: 12px !important;
+                padding: 0 !important;
+                border: 2px solid transparent !important;
+                position: relative !important;
+                overflow: hidden !important;
+                aspect-ratio: 1 !important;
+                transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s !important;
+            }
+
+            .item-category:hover,
+            .category-card:hover {
+                transform: scale(1.05) !important;
+                border-color: #00D4FF !important;
+                box-shadow: 0 10px 30px rgba(0,212,255,0.3) !important;
             }
 
             .item-category h3,
@@ -639,48 +693,53 @@
                 font-family: "Oswald", sans-serif !important;
                 font-weight: 500 !important;
                 text-transform: uppercase !important;
-                color: #2C3E50 !important;
+                color: #FFFFFF !important;
                 font-size: 14px !important;
+                letter-spacing: 1px !important;
             }
 
             /* ============================================
-               BOTÕES GERAIS
+               BOTÕES GERAIS - CIANO
             ============================================ */
 
             .btn-primary {
-                background-color: #E67E22 !important;
-                color: #FFFFFF !important;
-                border-color: #E67E22 !important;
-                font-family: "Open Sans", sans-serif !important;
-                font-weight: 600 !important;
-                text-transform: none !important;
-                border-radius: 5px !important;
-                padding: 12px 28px !important;
+                background-color: #00D4FF !important;
+                color: #000000 !important;
+                border-color: #00D4FF !important;
+                font-family: "Oswald", sans-serif !important;
+                font-weight: 500 !important;
+                text-transform: uppercase !important;
+                border-radius: 30px !important;
+                padding: 15px 40px !important;
+                letter-spacing: 1px !important;
             }
 
             .btn-primary:hover,
             .btn-primary:focus {
-                background-color: #D35400 !important;
-                border-color: #D35400 !important;
-                color: #FFFFFF !important;
+                background-color: #00b8e6 !important;
+                border-color: #00b8e6 !important;
+                color: #000000 !important;
+                transform: translateY(-2px) !important;
+                box-shadow: 0 5px 20px rgba(0,212,255,0.4) !important;
             }
 
             .btn-secondary,
             .btn-outline-primary {
                 background-color: transparent !important;
-                border: 2px solid #1B3A57 !important;
-                color: #1B3A57 !important;
-                font-family: "Open Sans", sans-serif !important;
-                font-weight: 600 !important;
-                text-transform: none !important;
-                border-radius: 5px !important;
-                padding: 10px 26px !important;
+                border: 2px solid #00D4FF !important;
+                color: #00D4FF !important;
+                font-family: "Oswald", sans-serif !important;
+                font-weight: 500 !important;
+                text-transform: uppercase !important;
+                border-radius: 30px !important;
+                padding: 13px 38px !important;
+                letter-spacing: 1px !important;
             }
 
             .btn-secondary:hover,
             .btn-outline-primary:hover {
-                background-color: #1B3A57 !important;
-                color: #FFFFFF !important;
+                background-color: #00D4FF !important;
+                color: #000000 !important;
             }
 
             /* ============================================
@@ -693,8 +752,8 @@
 
             .section-testimonials-home .testimonial-item,
             .testimonial-card {
-                background: #F5F7FA !important;
-                border-radius: 8px !important;
+                background: #F8F9FA !important;
+                border-radius: 12px !important;
                 padding: 25px !important;
                 text-align: center !important;
             }
@@ -704,7 +763,7 @@
             .testimonial-card::before {
                 content: '★★★★★' !important;
                 display: block !important;
-                color: #F39C12 !important;
+                color: #f1c40f !important;
                 font-size: 20px !important;
                 margin-bottom: 15px !important;
                 letter-spacing: 3px !important;
@@ -714,14 +773,14 @@
             .testimonial-card p {
                 font-size: 16px !important;
                 line-height: 1.6 !important;
-                color: #2C3E50 !important;
+                color: #1C2833 !important;
                 font-style: italic !important;
             }
 
             .section-testimonials-home .testimonial-author,
             .testimonial-card .author {
                 font-weight: 700 !important;
-                color: #1B3A57 !important;
+                color: #000000 !important;
                 margin-top: 15px !important;
             }
 
@@ -732,7 +791,7 @@
                 height: 60px !important;
                 border-radius: 50% !important;
                 margin: 0 auto 15px !important;
-                background: #1B3A57 !important;
+                background: #000000 !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
@@ -741,46 +800,64 @@
             }
 
             /* ============================================
-               NEWSLETTER - Navy Blue, Compacto
+               NEWSLETTER - Gradiente Verde/Preto
             ============================================ */
 
             .section-newsletter-home,
             .section-newsletter-home-colors {
-                background-color: #1B3A57 !important;
-                padding: 40px 0 !important;
+                background: linear-gradient(135deg, #1D4E4F 0%, #000000 100%) !important;
+                padding: 60px 0 !important;
             }
 
             .section-newsletter-home h2,
             .section-newsletter-home-colors h2 {
                 color: #FFFFFF !important;
-                font-size: 22px !important;
+                font-size: 32px !important;
                 margin-bottom: 10px !important;
+            }
+
+            .section-newsletter-home h2 span,
+            .section-newsletter-home-colors h2 span {
+                color: #00D4FF !important;
             }
 
             .section-newsletter-home p,
             .section-newsletter-home-colors p {
-                color: rgba(255,255,255,0.8) !important;
-                font-size: 14px !important;
+                color: rgba(255,255,255,0.9) !important;
+                font-size: 16px !important;
             }
 
             .section-newsletter-home .form-control {
-                border-radius: 5px 0 0 5px !important;
-                border: none !important;
+                border-radius: 30px !important;
+                border: 2px solid #00D4FF !important;
+                background: rgba(255,255,255,0.1) !important;
+                color: #FFFFFF !important;
+                padding: 15px 20px !important;
+            }
+
+            .section-newsletter-home .form-control::placeholder {
+                color: rgba(255,255,255,0.7) !important;
             }
 
             .section-newsletter-home .btn {
-                background-color: #E67E22 !important;
-                border-radius: 0 5px 5px 0 !important;
+                background-color: #00D4FF !important;
+                color: #000000 !important;
+                border-radius: 30px !important;
                 border: none !important;
+                padding: 15px 30px !important;
+            }
+
+            .section-newsletter-home .btn:hover {
+                background-color: #00b8e6 !important;
             }
 
             /* ============================================
-               FOOTER - Navy Blue
+               FOOTER - Preto
             ============================================ */
 
             footer,
             .js-footer {
-                background-color: #1B3A57 !important;
+                background-color: #000000 !important;
             }
 
             footer,
@@ -792,21 +869,46 @@
 
             footer h4,
             footer .h4 {
-                color: #FFFFFF !important;
+                color: #00D4FF !important;
                 font-family: "Oswald", sans-serif !important;
                 font-size: 16px !important;
-                margin-bottom: 15px !important;
+                margin-bottom: 20px !important;
+                text-transform: uppercase !important;
             }
 
             footer a:hover {
-                color: #E67E22 !important;
+                color: #00D4FF !important;
             }
 
-            /* Rodapé inferior - mais escuro */
+            /* Barra de trust - Verde escuro */
+            .ep-footer-trust {
+                background-color: #1D4E4F !important;
+            }
+
+            .ep-footer-trust .ep-trust-icon {
+                color: #00D4FF !important;
+                fill: #00D4FF !important;
+            }
+
+            /* Rodapé inferior */
             .footer-bottom,
-            footer .copyright {
-                background-color: #152D45 !important;
+            footer .copyright,
+            .ep-footer-bottom {
+                background-color: transparent !important;
                 border-top: 1px solid rgba(255,255,255,0.1) !important;
+            }
+
+            /* Links de redes sociais */
+            .ep-social-links a,
+            footer .social-links a {
+                background: rgba(255,255,255,0.1) !important;
+                border: 1px solid transparent !important;
+            }
+
+            .ep-social-links a:hover,
+            footer .social-links a:hover {
+                background: #00D4FF !important;
+                color: #000000 !important;
             }
 
             /* ============================================
@@ -815,20 +917,37 @@
 
             .text-accent,
             .text-primary {
-                color: #E67E22 !important;
+                color: #00D4FF !important;
             }
 
             .breadcrumb a {
-                color: #1B3A57 !important;
+                color: #1C2833 !important;
             }
 
             .breadcrumb a:hover {
-                color: #E67E22 !important;
+                color: #00D4FF !important;
             }
 
             .whatsapp-btn,
             .js-whatsapp-btn {
                 background-color: #25D366 !important;
+                position: fixed !important;
+                bottom: 30px !important;
+                right: 30px !important;
+                width: 60px !important;
+                height: 60px !important;
+                border-radius: 50% !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                box-shadow: 0 5px 20px rgba(37,211,102,0.4) !important;
+                z-index: 999 !important;
+            }
+
+            .whatsapp-btn:hover,
+            .js-whatsapp-btn:hover {
+                transform: scale(1.1) !important;
+                box-shadow: 0 8px 25px rgba(37,211,102,0.5) !important;
             }
 
             /* ============================================
@@ -836,7 +955,7 @@
             ============================================ */
 
             .modal-header {
-                background-color: #1B3A57 !important;
+                background-color: #000000 !important;
                 color: #FFFFFF !important;
             }
 
@@ -845,11 +964,11 @@
             ============================================ */
 
             a {
-                color: #1B3A57 !important;
+                color: #1C2833 !important;
             }
 
             a:hover {
-                color: #E67E22 !important;
+                color: #00D4FF !important;
             }
 
             /* ============================================
@@ -858,86 +977,81 @@
 
             .swiper-button-prev,
             .swiper-button-next {
-                color: #1B3A57 !important;
+                color: #1C2833 !important;
             }
 
             .swiper-pagination-bullet-active {
-                background-color: #E67E22 !important;
+                background-color: #00D4FF !important;
             }
 
             /* ============================================
-               OVERRIDE AGRESSIVO - REMOVER TODO CIANO
+               OVERRIDE FINAL - APLICAR PALETA CIANO
             ============================================ */
 
-            /* Todos os botões - forçar laranja */
-            .btn,
-            button,
-            [class*="btn-"],
-            .btn-link,
-            .btn-primary,
-            .btn-secondary,
-            .btn-outline,
-            .js-addtocart,
-            .js-prod-submit-btn,
-            a.btn {
-                border-color: #E67E22 !important;
-            }
-
+            /* Todos os botões primários - CIANO */
             .btn-primary,
             .btn-primary:visited,
             .btn-primary:active,
             .btn-primary:focus,
             button[type="submit"],
-            input[type="submit"],
-            .js-addtocart,
-            .js-prod-submit-btn {
-                background-color: #E67E22 !important;
-                border-color: #E67E22 !important;
-                color: #FFFFFF !important;
+            input[type="submit"] {
+                background-color: #00D4FF !important;
+                border-color: #00D4FF !important;
+                color: #000000 !important;
             }
 
             .btn-primary:hover {
-                background-color: #D35400 !important;
-                border-color: #D35400 !important;
+                background-color: #00b8e6 !important;
+                border-color: #00b8e6 !important;
             }
 
-            /* Botões outline/secondary - borda navy, não ciano */
+            /* Botões de produto - PRETO com hover CIANO */
+            .item-product .btn,
+            .item-product .js-addtocart,
+            .js-addtocart,
+            .js-prod-submit-btn {
+                background-color: #000000 !important;
+                border-color: #000000 !important;
+                color: #FFFFFF !important;
+            }
+
+            .item-product .btn:hover,
+            .item-product .js-addtocart:hover,
+            .js-addtocart:hover,
+            .js-prod-submit-btn:hover {
+                background-color: #00D4FF !important;
+                border-color: #00D4FF !important;
+                color: #000000 !important;
+            }
+
+            /* Botões outline/secondary */
             .btn-secondary,
             .btn-outline-primary,
             .btn-link,
             .section-welcome-home .btn-link,
             .section-welcome-home .btn-secondary {
                 background-color: transparent !important;
-                border: 2px solid #FFFFFF !important;
+                border: 2px solid #00D4FF !important;
                 color: #FFFFFF !important;
             }
 
             .btn-secondary:hover,
             .btn-outline-primary:hover,
             .btn-link:hover {
-                background-color: #FFFFFF !important;
-                color: #1B3A57 !important;
-                border-color: #FFFFFF !important;
+                background-color: #00D4FF !important;
+                color: #000000 !important;
+                border-color: #00D4FF !important;
             }
 
-            /* Títulos de seção - span em laranja */
+            /* Títulos de seção - span em CIANO */
             .section-title span,
             .home-section-title span,
             h2 span,
             .h2 span {
-                color: #E67E22 !important;
+                color: #00D4FF !important;
             }
 
-            /* Remover qualquer cor ciano restante */
-            [style*="#00D4FF"],
-            [style*="#00d4ff"],
-            [style*="cyan"] {
-                color: #E67E22 !important;
-                border-color: #E67E22 !important;
-                background-color: transparent !important;
-            }
-
-            /* Grid de produtos - 3 COLUNAS FORÇADO */
+            /* Grid de produtos - 4 COLUNAS */
             .section-featured-home .row,
             .section-products-home .row,
             .js-products-featured-grid,
@@ -945,8 +1059,8 @@
             [class*="section-"] .row:has(.item-product) {
                 display: flex !important;
                 flex-wrap: wrap !important;
-                margin-left: -8px !important;
-                margin-right: -8px !important;
+                margin-left: -12px !important;
+                margin-right: -12px !important;
             }
 
             .section-featured-home .row > div,
@@ -959,48 +1073,36 @@
             .products-grid .row > [class*="col"],
             [class*="section-"] .row:has(.item-product) > div,
             [class*="section-"] .row:has(.item-product) > [class*="col"] {
-                padding-left: 8px !important;
-                padding-right: 8px !important;
-                margin-bottom: 16px !important;
-                flex: 0 0 33.333% !important;
-                max-width: 33.333% !important;
-                width: 33.333% !important;
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+                margin-bottom: 25px !important;
+                flex: 0 0 25% !important;
+                max-width: 25% !important;
+                width: 25% !important;
             }
 
-            /* Produtos menores */
-            .item-product .item-image,
-            .item-product .product-image-container,
-            .item-product > a:first-child {
-                aspect-ratio: 1 / 1 !important;
-                max-height: 200px !important;
+            /* Grid de categorias - 5 COLUNAS */
+            .section-categories .row,
+            .section-main-categories .row {
+                display: flex !important;
+                flex-wrap: wrap !important;
             }
 
-            .item-product .item-info,
-            .item-product .item-description {
-                padding: 12px !important;
+            .section-categories .row > div,
+            .section-main-categories .row > div {
+                flex: 0 0 20% !important;
+                max-width: 20% !important;
             }
 
-            .item-product .item-name,
-            .item-product .item-name a,
-            .item-product h3,
-            .item-product h3 a {
-                font-size: 13px !important;
-                min-height: 36px !important;
-                max-height: 36px !important;
+            @media (max-width: 1024px) {
+                .section-categories .row > div,
+                .section-main-categories .row > div {
+                    flex: 0 0 33.333% !important;
+                    max-width: 33.333% !important;
+                }
             }
 
-            .item-product .item-price,
-            .item-product .js-price-display,
-            .item-product .price {
-                font-size: 18px !important;
-            }
-
-            .item-product .btn {
-                padding: 8px 14px !important;
-                font-size: 12px !important;
-            }
-
-            @media (max-width: 768px) {
+            @media (max-width: 992px) {
                 .section-featured-home .row > div,
                 .section-featured-home .row > [class*="col"],
                 .section-products-home .row > div,
@@ -1012,6 +1114,14 @@
                     flex: 0 0 50% !important;
                     max-width: 50% !important;
                     width: 50% !important;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .section-categories .row > div,
+                .section-main-categories .row > div {
+                    flex: 0 0 50% !important;
+                    max-width: 50% !important;
                 }
             }
 

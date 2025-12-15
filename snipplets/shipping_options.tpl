@@ -1,10 +1,11 @@
 {% if options %}
-    
     {% if store.show_shipping_emergency_message %}
-        <div class="alert alert-warning mt-0 mb-4">{{ store.shipping_emergency_message }}</div> 
+        <div class="mb-2 pb-1">
+            <div class="alert alert-warning">{{ store.shipping_emergency_message }}</div> 
+        </div>
     {% endif %}
 
-    <div class="{% if cart.items_count > 0 and not cart.free_shipping.cart_has_free_shipping %}js-product-shipping-label{% endif %} font-small mb-4" style="display: none;">
+    <div class="{% if cart.items_count > 0 and not cart.free_shipping.cart_has_free_shipping %}js-product-shipping-label{% endif %} font-small mb-4 pb-2" style="display: none;">
         {{ 'Opciones para tu compra <strong>si sumás este producto</strong>.' | translate }}
     </div>
 
@@ -53,12 +54,12 @@
 
     {% if has_featured_shipping %}
 
-        <div class="form-label">
+        <div class="font-medium d-flex align-items-center mb-3">
+            <svg class="icon-inline svg-icon-text icon-lg mr-2"><use xlink:href="#truck"/></svg>
             {{ "Envío a domicilio" | translate }}
         </div>
 
-        
-        <ul class="radio-button-container list-unstyled mb-3">
+        <ul class="radio-button-container list-unstyled {% if has_featured_pickup %}mb-4{% endif %}">
 
             {# List only delivery featured options #}
 
@@ -99,11 +100,12 @@
 
     {% if has_featured_pickup %}
 
-        <div class="form-label">
+        <div class="font-medium d-flex align-items-center mb-3">
+            <svg class="icon-inline svg-icon-text icon-lg mr-2"><use xlink:href="#map-marker"/></svg>
             {{ "Retirar por" | translate }}
         </div>
 
-        <ul class="radio-button-container list-unstyled mb-3">
+        <ul class="radio-button-container list-unstyled">
 
             {# List only pickup featured options #}
 
@@ -139,7 +141,7 @@
     {% endif %}
 
     {% if store.has_smart_dates and show_time %}
-        <div class="font-small mb-4">{{"El tiempo de entrega <strong>no considera feriados</strong>." | translate}}</div>
+        <div class="font-small">{{"El tiempo de entrega <strong>no considera feriados</strong>." | translate}}</div>
     {% endif %}
 {% else %}
 <span>{{"No hay costos de envío para el código postal dado." | translate}}</span>

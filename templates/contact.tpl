@@ -1,53 +1,50 @@
-{% embed "snipplets/page-header.tpl" %}
-	{% if is_order_cancellation %}
-		{% set form_title = "Pedí la cancelación de tu última compra" | translate %}
-	{% else %}
-		{% set form_title = "Contacto" | translate %}
-	{% endif %}
-	{% block page_header_text %}{{ form_title }}{% endblock page_header_text %}
-{% endembed %}
-
 {% set has_contact_info = store.whatsapp or store.phone or store.email or store.address or store.blog or store.contact_intro %}
 {% set is_order_cancellation_without_id = params.order_cancellation_without_id == 'true' %}
-<section class="contact-page visible-when-content-ready mb-4">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-md-6">
-				{% if has_contact_info and not is_order_cancellation %}
-					<div class="text-center">
+
+<div class="container visible-when-content-ready mb-4">
+	<div class="w-md-80 mb-5">
+		{% embed "snipplets/page-header.tpl" %}
+			{% set form_title = is_order_cancellation ? "Pedí la cancelación de tu última compra" | translate : "Contacto" | translate %}
+			{% block page_header_text %}{{ form_title }}{% endblock page_header_text %}
+		{% endembed %}
+
+		<div class="d-grid grid-md-2">
+
+			{% if has_contact_info and not is_order_cancellation %}
+				<div class="mb-3 mr-md-3">
+					{% if store.contact_intro %}
+						<p class="mb-3 font-medium">{{ store.contact_intro }}</p>
+					{% endif %}
+					{% include "snipplets/contact-links.tpl" with {with_icons: true} %}
+				</div>
+			{% endif %}
+			{% if is_order_cancellation %}
+				<div class="mb-3 mr-md-3">
+					<div class="text-center text-md-left mb-4">
+						<p data-component="order-cancellation-disclaimer">{{ "Si te arrepentiste, podés pedir la cancelación enviando este formulario. Tenés como máximo hasta 10 días corridos desde que recibiste el producto." | translate }} </p>
+						<a class="btn-link" href="{{ status_page_url_regret }}"><strong>{{'Ver detalle de la compra' | translate}}</strong></a>
+					</div>
+					{% if has_contact_info %}
+						<h5 class="mb-1 mt-4">{{ 'Si tenés problemas con otra compra, contactanos:' | translate }}</h5>
+	            		<div class="divider mt-0"></div>
 						{% if store.contact_intro %}
-							<p class="mb-3">{{ store.contact_intro }}</p>
+							<p class="mb-4">{{ store.contact_intro }}</p>
 						{% endif %}
-						{% include "snipplets/contact-links.tpl" with {with_icons: true} %}
+						{% include "snipplets/contact-links.tpl" with {btn_link: true} %}
+					{% endif %}
+				</div>	
+			{% endif %}
+			<div>
+			{% if product %}  
+				<div class="d-grid grid-auto-1 align-items-center mb-4">
+					<div>
+						<img src="{{ product.featured_image | product_image_url('thumb') }}" title="{{ product.name }}" alt="{{ product.name }}" class="img-fluid" />
 					</div>
-				{% endif %}
-				{% if is_order_cancellation %}
-					<div class="text-center">
-						<div class="text-center mb-4">
-							<p data-component="order-cancellation-disclaimer">{{ "Si te arrepentiste, podés pedir la cancelación enviando este formulario. Tenés como máximo hasta 10 días corridos desde que recibiste el producto." | translate }} </p>
-							<a class="btn-link" href="{{ status_page_url_regret }}"><strong>{{'Ver detalle de la compra >' | translate}}</strong></a>
-						</div>
-						{% if has_contact_info %}
-							<h5 class="mb-1 mt-4">{{ 'Si tenés problemas con otra compra, contactanos:' | translate }}</h5>
-		            		<div class="divider mt-0"></div>
-							{% if store.contact_intro %}
-								<p class="mb-4">{{ store.contact_intro }}</p>
-							{% endif %}
-							{% include "snipplets/contact-links.tpl" with {btn_link: true} %}
-						{% endif %}
-					</div>	
-				{% endif %}
-				
-				{% if product %}  
-					<div class="row align-items-center justify-content-md-center mb-4">
-						<div class="col-auto">
-							<img src="{{ product.featured_image | product_image_url('thumb') }}" title="{{ product.name }}" alt="{{ product.name }}" class="d-flex img-fluid" />
-						</div>
-						<div class="col-auto pl-3">
-							<p>{{ "Estás consultando por el producto:" | translate }} </br> {{ product.name | a_tag(product.url) }}</p>
-						</div>
+					<div class="pl-3">
+						<p class="font-medium">{{ "Estás consultando por el producto:" | translate }} </br> {{ product.name | a_tag(product.url) }}</p>
 					</div>
-				{% endif %}
+				</div>
+			{% endif %}
 				{% if contact %}
 					{% if contact.success %}
 						{% if is_order_cancellation %}
@@ -113,4 +110,4 @@
 			</div>
 		</div>
 	</div>
-</section>
+</div>

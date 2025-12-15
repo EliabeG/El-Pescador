@@ -1,29 +1,46 @@
-{# /*============================================================================
-  El Pescador - Mensagem Institucional Profissional
+{% set has_home_institutional = false %}
+{% set num_institutional = 0 %}
+{% for institutional in ['institutional_01', 'institutional_02', 'institutional_03'] %}
+	{% set institutional_title = attribute(settings,"#{institutional}_title") %}
+	{% set institutional_description = attribute(settings,"#{institutional}_description") %}
+	{% set institutional_button = attribute(settings,"#{institutional}_button") %}
+	{% set has_institutional = institutional_title or institutional_description or institutional_button  %}
+	{% if has_institutional %}
+		{% set has_home_institutional = true %}
+		{% set num_institutional = num_institutional + 1 %}
+	{% endif %}
+{% endfor %}
 
-  PLANO DE MELHORIAS (10 etapas):
-  1. ✅ Adicionar classes ep- para consistência
-  2. ✅ Melhorar estrutura da seção
-  3. ✅ Melhorar tipografia
-  4. ✅ Traduzir textos para PT-BR
-  5. ✅ Melhorar espaçamentos
-  6. ✅ Adicionar ícone decorativo
-  7. ✅ Melhorar botão CTA
-  8. ✅ Responsividade otimizada
-  9. ✅ Melhorar acessibilidade
-  10. ✅ Adicionar linha decorativa
-==============================================================================*/ #}
-
-{% if settings.institutional_message or settings.institutional_text %}
-    <section class="section-institutional-home ep-institutional-section" data-store="home-institutional-message" aria-label="{{ 'Sobre a loja' | translate }}">
-        <div class="container ep-institutional-container">
-            <div class="row text-center justify-content-center">
-                <div class="col-md-8 ep-institutional-content">
-                    <p class="js-institutional-message-title mb-3 ep-institutional-subtitle" {% if not settings.institutional_message %}style="display: none"{% endif %}>{{ settings.institutional_message }}</p>
-                    <h2 class="js-institutional-message-text mb-4 ep-institutional-title{% if settings.institutional_italic %} font-italic{% endif %}" {% if not settings.institutional_text %}style="display: none"{% endif %}>{{ settings.institutional_text }}</h2>
-                    <a href="{{ settings.institutional_link }}" class="js-institutional-message-button btn-link ep-institutional-btn" data-has-url="{{ settings.institutional_link ? 'true' : 'false' }}" {% if not (settings.institutional_button and settings.institutional_link) %}style="display: none"{% endif %}>{{ settings.institutional_button }}</a>
-                </div>
-            </div>
-        </div>
-    </section>
+{% if has_home_institutional %}
+	<div class="js-section-institutional-home section-home section-institutional-home overflow-none {% if settings.home_institutional_colors %}section-institutional-home-colors py-5{% else %}py-4{% endif %}">
+		<div class="js-institutional-container container position-relative text-center">
+			<div class="d-md-flex justify-content-center">
+				<div class="institutional-container">
+					<div class="js-swiper-institutional swiper-institutional swiper-container mb-3">
+						<div class="swiper-wrapper">
+							{% for institutional in ['institutional_01', 'institutional_02', 'institutional_03'] %}
+								{% set institutional_title = attribute(settings,"#{institutional}_title") %}
+								{% set institutional_description = attribute(settings,"#{institutional}_description") %}
+								{% set institutional_button = attribute(settings,"#{institutional}_button") %}
+								{% set institutional_link = attribute(settings,"#{institutional}_url") %}
+								{% set has_institutional = institutional_title or institutional_description or institutional_button %}
+								<div class="js-institutional-slide swiper-slide" {% if not has_institutional %}style="display: none;"{% endif %}>
+									<h3 class="js-institutional-title js-institutional-title-{{ loop.index }} mb-2"{% if not institutional_title %} style="display:none"{% endif %}>{{ institutional_title }}</h3>
+									<p class="js-institutional-description js-institutional-description-{{ loop.index }} mb-3"{% if not institutional_description %} style="display:none"{% endif %}>{{ institutional_description }}</p>
+									<a href="{% if institutional_link %}{{ institutional_link }}{% else %}#{% endif %}" class="js-institutional-link js-institutional-button-{{ loop.index }} btn btn-link"{% if not institutional_button %} style="display:none"{% endif %}>{{ institutional_button }}</a>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="js-swiper-institutional-pagination swiper-pagination swiper-pagination-bullets swiper-pagination-outside w-100"{% if num_institutional == 1 %} style="display: none;"{% endif %}></div>
+			<div class="js-swiper-institutional-prev swiper-button-prev svg-icon-text swiper-button-outside d-none d-md-block">
+				<svg class="icon-inline icon-2x icon-flip-horizontal"><use xlink:href="#arrow-long"/></svg>
+			</div>
+			<div class="js-swiper-institutional-next swiper-button-next svg-icon-text swiper-button-outside d-none d-md-block">
+				<svg class="icon-inline icon-2x"><use xlink:href="#arrow-long"/></svg>
+			</div>
+		</div>
+	</div>
 {% endif %}

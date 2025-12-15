@@ -1,105 +1,62 @@
-{# /*============================================================================
-  El Pescador - Slider Principal Profissional
-
-  PLANO DE MELHORIAS (10 etapas):
-  1. ✅ Adicionar classes ep- para consistência
-  2. ✅ Melhorar estrutura do slider
-  3. ✅ Melhorar controles de navegação
-  4. ✅ Traduzir textos para PT-BR
-  5. ✅ Melhorar textos sobre imagem
-  6. ✅ Melhorar lazy loading
-  7. ✅ Melhorar animações
-  8. ✅ Responsividade otimizada
-  9. ✅ Melhorar acessibilidade
-  10. ✅ Adicionar indicadores visuais
-==============================================================================*/ #}
-
 {% set has_main_slider = settings.slider and settings.slider is not empty %}
 {% set has_mobile_slider = settings.toggle_slider_mobile and settings.slider_mobile and settings.slider_mobile is not empty %}
-{% set slider_animation = settings.slider_animation ? 'true' : 'false' %}
+{% set has_slider_full_width = settings.slider_full %}
+{% set slider_alignment = settings.slider_align == 'center' ? 'swiper-text-centered' %}
+{% set slider = mobile ? settings.slider_mobile : settings.slider %}
+{% set slider_name = mobile ? 'js-home-mobile-slider' : 'js-home-main-slider' %}
+{% set slider_navigation = mobile ? false : true %}
+{% set slider_outside_button = not has_slider_full_width ? 'swiper-button-outside' %}
+{% set slider_pagination = mobile ? 'js-swiper-home-pagination-mobile' : 'js-swiper-home-pagination' %}
+{% set slider_data_align = settings.slider_align %}
+
+{% set first_image_priority_high_value = 
+	settings.home_order_position_1 == 'slider' and (
+		(has_mobile_slider and mobile) or
+		(not has_mobile_slider and has_main_slider)
+	)
+%}
 
 {% if not mobile %}
-<div class="js-home-main-slider-container ep-slider-container {% if not has_main_slider and not params.preview %}hidden{% endif %}">
+	<div class="js-home-main-slider-container {% if not has_main_slider and not params.preview %}hidden{% endif %}">
 {% endif %}
-    <div class="{% if mobile %}js-home-mobile-slider{% else %}js-home-main-slider{% endif %}-visibility ep-slider-visibility {% if has_main_slider and has_mobile_slider %}{% if mobile %}d-md-none{% else %}d-none d-md-block{% endif %}{% elseif not settings.toggle_slider_mobile and mobile %}hidden{% endif %}{% if not settings.slider_full and not settings.head_transparent %} mt-4{% endif %}">
-        <div class="section-slider position-relative ep-section-slider">
-            <div class="js-home-slider-container container{% if settings.slider_full %}-fluid p-0{% endif %} ep-slider-inner">
-                <div class="js-home-slider-row row{% if settings.slider_full %} no-gutters{% endif %} ep-slider-row">
-                    <div class="col-12">
-                        <div class="js-home-slider{% if mobile %}-mobile{% endif %} swiper-container swiper-container-horizontal ep-swiper" data-animation="{{ slider_animation }}" role="region" aria-label="{{ 'Carrossel de banners' | translate }}">
-                            <div class="swiper-wrapper ep-swiper-wrapper">
-                                {% if mobile %}
-                                    {% set slider = settings.slider_mobile %}
-                                {% else %}
-                                    {% set slider = settings.slider %}
-                                {% endif %}
-                                {% for slide in slider %}
-                                    {% set has_text = slide.title or slide.description or slide.button %}
-                                    <div class="swiper-slide slide-container swiper-{{ slide.color }} ep-slide" role="group" aria-label="{{ 'Slide' | translate }} {{ loop.index }}">
-                                        {% if slide.link %}
-                                            <a href="{{ slide.link | setting_url }}" aria-label="{{ slide.title ? slide.title : ('Banner' | translate ~ ' ' ~ loop.index) }}" class="ep-slide-link">
-                                        {% endif %}
-                                        <div class="slider-slide ep-slide-content">
 
-                                            {% set apply_lazy_load =
-                                                settings.home_order_position_1 != 'slider'
-                                                or not (
-                                                    loop.first and (
-                                                        (has_main_slider and not has_mobile_slider) or
-                                                        (has_mobile_slider and mobile)
-                                                    )
-                                                )
-                                            %}
+<div class="js-home-slider-container {{ slider_name }}-visibility position-relative {% if has_main_slider and has_mobile_slider %}{% if mobile %}d-md-none{% else %}d-none d-md-block{% endif %}{% elseif not settings.toggle_slider_mobile and mobile %}hidden{% endif %}{% if not has_slider_full_width %} container{% endif %}" data-align="{{ slider_data_align }}">
+	
+	{{ component(
+		'gallery',{
+			gallery_name: slider,
+			gallery_container_classes: slider_name,
+			gallery_navigation: slider_navigation,
+			gallery_prev_svg_classes: 'icon-inline icon-2x icon-flip-horizontal',
+			gallery_prev_svg_id: 'arrow-long',
+			gallery_next_svg_classes: 'icon-inline icon-2x',
+			gallery_next_svg_id: 'arrow-long',
+			gallery_prev_classes: 'js-swiper-home-prev svg-icon-text ' ~ slider_outside_button,
+			gallery_next_classes: 'js-swiper-home-next svg-icon-text ' ~ slider_outside_button,
+			gallery_pagination_classes: slider_pagination ~ ' swiper-pagination-outside',
 
-                                            {% if apply_lazy_load %}
-                                                {% set slide_src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==' %}
-                                            {% else %}
-                                                {% set slide_src = slide.image | static_url | settings_image_url('large') %}
-                                            {% endif %}
+			galley_image_aspect_ratio: true,
+			gallery_first_image_priority_high: first_image_priority_high_value,
+			gallery_image_alt: 'Carrusel' | translate ~ ' ',
+			gallery_image_classes: 'slider-image',
+			gallery_image_lazy_classes: 'fade-in',
 
-                                            <img
-                                                {% if not apply_lazy_load %}fetchpriority="high"{% endif %}
-                                                {% if slide.width and slide.height %} width="{{ slide.width }}" height="{{ slide.height }}" {% endif %}
-                                                {% if apply_lazy_load %}data-{% endif %}src="{{ slide_src }}"
-                                                {% if apply_lazy_load %}data-{% endif %}srcset="{{ slide.image | static_url | settings_image_url('large') }} 480w, {{ slide.image | static_url | settings_image_url('huge') }} 640w, {{ slide.image | static_url | settings_image_url('original') }} 1024w, {{ slide.image | static_url | settings_image_url('1080p') }} 1920w"
-                                                class="js-slider-image slider-image ep-slide-img {% if settings.slider_animation %}slider-image-animation{% endif %} {% if apply_lazy_load %}swiper-lazy fade-in{% endif %}" alt="{{ slide.title ? slide.title : ('Banner El Pescador' | translate) }}"
-                                            />
-                                            <div class="placeholder-fade ep-placeholder"></div>
-                                            {% if has_text %}
-                                                <div class="swiper-text swiper-text-centered swiper-text-{{ slide.color }} ep-slide-text">
-                                                    {% if slide.title %}
-                                                        <div class="h1-huge mb-1 ep-slide-title">{{ slide.title }}</div>
-                                                    {% endif %}
-                                                    {% if slide.description %}
-                                                        <p class="mb-2 ep-slide-desc">{{ slide.description }}</p>
-                                                    {% endif %}
-                                                    {% if slide.button and slide.link %}
-                                                        <div class="btn-link ep-slide-btn">{{ slide.button }}</div>
-                                                    {% endif %}
-                                                </div>
-                                            {% endif %}
-                                        </div>
-                                        {% if slide.link %}
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="mt-2 text-center ep-slider-controls">
-                            <div class="js-swiper-home-control js-swiper-home-prev{% if mobile %}-mobile{% endif %} swiper-button-prev ep-prev" aria-label="{{ 'Slide anterior' | translate }}">
-                                <svg class="icon-inline icon-lg icon-flip-horizontal svg-icon-text"><use xlink:href="#arrow-long"/></svg>
-                            </div>
-                            <div class="js-swiper-home-control js-swiper-home-pagination{% if mobile %}-mobile{% endif %} swiper-pagination-fraction ep-pagination"></div>
-                            <div class="js-swiper-home-control js-swiper-home-next{% if mobile %}-mobile{% endif %} swiper-button-next ep-next" aria-label="{{ 'Proximo slide' | translate }}">
-                                <svg class="icon-inline icon-lg svg-icon-text"><use xlink:href="#arrow-long"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{% if not mobile %}
+			text_classes: {
+				container: 'swiper-text ' ~ slider_alignment,
+				number_pagination: 'swiper-fractions',
+				title: 'h1 my-2',
+				description: 'mt-2 mb-3',
+			},
+			custom_content: '<div class="placeholder placeholder-fade"></div>',
+			link_aria_label: 'Carrusel' | translate,
+			link_classes: {
+				button: 'btn btn-primary',
+			},
+
+		})
+	}}
 </div>
+
+{% if not mobile %}
+	</div>
 {% endif %}

@@ -1,233 +1,200 @@
-{# Site Overlay #}
-<div class="js-overlay site-overlay" style="display: none;"></div>
+{# Header classes #}
 
-{# Header #}
+{% set header_position_md_classes = settings.head_fix_desktop ? 'position-sticky-md' : 'position-relative-md' %}
+{% set header_position_classes = 'position-sticky ' ~ header_position_md_classes %}
+{% set header_colors_classes = settings.header_colors ? 'head-colors' %}
+{% set header_with_categories_classes = settings.head_main_categories ? 'head-with-mobile-categories' %}
 
-{% set header_left_with_big_search = settings.logo_position_desktop == 'left' and settings.search_big_desktop %}
+{# Logo classes #}
 
-{# Header logo dynamic classes #}
+{% set header_logo_classes = settings.logo_position_mobile == 'center' ? 'logo-center' : 'logo-left' %}
+{% set header_logo_md_classes = settings.logo_position_desktop == 'center' ? 'logo-md-center' : 'logo-md-left' %}
+{% set logo_size_class = settings.logo_size == 'small' ? 'logo-small' : settings.logo_size == 'big' ? 'logo-big' %}
 
-{% set header_logo_mobile_classes = settings.logo_position_mobile == 'below' ? 'head-logo-below' : settings.logo_position_mobile == 'center' ? 'head-logo-center' : 'head-logo-inline' %}
-{% set header_logo_desktop_classes = settings.logo_position_desktop == 'center' ? 'head-logo-md-center' : settings.logo_position_desktop == 'left' ? 'head-logo-md-left' %}
+{# Logo sizes #}
 
-{% set has_languages = languages | length > 1 and settings.languages_header %}
+{% set logo_size_thumbnail = settings.logo_size == 'big' ? 'huge' : 'large' %}
 
-{# Logo mobile dynamic classes #}
+{# Utilities #}
 
-{% if settings.logo_position_mobile == 'below' %}
-    {% set logo_mobile_classes = 'col-12 text-center order-last pt-3 pt-md-0 pb-2 pb-md-0' %}
-{% else %}
-    {% set logo_mobile_classes = settings.logo_position_mobile == 'center' ? 'text-center' : 'order-first text-left' %}
-{% endif %}
-{% set logo_mobile_centered_without_offset = (settings.search_type_mobile == 'hidden' or settings.search_type_mobile == 'search_big') and settings.logo_position_mobile != 'left' %}
+{% set utilities_md_spacing_class = settings.utilities_type_desktop == 'icons' ? 'icons-md-only' %}
+{% set has_languages = languages | length > 1 %}
+{% set utilities_languages_main_nav = has_languages and settings.utilities_type_desktop == 'icons' %}
+{% set utilities_languages_secondary_nav = has_languages and settings.utilities_type_desktop == 'icons_text' %}
 
-{# Logo desktop dynamic classes + utilities desktop order #}
+{# Navigation #}
 
-{% set logo_desktop_classes = settings.logo_position_desktop == 'center' ? 'col-md-6 order-md-0 text-md-center' : 'col-md-auto order-md-first text-md-left' %}
+{% set nav_secondary_col = settings.head_secondary_menu_show or utilities_languages_secondary_nav %}
+{% set nav_desktop_color_class = settings.desktop_nav_colors ? 'nav-desktop-colors' %}
+{% set nav_desktop_grid_class = settings.category_item or nav_secondary_col ? 'nav-desktop-grid' %}
+{% set nav_desktop_grid_secondary_nav_class = settings.head_secondary_menu_show and not settings.category_item ? 'nav-desktop-grid-secondary-nav-only' %}
+{% set nav_desktop_text_class = settings.desktop_main_nav_uppercase ? 'nav-desktop-uppercase' %}
 
-{# Conditions for transparent head on page load #}
+<header class="js-head-main head-main {{ header_colors_classes }} {{ header_position_classes }} {{ header_with_categories_classes }} transition-soft" data-store="head" data-header-md-fixed="{{ settings.head_fix_desktop ? 'true' : 'false' }}">
+	{% include "snipplets/header/header-advertising.tpl" with {adbar_primary: true} %}
+	{% include "snipplets/header/header-advertising.tpl" with {adbar_secondary: true} %}
+	<div class="js-head-row head-row container {{ header_logo_classes }} {{ header_logo_md_classes }}">
 
-{# Slider and video presence #}
+		{# Menu #}
 
-{% if template == 'home' %}
-    {% set has_main_slider = settings.slider and settings.slider is not empty %}
-    {% set has_mobile_slider = settings.toggle_slider_mobile and settings.slider_mobile and settings.slider_mobile is not empty %}
-    {% set has_slider = has_main_slider or has_mobile_slider %}
-    {% set has_slider_above_the_fold = settings.home_order_position_1 == 'slider' and has_slider %}
-    {% set has_video_above_the_fold = settings.home_order_position_1 == 'video' and settings.video_embed %}
-    {% set is_video_or_slider_above_the_fold = has_slider_above_the_fold or has_video_above_the_fold %}
-{% endif %}
+		<div class="menu-container d-md-none">
+			{% include "snipplets/header/utilities/menu.tpl" %}
+		</div>
 
-{# Transparent head conditions #}
+		{# Logo #}
 
-{% set head_transparent_type_on_section = template == 'home' and settings.head_transparent and settings.head_transparent_type == 'slider_and_video' and (has_slider or settings.video_embed) %}
-{% set head_transparent_type_always = settings.head_transparent and settings.head_transparent_type == 'all' %}
-{% set head_transparent = (head_transparent_type_on_section or head_transparent_type_always) %}
-{% set head_transparent_with_media = head_transparent and is_video_or_slider_above_the_fold %}
+		<div class="js-logo-container logo-container">
+			{{ component('logos/logo', {
+				logo_size: logo_size_thumbnail, 
+				logo_img_classes: logo_size_class ~ ' transition-soft', 
+				logo_text_classes: 'h5 m-0'}) 
+			}}
+		</div>
 
-{% set header_transparent_classes = head_transparent_type_always ? 'js-head-mutator head-transparent' : head_transparent_type_on_section ? 'js-head-mutator head-transparent-on-section' %}
-{% set head_transparent_color_class = head_transparent and settings.head_transparent_contrast_options ? 'head-transparent-contrast' %}
-{% set head_transparent_logo_class = head_transparent and settings.head_transparent_contrast_options and "logo-transparent.jpg" | has_custom_image ? 'head-transparent-logo' %}
+		{# Search #}
 
-{# Header position type #}
+		<div class="search-container">
+			{{ component('search/search-form', {
+				form_classes: { 
+					input_group: 'position-relative m-0', 
+					input: 'input_class', 
+					submit: 'svg-icon-mask ', 
+					delete_content: 'svg-icon-mask',  
+					search_suggestions_container: ''
+				}
+				}) 
+			}}
+		</div>
 
-{% set head_position_mobile = head_transparent_with_media ? 'position-fixed' : 'position-sticky' %}
-{% set head_position_desktop = settings.head_fix_desktop 
-    ? (head_transparent_with_media ? 'position-fixed-md' : 'position-sticky-md')
-    : (head_transparent_with_media ? 'position-absolute-md' : 'position-relative-md') %}
+		{# Utilities #}
 
-{# Utilities classes #}
+		<div class="utilities-container {{ utilities_md_spacing_class }}">
+			{% if utilities_languages_main_nav or (params.preview and has_languages) %}
+				<span class="d-none d-md-inline-block">
+					{% include "snipplets/header/utilities/language.tpl" with {dropdown: true} %}
+				</span>
+			{% endif %}
+			{% include "snipplets/header/utilities/account.tpl" %}
+			{% include "snipplets/header/utilities/cart.tpl" %}
+		</div>
 
-{% if settings.logo_position_mobile == 'below' %}
-    {% set utilities_hamburger_mobile_classes = 'col' %}
-{% else %}
-    {% set utilities_hamburger_mobile_classes = settings.logo_position_mobile == 'center' ? 'col-2' : 'col-auto' %}
-{% endif %}
-{% set utilities_desktop_classes = settings.logo_position_desktop == 'left' ? 'js-utility-col desktop-utility-col' : 'col-md-3' %}
+		{# Add to cart notification #}
 
-{% set header_search_desktop_classes = settings.search_big_desktop ? 'head-search-md-big' : 'head-search-md-icon' %}
+		{% if settings.ajax_cart %}
+			{% if not settings.head_fix_desktop %}
+				<div class="d-block d-md-none">
+			{% endif %}
+					{{ component(
+						'notification',{
+							type: 'add_to_cart',
+							icons: {
+								close_icon_id: 'times',
+							},
+							notification_classes: {
+								notification_cart_container: 'notification-cart-container notification-hidden',
+								notification: 'p-3 w-100',
+								cart_item_image_container: 'mr-3',
+								cart_item_image: 'img-absolute-centered-vertically',
+								cart_item_name: 'mb-2 mb-md-1',
+								cart_item: 'd-grid grid-auto-1',
+								cart_item_price_container: 'mb-2 mb-md-1',
+								cart_item_success_message: 'font-weight-bold',
+								close_icon: 'icon-inline',
+							}
+						}) 
+					}}
+			{% if not settings.head_fix_desktop %}
+				</div>
+			{% endif %}
+		{% endif %}
+	</div>
 
-{# Header visibility classes #}
+	{# Mobile main categories #}
 
-{% set show_inline_desktop_hide_mobile_class = 'd-none d-md-inline-block' %}
-{% set show_inline_mobile_hide_desktop_class = 'd-inline-block d-md-none' %}
-{% set show_block_desktop_hide_mobile_class = 'd-none d-md-block' %}
-{% set show_block_mobile_hide_desktop_class = 'd-block d-md-none' %}
+	{% if settings.head_main_categories or params.preview %}
+		<div class="js-main-categories-container main-categories-container d-md-none" {% if not settings.head_main_categories %}style="display: none;"{% endif %}>
+			{% include 'snipplets/navigation/navigation-categories-mobile.tpl' %}
+		</div>
+	{% endif %}
 
-{# Utilities conditions #}
+	{# Desktop navigation #}
 
-<header class="js-head-main head-main {{ header_transparent_classes }} {{ head_transparent_color_class }} {{ head_transparent_logo_class }} {{ header_logo_mobile_classes }} {{ header_logo_desktop_classes }} {{ head_position_mobile }} {{ head_position_desktop }} {{ header_search_desktop_classes }} transition-soft" data-store="head">
-    {# Adversiting bar #}
-    {% if settings.ad_bar %}
-        {% snipplet "header/header-advertising.tpl" %}
-    {% endif %}
-    <div class="js-head-logo-row head-logo-row position-relative container transition-soft{% if has_languages and settings.search_type_mobile == 'search_icon' %} head-logo-languages{% endif %}">
-        <div class="{% if not settings.head_fix_desktop %}js-nav-logo-bar{% endif %} row no-gutters align-items-center{% if header_left_with_big_search %} justify-md-content-end{% endif %}">
-
-            {# Menu icon #}
-
-            <div class="js-utility-col transition-soft {{ utilities_hamburger_mobile_classes }} col-utility d-md-none">
-                {% include "snipplets/header/header-utilities.tpl" with {use_menu: true} %}
-            </div>
-
-            {# Logo #}
-
-            <div class="js-logo-container logo-container-col col transition-soft {{ logo_mobile_classes }} {{ logo_desktop_classes }}{% if header_left_with_big_search %} mr-md-auto{% endif %}">
-                {% set logo_size_class = '' %}
-                {% if settings.logo_position_mobile == 'below' and settings.logo_size == 'default' %}
-                    {% set logo_size_class = template == 'home' ? 'logo-big ' : 'logo-medium' %}
-                {% else %}
-                    {% set logo_size_class = settings.logo_size == 'small' ? 'logo-img-small' : settings.logo_size == 'medium' ? 'logo-img-medium' : settings.logo_size == 'big' ? 'logo-img-big' %}
-                {% endif %}
-
-                {% set logo_img_size = settings.logo_position_desktop == 'left' ? 'large' : 'huge' %}
-                {{ component('logos/logo', {logo_size: logo_img_size, logo_img_classes: 'transition-soft ' ~ logo_size_class, logo_text_classes: 'h3 m-0'}) }}
-
-                {% if template == 'home' and settings.head_transparent and settings.head_transparent_contrast_options and "logo-transparent.jpg" | has_custom_image %}
-                    {{ component('logos/logo-transparent-header', {logo_size: logo_img_size, logo_img_name: 'logo-transparent.jpg', logo_img_classes: 'transition-soft '  ~ logo_size_class}) }}
-                {% endif %}
-            </div>
-
-            {# Desktop navigation next to logo #}
-
-            {% if settings.logo_position_desktop == 'left' and not settings.search_big_desktop %}
-                {# Desktop nav next logo #}
-                <div class="js-desktop-nav-col desktop-nav-col transition-soft col {{ show_inline_desktop_hide_mobile_class }} align-items-center">
-                    {% snipplet "navigation/navigation.tpl" %}
-                </div>
-            {% endif %}
-
-            {# Search: Icon or box #}
-
-            <div class="js-utility-col js-search-utility transition-soft {{ utilities_desktop_classes }} col-utility 
-            {% if settings.logo_position_desktop == 'center' %}
-                order-md-first
-            {% endif %} 
-            {% if settings.search_type_mobile == 'hidden' %}
-                {{ show_inline_desktop_hide_mobile_class }}
-            {% endif %}
-            {% if settings.search_type_mobile == 'search_big' %}
-                mt-2 mt-md-0 
-                {% if settings.logo_position_mobile == 'below' %}
-                    pt-1 pt-md-0 order-last
-                {% else %}
-                    pt-2 order-3 
-                {% endif %}
-                pt-md-0
-                w-md-auto w-100 
-                {% if settings.logo_position_desktop == 'left' %}order-md-0{% endif %}
-            {% else %} 
-                col-auto
-            {% endif %}">
-                {% include "snipplets/header/header-utilities.tpl" with {use_search: true} %}
-                {% if settings.logo_position_desktop == 'center' or header_left_with_big_search or settings.search_type_mobile == 'search_big' %}
-                    <span class="{% if settings.search_type_mobile == 'search_big' %}position-relative{% else %}d-none{% endif %} d-md-flex {% if header_left_with_big_search %}position-relative-md mr-md-3 pr-md-1{% elseif not settings.search_big_desktop %}position-static-md{% endif %}">
-                        {% include "snipplets/header/header-search.tpl" with{ not_padding: true } %}
-                    </span>
-                {% endif %}
-            </div>
-
-            <div class="js-utility-col transition-soft {{ utilities_desktop_classes }} d-flex {% if logo_mobile_centered_without_offset %}col-2 justify-content-end col-md-auto{% else %}col-auto{% endif %} col-utility {% if settings.logo_position_desktop == 'center' %}justify-content-md-end{% endif %}">
-
-                {# Languages #}
-
-                {% if has_languages %}
-                    {% include "snipplets/header/header-utilities.tpl" with {use_languages: true} %}
-                {% endif %}
-
-                {# Account desktop icon #}
-
-                <span class="{{ show_inline_desktop_hide_mobile_class }}">
-                    {% include "snipplets/header/header-utilities.tpl" with {use_account: true, icon_only: true} %}
-                </span>
-
-                {# Cart icon #}
-
-                {% include "snipplets/header/header-utilities.tpl" %}
-            </div>
-
-            {# Add to cart notification #}
-
-            {% if settings.ajax_cart %}
-                {% if not settings.head_fix_desktop %}
-                    <div class="{{ show_block_mobile_hide_desktop_class }}">
-                {% endif %}
-                        {% include "snipplets/notification.tpl" with {add_to_cart: true} %}
-                {% if not settings.head_fix_desktop %}
-                    </div>
-                {% endif %}
-            {% endif %}
-
-        </div>
-    </div>   
-
-    {# Desktop navigation below logo #}
-
-    {% if settings.logo_position_desktop != 'left' or header_left_with_big_search %}
-        {# Desktop nav below logo #}
-        <div class="container {{ show_block_desktop_hide_mobile_class }} {% if settings.logo_position_desktop == 'center' %}text-center{% endif %}">
-            {% snipplet "navigation/navigation.tpl" %}
-        </div>
-    {% endif %}
- 
-    {% include "snipplets/notification.tpl" with {order_notification: true} %}
+	<div class="js-nav-desktop-color-container nav-desktop-container {{ nav_desktop_color_class }} d-none d-md-block">
+		<div class="js-nav-desktop-container {{ nav_desktop_grid_class }} {{ nav_desktop_grid_secondary_nav_class }} container" data-desktop-nav-secondary-or-language="{{ nav_secondary_col ? 'true' : 'false' }}" data-desktop-nav-secondary="{{ settings.head_secondary_menu_show ? 'true' : 'false' }}" data-desktop-main-categories="{{ settings.category_item ? 'true' : 'false' }}" style="visibility:hidden; height:0;">
+			{% if settings.category_item or params.preview %}
+				<div class="js-desktop-main-categories-col nav-desktop-list {{ nav_desktop_text_class }}" {% if not settings.category_item %}style="display: none;"{% endif %}>
+					{% include 'snipplets/navigation/navigation-categories-desktop.tpl' %}
+				</div>
+			{% endif %}
+			<div class="js-desktop-nav-col nav-desktop-main {{ nav_desktop_text_class }}">
+				{% snipplet "navigation/navigation.tpl" %}
+			</div>
+			{% if nav_secondary_col or params.preview %}
+				<div class="js-desktop-secondary-nav-col nav-desktop-secondary" {% if not nav_secondary_col %}style="display: none;"{% endif %}>
+					{% if settings.head_secondary_menu_show %}
+						{% include "snipplets/navigation/navigation-secondary.tpl" with {desktop: true} %}
+					{% endif %}
+					{% if utilities_languages_secondary_nav or (params.preview and has_languages) %}
+						{% include "snipplets/header/utilities/language.tpl" with {secondary_nav: true, dropdown: true} %}
+					{% endif %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
 </header>
 
-{# Show cookie validation message #}
+{% if status_page_url %}
+	{{ component(
+		'notification',{
+			type: 'order',
+			content_wrapper: true,
+			icons: {
+				close_icon_id: 'times',
+			},
+			notification_classes: {
+				notification: 'mt-3 text-center text-md-left notification-fixed notification-fixed-md-right transition-soft',
+				content_wrapper: 'd-block mr-3 pr-2',
+				link: 'btn-link',
+				close_icon: 'icon-inline'
+			}
+		}) 
+	}}
+{% endif %}
 
-{% include "snipplets/notification.tpl" with {show_cookie_banner: true} %}
+{{ component(
+	'notification',{
+		type: 'cookies',
+		notification_classes: {
+			notification: 'notification-fixed notification-fixed-bottom',
+			link: 'btn-link ml-1',
+		}
+	}) 
+}}
 
 {# Add to cart notification for non fixed header #}
 
 {% if settings.ajax_cart and not settings.head_fix_desktop %}
-    <div class="{{ show_block_desktop_hide_mobile_class }}">
-        {% include "snipplets/notification.tpl" with {add_to_cart: true, add_to_cart_fixed: true} %}
-    </div>
+	<div class="d-none d-md-block">
+		{{ component(
+			'notification',{
+				type: 'add_to_cart',
+				icons: {
+					close_icon_id: 'times',
+				},
+				notification_classes: {
+					notification_cart_container: 'notification-cart-container notification-hidden',
+					notification: 'p-3 w-100',
+					cart_item_image_container: 'mr-3',
+					cart_item_image: 'img-absolute-centered-vertically',
+					cart_item_name: 'mb-2 mb-md-1',
+					cart_item: 'd-grid grid-auto-1',
+					cart_item_price_container: 'mb-2 mb-md-1',
+					cart_item_success_message: 'font-weight-bold',
+					close_icon: 'icon-inline',
+				}
+			}) 
+		}}
+	</div>
 {% endif %}
-
-
-{# Cross selling promotion notification on add to cart #}
-
-{% embed "snipplets/modal.tpl" with {
-    modal_id: 'js-cross-selling-modal',
-    modal_class: 'bottom modal-bottom-sheet h-auto overflow-none modal-body-scrollable-auto',
-    modal_header: true,
-    modal_header_class: 'p-2 m-2 w-100',
-    modal_position: 'bottom',
-    modal_transition: 'slide',
-    modal_footer: true,
-    modal_width: 'centered-md m-0 p-0 modal-full-width modal-md-width-400px',
-    modal_close_class: 'mr-4'
-} %}
-    {% block modal_head %}
-        {{ '¡Descuento exclusivo!' | translate }}
-    {% endblock %}
-
-    {% block modal_body %}
-        {# Promotion info and actions #}
-
-        <div class="js-cross-selling-modal-body" style="display: none"></div>
-    {% endblock %}
-{% endembed %}
 
 {% include "snipplets/header/header-modals.tpl" %}

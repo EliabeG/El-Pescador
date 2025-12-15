@@ -1,65 +1,69 @@
 {#/*============================================================================
-    #Funções JS específicas da loja - El Pescador
-    Variantes de produto, carrinho, frete, etc
+    #Specific store JS functions: product variants, cart, shipping, etc
 ==============================================================================*/#}
 
 {#/*============================================================================
 
-	Índice de Conteúdos - El Pescador
-
-	#Lazy load - Carregamento preguiçoso de imagens
-	#Notificações e tooltips
-	#Modais - Janelas de diálogo
-	#Cards - Cartões de conteúdo
-	#Acordeões - Seções expansíveis
-	#Cabeçalho e navegação
-		// Cabeçalho
-		// Navegação
-	#Sliders - Carrosséis
-		// Slider da home
-		// Slider de produtos
-		// Categorias principais
-		// Slider de marcas
-		// Produtos relacionados
-		// Slider de serviços
-	#Social
-		// Vídeo do Youtube
-	#Grade de produtos
-		// Controles fixos de categoria
-		// Filtros
-		// Slider de itens de produto
-		// Rolagem infinita
-		// Quickshop
-	#Funções de detalhes do produto
-		// Parcelamento
-		// Mudança de variante
-		// Enviar para formulário de contato
-		// Etiquetas de produto na mudança de variante
-		// Mudança de variantes de cor e tamanho
-		// Mudança de variantes customizadas mobile
-		// Enviar para contato
-		// Slider de produto
-		// Compartilhamento no Pinterest
-		// Adicionar ao carrinho
-		// Quantidade do produto
-	#Carrinho
-		// Alternar carrinho
-		// Adicionar ao carrinho
-		// Mudanças de quantidade no carrinho
-		// Alerta de carrinho vazio
-	#Calculadora de frete
-		// Selecionar e salvar função de frete
-		// Função de cálculo de frete
-		// Calcular frete ao enviar
-		// Clique em frete e filial
-		// Selecionar primeira opção de frete nos resultados
-		// Alternar mais opções de frete
-		// Calcular frete ao carregar página
-		// Províncias de frete
-		// Mudar país da loja
-	#Formulários
-	#Rodapé
-	#Empty placeholders
+    Table of Contents
+    
+    #Transitions
+    #Forms
+    #Header and nav
+        // Cart favicon
+        // Inactive tab message
+        // Adbars
+        // Mobile main panel
+        // Nav
+        // Slim header on scroll
+    #Home
+        // Sliders
+        // Home slider
+        // Banners slider
+        // Institutional slider
+        // Main categories
+        // Brands slider
+        // Testimonials slider
+        // Instafeed slider
+        // Products slider
+        // Banner services slider
+        // Home popup and newsletter popup
+        // Main product description toggle
+        // Youtube video
+    #Product grid
+        // Button variations
+        // Color and size variations
+        // Fixed category controls
+        // Product item slider
+        // Infinite scroll
+        // Quickshop
+    #Product detail
+        // Installments
+        // Change variant
+        // Trigger change variant
+        // Submit to contact
+        // Product slider
+        // Product quantity
+        // Add to cart
+        // Add to cart notification
+        // Product Related
+    #Cart
+        // Free shipping bar
+        // Position of cart page summary
+        // Cart quantitiy changes
+        // Go to checkout
+    #Shipping calculator
+        // Select and save shipping function
+        // Calculate shipping function
+        // Calculate shipping by submit
+        // Shipping and branch click
+        // Select shipping first option on results
+        // Toggle more shipping options
+        // Calculate shipping on page load
+        // Shipping provinces
+        // Change store country
+    #Empty screens
+        // Home
+        // 404 & Search without results
 
 ==============================================================================*/#}
 
@@ -87,857 +91,398 @@ document.addEventListener('lazybeforeunveil', function(e){
 window.lazySizesConfig = window.lazySizesConfig || {};
 lazySizesConfig.hFac = 0.4;
 
-
 DOMContentLoaded.addEventOrExecute(() => {
 
-	{#/*============================================================================
-	  #Notifications and tooltips
-	==============================================================================*/ #}
-
-    {# /* // Close notification and tooltip */ #}
-
-    jQueryNuvem(".js-notification-close, .js-tooltip-close").on( "click", function(e) {
-        e.preventDefault();
-        jQueryNuvem(e.currentTarget).closest(".js-notification, .js-tooltip").hide();
-    });
-
-    {# /* // Open tooltip */ #}
-
-    jQueryNuvem(document).on("click", ".js-tooltip-icon", function(e) {
-        e.preventDefault();
-        jQueryNuvem(this).next(".js-tooltip").show();
-    });
-
-    {# Notifications variables #}
-
-    var $notification_status_page = jQueryNuvem(".js-notification-status-page");
-    var $fixed_bottom_button = jQueryNuvem(".js-btn-fixed-bottom");
-    
-	{# /* // Follow order status notification */ #}
-    
-    if ($notification_status_page.length > 0){
-        if (LS.shouldShowOrderStatusNotification($notification_status_page.data('url'))){
-            $notification_status_page.show();
-        };
-        jQueryNuvem(".js-notification-status-page-close").on( "click", function(e) {
-            e.preventDefault();
-            LS.dontShowOrderStatusNotificationAgain($notification_status_page.data('url'));
-        });
-    }
-
-    {# /* // Cart notification: Dismiss notification */ #}
-
-    jQueryNuvem(".js-cart-notification-close").on("click", function(){
-        jQueryNuvem(".js-alert-added-to-cart").removeClass("notification-visible").addClass("notification-hidden");
-        setTimeout(function(){
-            jQueryNuvem('.js-cart-notification-item-img').attr('src', '');
-            jQueryNuvem(".js-alert-added-to-cart").hide();
-        },2000);
-    });
-
-    {% if not settings.head_fix_desktop %}
-
-        {# /* // Add to cart notification on non fixed header */ #}
-        if (window.innerWidth > 768) {
-            var adBarHeight = jQueryNuvem(".js-adbar").outerHeight();
-            var logoBarHeight = jQueryNuvem(".js-nav-logo-bar").outerHeight();
-            var headerWidth = jQueryNuvem(".js-head-logo-row").width();
-            var fixedNotificationTopPosition = adBarHeight + logoBarHeight;
-            var fixedNotificationRightPosition = (window.innerWidth - headerWidth) / 2 - 10;
-            var $addedToCartNotification = jQueryNuvem(".js-alert-added-to-cart");
-
-            $addedToCartNotification.css("top", fixedNotificationTopPosition.toString() + 'px').css("right" , fixedNotificationRightPosition.toString() + 'px').css("marginTop", "10px");
-
-            !function () {
-                window.addEventListener("scroll", function (e) {
-                    if (window.pageYOffset == 0) {
-                        $addedToCartNotification.css("top" , fixedNotificationTopPosition.toString() + 'px').css("marginTop", "10px");
-                    } else {
-                        $addedToCartNotification.css("top" , "10px");
-                    }
-                });
-            }();
-        }
-
-    {% endif %}
-
-    {% if not params.preview %}
-
-        {# /* // Cookie banner notification */ #}
-
-        const footer = jQueryNuvem(".js-footer");
-
-        restoreNotifications = function(){
-
-            // Whatsapp button position
-            $fixed_bottom_button.css("marginBottom", "10px");
-
-            {# Restore notifications when Cookie Banner is closed #}
-
-            footer.removeAttr("style");
-        };
-
-        if (!window.cookieNotificationService.isAcknowledged()) {
-            jQueryNuvem(".js-notification-cookie-banner").show();
-
-            {# Offset to show legal footer #}
-
-            const cookieBannerHeight = jQueryNuvem(".js-notification-cookie-banner").outerHeight();
-            footer.css("paddingBottom", cookieBannerHeight + 20 + "px");
-
-            {# Whatsapp button position #}
-
-            if (window.innerWidth < 768) {
-                $fixed_bottom_button.css("marginBottom", "70px");
-            }else{
-                $fixed_bottom_button.css("marginBottom", "40px");
-            }
-        }
-
-        jQueryNuvem(".js-acknowledge-cookies").on( "click", function(e) {
-            window.cookieNotificationService.acknowledge();
-            restoreNotifications();
-        });
-
-    {% endif %}
-
     {#/*============================================================================
-      #Modals
+      #Transitions
     ==============================================================================*/ #}
 
-    {% if settings.quick_shop %}
+    applyMarqueeAnimation = function(marqueeSelector, textSelector){
 
-        restoreQuickshopForm = function(){
+        {# Reference speed values #}
 
-            {# Restore form to item when quickshop closes #}
+        const defaultDelay = 5;
+        const defaultWidth = 300;
 
-            {# Clean quickshop modal #}
+        {# New speed values based on dynamic content #}
+        const animatedWidth = jQueryNuvem(textSelector).first(el => el.offsetWidth);
+        let newDelay;
+        newDelay = defaultDelay*(animatedWidth/defaultWidth)*1.5;
 
-            jQueryNuvem("#quickshop-modal .js-item-product").removeClass("js-swiper-slide-visible js-item-slide");
-            jQueryNuvem("#quickshop-modal .js-quickshop-container").attr( { 'data-variants' : '' , 'data-quickshop-id': '' } );
-            jQueryNuvem("#quickshop-modal .js-item-product").attr('data-product-id', '');
+        if((window.innerWidth > 768) && (newDelay < 50)){
 
-            {# Wait for modal to become invisible before removing form #}
-            
-            setTimeout(function(){
-                var $quickshop_form = jQueryNuvem("#quickshop-form").find('.js-product-form');
-                var $item_form_container = jQueryNuvem(".js-quickshop-opened").find(".js-item-variants");
-                
-                $quickshop_form.detach().appendTo($item_form_container);
-                jQueryNuvem(".js-quickshop-opened").removeClass("js-quickshop-opened");
-                jQueryNuvem("#quickshop-modal .js-quickshop-img").attr('srcset', '');
-            },350);
+            {# If content is too short, set a minimum speed #}
+            newDelay = newDelay + 20;
+        }
 
-        };
-
-    {% endif %}
-
-    {# Reset al open searches when closing a modal #}
-
-    resetSearchBox = function(){
-
-        {# Reset al open searches when closing a modal #}
-        
-        jQueryNuvem(".js-search-input").val("");
-        jQueryNuvem(".js-search-form-suggestions").hide();
-
-        const empty_search = jQueryNuvem(".js-empty-search");
-        const empty_submit = jQueryNuvem(".js-search-input-submit");
-
-        empty_search.fadeOut(100);
-        empty_submit.fadeIn(100);
-
+        jQueryNuvem(marqueeSelector).css("animation", "marquee " + newDelay + "s linear infinite");
     };
 
+    {# /* Enable modal handler to open modals without clicking a trigger */ #}
 
-    {# Full screen mobile modals back events #}
+    const modalHandler = new ModalHandler();
 
-    if (window.innerWidth < 768) {
+    {#/*============================================================================
+      #Forms
+    ==============================================================================*/ #}
 
-        {# Clean url hash function #}
+    {# IOS form CSS to avoid autozoom on focus #}
 
-        cleanURLHash = function(){
-            const uri = window.location.toString();
-            const clean_uri = uri.substring(0, uri.indexOf("#"));
-            window.history.replaceState({}, document.title, clean_uri);
-        };
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isIOS) {
+        var ios_input_fields = jQueryNuvem("input[type='text'], input[type='number'], input[type='password'], input[type='tel'], textarea, input[type='search'], input[type='hidden'], input[type='email']");
+        ios_input_fields.addClass("form-control-ios");
+        // jQueryNuvem(".js-quantity").addClass("form-group-quantity-ios");
+        // jQueryNuvem(".js-cart-quantity-container").addClass("cart-quantity-container-ios");
+        jQueryNuvem(".js-search-form").toggleClass("search-form-ios");
+        // jQueryNuvem(".js-price-filter-btn").addClass("price-btn-ios");
+        // jQueryNuvem(".js-price-filter-empty").addClass("input-clear-content-ios");
+    }
+    
+    {#/*============================================================================
+        # Header and nav
+    ==============================================================================*/ #}
 
-        {# Go back 1 step on browser history #}
+    {# /* // Cart favicon */ #}
 
-        goBackBrowser = function(){
-            cleanURLHash();
-            history.back();
-        };
-
-        {# Clean url hash on page load: All modals should be closed on load #}
-
-        if(window.location.href.indexOf("modal-fullscreen") > -1) {
-            cleanURLHash();
-        }
-
-        {# Open full screen modal and url hash #}
-
-        jQueryNuvem(document).on("click", ".js-fullscreen-modal-open", function(e) {
-            e.preventDefault();
-            var modal_url_hash = jQueryNuvem(this).data("modalUrl");
-            window.location.hash = modal_url_hash;
-        });
-
-        {# Close full screen modal: Remove url hash #}
-
-        jQueryNuvem(document).on("click", ".js-fullscreen-modal-close", function(e) {
-            e.preventDefault();
-            goBackBrowser();
-        });
-
-        {# Hide panels or modals on browser backbutton #}
-
-        window.onhashchange = function() {
-            if(window.location.href.indexOf("modal-fullscreen") <= -1) {
-
-                {# Close opened modal #}
-
-                if(jQueryNuvem(".js-fullscreen-modal").hasClass("modal-show")){
-
-                    {# Remove body lock only if a single modal is visible on screen #}
-
-                    if(jQueryNuvem(".js-modal.modal-show").length == 1){
-                        jQueryNuvem("body").removeClass("overflow-none");
-                    }
-                    var $opened_modal = jQueryNuvem(".js-fullscreen-modal.modal-show");
-                    var $opened_modal_overlay = $opened_modal.prev();
-
-                    $opened_modal.removeClass("modal-show");
-                    setTimeout(() => $opened_modal.hide(), 500);
-                    $opened_modal_overlay.fadeOut(500);
-
-                    {# Reset al open searches when closing a modal #}
+    {% if "cart-favicon.jpg" | has_custom_image %}
         
-                    resetSearchBox();
+        {# Original favicon url #}
+        const originalFavicon = jQueryNuvem(".js-favicon").attr("href");
 
-                    {% if settings.quick_shop %}
-                        restoreQuickshopForm();
-                    {% endif %}
+        {# Updates favicon on initial load #}
+        {% if cart.items_count > 0 %}
+            jQueryNuvem(".js-favicon").attr("href", "{{ 'cart-favicon.jpg' | static_url }}");
+        {% endif %}
 
+        {# Updates favicon on cart changes #}
+        document.addEventListener( 'cart.updated', () => {
+            setTimeout(function(){
+                if(jQueryNuvem(".js-cart-item").length){
+                    jQueryNuvem(".js-favicon").attr("href", "{{ 'cart-favicon.jpg' | static_url }}");
+                } else {
+                    jQueryNuvem(".js-favicon").attr("href", originalFavicon);
                 }
-            }
-        }
-
-    }
-
-    modalOpen = function(modal_id, openType){
-        var $overlay_id = jQueryNuvem('.js-modal-overlay[data-modal-id="' + modal_id + '"]');
-
-        if (jQueryNuvem(modal_id).hasClass("modal-show")) {
-            {# If modal is already opened, close it #}
-            if(jQueryNuvem(".js-modal.modal-show").length == 1){
-                jQueryNuvem("body").removeClass("overflow-none");
-            }
-            let modal = jQueryNuvem(modal_id).removeClass("modal-show");
-            setTimeout(() => modal.hide(), 500);
-        } else {
-
-            {# Lock body scroll if there is no modal visible on screen #}
-            
-            if(!jQueryNuvem(".js-modal.modal-show").length){
-                jQueryNuvem("body").addClass("overflow-none move-right");
-            }
-
-            jQueryNuvem(modal_id).detach().appendTo("body");
-            jQueryNuvem(modal_id).show().addClass("modal-show");
-            
-            {# Show overlay for all modals or tab modals only in desktop #}
-            if (((jQueryNuvem(modal_id).hasClass("js-modal-overlay-md")) && (window.innerWidth > 768)) || (!jQueryNuvem(modal_id).hasClass("js-modal-overlay-md"))) {
-                $overlay_id.fadeIn(400);
-                $overlay_id.detach().insertBefore(modal_id);
-            }
-        }
-
-        {# Add url hash to full screen modal if it is opened without click #}
-
-        if(openType == 'openFullScreenWithoutClick' && window.innerWidth < 768 && jQueryNuvem(modal_id).hasClass("js-fullscreen-modal")){
-            var modal_url_hash = jQueryNuvem(modal_id).data("modalUrl");
-            window.location.hash = modal_url_hash;
-        }
-    }
-
-    jQueryNuvem(document).on("click", ".js-modal-open", function(e) {
-        e.preventDefault(); 
-        var modal_id = jQueryNuvem(this).data('toggle');
-         modalOpen(modal_id);         
-    });
-
-    jQueryNuvem(document).on("click", ".js-modal-close", function(e) {
-        e.preventDefault();
-
-        {# Remove body lock only if a single modal is visible on screen #}
-
-        if(jQueryNuvem(".js-modal.modal-show").length == 1){
-            jQueryNuvem("body").removeClass("overflow-none");
-        }
-        var $modal = jQueryNuvem(this).closest(".js-modal");
-        var modal_id = $modal.attr('id');
-        var $overlay_id = jQueryNuvem('.js-modal-overlay[data-modal-id="#' + modal_id + '"]');
-        $modal.removeClass("modal-show");
-        setTimeout(() => $modal.hide(), 500);
-        $overlay_id.fadeOut(500);
-        
-        {# Close full screen modal: Remove url hash #}
-
-        if ((window.innerWidth < 768) && (jQueryNuvem(this).hasClass(".js-fullscreen-modal-close"))) {
-            goBackBrowser();
-        }
-
-        {# Reset al open searches when closing a modal #}
-
-        resetSearchBox();
-
-        {% if settings.quick_shop %}
-            restoreQuickshopForm();
-        {% endif %}
-
-    });
-
-    jQueryNuvem(document).on("click", ".js-modal-overlay", function(e) {
-        e.preventDefault();
-
-        {# Remove body lock only if a single modal is visible on screen #}
-
-        if(jQueryNuvem(".js-modal.modal-show").length == 1){
-            jQueryNuvem("body").removeClass("overflow-none");
-        }
-
-        var modal_id = jQueryNuvem(this).data('modalId');
-        let modal = jQueryNuvem(modal_id).removeClass("modal-show");
-        setTimeout(() => modal.hide(), 500);
-        jQueryNuvem(this).fadeOut(500);
-
-        {# Reset al open searches when closing a modal #}
-        
-        resetSearchBox();
-
-        {% if settings.quick_shop %}
-            restoreQuickshopForm();
-        {% endif %}
-
-    });
-
-    {% if template == 'home' and settings.home_promotional_popup %}
-
-        {# /* // Home popup and newsletter popup */ #}
-
-        jQueryNuvem('#news-popup-form').on("submit", function () {
-            jQueryNuvem(".js-news-spinner").show();
-            jQueryNuvem(".js-news-popup-submit").prop("disabled", true);
+            },900);
         });
-
-        LS.newsletter('#news-popup-form-container', '#home-modal', '{{ store.contact_url | escape('js') }}', function (response) {
-            jQueryNuvem(".js-news-spinner").hide();
-            jQueryNuvem(".js-news-popup-submit").show();
-            var selector_to_use = response.success ? '.js-news-popup-success' : '.js-news-popup-failed';
-            let newPopupAlert = jQueryNuvem(this).find(selector_to_use).fadeIn(100);
-            setTimeout(() => newPopupAlert.fadeOut(500), 4000);
-            if (jQueryNuvem(".js-news-popup-success").css("display") == "block") {
-                setTimeout(function () {
-                    jQueryNuvem('[data-modal-id="#home-modal"]').fadeOut(500);
-                    let homeModal = jQueryNuvem("#home-modal").removeClass("modal-show");
-                    setTimeout(() => homeModal.hide(), 500);
-                }, 2500);
-            }
-            jQueryNuvem(".js-news-popup-submit").prop("disabled", false);
-        });
-
-        var callback_show = function(){
-            {% if store.whatsapp %}
-                jQueryNuvem('.js-btn-fixed-bottom').fadeOut(500);
-            {% endif %}
-            jQueryNuvem("#home-modal").detach().appendTo("body").show().addClass("modal-show");
-        }
-        var callback_hide = function(){
-            let homeModal = jQueryNuvem("#home-modal").removeClass("modal-show");
-            setTimeout(() => homeModal.hide(), 500);
-        }
-
-        {% if store.whatsapp %}
-            jQueryNuvem("#home-modal .js-modal-close").on("click", function (e) {
-                e.preventDefault();
-                jQueryNuvem('.js-btn-fixed-bottom').fadeIn(500);
-            });
-        {% endif %}
-
-        LS.homePopup({
-            selector: "#home-modal",
-            mobile_max_pixels: 0,
-            timeout: 10000
-        }, callback_hide, callback_show);
 
     {% endif %}
 
-    {#/*============================================================================
-      #Cards
-    ==============================================================================*/ #}
-    jQueryNuvem(document).on("click", ".js-card-collapse-toggle", function(e) {
-        e.preventDefault();
-        var parent = jQueryNuvem(this).closest(".js-card-collapse");
-        parent.find(".js-card-collapse-toggle").toggleClass('active');
-        parent.toggleClass('active');
-    });
+    {# /* // Inactive tab message */ #}
 
-    {#/*============================================================================
-      #Accordions
-    ==============================================================================*/ #}
+    {% if settings.inactive_tab_message and (settings.inactive_tab_message_01 or settings.inactive_tab_message_02) %}
+        
+        {# Identifies available messages and discards nulls from the array #}
+        var messages = [
+            {% if settings.inactive_tab_message_01 %}'{{ settings.inactive_tab_message_01 }}',{% endif %}
+            {% if settings.inactive_tab_message_02 %}'{{ settings.inactive_tab_message_02 }}'{% endif %}
+        ].filter(Boolean);
 
-    function toggleAccordion(selector){
-        if(jQueryNuvem(selector).hasClass("js-accordion-show-only")){
-            jQueryNuvem(selector).hide();
-        }else{
-            jQueryNuvem(selector).find(".js-accordion-toggle-inactive").toggle();
-            jQueryNuvem(selector).find(".js-accordion-toggle-active").toggle();
+        {# Variable used for interval identifier in tab visibility #}
+        var intervalID;
+
+        function changeTitle() {
+            if (messages.length > 0) {
+                document.title = messages.shift();
+                messages.push(document.title);
+            }
         }
-        jQueryNuvem(selector).closest(".js-accordion-container").find(".js-accordion-content").first().slideToggle("fast");
-    }
 
-    jQueryNuvem(document).on("click", ".js-accordion-toggle", function(e) {
-        e.preventDefault();
-        toggleAccordion(this);
-    });
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden && messages.length > 0) {
+                intervalID = setInterval(changeTitle, 1000);
+            } else {
+                clearInterval(intervalID);
+                document.title = '{{ page_title }}';
+            }
+        });
+    {% endif %}
 
-	{#/*============================================================================
-      #Header and nav
-    ==============================================================================*/ #}
+    {# /* // Adbars */ #}
 
-    {# /* // Adbar slider */ #}
+    {# Main #}
 
-    {% set adbarMessage01 = settings.ad_bar_01_text %}
-    {% set adbarMessage02 = settings.ad_bar_02_text %}
-    {% set adbarMessage03 = settings.ad_bar_03_text %}
+    {% set adbarMessage01 = settings.adbar_primary_01_text %}
+    {% set adbarMessage02 = settings.adbar_primary_02_text %}
+    {% set adbarMessage03 = settings.adbar_primary_03_text %}
     {% set adbarMultipleMessages = (adbarMessage01 and adbarMessage02) or (adbarMessage01 and adbarMessage03) or (adbarMessage02 and adbarMessage03) %}
     {% set adbarMessages = adbarMessage01 or adbarMessage02 or adbarMessage03 %}
-    {% set hasAdbar = settings.ad_bar and adbarMessages %}
+    {% set hasAdbar = settings.adbar_primary and (adbarMessages or 'adbar_primary_img_mobile.jpg' | has_custom_image or 'adbar_primary_img_desktop.jpg' | has_custom_image) %}
 
-    {% if hasAdbar %}
-        {% if settings.ad_bar_animate %}
+    {% if settings.adbar_primary %}
+
+        {% if settings.adbar_primary_animate %}
 
             {# /* // Animated adbar */ #}
 
-            {# Reference speed values #}
-            var defaultDelay = 5;
-            var defaultWidth = 300;
-
-            {# New speed values based on dynamic content #}
-            var animatedAdbarWidth = jQueryNuvem(".js-adbar-text-container").first(el => el.offsetWidth);
-            var newDelay = defaultDelay*(animatedAdbarWidth/defaultWidth);
-
-            if((window.innerWidth > 768) && (newDelay < 40)){
-
-                {# If Adbar is too short, set a minimum speed #}
-                var newDelay = newDelay + 20;
-            }
-
-            jQueryNuvem(".js-adbar-animated").css("animation", "marquee " + newDelay + "s linear infinite");
+            applyMarqueeAnimation(".js-adbar-primary .js-adbar-content" , ".js-adbar-primary .js-adbar-messages-container");
 
         {% elseif adbarMultipleMessages %}
 
-            var adbarAutoplayVal = {% if settings.adbar_auto and adbarMultipleMessages %}{delay: 5000,}{% else %}false{% endif %};
-
-            createSwiper('.js-swiper-adbar', {
+            createSwiper('.js-swiper-adbar-primary', {
                 loop: true,
-                autoplay: adbarAutoplayVal,
                 slidesPerView: 1,
+                watchOverflow: true,
                 navigation: {
-                    nextEl: '.js-swiper-adbar-next',
-                    prevEl: '.js-swiper-adbar-prev',
+                    nextEl: '.js-swiper-adbar-primary-next',
+                    prevEl: '.js-swiper-adbar-primary-prev',
                 },
+            },
+            function(swiperInstance) {
+                window.adbarPrimarySwiper = swiperInstance;
             });
 
         {% endif %}
+
     {% endif %}
+
+    {# Secondary #}
+    
+    {% set adbarMessage01 = settings.adbar_secondary_01_text %}
+    {% set adbarMessage02 = settings.adbar_secondary_02_text %}
+    {% set adbarMessage03 = settings.adbar_secondary_03_text %}
+    {% set adbarMultipleMessages = (adbarMessage01 and adbarMessage02) or (adbarMessage01 and adbarMessage03) or (adbarMessage02 and adbarMessage03) %}
+    {% set adbarMessages = adbarMessage01 or adbarMessage02 or adbarMessage03 %}
+    {% set hasAdbar = settings.adbar_secondary and (adbarMessages or 'adbar_secondary_img_mobile.jpg' | has_custom_image or 'adbar_secondary_img_desktop.jpg' | has_custom_image) %}
+
+    {% if settings.adbar_secondary %}
+
+        {% if settings.adbar_secondary_animate %}
+
+            {# /* // Animated adbar */ #}
+
+            applyMarqueeAnimation(".js-adbar-secondary .js-adbar-content" , ".js-adbar-secondary .js-adbar-messages-container");
+
+        {% elseif adbarMultipleMessages %}
+
+            createSwiper('.js-swiper-adbar-secondary', {
+                loop: true,
+                slidesPerView: 1,
+                watchOverflow: true,
+                navigation: {
+                    nextEl: '.js-swiper-adbar-secondary-next',
+                    prevEl: '.js-swiper-adbar-secondary-prev',
+                },
+            },
+            function(swiperInstance) {
+                window.adbarSecondarySwiper = swiperInstance;
+            });
+
+        {% endif %}
+
+    {% endif %}
+
+    {# /* // Mobile main panel */ #}
+
+    jQueryNuvem(".js-close-all-nav-modals").click(function () {
+        jQueryNuvem("#nav-hamburger").addClass("modal-transition-fast");        
+         setTimeout(function(){
+            jQueryNuvem("#nav-hamburger").removeClass("modal-transition-fast");
+        },1000);
+    });
 
     {# /* // Nav */ #}
 
-    {# Transparent head #}
-
-    var $category_controls = jQueryNuvem(".js-category-controls");
-
-    {% if settings.head_transparent and ((template == 'home' and settings.head_transparent_type == 'slider_and_video') or settings.head_transparent_type == 'all') %}
-        const fixedNavTransparent = jQueryNuvem(".js-head-mutator");
-        const fixedNavTransparentHeight = fixedNavTransparent.height();
-        const videoSection = jQueryNuvem(".js-section-video");
-        const sliderSection = jQueryNuvem(".js-home-main-slider-container");
-
-        {# Components validations #}
-
-        {% set has_main_slider = settings.slider and settings.slider is not empty %}
-        {% set has_mobile_slider = settings.toggle_slider_mobile and settings.slider_mobile and settings.slider_mobile is not empty %}
-        {% set has_slider = has_main_slider or has_mobile_slider %}
-        {% set has_slider_above_the_fold = settings.home_order_position_1 == 'slider' and has_slider %}
-
-        {% set has_video = settings.video_embed %}
-        {% set has_video_above_the_fold = settings.home_order_position_1 == 'video' and has_video %}
-
-        {# Remove transparent header when stop swiping #}
-
-        {% set remove_header_transparent_on_scroll_stop = settings.head_transparent and settings.head_transparent_type == 'all' %}
-
-        {% if remove_header_transparent_on_scroll_stop %}
-
-            if (window.innerWidth < 768) {
-
-                {% if template == 'home' and (has_video_above_the_fold or has_slider_above_the_fold) %}
-                    {% if has_slider_above_the_fold %}
-                        removeTransparentLimit = sliderSection.height();
-                    {% else %}
-                        removeTransparentLimit = videoSection.height();
-                    {% endif %}
-                {% else %}
-                    removeTransparentLimit = fixedNavTransparentHeight;
-                {% endif %}
-
-                var isScrolling;
-
-                window.addEventListener('scroll', function ( event ) {
-
-                    fixedNavTransparent.addClass('head-transparent');
-                    $category_controls.addClass('category-controls-transparent');
-
-                    // Clear our timeout throughout the scroll
-                    window.clearTimeout(isScrolling);
-
-                    // Set a timeout to run after scrolling ends
-                    isScrolling = setTimeout(function() {
-
-                        if((window.scrollY > removeTransparentLimit)){
-
-                            // Stopped scrolling
-                            fixedNavTransparent.removeClass('head-transparent');
-                            $category_controls.removeClass('category-controls-transparent');
-                        }else {
-
-                            // Stopped scrolling on window top
-                            fixedNavTransparent.addClass('head-transparent');
-                            $category_controls.addClass('category-controls-transparent');
-                        }
-                    },  500);
-                }, false);
-            }
-
-        {% endif %}
-
-        {% set toggle_header_transparent_on_hover = settings.head_fix_desktop and settings.head_transparent and settings.head_transparent_type == 'all' %}
-
-        {% if toggle_header_transparent_on_hover %}
-
-            {# Avoid sticky on category controls #}
-
-            if (window.innerWidth > 767) {
-                jQueryNuvem(".js-category-controls").addClass("position-relative");
-            }
-
-        {% endif %}
-    {% endif %}
-
-    {# Nav subitems hamburger #}
-
-    jQueryNuvem(".js-toggle-menu-panel").click(function (e) {
-        e.preventDefault();
-        jQueryNuvem(this).next(".js-menu-panel").show().addClass("nav-list-panel-show");
-    });
-
-    jQueryNuvem(".js-toggle-menu-back").click(function (e) {
-        e.preventDefault();
-        var $panel_to_change = jQueryNuvem(this).closest(".js-menu-panel");
-        $panel_to_change.removeClass("nav-list-panel-show");
-         setTimeout(function(){
-            $panel_to_change.hide();
-        },600);
-    });
-
-    closeHamburgerSubpanels = function() {
-        jQueryNuvem("#nav-hamburger").addClass("modal-transition-fast");
-        jQueryNuvem(".js-menu-panel").removeClass("nav-list-panel-show");
-        
-         setTimeout(function(){
-            jQueryNuvem(".js-menu-panel").hide();
-            jQueryNuvem("#nav-hamburger").removeClass("modal-transition-fast");
-        },1000);
-    };
-
-    jQueryNuvem(".js-toggle-menu-close, .js-modal-overlay[data-modal-id='#nav-hamburger'").click(function () {
-        closeHamburgerSubpanels();
-    });
-
     {# Nav subitems desktop #}
 
-    var win_height = window.innerHeight;
-    var headHeight = jQueryNuvem(".js-head-main").height();
-    const logoContainer = jQueryNuvem('.js-logo-container');
+    const win_height = window.innerHeight;
+    const head_height = jQueryNuvem(".js-head-main").outerHeight();
 
-    if (window.innerWidth > 768) {
+    jQueryNuvem(".js-desktop-dropdown").css('maxHeight', (win_height - head_height - 50).toString() + 'px');
 
-        jQueryNuvem(".js-desktop-dropdown").css('maxHeight', (win_height - headHeight - 50).toString() + 'px');
+    jQueryNuvem(".js-item-subitems-desktop").on("mouseenter", function (e) {
+        jQueryNuvem(e.currentTarget).addClass("active");
+    }).on("mouseleave", function(e) {
+        jQueryNuvem(e.currentTarget).removeClass("active");
+    });
 
-        jQueryNuvem(".js-item-subitems-desktop").on("mouseenter", function (e) {
-            jQueryNuvem(e.currentTarget).addClass("active");
-        }).on("mouseleave", function(e) {
-            jQueryNuvem(e.currentTarget).removeClass("active");
-        });
+    jQueryNuvem(".js-nav-main-item").on("mouseenter", function (e) {
+        jQueryNuvem('.js-nav-desktop-list').children(".selected").removeClass("selected");
+        jQueryNuvem(e.currentTarget).addClass("selected");
+    }).on("mouseleave", function(e) {
+        const self = jQueryNuvem(this);
+        setTimeout(function(){
+            self.removeClass("selected");
+        },500);
+    });
 
-        jQueryNuvem(".js-nav-main-item").on("mouseenter", function (e) {
-            jQueryNuvem('.js-nav-desktop-list').children(".selected").removeClass("selected");
-            jQueryNuvem(e.currentTarget).addClass("selected");
+    jQueryNuvem(".js-nav-desktop-list-arrow").on("mouseenter", function (e) {
+        jQueryNuvem('.js-desktop-nav-item').removeClass("selected");
+    });
+
+    {# Load desktop nav banner when header is hovered #}
+     
+    {% if 'menu_banner_desktop.jpg' %}
+        jQueryNuvem(".js-head-main").on("mouseenter", function (e) {
+            jQueryNuvem(e.currentTarget).addClass("hover");
         }).on("mouseleave", function(e) {
             const self = jQueryNuvem(this);
             setTimeout(function(){
-                self.removeClass("selected");
+                self.removeClass("hover");
             },500);
         });
-
-        jQueryNuvem(".js-nav-desktop-list-arrow").on("mouseenter", function (e) {
-            jQueryNuvem('.js-desktop-nav-item').removeClass("selected");
-        });
-
-        {# Nav desktop scroller #}
-
-        {% set logo_desktop_left_inline = settings.logo_position_desktop == 'left' and not settings.search_big_desktop %}
-
-        const menuContainer = jQueryNuvem('.js-nav-desktop-list').first(el => el.offsetWidth);
-        const logoColWidth = logoContainer.first(el => el.offsetWidth);
-        let utilityColWidth = 0;
-        
-        jQueryNuvem('.js-utility-col').each(function(el) {
-            utilityColWidth +=  jQueryNuvem(el).first(el => el.offsetWidth);
-        });
-
-        const totalColsWidth = logoColWidth + utilityColWidth;
-
-        {% if logo_desktop_left_inline %}
-            const menuColWidth = menuContainer - totalColsWidth - 10;
-        {% endif %}
-
-        let menuItems = 0;
-
-        jQueryNuvem('.js-nav-desktop-list > .js-desktop-nav-item').each(function(el) {
-            menuItems +=  jQueryNuvem(el).first(el => el.offsetWidth);
-        });
-
-        jQueryNuvem(".js-nav-desktop-list").on("scroll", function() {
-            const position = jQueryNuvem('.js-nav-desktop-list').prop("scrollLeft");
-            if(position == 0) {
-                jQueryNuvem(".js-nav-desktop-list-arrow-left").addClass('disable');
-            } else {
-                jQueryNuvem(".js-nav-desktop-list-arrow-left").removeClass('disable');
-            }
-            if(position == ( menuItems - menuContainer )) {
-                jQueryNuvem(".js-nav-desktop-list-arrow-right").addClass('disable');
-            } else {
-                jQueryNuvem(".js-nav-desktop-list-arrow-right").removeClass('disable');
-            }
-        });
-
-        {% if logo_desktop_left_inline %}
-
-            {# Recalculate items width including first and last element different paddings #}
-
-            menuItems = menuItems + 61;
-            
-        {% endif %}
-        
-        if (menuContainer < menuItems) {
-            jQueryNuvem('.js-nav-desktop-list').addClass('nav-desktop-with-scroll');
-            jQueryNuvem('.js-nav-desktop-list-arrow').show();
-            {% if logo_desktop_left_inline %}
-                jQueryNuvem(".js-desktop-nav-col").css("width" , menuColWidth.toString() + 'px');
-            {% endif %}
-        }
-        
-        setTimeout(function(){
-            jQueryNuvem(".js-desktop-nav-col, .js-utility-col").css("visibility", "visible").css("height", "auto");
-        },250);
-
-        {# Show nav row once columns layout are ready #}
-
-        jQueryNuvem('.js-nav-desktop-list-arrow-right').on("click", function() {
-            var posL = jQueryNuvem('.js-nav-desktop-list').prop("scrollLeft") + 400;
-            jQueryNuvem('.js-nav-desktop-list').each((el) => el.scroll({ left: posL, behavior: 'smooth' }));
-        });
-        jQueryNuvem('.js-nav-desktop-list-arrow-left').on("click", function() {
-            var posR = jQueryNuvem('.js-nav-desktop-list').prop("scrollLeft") - 400;
-            jQueryNuvem('.js-nav-desktop-list').each((el) => el.scroll({ left: posR, behavior: 'smooth' }));
-        });
-
-        {# Avoid megamenu dropdown flickering when mouse leave #}
-
-        jQueryNuvem(".js-desktop-dropdown").on("mouseleave", function (e) {
-            const self = jQueryNuvem(this);
-            self.css("pointer-events" , "none");
-            setTimeout(function(){
-                self.css("pointer-events" , "initial");
-            },1000);
-        });
-
-        {# Expandable search #}
-
-        {% if settings.logo_position_desktop == 'center' and not settings.search_big_desktop %}
-            jQueryNuvem(".js-search-button").toggleClass("js-modal-open js-search-expand");
-
-            jQueryNuvem(".js-search-expand").on("click", function (e) {
-                var searchBox = jQueryNuvem(".js-search-utility").find(".js-search-form");
-                searchBox.addClass("expanded");
-            });
-        {% endif%}
-    }
-
-    {# Focus search #}
-
-    const search_input = jQueryNuvem(".js-search-input");
-
-    jQueryNuvem(".js-search-button").on("click", function (e) {
-        setTimeout(function(){
-            search_input.val('').each(el => el.focus());
-        },10);
-    });
-
-    {# Search mobile empty input #}
-
-    if (window.innerWidth < 768) {
-
-        const empty_search = jQueryNuvem(".js-empty-search");
-        const empty_submit = jQueryNuvem(".js-search-input-submit");
-
-        jQueryNuvem(document).on("keyup", ".js-search-input", function (e) {
-            if (jQueryNuvem(this).val() !== '') {
-                empty_search.show();
-                empty_submit.hide();
-            } else {
-                empty_search.hide();
-                empty_submit.show();
-            }
-        });
-
-        empty_search.on("click", function(e){
-            e.preventDefault();
-            empty_search.hide(100);
-            empty_submit.show(100);
-            jQueryNuvem(".js-search-suggestions").hide();
-            search_input.val('').each(el => el.focus());
-        });
-    }
-
-    {# /* // Header */ #}
-
-    {# Fixed nav #}
-
-    {% set has_fixed_desktop_nav = settings.head_fix_desktop %}
-    {% set has_mobile_logo_below = settings.logo_position_mobile == 'below' %}
-
-    {% if not has_fixed_desktop_nav %}
-        if (window.innerWidth < 768) {
     {% endif %}
 
-            {# Slim header on scroll #}
+    {# Nav desktop scroller #}
 
-            const topbarHeight = jQueryNuvem(".js-adbar").outerHeight();
-            {% if settings.search_type_mobile == 'search_big' %}
-                const utilityCol = jQueryNuvem(".js-utility-col:not(.js-search-utility)");
-            {% else %}
-                const utilityCol = jQueryNuvem(".js-utility-col");
-            {% endif %}
-            
-            const cartNotification = jQueryNuvem(".js-alert-added-to-cart");
-            let logoHeight = logoContainer.height();
-            const iconsHeight = headHeight - logoHeight;
+    {# Set widths of all nav components #}
 
-            window.addEventListener("scroll", function() {
+    const mainNavContainerWidth = jQueryNuvem('.js-nav-desktop-container').first(el => el.offsetWidth);
+    const menuNavListWidth = jQueryNuvem('.js-nav-desktop-list').first(el => el.offsetWidth);
+    let mainCategoriesContainerWidth = 0;
+    let secondaryNavContainerWidth = 0;
 
-                var scrolledPosition = window.pageYOffset;
+    {% set has_languages = languages | length > 1 %}
+    {% set utilities_languages_secondary_nav = has_languages and settings.utilities_type_desktop == 'icons_text' %}
+    {% set nav_secondary_col = settings.head_secondary_menu_show or utilities_languages_secondary_nav %}
+    {% set navigation_has_siblings = settings.category_item or nav_secondary_col %}
 
-                const header = jQueryNuvem(".js-head-main");
-                const navbarHeight = header.outerHeight();
+    {% if settings.category_item %}
+        mainCategoriesContainerWidth = jQueryNuvem('.js-desktop-main-categories-col').first(el => el.offsetWidth);
+    {% endif %}
+    {% if nav_secondary_col %}
+        secondaryNavContainerWidth = jQueryNuvem('.js-desktop-secondary-nav-col').first(el => el.offsetWidth);
+    {% endif %}
 
-                {% if has_mobile_logo_below %}
+    const totalColsWidth = mainCategoriesContainerWidth + secondaryNavContainerWidth;
 
-                    // Hide logo on scroll
+    {# Calculate width to substract to main horizontal scroller nav #}
 
-                    if (window.innerWidth < 768) {
+    {% if navigation_has_siblings %}
+        const menuColWidth = mainNavContainerWidth - totalColsWidth;
+    {% endif %}
 
-                        // Detect if scroll is at the top of the page
-                        if (scrolledPosition <= iconsHeight) {
-                            // Scroll is at the top of the page
-                            logoContainer.removeClass("logo-inside-nav").css("marginTop", "0").addClass("pt-3 pb-2");
-                            utilityCol.css("height", "20px").css("paddingTop" , '0');
-                            cartNotification.css("top" , logoHeight - 10 + 'px');
-                        }else if(scrolledPosition > headHeight + 5) {
-                            logoContainer.addClass("logo-inside-nav").css("marginTop",  '-40px').removeClass("pt-3 pb-2");
-                            utilityCol.css("height", "40px").css("paddingTop" , '10px');
-                            cartNotification.css("top" , '100%');                                  
-                        }
-                    }
-                {% endif %}
+    let menuItemsWidth = 0;
 
-                if (scrolledPosition > navbarHeight) {
-                    header.css('top', -topbarHeight + 'px' ).addClass("adbar-hidden");
-                    {% if has_mobile_logo_below and has_fixed_desktop_nav %}
-                        if (window.innerWidth > 768) {
-                    {% endif %}
-                        header.addClass('compress');
-                    {% if has_mobile_logo_below and has_fixed_desktop_nav %}
-                        }
-                    {% endif %}
-                    {% if template == 'category' or (template == 'search' and search_filter)%}
-                        if (window.innerWidth < 768) {
-                            setTimeout(function(){
-                                offsetCategories();
-                            },300);
-                        }
-                    {% endif %}
-                } else {
-                   header.css('top', '0' ).removeClass("adbar-hidden");
-                    {% if has_mobile_logo_below and has_fixed_desktop_nav %}
-                        if (window.innerWidth > 768) {
-                    {% endif %}
-                        header.removeClass('compress');
-                    {% if has_mobile_logo_below and has_fixed_desktop_nav %}
-                        }
-                    {% endif %}
-                    {% if template == 'category' or (template == 'search' and search_filter) %}
-                        if (window.innerWidth < 768) {
-                            setTimeout(function(){
-                                offsetCategories();
-                            },300);
-                        }
-                    {% endif %}
-                }
-            });
-        
-    {% if not has_fixed_desktop_nav %}
-        }
-    {% endif %} 
+    {# Calculate width of all main nav items #}
 
-
-    {# /* // Lang select */ #}
-
-
-    changeLang = function(element) {
-        var selected_country_url = element.find("option").filter((el) => el.selected).attr("data-country-url");
-        location.href = selected_country_url;
-    };
-
-    jQueryNuvem('.js-lang-select').on("change", function (e) {
-        lang_select_option = jQueryNuvem(this);
-
-        changeLang(lang_select_option);
+    jQueryNuvem('.js-nav-desktop-list > .js-desktop-nav-item').each(function(el) {
+        menuItemsWidth +=  jQueryNuvem(el).first(el => el.offsetWidth);
     });
 
-	{#/*============================================================================
-	  #Sliders
-	==============================================================================*/ #}
+    {% if navigation_has_siblings %}
 
-    {% set theme_editor = params.preview %}
-    {% set columns_desktop = settings.grid_columns_desktop %}
-    {% set columns_mobile = settings.grid_columns_mobile %}
-    var slidesPerViewDesktopVal = {% if columns_desktop == 4 %}4{% else %}3{% endif %};
-    var slidesPerViewMobileVal = {% if columns_mobile == 1 %}1{% else %}2{% endif %};
-    var itemSwiperSpaceBetween = 30;
+        {# Recalculate items width including first and last element different paddings #}
+
+        menuItemsWidth = menuItemsWidth;
+        
+    {% endif %}
+
+    {# If summatory of nav items is wider than  width of all main nav items #}
+
+    if (menuNavListWidth < menuItemsWidth) {
+        jQueryNuvem('.js-nav-desktop-list').addClass('nav-desktop-with-scroll');
+        jQueryNuvem('.js-nav-desktop-list-arrow').css("display" , "flex");
+        {% if navigation_has_siblings %}
+            jQueryNuvem(".js-desktop-nav-col").css("width" , menuColWidth.toString() + 'px');
+        {% endif %}
+    }
+
+    jQueryNuvem(".js-nav-desktop-list").css("whiteSpace" , "nowrap");
+
+    {# Show nav row once columns layout are ready #}
+
+    jQueryNuvem(".js-nav-desktop-container").css("visibility", "visible").css("height", "auto");
+
+    {# Scroller controls #}
+
+    jQueryNuvem(".js-nav-desktop-list").on("scroll", function() {
+        var position = jQueryNuvem('.js-nav-desktop-list').prop("scrollLeft");
+        if(position == 0) {
+            jQueryNuvem(".js-nav-desktop-list-arrow-left").addClass('disable');
+        } else {
+            jQueryNuvem(".js-nav-desktop-list-arrow-left").removeClass('disable');
+        }
+        if(position == ( menuItemsWidth - menuNavListWidth )) {
+            jQueryNuvem(".js-nav-desktop-list-arrow-right").addClass('disable');
+        } else {
+            jQueryNuvem(".js-nav-desktop-list-arrow-right").removeClass('disable');
+        }
+    });
+
+    jQueryNuvem('.js-nav-desktop-list-arrow-right').on("click", function() {
+        var posL = jQueryNuvem('.js-nav-desktop-list').prop("scrollLeft") + 400;
+        jQueryNuvem('.js-nav-desktop-list').each((el) => el.scroll({ left: posL, behavior: 'smooth' }));
+    });
+    jQueryNuvem('.js-nav-desktop-list-arrow-left').on("click", function() {
+        var posR = jQueryNuvem('.js-nav-desktop-list').prop("scrollLeft") - 400;
+        jQueryNuvem('.js-nav-desktop-list').each((el) => el.scroll({ left: posR, behavior: 'smooth' }));
+    });
+
+    {# Avoid megamenu dropdown flickering when mouse leave #}
+
+    jQueryNuvem(".js-desktop-dropdown").on("mouseleave", function (e) {
+        const self = jQueryNuvem(this);
+        self.css("pointer-events" , "none");
+        setTimeout(function(){
+            self.css("pointer-events" , "initial");
+        },1000);
+    });
+
+    let adBarsHeight = 0;
+    const mainAdBarHeight = jQueryNuvem(".js-adbar-primary").outerHeight();
+    const secondaryAdBarHeight = jQueryNuvem(".js-adbar-secondary").outerHeight();
+    adBarsHeight = mainAdBarHeight + secondaryAdBarHeight;
+
+    {% set has_only_mobile_with_fixed_nav =  not settings.head_fix_desktop %}
+
+    {% if has_only_mobile_with_fixed_nav %}
+    if (window.innerWidth < 768) {
+    {% endif %}
+
+    {# /* // Slim header on scroll */ #}
+
+    window.addEventListener("scroll", function() {
+
+        const scrolledPosition = window.pageYOffset;
+        const header = jQueryNuvem(".js-head-main");
+        const navbarHeight = header.outerHeight();
+
+        if (scrolledPosition > navbarHeight) {
+            header.addClass('compress').css('top', -adBarsHeight + 'px' );
+            {% if template == 'category' or template == 'search' %}
+                if (window.innerWidth < 768) {
+                    setTimeout(function(){
+                        offsetCategories();
+                    },300);
+                }
+            {% endif %}
+        } else {
+            header.removeClass('compress').css("top", "0px");
+            {% if template == 'category' or template == 'search' %}
+                if (window.innerWidth < 768) {
+                    setTimeout(function(){
+                        offsetCategories();
+                    },300);
+                }
+            {% endif %}
+        }
+    });
+
+    {% if has_only_mobile_with_fixed_nav %}
+    }
+    {% endif %}
+
+    {# Set logo col fixed width to avoid searchbar changing position on slim header #}
+
+    {% if settings.head_fix_desktop and settings.logo_position_desktop == 'left' and has_logo %}
+
+        if (window.innerWidth > 768) {
+            const logoColWidth = jQueryNuvem(".js-logo-container").first(el => el.offsetWidth);
+            if(logoColWidth != 0){
+                jQueryNuvem(".js-logo-container").css("width" , logoColWidth.toString() + 'px');;
+            }
+        }
+
+    {% endif %}
+
+    {#/*============================================================================
+      #Home
+    ==============================================================================*/ #}
+
+    {# /* // Sliders */ #}
+
+    var itemSwiperSpaceBetween = 16;
 
     {# Hide arrow controls when swiper is not swipable #}
 
@@ -948,10 +493,16 @@ DOMContentLoaded.addEventOrExecute(() => {
         }
     };
 
-	{% if template == 'home' %}
+    var preloadImagesValue = false;
+    var lazyValue = true;
+    var loopValue = true;
+    var paginationClickableValue = true;
+    var watchOverflowVal = true;
+    var centerInsufficientSlidesVal = true;
 
-		{# /* // Home slider */ #}
+    {% if template == 'home' %}
 
+        {# /* // Home slider */ #}
 
         var width = window.innerWidth;
         if (width > 767) {
@@ -960,13 +511,20 @@ DOMContentLoaded.addEventOrExecute(() => {
             var slider_autoplay = false;
         }
 
-        var preloadImagesValue = false;
-        var lazyValue = true;
-        var loopValue = true;
-        var paginationClickableValue = true;
+        {% set has_slider_full_width = settings.slider_full %}
+
+        {% if has_slider_full_width %}
+            function arrowsColor() {
+                if(jQueryNuvem(".js-home-main-slider").find('.swiper-slide-active').hasClass("swiper-light")){
+                    jQueryNuvem(".js-home-main-slider-visibility").addClass("swiper-arrows-light");
+                } else {
+                    jQueryNuvem(".js-home-main-slider-visibility").removeClass("swiper-arrows-light");
+                }
+            }
+        {% endif %}
 
         createSwiper(
-            '.js-home-slider', {
+            '.js-home-main-slider', {
                 preloadImages: preloadImagesValue,
                 lazy: lazyValue,
                 {% if settings.slider | length > 1 %}
@@ -975,13 +533,18 @@ DOMContentLoaded.addEventOrExecute(() => {
                 autoplay: slider_autoplay,
                 pagination: {
                     el: '.js-swiper-home-pagination',
-                    type: 'fraction',
                     clickable: paginationClickableValue,
                 },
                 navigation: {
                     nextEl: '.js-swiper-home-next',
                     prevEl: '.js-swiper-home-prev',
                 },
+                {% if has_slider_full_width %}
+                    on: {
+                      init: arrowsColor,
+                      slideChangeTransitionEnd: arrowsColor,
+                    },
+                {% endif %}
             },
             function(swiperInstance) {
                 window.homeSwiper = swiperInstance;
@@ -989,7 +552,7 @@ DOMContentLoaded.addEventOrExecute(() => {
         );
 
         createSwiper(
-            '.js-home-slider-mobile', {
+            '.js-home-mobile-slider', {
                 preloadImages: preloadImagesValue,
                 lazy: lazyValue,
                 {% if settings.slider_mobile | length > 1 %}
@@ -998,12 +561,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 autoplay: slider_autoplay,
                 pagination: {
                     el: '.js-swiper-home-pagination-mobile',
-                    type: 'fraction',
                     clickable: paginationClickableValue,
-                },
-                navigation: {
-                    nextEl: '.js-swiper-home-next-mobile',
-                    prevEl: '.js-swiper-home-prev-mobile',
                 },
             },
             function(swiperInstance) {
@@ -1011,34 +569,642 @@ DOMContentLoaded.addEventOrExecute(() => {
             }
         );
 
-        {% if settings.slider | length == 1 %}
-            jQueryNuvem('.js-swiper-home .swiper-wrapper').addClass( "disabled" );
-            jQueryNuvem('.js-swiper-home-pagination, .js-swiper-home-prev, .js-swiper-home-next').remove();
+        {# /* // Banners slider */ #}
+
+        {% if settings.banner_format_mobile == 'slider' or settings.banner_format_desktop == 'slider' and (settings.banner and settings.banner is not empty) or theme_editor %}
+
+            {% set banner_desktop_slider = settings.banner_format_desktop == 'slider' %}
+            {% set banner_only_mobile_slider = settings.banner_format_mobile == 'slider' and settings.banner_format_desktop != 'slider' %}
+            {% set banner_only_desktop_slider = settings.banner_format_desktop == 'slider' and settings.banner_format_mobile != 'slider' %}
+            {% set banner_columns_desktop = settings.banner_columns_desktop %}
+
+            var bannersPerViewDesktopVal = {% if banner_columns_desktop == 4 %}4{% elseif banner_columns_desktop == 3 %}3{% elseif banner_columns_desktop == 2 %}2{% else %}1{% endif %};
+            var bannersPerViewMobileVal = 1.15;
+            var bannersSpaceBetween = {% if settings.banner_without_margins %}0{% else %}itemSwiperSpaceBetween{% endif %};
+
+            {% if banner_only_mobile_slider %}
+                if (window.innerWidth < 768) {
+            {% elseif banner_only_desktop_slider %}
+                if (window.innerWidth > 768) {
+            {% endif %}
+
+                {# General banners #}
+
+                {% if (settings.banner and settings.banner is not empty) or theme_editor %}
+                    createSwiper('.js-swiper-banner', {
+                        lazy: true,
+                        watchOverflow: true,
+                        threshold: 5,
+                        watchSlideProgress: true,
+                        watchSlidesVisibility: true,
+                        slideVisibleClass: 'js-swiper-slide-visible',
+                        spaceBetween: bannersSpaceBetween,
+                        pagination: {
+                            el: '.js-swiper-banner-pagination',
+                            clickable: paginationClickableValue,
+                        },
+                        navigation: {
+                            nextEl: '.js-swiper-banner-next',
+                            prevEl: '.js-swiper-banner-prev',
+                        },
+                        slidesPerView: bannersPerViewMobileVal,
+                        on: {
+                            afterInit: function () {
+                                hideSwiperControls(".js-swiper-banner-prev", ".js-swiper-banner-next");
+                            },
+                        },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: bannersPerViewDesktopVal,
+                            }
+                        }
+                    },function(swiperInstance) {
+                        window.homeBannerSwiper = swiperInstance;
+                    });
+                {% endif %}
+
+                {# Mobile banners #}
+
+                {% if (settings.toggle_banner_mobile and settings.banner_mobile and settings.banner_mobile is not empty) or theme_editor %}
+                    createSwiper('.js-swiper-banner-mobile', {
+                        lazy: true,
+                        watchOverflow: true,
+                        threshold: 5,
+                        watchSlideProgress: true,
+                        watchSlidesVisibility: true,
+                        slideVisibleClass: 'js-swiper-slide-visible',
+                        spaceBetween: bannersSpaceBetween,
+                        pagination: {
+                            el: '.js-swiper-banner-mobile-pagination',
+                            clickable: paginationClickableValue,
+                        },
+                        slidesPerView: bannersPerViewMobileVal,
+                        navigation: {
+                            nextEl: '.js-swiper-banner-mobile-next',
+                            prevEl: '.js-swiper-banner-mobile-prev',
+                        },
+                        on: {
+                            afterInit: function () {
+                                hideSwiperControls(".js-swiper-banner-mobile-prev", ".js-swiper-banner-mobile-next");
+                            },
+                        },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: bannersPerViewDesktopVal,
+                            }
+                        }
+                    },function(swiperInstance) {
+                        window.homeBannerMobileSwiper = swiperInstance;
+                    });
+                {% endif %}
+
+            {% if banner_only_mobile_slider or banner_only_desktop_slider %}
+                }
+            {% endif %}
+
         {% endif %}
 
-        {% if settings.slider_mobile | length == 1 %}
-            jQueryNuvem('.js-swiper-home-prev-mobile, .js-swiper-home-next-mobile').remove();
+        {% if settings.banner_promotional_format_mobile == 'slider' or settings.banner_promotional_format_desktop == 'slider' and (settings.banner_promotional and settings.banner_promotional is not empty) or theme_editor %}
+
+            {% set banner_promotional_desktop_slider = settings.banner_promotional_format_desktop == 'slider' %}
+            {% set banner_promotional_only_mobile_slider = settings.banner_promotional_format_mobile == 'slider' and settings.banner_promotional_format_desktop != 'slider' %}
+            {% set banner_promotional_only_desktop_slider = settings.banner_promotional_format_desktop == 'slider' and settings.banner_promotional_format_mobile != 'slider' %}
+            {% set banner_promotional_columns_desktop = settings.banner_promotional_columns_desktop %}
+
+            var bannersPromotionalPerViewDesktopVal = {% if banner_promotional_columns_desktop == 4 %}4{% elseif banner_promotional_columns_desktop == 3 %}3{% elseif banner_promotional_columns_desktop == 2 %}2{% else %}1{% endif %};
+            var bannersPromotionalPerViewMobileVal = 1.15;
+            var bannersPromotionalSpaceBetween = {% if settings.banner_promotional_without_margins %}0{% else %}itemSwiperSpaceBetween{% endif %};
+
+            {% if banner_promotional_only_mobile_slider %}
+                if (window.innerWidth < 768) {
+            {% elseif banner_promotional_only_desktop_slider %}
+                if (window.innerWidth > 768) {
+            {% endif %}
+
+                {# General banners #}
+
+                {% if (settings.banner_promotional and settings.banner_promotional is not empty) or theme_editor %}
+                    createSwiper('.js-swiper-banner-promotional', {
+                        lazy: true,
+                        watchOverflow: true,
+                        threshold: 5,
+                        watchSlideProgress: true,
+                        watchSlidesVisibility: true,
+                        slideVisibleClass: 'js-swiper-slide-visible',
+                        spaceBetween: bannersPromotionalSpaceBetween,
+                        pagination: {
+                            el: '.js-swiper-banner-promotional-pagination',
+                            clickable: paginationClickableValue,
+                        },
+                        navigation: {
+                            nextEl: '.js-swiper-banner-promotional-next',
+                            prevEl: '.js-swiper-banner-promotional-prev',
+                        },
+                        on: {
+                            afterInit: function () {
+                                hideSwiperControls(".js-swiper-banner-promotional-prev", ".js-swiper-banner-promotional-next");
+                            },
+                        },
+                        slidesPerView: bannersPromotionalPerViewMobileVal,
+                        breakpoints: {
+                            768: {
+                                slidesPerView: bannersPromotionalPerViewDesktopVal,
+                            }
+                        }
+                    },function(swiperInstance) {
+                        window.homeBannerPromotionalSwiper = swiperInstance;
+                    });
+                {% endif %}
+
+                {# Mobile banners #}
+
+                {% if (settings.toggle_banner_promotional_mobile and settings.banner_promotional_mobile and settings.banner_promotional_mobile is not empty) or theme_editor %}
+                    createSwiper('.js-swiper-banner-promotional-mobile', {
+                        lazy: true,
+                        watchOverflow: true,
+                        threshold: 5,
+                        watchSlideProgress: true,
+                        watchSlidesVisibility: true,
+                        slideVisibleClass: 'js-swiper-slide-visible',
+                        spaceBetween: bannersPromotionalSpaceBetween,
+                        pagination: {
+                            el: '.js-swiper-banner-promotional-mobile-pagination',
+                            clickable: paginationClickableValue,
+                        },
+                        slidesPerView: bannersPromotionalPerViewMobileVal,
+                        navigation: {
+                            nextEl: '.js-swiper-banner-promotional-mobile-next',
+                            prevEl: '.js-swiper-banner-promotional-mobile-prev',
+                        },
+                        on: {
+                            afterInit: function () {
+                                hideSwiperControls(".js-swiper-banner-promotional-mobile-prev", ".js-swiper-banner-promotional-mobile-next");
+                            },
+                        },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: bannersPromotionalPerViewDesktopVal,
+                            }
+                        }
+                    },function(swiperInstance) {
+                        window.homeBannerPromotionalMobileSwiper = swiperInstance;
+                    });
+                {% endif %}
+            {% if banner_promotional_only_mobile_slider or banner_promotional_only_desktop_slider %}
+                }
+            {% endif %}
+
         {% endif %}
+
+        {% if settings.banner_news_format_mobile == 'slider' or settings.banner_news_format_desktop == 'slider' and (settings.banner_news and settings.banner_news is not empty) or theme_editor %}
+
+            {% set banner_news_desktop_slider = settings.banner_news_format_desktop == 'slider' %}
+            {% set banner_news_only_mobile_slider = settings.banner_news_format_mobile == 'slider' and settings.banner_news_format_desktop != 'slider' %}
+            {% set banner_news_only_desktop_slider = settings.banner_news_format_desktop == 'slider' and settings.banner_news_format_mobile != 'slider' %}
+            {% set banner_news_columns_desktop = settings.banner_news_columns_desktop %}
+
+            var bannersNewsPerViewDesktopVal = {% if banner_news_columns_desktop == 4 %}4{% elseif banner_news_columns_desktop == 3 %}3{% elseif banner_news_columns_desktop == 2 %}2{% else %}1{% endif %};
+            var bannersNewsPerViewMobileVal = 1.15;
+            var bannersNewsSpaceBetween = {% if settings.banner_news_without_margins %}0{% else %}itemSwiperSpaceBetween{% endif %};
+
+            {% if banner_news_only_mobile_slider %}
+                if (window.innerWidth < 768) {
+            {% elseif banner_news_only_desktop_slider %}
+                if (window.innerWidth > 768) {
+            {% endif %}
+
+                {# General banners #}
+
+                {% if (settings.banner_news and settings.banner_news is not empty) or theme_editor %}
+                    createSwiper('.js-swiper-banner-news', {
+                        lazy: true,
+                        watchOverflow: true,
+                        threshold: 5,
+                        watchSlideProgress: true,
+                        watchSlidesVisibility: true,
+                        slideVisibleClass: 'js-swiper-slide-visible',
+                        spaceBetween: bannersNewsSpaceBetween,
+                        pagination: {
+                            el: '.js-swiper-banner-news-pagination',
+                            clickable: paginationClickableValue,
+                        },
+                        navigation: {
+                            nextEl: '.js-swiper-banner-news-next',
+                            prevEl: '.js-swiper-banner-news-prev',
+                        },
+                        on: {
+                            afterInit: function () {
+                                hideSwiperControls(".js-swiper-banner-news-prev", ".js-swiper-banner-news-next");
+                            },
+                        },
+                        slidesPerView: bannersNewsPerViewMobileVal,
+                        breakpoints: {
+                            768: {
+                                slidesPerView: bannersNewsPerViewDesktopVal,
+                            }
+                        }
+                    },function(swiperInstance) {
+                        window.homeBannerNewsSwiper = swiperInstance;
+                    });
+                {% endif %}
+
+                {# Mobile banners #}
+
+                {% if (settings.toggle_banner_news_mobile and settings.banner_news_mobile and settings.banner_news_mobile is not empty) or theme_editor %}
+                    createSwiper('.js-swiper-banner-news-mobile', {
+                        lazy: true,
+                        watchOverflow: true,
+                        threshold: 5,
+                        watchSlideProgress: true,
+                        watchSlidesVisibility: true,
+                        slideVisibleClass: 'js-swiper-slide-visible',
+                        spaceBetween: bannersNewsSpaceBetween,
+                        pagination: {
+                            el: '.js-swiper-banner-news-mobile-pagination',
+                            clickable: paginationClickableValue,
+                        },
+                        slidesPerView: bannersNewsPerViewMobileVal,
+                        navigation: {
+                            nextEl: '.js-swiper-banner-mobile-news-next',
+                            prevEl: '.js-swiper-banner-mobile-news-prev',
+                        },
+                        on: {
+                            afterInit: function () {
+                                hideSwiperControls(".js-swiper-banner-news-mobile-prev", ".js-swiper-banner-news-mobile-next");
+                            },
+                        },
+                        breakpoints: {
+                            768: {
+                                slidesPerView: bannersNewsPerViewDesktopVal,
+                            }
+                        }
+                    },function(swiperInstance) {
+                        window.homeBannerNewsMobileSwiper = swiperInstance;
+                    });
+                {% endif %}
+
+            {% if banner_news_only_mobile_slider or banner_news_only_desktop_slider %}
+                }
+            {% endif %}
+
+        {% endif %}
+
+        {# Image and text modules #}
+
+        {% if (settings.module_slider or theme_editor and (settings.module and settings.module is not empty)) or theme_editor %}
+
+            createSwiper('.js-swiper-module', {
+                lazy: true,
+                watchOverflow: true,
+                threshold: 5,
+                watchSlideProgress: true,
+                watchSlidesVisibility: true,
+                slideVisibleClass: 'js-swiper-slide-visible',
+                spaceBetween: itemSwiperSpaceBetween,
+                pagination: {
+                    el: '.js-swiper-module-pagination',
+                    clickable: paginationClickableValue,
+                },
+                navigation: {
+                    nextEl: '.js-swiper-module-next',
+                    prevEl: '.js-swiper-module-prev',
+                },
+                slidesPerView: 1.15,
+                breakpoints: {
+                    768: {
+                        slidesPerView: 1,
+                    }
+                },
+                on: {
+                    afterInit: function () {
+                        hideSwiperControls(".js-swiper-module-prev", ".js-swiper-module-next");
+                    },
+                },
+            },
+            function(swiperInstance) {
+                window.homeModuleSwiper = swiperInstance;
+            });
+
+        {% endif %}
+
+        {# /* // Institutional slider */ #}
+
+        createSwiper('.js-swiper-institutional', {
+            slidesPerView: 1,
+            threshold: 5,
+            pagination: {
+                el: '.js-swiper-institutional-pagination',
+                clickable: paginationClickableValue,
+            },
+            navigation: {
+                nextEl: '.js-swiper-institutional-next',
+                prevEl: '.js-swiper-institutional-prev',
+            },
+        },function(swiperInstance) {
+            window.institutionalSwiper = swiperInstance;
+        });
+
+        {# /* // Main categories */ #}
+
+        createSwiper('.js-swiper-categories', {
+            lazy: true,
+            preloadImages : false,
+            watchOverflow: true,
+            watchSlidesVisibility : true,
+            slidesPerView: 'auto',
+            navigation: {
+                nextEl: '.js-swiper-categories-next',
+                prevEl: '.js-swiper-categories-prev',
+            },
+            on: {
+                afterInit: function () {
+                    hideSwiperControls(".js-swiper-categories-prev", ".js-swiper-categories-next");
+                },
+            },
+        },function(swiperInstance) {
+            window.mainCategoriesSwiper = swiperInstance;
+        });
+
+        {# Demo main categories #}
+
+        window.swiperLoader('.js-swiper-categories-demo', {
+             lazy: true,
+            preloadImages : false,
+            watchOverflow: true,
+            watchSlidesVisibility : true,
+            slidesPerView: 'auto',
+            navigation: {
+                nextEl: '.js-swiper-categories-demo-next',
+                prevEl: '.js-swiper-categories-demo-prev',
+            },
+        });
+
+        {# /* // Timer offers */ #}
+
+        // Timer clock
+
+        {% set start_date = settings.timer_offers_start_datetime %}
+        {% set end_date = settings.timer_offers_end_datetime %}
+        {% set theme_editor = params.preview %}
+
+        {% if not theme_editor and start_date and end_date %}
+            
+            const $timerOffersContainer = jQueryNuvem('.js-timer-offers-container');
+            if ($timerOffersContainer.length) {
+
+                // Convert data attributes to numbers
+                let startTimestamp = parseInt($timerOffersContainer.attr('data-start-timestamp'), 10);
+                let endTimestamp = parseInt($timerOffersContainer.attr('data-end-timestamp'), 10);
+
+                // Get timezone offset from data attribute
+                const timezone = $timerOffersContainer.attr('data-timezone');
+                const timezoneOffsets = {
+                    'America/Argentina/Buenos_Aires': -3 * 3600,
+                    'America/Sao_Paulo': -3 * 3600,
+                    'America/Mexico_City': -6 * 3600,
+                    'America/Bogota': -5 * 3600,
+                    'America/Santiago': -4 * 3600,
+                    'UTC': 0
+                };
+                const timezoneOffset = timezoneOffsets[timezone] || 0;
+
+                // Function to get the current timestamp adjusted by timezone offset
+                function getCurrentTimestamp() {
+                    // Get current time in seconds and adjust by timezone offset
+                    return Math.floor(Date.now() / 1000) + timezoneOffset;
+                }
+
+                // Flag to check if the container has been shown
+                let sectionVisible = false;
+
+                // Function to update the countdown
+                let countdownInterval;
+
+                function updateCountdown() {
+                    // Get the current timestamp with timezone adjustment
+                    const currentTimestamp = getCurrentTimestamp();
+
+                    let timeLeft = endTimestamp - currentTimestamp;
+
+                    if (timeLeft <= 0) {
+                        // If time has expired, remove the section
+                        $timerOffersContainer.remove();
+                        clearInterval(countdownInterval);
+                        return;
+                    } else {
+                        // Show the container if it hasn't been shown yet
+                        if (!sectionVisible) {
+                            $timerOffersContainer.show();
+                            {% if sections.timer_offers.products and settings.timer_offers_products_show %}
+                                $timerOffersContainer.addClass("d-grid grid-md-2");
+                            {% endif %}
+                            sectionVisible = true;
+                        }
+                    }
+
+                    // Calculate remaining hours, minutes, and seconds
+                    const hours = Math.floor(timeLeft / 3600);
+                    const minutes = Math.floor((timeLeft % 3600) / 60);
+                    const seconds = Math.floor(timeLeft % 60);
+
+                    // Update the countdown display
+                    jQueryNuvem('.js-timer-offers-hour').text(hours.toString().padStart(2, '0'));
+                    jQueryNuvem('.js-timer-offers-minutes').text(minutes.toString().padStart(2, '0'));
+                    jQueryNuvem('.js-timer-offers-seconds').text(seconds.toString().padStart(2, '0'));
+                }
+
+                // Start the countdown
+                countdownInterval = setInterval(updateCountdown, 1000);
+
+                // Initial check to ensure container visibility
+                updateCountdown();
+            }
+
+
+        {% endif %}
+
+        // Timer products
+
+        {% if (not theme_editor and sections.timer_offers.products and settings.timer_offers_products_show) or (theme_editor and sections.timer_offers.products) %}
+
+            createSwiper('.js-swiper-timer-offers', {
+                lazy: lazyValue,
+                watchOverflow: watchOverflowVal,
+                centerInsufficientSlides: centerInsufficientSlidesVal,
+                threshold: 5,
+                watchSlideProgress: true,
+                watchSlidesVisibility: true,
+                slideVisibleClass: 'js-swiper-slide-visible',
+                spaceBetween: itemSwiperSpaceBetween,
+            {% if sections.timer_offers.products | length > 4 %}
+                loop: true,
+            {% endif %}
+                navigation: {
+                    nextEl: '.js-swiper-timer-offers-next',
+                    prevEl: '.js-swiper-timer-offers-prev',
+                },
+                pagination: {
+                    el: '.js-swiper-timer-offers-pagination',
+                    clickable: true,
+                },
+                on: {
+                    afterInit: function () {
+                        hideSwiperControls(".js-swiper-timer-offers-prev", ".js-swiper-timer-offers-next");
+                    },
+                },
+                slidesPerView: 1.75,
+                breakpoints: {
+                    768: {
+                        slidesPerView: 3,
+                        slidesPerGroup: 3,
+                    }
+                },
+            },
+            function(swiperInstance) {
+                window.productsTimerSwiper = swiperInstance;
+            });
+
+        {% endif %}
+
+        createSwiper('.js-swiper-timer-offers-empty', {
+            lazy: true,
+            loop: true,
+            watchOverflow: true,
+            watchSlideProgress: true,
+            watchSlidesVisibility: true,
+            spaceBetween: itemSwiperSpaceBetween,
+            slideVisibleClass: 'js-swiper-slide-visible',
+            slidesPerView: 1.75,
+            navigation: {
+                nextEl: '.js-swiper-timer-offers-empty-next',
+                prevEl: '.js-swiper-timer-offers-empty-prev',
+            },
+            pagination: {
+                el: '.js-swiper-timer-offers-empty-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 3,
+                    slidesPerGroup: 3,
+                }
+            }
+        });
+
+
+        {# /* // Brands slider */ #}
+
+        createSwiper('.js-swiper-brands', {
+            lazy: true,
+            watchOverflow: true,
+            centerInsufficientSlides: true,
+            threshold: 5,
+            slidesPerView: 3.5,
+            spaceBetween: 24,
+            navigation: {
+                nextEl: '.js-swiper-brands-next',
+                prevEl: '.js-swiper-brands-prev',
+            },
+            on: {
+                afterInit: function () {
+                    hideSwiperControls(".js-swiper-brands-prev", ".js-swiper-brands-next");
+                },
+                {% if settings.brands | length > 3 and settings.brands | length < 6  %}
+                    beforeInit: function () {
+                        if (window.innerWidth > 768) {
+                            jQueryNuvem(".js-swiper-brands-wrapper").addClass("justify-content-center");
+                        }
+                    },
+                {% endif %}
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 10,
+                }
+            },
+        },function(swiperInstance) {
+            window.brandsSwiper = swiperInstance;
+        });
+
+        {# /* // Testimonials slider */ #}
+
+        {% set has_testimonial_01 = settings.testimonial_01_title or settings.testimonial_01_description or settings.testimonial_01_name or "testimonial_01.jpg" | has_custom_image %}
+        {% set has_testimonial_02 = settings.testimonial_02_title or settings.testimonial_02_description or settings.testimonial_02_name or "testimonial_02.jpg" | has_custom_image %}
+        {% set has_testimonial_03 = settings.testimonial_03_title or settings.testimonial_03_description or settings.testimonial_03_name or "testimonial_03.jpg" | has_custom_image %}
+        {% set has_testimonial_04 = settings.testimonial_04_title or settings.testimonial_04_description or settings.testimonial_04_name or "testimonial_04.jpg" | has_custom_image %}
+        {% set has_testimonial_05 = settings.testimonial_05_title or settings.testimonial_05_description or settings.testimonial_05_name or "testimonial_05.jpg" | has_custom_image %}
+        {% set has_testimonials = (has_testimonial_01 and has_testimonial_02) or (has_testimonial_01 and has_testimonial_03) or (has_testimonial_01 and has_testimonial_04) or (has_testimonial_02 and has_testimonial_03) or (has_testimonial_02 and has_testimonial_04) or (has_testimonial_03 and has_testimonial_04) %}
+
+        createSwiper('.js-swiper-testimonials', {
+            lazy: true,
+            centerInsufficientSlides: true,
+            {% if has_testimonials %}
+                slidesPerView: 1.15,
+            {% endif %}
+            watchOverflow: true,
+            threshold: 5,
+            spaceBetween: itemSwiperSpaceBetween,
+            navigation: {
+                nextEl: '.js-swiper-testimonials-next',
+                prevEl: '.js-swiper-testimonials-prev',
+            },
+            pagination: {
+                el: '.js-swiper-testimonials-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 48,
+                }
+            }
+        },
+        function(swiperInstance) {
+            window.testimonialsSwiper = swiperInstance;
+        });
+
+        {# /* // Instafeed slider */ #}
+
+        createSwiper('.js-swiper-instafeed', {
+            lazy: true,
+            watchOverflow: true,
+            spaceBetween: itemSwiperSpaceBetween,
+            slidesPerView: 1,
+            observer: true,
+            pagination: {
+                el: '.js-swiper-instafeed-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 4,
+                }
+            }
+        });
 
         {# /* // Products slider */ #}
 
-        {% set has_featured_products_slider = sections.primary.products and settings.featured_products_format == 'slider' %}
-        {% set has_new_products_slider = sections.new.products and settings.new_products_format == 'slider' %}
-        {% set has_sale_products_slider = sections.sale.products and settings.sale_products_format == 'slider' %}
+        {% set has_featured_products_slider = sections.primary.products and (settings.featured_products_format_mobile == 'slider' or settings.featured_products_format_desktop == 'slider') %}
+        {% set has_new_products_slider = sections.new.products and (settings.new_products_format_mobile == 'slider' or settings.new_products_format_desktop == 'slider') %}
+        {% set has_sale_products_slider = sections.sale.products and (settings.sale_products_format_mobile == 'slider' or settings.sale_products_format_desktop == 'slider') %}
 
-        {% if (has_featured_products_slider or has_new_products_slider or has_sale_products_slider) or theme_editor %}
+        {# /* Featured products */ #}
 
-            var lazyVal = true;
-            var watchOverflowVal = true;
-            var centerInsufficientSlidesVal = true;
+        {% set featured_desktop_slider = settings.featured_products_format_desktop == 'slider' %}
+        {% set featured_only_mobile_slider = settings.featured_products_format_mobile == 'slider' and settings.featured_products_format_desktop != 'slider' %}
+        {% set featured_only_desktop_slider = settings.featured_products_format_desktop == 'slider' and settings.featured_products_format_mobile != 'slider' %}
+        {% set featured_columns_desktop = settings.featured_products_desktop %}
+        {% set featured_columns_mobile = settings.featured_products_mobile %}
+        var slidesPerViewFeaturedDesktopVal = {% if featured_columns_desktop == 4 %}4{% elseif featured_columns_desktop == 5 %}5{% else %}6{% endif %};
+        var slidesPerViewFeaturedMobileVal = {% if featured_columns_mobile == 1 %}1{% else %}2{% endif %};
 
-            {% set featured_columns_desktop = settings.featured_products_desktop %}
-            {% set featured_columns_mobile = settings.featured_products_mobile %}
-            var slidesPerViewFeaturedDesktopVal = {% if featured_columns_desktop == 2 %}2{% elseif featured_columns_desktop == 3 %}3{% else %}4{% endif %};
-            var slidesPerViewFeaturedMobileVal = {% if featured_columns_mobile == 1 %}1{% else %}2{% endif %};
-
+        {% if featured_only_mobile_slider %}
+            if (window.innerWidth < 768) {
+        {% elseif featured_only_desktop_slider %}
+            if (window.innerWidth > 768) {
+        {% endif %}
             createSwiper('.js-swiper-featured', {
-                lazy: lazyVal,
+                lazy: lazyValue,
                 watchOverflow: watchOverflowVal,
                 centerInsufficientSlides: centerInsufficientSlidesVal,
                 threshold: 5,
@@ -1055,7 +1221,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 },
                 pagination: {
                     el: '.js-swiper-featured-pagination',
-                    type: 'fraction',
+                    clickable: true,
                 },
                 on: {
                     afterInit: function () {
@@ -1063,24 +1229,39 @@ DOMContentLoaded.addEventOrExecute(() => {
                     },
                 },
                 slidesPerView: slidesPerViewFeaturedMobileVal,
+            {% if featured_desktop_slider %}
                 breakpoints: {
                     768: {
                         slidesPerView: slidesPerViewFeaturedDesktopVal,
+                        slidesPerGroup: slidesPerViewFeaturedDesktopVal,
                     }
                 },
+            {% endif %}
             },
-
             function(swiperInstance) {
                 window.productsFeaturedSwiper = swiperInstance;
             });
+        {% if featured_only_mobile_slider or featured_only_desktop_slider %}
+            }
+        {% endif %}
 
-            {% set new_columns_desktop = settings.new_products_desktop %}
-            {% set new_columns_mobile = settings.new_products_mobile %}
-            var slidesPerViewNewDesktopVal = {% if new_columns_desktop == 2 %}2{% elseif new_columns_desktop == 3 %}3{% else %}4{% endif %};
-            var slidesPerViewNewMobileVal = {% if new_columns_mobile == 1 %}1{% else %}2{% endif %};
+        {# /* New products */ #}
 
+        {% set new_desktop_slider = settings.new_products_format_desktop == 'slider' %}
+        {% set new_only_mobile_slider = settings.new_products_format_mobile == 'slider' and settings.new_products_format_desktop != 'slider' %}
+        {% set new_only_desktop_slider = settings.new_products_format_desktop == 'slider' and settings.new_products_format_mobile != 'slider' %}
+        {% set new_columns_desktop = settings.new_products_desktop %}
+        {% set new_columns_mobile = settings.new_products_mobile %}
+        var slidesPerViewNewDesktopVal = {% if new_columns_desktop == 4 %}4{% elseif new_columns_desktop == 5 %}5{% else %}6{% endif %};
+        var slidesPerViewNewMobileVal = {% if new_columns_mobile == 1 %}1{% else %}2{% endif %};
+
+        {% if new_only_mobile_slider %}
+            if (window.innerWidth < 768) {
+        {% elseif new_only_desktop_slider %}
+            if (window.innerWidth > 768) {
+        {% endif %}
             createSwiper('.js-swiper-new', {
-                lazy: lazyVal,
+                lazy: lazyValue,
                 watchOverflow: watchOverflowVal,
                 centerInsufficientSlides: centerInsufficientSlidesVal,
                 threshold: 5,
@@ -1097,7 +1278,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 },
                 pagination: {
                     el: '.js-swiper-new-pagination',
-                    type: 'fraction',
+                    clickable: true,
                 },
                 on: {
                     afterInit: function () {
@@ -1105,24 +1286,39 @@ DOMContentLoaded.addEventOrExecute(() => {
                     },
                 },
                 slidesPerView: slidesPerViewNewMobileVal,
+            {% if new_desktop_slider %}
                 breakpoints: {
                     768: {
                         slidesPerView: slidesPerViewNewDesktopVal,
+                        slidesPerGroup: slidesPerViewNewDesktopVal,
                     }
                 },
+            {% endif %}
             },
-
             function(swiperInstance) {
                 window.productsNewSwiper = swiperInstance;
             });
+        {% if new_only_mobile_slider or new_only_desktop_slider %}
+            }
+        {% endif %}
 
-            {% set sale_columns_desktop = settings.sale_products_desktop %}
-            {% set sale_columns_mobile = settings.sale_products_mobile %}
-            var slidesPerViewSaleDesktopVal = {% if sale_columns_desktop == 2 %}2{% elseif sale_columns_desktop == 3 %}3{% else %}4{% endif %};
-            var slidesPerViewSaleMobileVal = {% if sale_columns_mobile == 1 %}1{% else %}2{% endif %};
+        {# /* Sale products */ #}
 
+        {% set sale_desktop_slider = settings.sale_products_format_desktop == 'slider' %}
+        {% set sale_only_mobile_slider = settings.sale_products_format_mobile == 'slider' and settings.sale_products_format_desktop != 'slider' %}
+        {% set sale_only_desktop_slider = settings.sale_products_format_desktop == 'slider' and settings.sale_products_format_mobile != 'slider' %}
+        {% set sale_columns_desktop = settings.sale_products_desktop %}
+        {% set sale_columns_mobile = settings.sale_products_mobile %}
+        var slidesPerViewSaleDesktopVal = {% if sale_columns_desktop == 4 %}4{% elseif sale_columns_desktop == 5 %}5{% else %}6{% endif %};
+        var slidesPerViewSaleMobileVal = {% if sale_columns_mobile == 1 %}1{% else %}2{% endif %};
+
+        {% if sale_only_mobile_slider %}
+            if (window.innerWidth < 768) {
+        {% elseif sale_only_desktop_slider %}
+            if (window.innerWidth > 768) {
+        {% endif %}
             createSwiper('.js-swiper-sale', {
-                lazy: lazyVal,
+                lazy: lazyValue,
                 watchOverflow: watchOverflowVal,
                 centerInsufficientSlides: centerInsufficientSlidesVal,
                 threshold: 5,
@@ -1139,7 +1335,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 },
                 pagination: {
                     el: '.js-swiper-sale-pagination',
-                    type: 'fraction',
+                    clickable: true,
                 },
                 on: {
                     afterInit: function () {
@@ -1147,136 +1343,21 @@ DOMContentLoaded.addEventOrExecute(() => {
                     },
                 },
                 slidesPerView: slidesPerViewSaleMobileVal,
+            {% if sale_desktop_slider %}
                 breakpoints: {
                     768: {
                         slidesPerView: slidesPerViewSaleDesktopVal,
+                        slidesPerGroup: slidesPerViewSaleDesktopVal,
                     }
                 },
+            {% endif %}
             },
-
             function(swiperInstance) {
                 window.productsSaleSwiper = swiperInstance;
             });
-
-        {% endif %}
-        
-        {# /* // Home demo products slider */ #}
-
-        window.swiperLoader('.js-swiper-featured-demo', {
-            lazy: true,
-            loop: true,
-            watchOverflow: true,
-            spaceBetween: itemSwiperSpaceBetween,
-            centerInsufficientSlides: true,
-            slidesPerView: slidesPerViewMobileVal,
-            navigation: {
-                nextEl: '.js-swiper-featured-demo-next',
-                prevEl: '.js-swiper-featured-demo-prev',
-            },
-            pagination: {
-                el: '.js-swiper-featured-demo-pagination',
-                type: 'fraction',
-            },
-            breakpoints: {
-                768: {
-                    slidesPerView: slidesPerViewDesktopVal,
-                }
+        {% if sale_only_mobile_slider or sale_only_desktop_slider %}
             }
-        });
-
-        {# /* // Brands slider */ #}
-
-        {% if settings.brands and settings.brands is not empty %}
-
-            createSwiper('.js-swiper-brands', {
-                lazy: true,
-                watchOverflow: true,
-                centerInsufficientSlides: true,
-                threshold: 5,
-                spaceBetween: itemSwiperSpaceBetween,
-                slidesPerView: 3,
-                navigation: {
-                    nextEl: '.js-swiper-brands-next',
-                    prevEl: '.js-swiper-brands-prev',
-                },
-                on: {
-                    afterInit: function () {
-                        hideSwiperControls(".js-swiper-brands-prev", ".js-swiper-brands-next");
-                    },
-                    {% if settings.brands | length > 3 and settings.brands | length < 6  %}
-                        beforeInit: function () {
-                            if (window.innerWidth > 768) {
-                                jQueryNuvem(".js-swiper-brands-wrapper").addClass("justify-content-center");
-                            }
-                        },
-                    {% endif %}
-                },
-                breakpoints: {
-                    768: {
-                        slidesPerView: 6,
-                    }
-                }
-            });
-
         {% endif %}
-
-        {# Swiper used for demo component #}
-
-        createSwiper('.js-swiper-brands-demo', {
-            watchOverflow: true,
-            centerInsufficientSlides: true,
-            threshold: 5,
-            spaceBetween: itemSwiperSpaceBetween,
-            slidesPerView: 4,
-            navigation: {
-                nextEl: '.js-swiper-brands-next-demo',
-                prevEl: '.js-swiper-brands-prev-demo',
-            },
-            breakpoints: {
-                768: {
-                    slidesPerView: 6,
-                }
-            }
-        });
-
-        {# /* // Testimonials slider */ #}
-
-        {% set has_testimonial_01 = settings.testimonial_01_description or settings.testimonial_01_name or "testimonial_01.jpg" | has_custom_image %}
-        {% set has_testimonial_02 = settings.testimonial_02_description or settings.testimonial_02_name or "testimonial_02.jpg" | has_custom_image %}
-        {% set has_testimonial_03 = settings.testimonial_03_description or settings.testimonial_03_name or "testimonial_03.jpg" | has_custom_image %}
-        {% set has_testimonials = (has_testimonial_01 and has_testimonial_02) or (has_testimonial_01 and has_testimonial_03) or (has_testimonial_02 and has_testimonial_03)  %}
-
-        {% if has_testimonial_01 or has_testimonial_02 or has_testimonial_03 %}
-
-            createSwiper('.js-swiper-testimonials', {
-                lazy: true,
-                {% if has_testimonials %}
-                    loop: true,
-                    centerInsufficientSlides: true,
-                {% endif %}
-                watchOverflow: true,
-                threshold: 5,
-                navigation: {
-                    nextEl: '.js-swiper-testimonials-next',
-                    prevEl: '.js-swiper-testimonials-prev',
-                },
-            });
-
-        {% endif %}
-
-        {# Swiper used for demo component #}
-
-        createSwiper('.js-swiper-testimonials-demo', {
-            lazy: true,
-            loop: true,
-            centerInsufficientSlides: true,
-            watchOverflow: true,
-            threshold: 5,
-            navigation: {
-                nextEl: '.js-swiper-testimonials-next-demo',
-                prevEl: '.js-swiper-testimonials-prev-demo',
-            },
-        });
 
         {# /* // Banner services slider */ #}
 
@@ -1284,407 +1365,87 @@ DOMContentLoaded.addEventOrExecute(() => {
         {% set has_banner_services_02 = settings.banner_services_02_title or settings.banner_services_02_description %}
         {% set has_banner_services_03 = settings.banner_services_03_title or settings.banner_services_03_description %}
         {% set has_banner_services_04 = settings.banner_services_04_title or settings.banner_services_04_description %}
-        {% set has_banner_services = settings.banner_services and (has_banner_services_01 or has_banner_services_02 or has_banner_services_03 or has_banner_services_04) %}
-        {% set has_multiple_banners_services = (has_banner_services_01 and has_banner_services_02) or (has_banner_services_01 and has_banner_services_03) or (has_banner_services_01 and has_banner_services_04) or (has_banner_services_02 and has_banner_services_03) or (has_banner_services_02 and has_banner_services_04) or (has_banner_services_03 and has_banner_services_04) %}
+        {% set has_banner_services = (has_banner_services_01 or has_banner_services_02 or has_banner_services_03 or has_banner_services_04) %}
 
-        {% if has_banner_services %}
-
+        {% if has_banner_services or params.preview %}
             createSwiper('.js-informative-banners', {
-                {% if has_multiple_banners_services %}
-                    loop: true,
-                    centerInsufficientSlides: true,
-                {% endif %}
+                centerInsufficientSlides: true,
                 watchOverflow: true,
                 threshold: 5,
                 spaceBetween: itemSwiperSpaceBetween,
-                navigation: {
-                    nextEl: '.js-informative-banners-next',
-                    prevEl: '.js-informative-banners-prev',
+                pagination: {
+                    el: '.js-informative-banners-pagination',
+                    clickable: true,
                 },
                 breakpoints: {
                     768: {
-                        slidesPerView: 'auto',
-                        loop: false,
+                        slidesPerView: 4,
                     }
                 }
-            });
-        {% endif %}
-
-        {# Swiper used for demo component #}
-
-        createSwiper('.js-informative-banners-demo', {
-            loop: true,
-            centerInsufficientSlides: true,
-            watchOverflow: true,
-            threshold: 5,
-            paceBetween: itemSwiperSpaceBetween,
-            navigation: {
-                nextEl: '.js-informative-banners-next-demo',
-                prevEl: '.js-informative-banners-prev-demo',
-            },
-            breakpoints: {
-                768: {
-                    slidesPerView: 'auto',
-                    loop: false,
-                }
-            }
-        });
-
-        {# /* // Banners slider */ #}
-
-        {# Category banners #}
-
-        {% if settings.banner_slider or theme_editor %}
-
-            {% set banner_columns_desktop = settings.banner_columns_desktop %}
-
-            var bannersPerViewDesktopVal = {% if banner_columns_desktop == 4 %}4{% elseif banner_columns_desktop == 3 %}3{% elseif banner_columns_desktop == 2 %}2{% else %}1{% endif %};
-            var bannersPerViewMobileVal = 1;
-            var bannersSpaceBetween = {% if settings.banner_without_margins %}0{% else %}itemSwiperSpaceBetween{% endif %};
-
-            {# General banners #}
-
-            {% if (settings.banner and settings.banner is not empty) or theme_editor %}
-                
-                createSwiper('.js-swiper-banners', {
-                    lazy: true,
-                    watchOverflow: true,
-                    threshold: 5,
-                    watchSlideProgress: true,
-                    watchSlidesVisibility: true,
-                    slideVisibleClass: 'js-swiper-slide-visible',
-                    spaceBetween: bannersSpaceBetween,
-                    centerInsufficientSlides: true,
-                    navigation: {
-                        nextEl: '.js-swiper-banners-next',
-                        prevEl: '.js-swiper-banners-prev',
-                    },
-                    pagination: {
-                        el: '.js-swiper-banners-pagination',
-                        type: 'fraction',
-                    },
-                    slidesPerView: bannersPerViewMobileVal,
-                    on: {
-                        afterInit: function () {
-                            hideSwiperControls(".js-swiper-banners-prev", ".js-swiper-banners-next");
-                        },
-                    },
-                    breakpoints: {
-                        768: {
-                            slidesPerView: bannersPerViewDesktopVal,
-                        }
-                    }
-                },
-                function(swiperInstance) {
-                    window.homeBannerSwiper = swiperInstance;
-                });
-
-            {% endif %}
-
-            {# Mobile banners #}
-
-            {% if (settings.toggle_banner_mobile and settings.banner_mobile and settings.banner_mobile is not empty) or theme_editor %}
-                
-                createSwiper('.js-swiper-banners-mobile', {
-                    lazy: true,
-                    watchOverflow: true,
-                    threshold: 5,
-                    watchSlideProgress: true,
-                    watchSlidesVisibility: true,
-                    slideVisibleClass: 'js-swiper-slide-visible',
-                    spaceBetween: bannersSpaceBetween,
-                    centerInsufficientSlides: true,
-                    navigation: {
-                        nextEl: '.js-swiper-banners-mobile-next',
-                        prevEl: '.js-swiper-banners-mobile-prev',
-                    },
-                    pagination: {
-                        el: '.js-swiper-banners-mobile-pagination',
-                        type: 'fraction',
-                    },
-                    slidesPerView: bannersPerViewMobileVal,
-                    on: {
-                        afterInit: function () {
-                            hideSwiperControls(".js-swiper-banners-mobile-prev", ".js-swiper-banners-mobile-next");
-                        },
-                    },
-                    breakpoints: {
-                        768: {
-                            slidesPerView: bannersPerViewDesktopVal,
-                        }
-                    }
-                },
-                function(swiperInstance) {
-                    window.homeBannerMobileSwiper = swiperInstance;
-                });
-
-            {% endif %}
-
-        {% endif %}
-
-        {# Promotional banners #}
-
-        {% if settings.banner_promotional_slider or theme_editor %}
-
-            {% set banner_promotional_columns_desktop = settings.banner_promotional_columns_desktop %}
-
-            var bannersPromotionalPerViewDesktopVal = {% if banner_promotional_columns_desktop == 4 %}4{% elseif banner_promotional_columns_desktop == 3 %}3{% elseif banner_promotional_columns_desktop == 2 %}2{% else %}1{% endif %};
-            var bannersPromotionalPerViewMobileVal = 1;
-            var bannersPromotionalSpaceBetween = {% if settings.banner_promotional_without_margins %}0{% else %}itemSwiperSpaceBetween{% endif %};
-
-            {# General banners #}
-
-            {% if (settings.banner_promotional and settings.banner_promotional is not empty) or theme_editor %}
-                createSwiper('.js-swiper-banners-promotional', {
-                    lazy: true,
-                    watchOverflow: true,
-                    threshold: 5,
-                    watchSlideProgress: true,
-                    watchSlidesVisibility: true,
-                    slideVisibleClass: 'js-swiper-slide-visible',
-                    spaceBetween: bannersPromotionalSpaceBetween,
-                    centerInsufficientSlides: true,
-                    navigation: {
-                        nextEl: '.js-swiper-banners-promotional-next',
-                        prevEl: '.js-swiper-banners-promotional-prev',
-                    },
-                    pagination: {
-                        el: '.js-swiper-banners-promotional-pagination',
-                        type: 'fraction',
-                    },
-                    on: {
-                        afterInit: function () {
-                            hideSwiperControls(".js-swiper-banners-promotional-prev", ".js-swiper-banners-promotional-next");
-                        },
-                    },
-                    slidesPerView: bannersPromotionalPerViewMobileVal,
-                    breakpoints: {
-                        768: {
-                            slidesPerView: bannersPromotionalPerViewDesktopVal,
-                        }
-                    }
-                },
-                function(swiperInstance) {
-                    window.homeBannerPromotionalSwiper = swiperInstance;
-                });
-            {% endif %}
-
-            {# Mobile banners #}
-
-            {% if (settings.toggle_banner_promotional_mobile and settings.banner_promotional_mobile and settings.banner_promotional_mobile is not empty) or theme_editor %}
-                
-                createSwiper('.js-swiper-banners-promotional-mobile', {
-                    lazy: true,
-                    watchOverflow: true,
-                    threshold: 5,
-                    watchSlideProgress: true,
-                    watchSlidesVisibility: true,
-                    slideVisibleClass: 'js-swiper-slide-visible',
-                    spaceBetween: bannersPromotionalSpaceBetween,
-                    centerInsufficientSlides: true,
-                    navigation: {
-                        nextEl: '.js-swiper-banners-promotional-mobile-next',
-                        prevEl: '.js-swiper-banners-promotional-mobile-prev',
-                    },
-                    pagination: {
-                        el: '.js-swiper-banners-promotional-mobile-pagination',
-                        type: 'fraction',
-                    },
-                    on: {
-                        afterInit: function () {
-                            hideSwiperControls(".js-swiper-banners-promotional-mobile-prev", ".js-swiper-banners-promotional-mobile-next");
-                        },
-                    },
-                    slidesPerView: bannersPromotionalPerViewMobileVal,
-                    breakpoints: {
-                        768: {
-                            slidesPerView: bannersPromotionalPerViewDesktopVal,
-                        }
-                    }
-                },
-                function(swiperInstance) {
-                    window.homeBannerPromotionalMobileSwiper = swiperInstance;
-                });
-            {% endif %}
-
-        {% endif %}
-
-        {# News banners #}
-
-        {% if settings.banner_news_slider or theme_editor %}
-
-            {% set banner_news_columns_desktop = settings.banner_news_columns_desktop %}
-
-            var bannersNewsPerViewDesktopVal = {% if banner_news_columns_desktop == 4 %}4{% elseif banner_news_columns_desktop == 3 %}3{% elseif banner_news_columns_desktop == 2 %}2{% else %}1{% endif %};
-            var bannersNewsPerViewMobileVal = 1;
-            var bannersNewsSpaceBetween = {% if settings.banner_news_without_margins %}0{% else %}itemSwiperSpaceBetween{% endif %};
-
-            {# General banners #}
-
-            {% if (settings.banner_news and settings.banner_news is not empty) or theme_editor %}
-
-                createSwiper('.js-swiper-banners-news', {
-                    lazy: true,
-                    watchOverflow: true,
-                    threshold: 5,
-                    watchSlideProgress: true,
-                    watchSlidesVisibility: true,
-                    slideVisibleClass: 'js-swiper-slide-visible',
-                    spaceBetween: bannersNewsSpaceBetween,
-                    centerInsufficientSlides: true,
-                    navigation: {
-                        nextEl: '.js-swiper-banners-news-next',
-                        prevEl: '.js-swiper-banners-news-prev',
-                    },
-                    pagination: {
-                        el: '.js-swiper-banners-news-pagination',
-                        type: 'fraction',
-                    },
-                    on: {
-                        afterInit: function () {
-                            hideSwiperControls(".js-swiper-banners-news-prev", ".js-swiper-banners-news-next");
-                        },
-                    },
-                    slidesPerView: bannersNewsPerViewMobileVal,
-                    breakpoints: {
-                        768: {
-                            slidesPerView: bannersNewsPerViewDesktopVal,
-                        }
-                    }
-                },
-                function(swiperInstance) {
-                    window.homeBannerNewsSwiper = swiperInstance;
-                });
-
-            {% endif %}
-
-            {# Mobile banners #}
-
-            {% if (settings.toggle_banner_news_mobile and settings.banner_news_mobile and settings.banner_news_mobile is not empty) or theme_editor %}
-                
-                createSwiper('.js-swiper-banners-news-mobile', {
-                    lazy: true,
-                    watchOverflow: true,
-                    threshold: 5,
-                    watchSlideProgress: true,
-                    watchSlidesVisibility: true,
-                    slideVisibleClass: 'js-swiper-slide-visible',
-                    spaceBetween: bannersNewsSpaceBetween,
-                    centerInsufficientSlides: true,
-                    navigation: {
-                        nextEl: '.js-swiper-banners-news-mobile-next',
-                        prevEl: '.js-swiper-banners-news-mobile-prev',
-                    },
-                    pagination: {
-                        el: '.js-swiper-banners-news-mobile-pagination',
-                        type: 'fraction',
-                    },
-                    on: {
-                        afterInit: function () {
-                            hideSwiperControls(".js-swiper-banners-news-mobile-prev", ".js-swiper-banners-news-mobile-next");
-                        },
-                    },
-                    slidesPerView: bannersNewsPerViewMobileVal,
-                    breakpoints: {
-                        768: {
-                            slidesPerView: bannersNewsPerViewDesktopVal,
-                        }
-                    }
-                },
-                function(swiperInstance) {
-                    window.homeBannerNewsMobileSwiper = swiperInstance;
-                });
-                
-            {% endif %}
-
-        {% endif %}
-
-        {% if (settings.module_slider or theme_editor and (settings.module and settings.module is not empty)) or theme_editor %}
-
-
-            var bannersModulesSpaceBetween = {% if settings.module_without_margins %}0{% else %}itemSwiperSpaceBetween{% endif %};
-
-            createSwiper('.js-swiper-modules', {
-                lazy: true,
-                watchOverflow: true,
-                threshold: 5,
-                watchSlideProgress: true,
-                watchSlidesVisibility: true,
-                slideVisibleClass: 'js-swiper-slide-visible',
-                spaceBetween: bannersModulesSpaceBetween,
-                centerInsufficientSlides: true,
-                navigation: {
-                    nextEl: '.js-swiper-modules-next',
-                    prevEl: '.js-swiper-modules-prev',
-                },
-                pagination: {
-                    el: '.js-swiper-modules-pagination',
-                    type: 'fraction',
-                },
-                on: {
-                    afterInit: function () {
-                        hideSwiperControls(".js-swiper-modules-prev", ".js-swiper-modules-next");
-                    },
-                },
             },
             function(swiperInstance) {
-                window.homeModuleSwiper = swiperInstance;
+                window.informativeBannersSwiper = swiperInstance;
             });
-
         {% endif %}
 
-        {# /* // Main categories */ #}
+        {% if settings.home_promotional_popup %}
 
-        {% if settings.main_categories %}
+            {# /* // Home popup and newsletter popup */ #}
 
-            createSwiper('.js-swiper-categories', {
-                lazy: true,
-                preloadImages : false,
-                watchOverflow: true,
-                centerInsufficientSlides: true,
-                watchSlidesVisibility : true,
-                slidesPerView: 2,
-                spaceBetween: itemSwiperSpaceBetween,
-                navigation: {
-                    nextEl: '.js-swiper-categories-next',
-                    prevEl: '.js-swiper-categories-prev',
-                },
-                on: {
-                    afterInit: function () {
-                        hideSwiperControls(".js-swiper-categories-prev", ".js-swiper-categories-next");
-                    },
-                },
-                breakpoints: {
-                    768: {
-                        slidesPerView: 5,
-                    }
-                }
+            jQueryNuvem('#news-popup-form').on("submit", function () {
+                jQueryNuvem(".js-news-spinner").show();
+                jQueryNuvem(".js-news-popup-submit").prop("disabled", true);
             });
 
-        {% endif %}
-
-        {# Swiper used for demo component #}
-
-        createSwiper('.js-swiper-categories-demo', {
-            preloadImages : false,
-            watchOverflow: true,
-            centerInsufficientSlides: true,
-            watchSlidesVisibility : true,
-            slidesPerView: 2,
-            spaceBetween: itemSwiperSpaceBetween,
-            navigation: {
-                nextEl: '.js-swiper-categories-next-demo',
-                prevEl: '.js-swiper-categories-prev-demo',
-            },
-            
-            breakpoints: {
-                768: {
-                    slidesPerView: 5,
+            LS.newsletter('#news-popup-form-container', '#home-modal', '{{ store.contact_url | escape('js') }}', function (response) {
+                jQueryNuvem(".js-news-spinner").hide();
+                jQueryNuvem(".js-news-popup-submit").show();
+                var selector_to_use = response.success ? '.js-news-success' : '.js-news-failed';
+                let newPopupAlert = jQueryNuvem(this).find(selector_to_use).fadeIn(100);
+                setTimeout(() => newPopupAlert.fadeOut(500), 4000);
+                if (jQueryNuvem(".js-news-success").css("display") == "block") {
+                    setTimeout(function () {
+                        jQueryNuvem('[data-modal-id="#home-modal"]').fadeOut(500);
+                        let homeModal = jQueryNuvem("#home-modal").removeClass("modal-visible");
+                        setTimeout(() => homeModal.hide(), 500);
+                        let homeModalOverlay = jQueryNuvem('.js-modal-overlay-private[data-modal-url="home-modal"]');
+                        setTimeout(() => homeModalOverlay.hide(), 500);
+                    }, 2500);
                 }
+                jQueryNuvem(".js-news-popup-submit").prop("disabled", false);
+            });
+
+            var callback_show = function(){
+                {% if store.whatsapp %}
+                    jQueryNuvem('.js-btn-fixed-bottom').fadeOut(500);
+                {% endif %}
+                jQueryNuvem("#home-modal").detach().appendTo("body").show().addClass("modal-visible");
+                jQueryNuvem('.js-modal-overlay-private[data-modal-url="home-modal"]').show();
             }
-        });
+            var callback_hide = function(){
+                let homeModal = jQueryNuvem("#home-modal").removeClass("modal-visible");
+                setTimeout(() => homeModal.hide(), 500);
 
-        {# /* // Product description toggle */ #}
+                let homeModalOverlay = jQueryNuvem('.js-modal-overlay-private[data-modal-url="home-modal"]');
+                setTimeout(() => homeModalOverlay.hide(), 500);
+            }
+
+            {% if store.whatsapp %}
+                jQueryNuvem("#home-modal .js-modal-close").on("click", function (e) {
+                    e.preventDefault();
+                    jQueryNuvem('.js-btn-fixed-bottom').fadeIn(500);
+                });
+            {% endif %}
+
+            LS.homePopup({
+                selector: "#home-modal",
+                mobile_max_pixels: 0,
+                timeout: 10000
+            }, callback_hide, callback_show);
+
+        {% endif %}
+
+        {# /* // Main product description toggle */ #}
 
         {% if sections.featured.products %}
             if (jQueryNuvem('.js-product-description').height() < jQueryNuvem('.js-product-description').prop("scrollHeight")){
@@ -1698,128 +1459,18 @@ DOMContentLoaded.addEventOrExecute(() => {
             });
         {% endif %}
 
-	{% endif %}
-
-    {% if template == 'product' %}
-
-        {# /* // Product Related */ #}
-
-        // Set loop for related products products sliders
-
-        function calculateRelatedLoopVal(sectionSelector) {
-            let productsAmount = jQueryNuvem(sectionSelector).attr("data-related-amount");
-            let loopVal = false;
-            const applyLoop = (window.innerWidth < 768 && productsAmount > slidesPerViewMobileVal) || (window.innerWidth > 768 && productsAmount > slidesPerViewDesktopVal);
-            
-            if (applyLoop) {
-                loopVal = true;
-            }
-
-            return loopVal;
-        }
-
-        function calculateMobileAmount(sectionSelector) {
-            let productsAmount = jQueryNuvem(sectionSelector).attr("data-related-amount");
-            let mobileAmount = 1.8;
-            const applyDefaultAmount = window.innerWidth < 768 && productsAmount > slidesPerViewMobileVal;
-            
-            if (!applyDefaultAmount) {
-                mobileAmount = 2;
-            }
-
-            return mobileAmount;
-        }
-
-        let alternativeLoopVal = calculateRelatedLoopVal(".js-related-products");
-        let alternativeCenteredVal = calculateRelatedLoopVal(".js-related-products");
-        let alternativeSlidesPerViewMobileVal = calculateMobileAmount(".js-related-products");
-
-        let complementaryLoopVal = calculateRelatedLoopVal(".js-complementary-products");
-        let complementaryCenteredVal = calculateRelatedLoopVal(".js-complementary-products");
-        let complementarySlidesPerViewMobileVal = calculateMobileAmount(".js-complementary-products");
-
-        {# Alternative products #}
-
-        createSwiper('.js-swiper-related', {
-            lazy: true,
-            loop: alternativeLoopVal,
-            watchOverflow: true,  
-            centerInsufficientSlides: true,
-            threshold: 5,
-            watchSlideProgress: true,
-            watchSlidesVisibility: true,
-            spaceBetween: 15,
-            slideVisibleClass: 'js-swiper-slide-visible',
-            centeredSlides: alternativeCenteredVal,
-            slidesPerView: alternativeSlidesPerViewMobileVal,
-            navigation: {
-                nextEl: '.js-swiper-related-next',
-                prevEl: '.js-swiper-related-prev',
-            },
-            on: {
-                afterInit: function () {
-                    hideSwiperControls(".js-swiper-related-prev", ".js-swiper-related-next");
-                },
-            },
-            breakpoints: {
-                768: {
-                    centeredSlides: false,
-                    slidesPerView: slidesPerViewDesktopVal,
-                    spaceBetween: itemSwiperSpaceBetween
-                }
-            }
-        });
-
-        {# Complementary products #}
-
-        createSwiper('.js-swiper-complementary', {
-            lazy: true,
-            loop: complementaryLoopVal,
-            watchOverflow: true,  
-            centerInsufficientSlides: true,
-            threshold: 5,
-            watchSlideProgress: true,
-            watchSlidesVisibility: true,
-            spaceBetween: 15,
-            slideVisibleClass: 'js-swiper-slide-visible',
-            centeredSlides: complementaryCenteredVal,
-            slidesPerView: complementarySlidesPerViewMobileVal,
-            navigation: {
-                nextEl: '.js-swiper-complementary-next',
-                prevEl: '.js-swiper-complementary-prev',
-            },
-            on: {
-                afterInit: function () {
-                    hideSwiperControls(".js-swiper-complementary-prev", ".js-swiper-complementary-next");
-                },
-            },
-            breakpoints: {
-                768: {
-                    centeredSlides: false,
-                    slidesPerView: slidesPerViewDesktopVal,
-                    spaceBetween: itemSwiperSpaceBetween
-                }
-            }
-        });
-
     {% endif %}
 
-	{#/*============================================================================
-	  #Social
-	==============================================================================*/ #}
+    {# /* // Youtube video */ #}
 
     {% if template == 'home' and settings.video_embed %}
         {% set video_url = settings.video_embed %}
-        {% if '/watch?v=' in settings.video_embed %}
-            {% set video_format = '/watch?v=' %}
-        {% elseif '/youtu.be/' in settings.video_embed %}
-            {% set video_format = '/youtu.be/' %}
-        {% elseif '/shorts/' in settings.video_embed %}
-            {% set video_format = '/shorts/' %}
-        {% endif %}
+        {% set video_format = 
+            '/watch?v=' in video_url ? '/watch?v=' :
+            '/youtu.be/' in video_url ? '/youtu.be/' :
+            '/shorts/' in video_url ? '/shorts/'
+        %}
         {% set video_id = video_url|split(video_format)|last %}
-
-        {# /* // Youtube video with autoplay */ #}
 
         function loadVideoFrame() {
             window.youtubeIframeService.executeOnReady(() => { 
@@ -1846,7 +1497,7 @@ DOMContentLoaded.addEventOrExecute(() => {
             }
         {% else %}
             {% if settings.video_type == 'autoplay' %}
-                jQueryNuvem('.js-home-video-container').on('lazyloaded', function(e){
+                jQueryNuvem('.js-home-video').on('lazyloaded', function(e){
                     loadVideoFrame();
                 });
             {% else %}
@@ -1883,105 +1534,139 @@ DOMContentLoaded.addEventOrExecute(() => {
 
     {% if template == 'product' and product.video_url %}
         {% set video_url = product.video_url %}
-        {# /* // Youtube or Vimeo video for home or each product */ #}
+        {# /* // Youtube video for product detail */ #}
         LS.loadVideo('{{ video_url }}');
     {% endif %}
 
+    {#/*============================================================================
+      #Product grid
+    ==============================================================================*/ #}
 
-	{#/*============================================================================
-	  #Product grid
-	==============================================================================*/ #}
+    {# /* // Button variations */ #}
 
-    var nav_height = jQueryNuvem(".js-head-main").innerHeight();
+    {% if settings.bullet_variants or settings.product_color_variants or settings.image_color_variants %}
+        changeVariantButton = function(selector, parentSelector) {
+            selector.siblings().removeClass("selected");
+            selector.addClass("selected");
+            var option_id = selector.attr('data-option');
+            var parent = selector.closest(parentSelector);
+            var selected_option = parent.find('.js-variation-option option').filter(function (el) {
+                return el.value == option_id;
+            });
+            selected_option.prop('selected', true).trigger('change');
+            parent.find('.js-insta-variation-label').html(option_id);
+        }
 
-	{% if template == 'category' or (template == 'search' and search_filter) %}
+        {% if settings.bullet_variants or settings.image_color_variants %}
+            
+            {# /* // Color and size variations */ #}
+
+            jQueryNuvem(document).on("click", ".js-insta-variant", function (e) {
+                e.preventDefault();
+                $this = jQueryNuvem(this);
+                changeVariantButton($this, '.js-product-variants-group');
+            });
+
+        {% endif %}
+
+        {% if settings.product_color_variants %}
+            {# Product color variations #}
+            if (window.innerWidth > 767) {
+                jQueryNuvem(document).on("click", ".js-color-variant", function(e) {
+                    e.preventDefault();
+                    $this = jQueryNuvem(this);
+                    changeVariantButton($this, '.js-product-item-private');
+                });
+            }
+        {% endif %}
+
+    {% endif %}
+
+    {% set has_item_slider = settings.product_item_slider %}
+
+    {% if settings.quick_shop or settings.product_color_variants %}
+        LS.registerOnChangeVariant(function(variant){
+            {# Show product image on color change #}
+            const productContainer = jQueryNuvem('.js-product-item-private[data-product-id="'+variant.product_id+'"]');
+            const current_image = productContainer.find('.js-product-item-image-private');
+            current_image.attr('srcset', variant.image_url);
+
+            {% if has_item_slider %}
+
+                {# Remove slider when variant changes #}
+
+                const swiperElement = productContainer.find('.js-product-item-slider-container-private.swiper-container-initialized');
+
+                if(swiperElement.length){
+                    productContainer.find('.js-product-item-slider-slide-private').removeClass('product-item-slider-slide');
+                    setTimeout(function(){
+                        const productImageLink = productContainer.find('.js-product-item-image-link-private');
+                        const imageToKeep = productContainer.find('.js-swiper-slide-visible img').clone();
+                        
+                        // Destroy the Swiper instance
+                        if (itemProductSliders[variant.product_id]) {
+                            itemProductSliders[variant.product_id].destroy(true, true);
+                            delete itemProductSliders[variant.product_id];
+                        }
+                         // Remove the Swiper elements
+                         swiperElement.remove();
+                         productContainer.find('.js-product-item-slider-pagination-container').remove();
+
+                        // Insert the cloned image into the link
+                        productImageLink.append(imageToKeep);
+
+                    },300);
+                }
+            {% endif %}
+
+            {% if settings.product_hover %}
+                {# Remove secondary feature on image updated from changeVariant #}
+                productContainer.find(".js-product-item-private-with-secondary-images").addClass("product-item-secondary-images-disabled");
+            {% endif %}
+
+        });
+    {% endif %}
+
+    const nav_height = jQueryNuvem(".js-head-main").innerHeight();
+    const $category_controls = jQueryNuvem(".js-category-controls");
+
+    {% if template == 'category' %}
 
         {# /* // Fixed category controls */ #}
 
-            if (window.innerWidth < 768) {
+        if (window.innerWidth < 768) {
 
-                $category_controls.css("top" , nav_height.toString() + 'px');
+            $category_controls.css("top" , nav_height.toString() + 'px');
 
-                {# Detect if category controls are sticky and add css #}
+            {# Detect if category controls are sticky #}
 
-                var observer = new IntersectionObserver(function(entries) {
-                    if(entries[0].intersectionRatio === 0)
-                        $category_controls.addClass("is-sticky");
-                    else if(entries[0].intersectionRatio === 1)
-                        $category_controls.removeClass("is-sticky");
-                    }, { threshold: [0,1]
-                });
-                observer.observe(document.querySelector(".js-category-controls-prev"));
+            var observer = new IntersectionObserver(function(entries) {
+                $category_controls
+                }, { threshold: [0,1]
+            });
+            observer.observe(document.querySelector(".js-category-controls-prev"));
 
-                offsetCategories = function() {
-                    var $sticky_category_controls = jQueryNuvem(".js-category-controls");
+            offsetCategories = function() {
+                var $sticky_category_controls = jQueryNuvem(".js-category-controls");
 
-                    var categoriesOffset = jQueryNuvem(".js-head-main").outerHeight();
+                var categoriesOffset = jQueryNuvem(".js-head-main").outerHeight();
 
-                    if(jQueryNuvem(".js-head-main").hasClass("adbar-hidden")){
-                        var categoriesOffset = categoriesOffset - topbarHeight;
-                    }
-
-                    $sticky_category_controls.css('top', (categoriesOffset - 1).toString() + 'px' );
-                };
-
-                offsetCategories();
-
-                document.addEventListener("scroll", function(){
-                    offsetCategories();
-                });
-
-            }
-
-        {# /* // Filters */ #}
-
-        {% if has_applied_filters %}
-            const applied_filters = jQueryNuvem(".js-remove-filter-chip").length;
-            jQueryNuvem(".js-filters-badge").text(applied_filters);
-        {% endif %}
-
-        jQueryNuvem(document).on("click", ".js-apply-filter, .js-remove-filter", function(e) {
-            e.preventDefault();
-            var filter_name = jQueryNuvem(this).attr('data-filter-name');
-            var filter_value = jQueryNuvem(this).attr('data-filter-value');
-            if(jQueryNuvem(this).hasClass("js-apply-filter")){
-                jQueryNuvem(this).find("[type=checkbox]").prop("checked", true);
-                LS.urlAddParam(
-                    filter_name,
-                    filter_value,
-                    true
-                );
-            }else{
-                jQueryNuvem(this).find("[type=checkbox]").prop("checked", false);
-                LS.urlRemoveParam(
-                    filter_name,
-                    filter_value
-                );
-            }
-
-            {# Toggle class to avoid adding double parameters in case of double click and show applying changes feedback #}
-
-            if (jQueryNuvem(this).hasClass("js-filter-checkbox")){
-                if (window.innerWidth < 768) {
-                    jQueryNuvem(".js-filters-overlay").show();
-                    if(jQueryNuvem(this).hasClass("js-apply-filter")){
-                        jQueryNuvem(".js-applying-filter").show();
-                    }else{
-                        jQueryNuvem(".js-removing-filter").show();
-                    }
+                if(jQueryNuvem(".js-head-main").hasClass("compress")){
+                    var categoriesOffset = categoriesOffset - adBarsHeight - 1;
                 }
-                jQueryNuvem(this).toggleClass("js-apply-filter js-remove-filter");
-            }
-        });
 
-        jQueryNuvem(document).on("click", ".js-remove-all-filters", function(e) {
-            e.preventDefault();
-            LS.urlRemoveAllParamsExceptQuerySort();
-        });
+                $sticky_category_controls.css('top', (categoriesOffset).toString() + 'px' );
+            };
 
-	{% endif %}
+            offsetCategories();
 
-    {% set has_item_slider = settings.product_item_slider %}
+            document.addEventListener("scroll", function(){
+                offsetCategories();
+            });
+
+        }     
+
+    {% endif %}
     
     {% if template == 'category' or template == 'search' %}
 
@@ -1994,7 +1679,7 @@ DOMContentLoaded.addEventOrExecute(() => {
             });
 
         {% endif %}
-
+        
         {% if settings.pagination == 'infinite' %}
 
             !function() {
@@ -2007,21 +1692,20 @@ DOMContentLoaded.addEventOrExecute(() => {
                         spinnerSelector: '#js-infinite-scroll-spinner',
                         loadMoreButtonSelector: '.js-load-more',
                         hideWhileScrollingSelector: ".js-hide-footer-while-scrolling",
-                        productsBeforeLoadMoreButton: 50,
+                        productsBeforeLoadMoreButton: 60,
                         productsPerPage: 12,
                         {% if has_item_slider %}
-                            afterLoaded: function(){
+                            afterLoaded: function(){ 
                                 LS.productItemSlider({ 
                                     pagination_type: 'fraction',
                                 });
-                            },
+                            }
                         {% endif %}
                     });
                 {% endif %}
             }();
 
         {% endif %}
-
     {% endif %}
 
     {# /* // Variants without stock */ #}
@@ -2105,151 +1789,90 @@ DOMContentLoaded.addEventOrExecute(() => {
 
         {# /* // Quickshop */ #}
 
+        restoreQuickshopForm = function(){
+
+            {# Restore form to item when quickshop closes #}
+
+            {# Clean quickshop modal #}
+
+            jQueryNuvem("#quickshop-modal .js-product-item-private").removeClass("js-swiper-slide-visible js-item-slide");
+            jQueryNuvem("#quickshop-modal .js-quickshop-container").attr( { 'data-variants' : '' , 'data-quickshop-id': '' } );
+            jQueryNuvem("#quickshop-modal .js-product-item-private").attr('data-product-id', '');
+
+            {# Wait for modal to become invisible before removing form #}
+            
+            setTimeout(function(){
+                var $quickshop_form = jQueryNuvem("#quickshop-form").find('.js-product-form');
+                var $item_form_container = jQueryNuvem(".js-quickshop-opened").find(".js-item-variants");
+                
+                $quickshop_form.detach().appendTo($item_form_container);
+                jQueryNuvem(".js-quickshop-opened").removeClass("js-quickshop-opened");
+                jQueryNuvem("#quickshop-modal .js-quickshop-img").attr('srcset', '');
+                jQueryNuvem("#quickshop-form").removeAttr("style");
+            },350);
+
+        };
+
         jQueryNuvem(document).on("click", ".js-quickshop-modal-open", function (e) {
             e.preventDefault();
             var $this = jQueryNuvem(this);
             if($this.hasClass("js-quickshop-slide")){
-                jQueryNuvem("#quickshop-modal .js-item-product").addClass("js-swiper-slide-visible js-item-slide");
+                jQueryNuvem("#quickshop-modal .js-product-item-private").addClass("js-swiper-slide-visible js-item-slide");
             }
 
             {% if is_button_variant %}
                 {# Updates variants without stock #}
-                let container = jQueryNuvem(this).closest('.js-quickshop-container');
+                let container = jQueryNuvem(this).closest('.js-product-item-private');
                 if (!container.length) return;
                 noStockVariants(container);
             {% endif %}
 
             LS.fillQuickshop($this);
-
-            {# Image dimensions #}
-
-            if (window.innerWidth < 768) {
-                var product_image_dimension = jQueryNuvem(this).closest('.js-item-product').find('.js-item-image-padding').attr("style");
-                jQueryNuvem("#quickshop-modal .js-quickshop-image-padding").attr("style", product_image_dimension);
-            }
         });
 
-    {% endif %}
-
-    {% if settings.bullet_variants or settings.product_color_variants or settings.image_color_variants %}
-        changeVariantButton = function(selector, parentSelector) {
-            selector.siblings().removeClass("selected");
-            selector.addClass("selected");
-            var option_id = selector.attr('data-option');
-            var parent = selector.closest(parentSelector);
-            var selected_option = parent.find('.js-variation-option option').filter(function (el) {
-                return el.value == option_id;
-            });
-            selected_option.prop('selected', true).trigger('change');
-            parent.find('.js-insta-variation-label').html(option_id);
-        }
-
-        {% if settings.bullet_variants or settings.image_color_variants %}
-            {# /* // Color and size variations */ #}
-
-            jQueryNuvem(document).on("click", ".js-insta-variant", function (e) {
-                e.preventDefault();
-                $this = jQueryNuvem(this);
-                changeVariantButton($this, '.js-product-variants-group');
-            });
-
-        {% endif %}
-
-
-        {% if settings.product_color_variants %}
-
-            {# Product color variations #}
-            if (window.innerWidth > 767) {
-                jQueryNuvem(document).on("click", ".js-color-variant", function(e) {
-                    e.preventDefault();
-                    $this = jQueryNuvem(this);
-                    changeVariantButton($this, '.js-item-product');
-                });
-            }
-        {% endif %}
-
-    {% endif %}
-
-    {% if settings.quick_shop or settings.product_color_variants %}
-
-        LS.registerOnChangeVariant(function(variant){
-            {# Show product image on color change #}
-            const productContainer = jQueryNuvem('.js-item-product[data-product-id="'+variant.product_id+'"]');
-            const current_image = productContainer.find('.js-item-image');
-            current_image.attr('srcset', variant.image_url);
-
-            {% if has_item_slider %}
-
-                {# Remove slider when variant changes #}
-
-                const swiperElement = productContainer.find('.js-product-item-slider-container-private.swiper-container-initialized');
-
-                if(swiperElement.length){
-                    productContainer.find('.js-product-item-slider-slide-private').removeClass('item-image-slide');
-                    setTimeout(function(){
-                        const productImageLink = productContainer.find('.js-product-item-image-link-private');
-                        const imageToKeep = productContainer.find('.js-swiper-slide-visible img').clone();
-                        
-                        // Destroy the Swiper instance
-                        if (itemProductSliders[variant.product_id]) {
-                            itemProductSliders[variant.product_id].destroy(true, true);
-                            delete itemProductSliders[variant.product_id];
-                        }
-                         // Remove the Swiper elements
-                         swiperElement.remove();
-                         productContainer.find('.js-product-item-slider-pagination-container').remove();
-
-                        // Insert the cloned image into the link
-                        productImageLink.append(imageToKeep);
-
-                    },300);
-                }
-            {% endif %}
-
-            {% if settings.product_hover %}
-                {# Remove secondary feature on image updated from changeVariant #}
-                productContainer.find(".js-product-item-private-with-secondary-images").addClass("product-item-secondary-images-disabled");
-            {% endif %}
+        jQueryNuvem(document).on("click", ".js-modal-close-private", function (e) {
+            e.preventDefault();
+            restoreQuickshopForm();
         });
 
     {% endif %}
 
     {#/*============================================================================
-	  #Product detail functions
-	==============================================================================*/ #}
+      #Product detail
+    ==============================================================================*/ #}
 
-	{# /* // Installments */ #}
+    {# /* // Installments */ #}
 
-	{# Installments without interest #}
+    {# Installments without interest #}
 
-	function get_max_installments_without_interests(number_of_installment, installment_data, max_installments_without_interests) {
-	    if (parseInt(number_of_installment) > parseInt(max_installments_without_interests[0])) {
-	        if (installment_data.without_interests) {
-	            return [number_of_installment, installment_data.installment_value.toFixed(2)];
-	        }
-	    }
-	    return max_installments_without_interests;
-	}
+    function get_max_installments_without_interests(number_of_installment, installment_data, max_installments_without_interests) {
+        if (parseInt(number_of_installment) > parseInt(max_installments_without_interests[0])) {
+            if (installment_data.without_interests) {
+                return [number_of_installment, installment_data.installment_value.toFixed(2)];
+            }
+        }
+        return max_installments_without_interests;
+    }
 
-	{# Installments with interest #}
+    {# Installments with interest #}
 
-	function get_max_installments_with_interests(number_of_installment, installment_data, max_installments_with_interests) {
-	    if (parseInt(number_of_installment) > parseInt(max_installments_with_interests[0])) {
-	        if (installment_data.without_interests == false) {
-	            return [number_of_installment, installment_data.installment_value.toFixed(2)];
-	        }
-	    }
-	    return max_installments_with_interests;
-	}
+    function get_max_installments_with_interests(number_of_installment, installment_data, max_installments_with_interests) {
+        if (parseInt(number_of_installment) > parseInt(max_installments_with_interests[0])) {
+            if (installment_data.without_interests == false) {
+                return [number_of_installment, installment_data.installment_value.toFixed(2)];
+            }
+        }
+        return max_installments_with_interests;
+    }
 
-	{# Updates installments on payment popup for native integrations #}
+    {# Updates installments on payment popup for native integrations #}
 
-	function refreshInstallmentv2(price){
+    function refreshInstallmentv2(price){
         jQueryNuvem(".js-modal-installment-price" ).each(function( el ) {
-	        const installment = Number(jQueryNuvem(el).data('installment'));
-	        jQueryNuvem(el).text(LS.currency.display_short + (price/installment).toLocaleString('de-DE', {maximumFractionDigits: 2, minimumFractionDigits: 2}));
-	    });
-	}
+            const installment = Number(jQueryNuvem(el).data('installment'));
+            jQueryNuvem(el).text(LS.currency.display_short + (price/installment).toLocaleString('de-DE', {maximumFractionDigits: 2, minimumFractionDigits: 2}));
+        });
+    }
 
     {# Refresh price on payments popup with payment discount applied #}
 
@@ -2371,30 +1994,28 @@ DOMContentLoaded.addEventOrExecute(() => {
 
     {% endif %}
 
-	{# /* // Change variant */ #}
+    {# /* // Change variant */ #}
 
-	{# Updates price, installments, labels and CTA on variant change #}
+    {# Updates price, installments, labels and CTA on variant change #}
 
-	function changeVariant(variant) {
+    function changeVariant(variant) {
         jQueryNuvem(".js-product-detail .js-shipping-calculator-response").hide();
         jQueryNuvem("#shipping-variant-id").val(variant.id);
-                
 
-	    var parent = jQueryNuvem("body");
-	    if (variant.element) {
+        var parent = jQueryNuvem("body");
+        if (variant.element) {
             parent = jQueryNuvem(variant.element);
-            if(parent.hasClass("js-quickshop-container")){
+            if(parent.hasClass("js-product-item-private")){
                 var quick_id = parent.attr("data-quickshop-id");
-                var parent = jQueryNuvem('.js-quickshop-container[data-quickshop-id="'+quick_id+'"]');
+                var parent = jQueryNuvem('.js-product-item-private[data-quickshop-id="'+quick_id+'"]');
             }
-	    }
+        }
 
         {% if is_button_variant %}
             {# Updates variants without stock #}
-            if(parent.hasClass("js-quickshop-container")){
-                var itemContainer = parent.closest('.js-item-product');
-                if(itemContainer.hasClass("js-item-slide")){
-                    var parent = jQueryNuvem('.js-swiper-slide-visible .js-quickshop-container[data-quickshop-id="'+quick_id+'"]');
+            if(parent.hasClass("js-product-item-private")){
+                if(parent.hasClass("js-item-slide")){
+                    var parent = jQueryNuvem('.js-swiper-slide-visible.js-product-item-private[data-quickshop-id="'+quick_id+'"]');
                 }
                 noStockVariants(parent);
             } else {
@@ -2402,94 +2023,98 @@ DOMContentLoaded.addEventOrExecute(() => {
             }
         {% endif %}
 
-	    var sku = parent.find('.js-product-sku');
-	    if(sku.length) {
-	        sku.text(variant.sku).show();
-	    }
+        var sku = parent.find('.js-product-sku');
+        if(sku.length) {
+            sku.text(variant.sku).show();
+        }
 
-	    {% if settings.product_stock %}
-	        var stock = parent.find('.js-product-stock');
-	        stock.text(variant.stock).show();
-	    {% endif %}
+        {% if settings.product_stock or settings.latest_products_available %}
+            var stock = parent.find('.js-product-stock');
+            stock.text(variant.stock).show();
+        {% endif %}
 
         {# Updates installments on list item and inside payment popup for Payments Apps #}
+        
+        var installment_helper = function($element, amount, price){
+            $element.find('.js-installment-amount').text(amount);
+            $element.find('.js-installment-price').attr("data-value", price);
+            $element.find('.js-installment-price').text(LS.currency.display_short + parseFloat(price).toLocaleString('de-DE', { minimumFractionDigits: 2 }));
+            if(variant.price_short && Math.abs(variant.price_number - price * amount) < 1) {
+                $element.find('.js-installment-total-price').text((variant.price_short).toLocaleString('de-DE', { minimumFractionDigits: 2 }));
+            } else {
+                $element.find('.js-installment-total-price').text(LS.currency.display_short + (price * amount).toLocaleString('de-DE', { minimumFractionDigits: 2 }));
+            }
+        };
 
-	    var installment_helper = function($element, amount, price){
-	        $element.find('.js-installment-amount').text(amount);
-	        $element.find('.js-installment-price').attr("data-value", price);
-	        $element.find('.js-installment-price').text(LS.currency.display_short + parseFloat(price).toLocaleString('de-DE', { minimumFractionDigits: 2 }));
-	        if(variant.price_short && Math.abs(variant.price_number - price * amount) < 1) {
-	            $element.find('.js-installment-total-price').text((variant.price_short).toLocaleString('de-DE', { minimumFractionDigits: 2 }));
-	        } else {
-	            $element.find('.js-installment-total-price').text(LS.currency.display_short + (price * amount).toLocaleString('de-DE', { minimumFractionDigits: 2 }));
-	        }
-	    };
+        if (variant.installments_data) {
+            var variant_installments = JSON.parse(variant.installments_data);
+            var max_installments_without_interests = [0,0];
+            var max_installments_with_interests = [0,0];
 
-	    if (variant.installments_data) {
-	        var variant_installments = JSON.parse(variant.installments_data);
-	        var max_installments_without_interests = [0,0];
-	        var max_installments_with_interests = [0,0];
+            {# Hide all installments rows on payments modal #}
+            jQueryNuvem('.js-payment-provider-installments-row').hide();
 
-	        {# Hide all installments rows on payments modal #}
-	        jQueryNuvem('.js-payment-provider-installments-row').hide();
+            for (let payment_method in variant_installments) {
 
-	        for (let payment_method in variant_installments) {
-
-	            {# Identifies the minimum installment value #}
-	            var paymentMethodId = '#installment_' + payment_method.replace(" ", "_") + '_1';
-	            var minimumInstallmentValue = jQueryNuvem(paymentMethodId).closest('.js-info-payment-method').attr("data-minimum-installment-value");
+                {# Identifies the minimum installment value #}
+                var paymentMethodId = '#installment_' + payment_method.replace(" ", "_") + '_1';
+                var minimumInstallmentValue = jQueryNuvem(paymentMethodId).closest('.js-info-payment-method').attr("data-minimum-installment-value");
 
                 let installments = variant_installments[payment_method];
-	            for (let number_of_installment in installments) {
+                for (let number_of_installment in installments) {
                     let installment_data = installments[number_of_installment];
-	                max_installments_without_interests = get_max_installments_without_interests(number_of_installment, installment_data, max_installments_without_interests);
-	                max_installments_with_interests = get_max_installments_with_interests(number_of_installment, installment_data, max_installments_with_interests);
-	                var installment_container_selector = '#installment_' + payment_method.replace(" ", "_") + '_' + number_of_installment;
+                    max_installments_without_interests = get_max_installments_without_interests(number_of_installment, installment_data, max_installments_without_interests);
+                    max_installments_with_interests = get_max_installments_with_interests(number_of_installment, installment_data, max_installments_with_interests);
+                    var installment_container_selector = '#installment_' + payment_method.replace(" ", "_") + '_' + number_of_installment;
 
-	                {# Shows installments rows on payments modal according to the minimum value #}
-	                if(minimumInstallmentValue <= installment_data.installment_value) {
-	                    jQueryNuvem(installment_container_selector).show();
-	                }
+                    {# Shows installments rows on payments modal according to the minimum value #}
+                    if(minimumInstallmentValue <= installment_data.installment_value) {
+                        jQueryNuvem(installment_container_selector).show();
+                    }
 
-	                if(!parent.hasClass("js-quickshop-container")){
-	                    installment_helper(jQueryNuvem(installment_container_selector), number_of_installment, installment_data.installment_value.toFixed(2));
-	                }
-	            }
-	        }
-	        var $installments_container = jQueryNuvem(variant.element + ' .js-max-installments-container .js-max-installments');
-	        var $installments_modal_link = jQueryNuvem(variant.element + ' #btn-installments');
-	        var $payments_module = jQueryNuvem(variant.element + ' .js-product-payments-container');
-	        var $installmens_card_icon = jQueryNuvem(variant.element + ' .js-installments-credit-card-icon');
+                    if(!parent.hasClass("js-product-item-private")){
+                        installment_helper(jQueryNuvem(installment_container_selector), number_of_installment, installment_data.installment_value.toFixed(2));
+                    }
+                }
+            }
+            var $installments_container = jQueryNuvem(variant.element + ' .js-max-installments-container .js-max-installments');
+            var $installments_modal_link = jQueryNuvem(variant.element + ' #btn-installments');
+            var $payments_module = jQueryNuvem(variant.element + ' .js-product-payments-container');
+            var $installmens_card_icon = jQueryNuvem(variant.element + ' .js-installments-credit-card-icon');
 
-	        {% if product.has_direct_payment_only %}
-	        var installments_to_use = max_installments_without_interests[0] >= 1 ? max_installments_without_interests : max_installments_with_interests;
+            {% if product.has_direct_payment_only %}
+            var installments_to_use = max_installments_without_interests[0] >= 1 ? max_installments_without_interests : max_installments_with_interests;
 
-	        if(installments_to_use[0] <= 0 ) {
-	        {%  else %}
-	        var installments_to_use = max_installments_without_interests[0] > 1 ? max_installments_without_interests : max_installments_with_interests;
+            if(installments_to_use[0] <= 0 ) {
+            {%  else %}
+            var installments_to_use = max_installments_without_interests[0] > 1 ? max_installments_without_interests : max_installments_with_interests;
 
-	        if(installments_to_use[0] <= 1 ) {
-	        {% endif %}
-	            $installments_container.hide();
-	            $installments_modal_link.hide();
-	            $payments_module.hide();
-	            $installmens_card_icon.hide();
-	        } else {
-	            $installments_container.show();
-	            $installments_modal_link.show();
-	            $payments_module.show();
-	            $installmens_card_icon.show();
-	            installment_helper($installments_container, installments_to_use[0], installments_to_use[1]);
-	        }
-	    }
+            if(installments_to_use[0] <= 1 ) {
+            {% endif %}
+                $installments_container.hide();
+                $installments_modal_link.hide();
+                $payments_module.hide();
+                $installmens_card_icon.hide();
+            } else {
+                $installments_container.show();
+                $installments_modal_link.show();
+                $payments_module.show();
+                $installmens_card_icon.show();
+                installment_helper($installments_container, installments_to_use[0], installments_to_use[1]);
+            }
+        }
 
-	    if(!parent.hasClass("js-quickshop-container")){
+        if(!parent.hasClass("js-quickshop-container")){
             jQueryNuvem('#installments-modal .js-installments-one-payment').text(variant.price_short).attr("data-value", variant.price_number);
-		}
+        }
 
-	    if (variant.price_short){
-	        parent.find('.js-price-display').text(variant.price_short).show();
-	        parent.find('.js-price-display').attr("content", variant.price_number).data('productPrice', variant.price_number_raw);
+        if (variant.price_short){
+
+            var variant_price_clean = variant.price_short.replace('$', '').replace('R', '').replace(',', '').replace('.', '');
+            var variant_price_raw = parseInt(variant_price_clean, 10);
+
+            parent.find('.js-price-display').text(variant.price_short).show();
+            parent.find('.js-price-display').attr("content", variant.price_number).data('productPrice', variant_price_raw);
 
             if (variant.price_with_payment_discount_short) {
                 parent.find('.js-payment-discount-price-product').text(variant.price_with_payment_discount_short);
@@ -2497,33 +2122,42 @@ DOMContentLoaded.addEventOrExecute(() => {
             } else {
                 parent.find('.js-payment-discount-price-product-container').hide();
             }
-            
+
             parent.find('.js-price-without-taxes').text(variant.price_without_taxes);
             parent.find('.js-price-without-taxes-container').show();
-	    } else {
-	        parent.find('.js-price-display, .js-payment-discount-price-product-container, .js-price-without-taxes-container').hide();
-	    }
+        } else {
+            parent.find('.js-price-display, .js-payment-discount-price-product-container, .js-price-without-taxes-container').hide();
+        }
 
-	    if ((variant.compare_at_price_short) && !(parent.find(".js-price-display").css("display") == "none")) {
-	        parent.find('.js-compare-price-display').text(variant.compare_at_price_short).show();
-	    } else {
-	        parent.find('.js-compare-price-display').hide();
-	    }
+        if ((variant.compare_at_price_short) && !(parent.find(".js-price-display").css("display") == "none")) {
+            parent.find('.js-compare-price-display').text(variant.compare_at_price_short).show();
+
+            if(variant.compare_at_price_number > variant.price_number){
+                const saved_compare_price_money = variant.compare_at_price_number - variant.price_number;
+                parent.find('.js-offer-saved-money').text(LS.formatToCurrency(saved_compare_price_money));
+                parent.find(".js-saved-money-message").show();
+            }else {
+                parent.find(".js-saved-money-message").hide();
+            }
+        } else {
+            parent.find('.js-compare-price-display, .js-saved-money-message').hide();
+        }
 
         var button = parent.find('.js-addtocart');
         const quickshopButtonWording = parent.find('.js-open-quickshop-wording');
         const quickshopButtonIcon = parent.find('.js-open-quickshop-icon');
-        button.removeClass('cart contact nostock');
+        button.removeClass('cart').removeClass('contact').removeClass('nostock');
         var $product_shipping_calculator = parent.find("#product-shipping-container");
 
         {# Update CTA wording and status #}
 
-	    {% if not store.is_catalog %}
+        {% if not store.is_catalog %}
             if (!variant.available){
                 button.val('{{ "Sin stock" | translate }}');
                 button.addClass('nostock');
                 button.attr('disabled', 'disabled');
-                quickshopButtonIcon.addClass("d-none").removeClass("d-md-inline");                
+                quickshopButtonWording.text('{{ "Sin stock" | translate }}');
+                quickshopButtonIcon.addClass("d-none").removeClass("d-md-inline");
                 $product_shipping_calculator.hide();
             } else if (variant.contact) {
                 button.val('{{ "Consultar precio" | translate }}');
@@ -2531,7 +2165,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 button.removeAttr('disabled');
                 quickshopButtonWording.text('{{ "Consultar precio" | translate }}');
                 quickshopButtonIcon.addClass("d-none").removeClass("d-md-inline");
-                $product_shipping_calculator.hide();                
+                $product_shipping_calculator.hide();
             } else {
                 button.val('{{ "Agregar al carrito" | translate }}');
                 button.addClass('cart');
@@ -2541,7 +2175,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 $product_shipping_calculator.show();
             }
 
-	    {% endif %}
+        {% endif %}
 
         {% if template == 'product' %}
             const base_price = Number(jQueryNuvem("#price_display").attr("content"));
@@ -2553,14 +2187,21 @@ DOMContentLoaded.addEventOrExecute(() => {
             {% endif %}
         {% endif %}
 
-        {% if settings.last_product %}
+        {% if settings.last_product or settings.last_product_category %}
             if(variant.stock == 1) {
                 parent.find('.js-last-product').show();
             } else {
                 parent.find('.js-last-product').hide();
             }
+            {% if settings.latest_products_available %}
+                const stock_limit = jQueryNuvem(".js-latest-products-available").attr("data-limit");
+                if(variant.stock < stock_limit && variant.stock != null && variant.stock != 1 && variant.stock != 0) {
+                    parent.find('.js-latest-products-available').show();
+                } else {
+                    parent.find('.js-latest-products-available').hide();
+                }
+            {% endif %}
         {% endif %}
-
 
         {# Update shipping on variant change #}
 
@@ -2571,20 +2212,21 @@ DOMContentLoaded.addEventOrExecute(() => {
 
         {% if cart.free_shipping.min_price_free_shipping.min_price %}
             {# Updates free shipping bar #}
-
+            
             LS.freeShippingProgress(true, parent);
 
         {% endif %}
 
         LS.subscriptionChangeVariant(variant);
-	}
 
-	{# /* // Trigger change variant */ #}
+    }
+
+    {# /* // Trigger change variant */ #}
 
     jQueryNuvem(document).on("change", ".js-variation-option", function(e) {
         var $parent = jQueryNuvem(this).closest(".js-product-variants");
         var $variants_group = jQueryNuvem(this).closest(".js-product-variants-group");
-        var $quickshop_parent_wrapper = jQueryNuvem(this).closest(".js-quickshop-container");
+        var $quickshop_parent_wrapper = jQueryNuvem(this).closest(".js-product-item-private");
 
         {# If quickshop is used from modal, use quickshop-id from the item that opened it #}
 
@@ -2597,9 +2239,9 @@ DOMContentLoaded.addEventOrExecute(() => {
             {# Target visible slider item if necessary #}
             
             if($quickshop_parent.hasClass("js-item-slide")){
-                var $quickshop_variant_selector = '.js-swiper-slide-visible .js-quickshop-container[data-quickshop-id="'+quick_id+'"]';
+                var $quickshop_variant_selector = '.js-swiper-slide-visible.js-product-item-private[data-quickshop-id="'+quick_id+'"]';
             }else{
-                var $quickshop_variant_selector = '.js-quickshop-container[data-quickshop-id="'+quick_id+'"]';
+                var $quickshop_variant_selector = '.js-product-item-private[data-quickshop-id="'+quick_id+'"]';
             }
 
             LS.changeVariant(changeVariant, $quickshop_variant_selector);
@@ -2608,7 +2250,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 {# Match selected color variant with selected quickshop variant #}
 
                 var selected_option_id = jQueryNuvem(this).val();
-                var $color_parent_to_update = jQueryNuvem('.js-quickshop-container[data-quickshop-id="'+quick_id+'"]');
+                var $color_parent_to_update = jQueryNuvem('.js-product-item-private[data-quickshop-id="'+quick_id+'"]');
 
                 {# Update all color buttons on several places (quickshop, item, product detail) #}
                 $color_parent_to_update.find('.js-color-variant[data-option="'+selected_option_id+'"]').addClass("selected").siblings().removeClass("selected");
@@ -2624,9 +2266,9 @@ DOMContentLoaded.addEventOrExecute(() => {
 
         var $this_product_container = jQueryNuvem(this).closest(".js-product-container");
 
-        if($this_product_container.hasClass("js-quickshop-container")){
+        if($this_product_container.hasClass("js-product-item-private")){
             var this_quickshop_id = $this_product_container.attr("data-quickshop-id");
-            var $this_product_container = jQueryNuvem('.js-product-container[data-quickshop-id="'+this_quickshop_id+'"]');
+            var $this_product_container = jQueryNuvem('.js-product-item-private[data-quickshop-id="'+this_quickshop_id+'"]');
         }
         var $this_compare_price = $this_product_container.find(".js-compare-price-display");
         var $this_price = $this_product_container.find(".js-price-display");
@@ -2652,97 +2294,41 @@ DOMContentLoaded.addEventOrExecute(() => {
             $this_product_container.find(".js-offer-label").hide();
         }
         if ($this_add_to_cart.hasClass("nostock")) {
-            $this_product_container.find(".js-stock-label").show(); 
+            $this_product_container.find(".js-stock-label-private").show();
             $this_product_container.find(".js-offer-label").hide();
-            $this_product_container.find(".js-shipping-label").hide();
         }
         else {
-            $this_product_container.find(".js-stock-label").hide();
-            $this_product_container.find(".js-shipping-label").show();
+            $this_product_container.find(".js-stock-label-private").hide();
         }
         if ($this_price.css('display') == 'none'){
-	        $installment_container.hide();
-	        $installment_text.hide();
-	    }else{
-	        $installment_text.show();
-	    }
-	});
+            $installment_container.hide();
+            $installment_text.hide();
+        }else{
+            $installment_text.show();
+        }
+    });
 
-	{# /* // Submit to contact */ #}
+    {# /* // Submit to contact */ #}
 
-	{# Submit to contact form when product has no price #}
+    {# Submit to contact form when product has no price #}
 
     jQueryNuvem(".js-product-form").on("submit", function (e) {
-	    var button = jQueryNuvem(e.currentTarget).find('[type="submit"]');
-	    button.attr('disabled', 'disabled');
-	    if ((button.hasClass('contact')) || (button.hasClass('catalog'))) {
-	        e.preventDefault();
-	        var product_id = jQueryNuvem(e.currentTarget).find("input[name='add_to_cart']").val();
-	        window.location = "{{ store.contact_url | escape('js') }}?product=" + product_id;
-	    } else if (button.hasClass('cart')) {
-	        button.val('{{ "Agregando" | translate }}');
-	    }
-	});
+        var button = jQueryNuvem(e.currentTarget).find('[type="submit"]');
+        button.attr('disabled', 'disabled');
+        if ((button.hasClass('contact')) || (button.hasClass('catalog'))) {
+            e.preventDefault();
+            var product_id = jQueryNuvem(e.currentTarget).find("input[name='add_to_cart']").val();
+            window.location = "{{ store.contact_url | escape('js') }}?product=" + product_id;
+        } else if (button.hasClass('cart')) {
+            button.val('{{ "Agregando..." | translate }}');
+        }
+    });
 
-    {% set native_videos_enabled = false %}
-    {% if template == 'product' and product.hasNativeVideos %}
-        {% set native_videos_enabled = true %}
-    {% endif %}
-    {% if template == 'home' and sections.featured.products %}
-        {% for product in sections.featured.products %}
-            {% if product.hasNativeVideos %}
-                {% set native_videos_enabled = true %}
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    {% if template == 'product' or (template == 'home' and sections.featured.products) %}   
-    {% if native_videos_enabled %}
-            var stream_videos = [];
-            function initAllVideos(){
-                jQueryNuvem(".js-external-video-iframe").each(function($el){
-                    const player = Stream(document.getElementById($el.id));
-                    stream_videos.push(player);
-                });
-            }
-            initAllVideos();
-            function pauseAllVideos(){
-                if (stream_videos.length === 0) {
-                    return;
-                }
-                stream_videos.forEach(function(player){
-                    player.pause();
-                });
-            }
-            jQueryNuvem(".js-play-native-button").on("click", function($el){
-                pauseAllVideos();
-                const link = jQueryNuvem(this);
-                const id = jQueryNuvem(this).data("video_uid");
-                const iframe = jQueryNuvem("#video-" + id);
-                const image = jQueryNuvem("img[data-video_uid='" + id + "']");
-                const parent = jQueryNuvem(this).parent(".embed-responsive-16by9");
-                const container = jQueryNuvem("div[data-video_uid='" + id + "']");
-                iframe.attr("src", iframe.data("src"));
-                container.show();
-                image.hide();
-                link.hide().removeClass("d-md-block");
-                parent.removeClass("embed-responsive-16by9");
-                let allowAttr = iframe.attr("allow");
-
-                if (allowAttr) {
-                    allowAttr = allowAttr
-                        .split(";")
-                        .map(item => item.trim())
-                        .filter(item => item && item !== "autoplay")
-                        .join("; ");
-
-                    iframe.attr("allow", allowAttr + ";");
-                }
-            });
-        {% endif %}
+    {% if template == 'product' or (template == 'home' and sections.featured.products) %}
 
         var has_multiple_slides = false;
 
-        {% if template == 'product' and (product.media_count > 1 or product.video_url) %}
+        {% if template == 'product' and (product.images_count > 1 or video_url) %}
             var has_multiple_slides = true;
         {% else %}
             var product_images_amount = jQueryNuvem(".js-swiper-product").attr("data-product-images-amount");
@@ -2751,7 +2337,7 @@ DOMContentLoaded.addEventOrExecute(() => {
             }
         {% endif %}
 
-	    {# /* // Product slider */ #}
+        {# /* // Product slider */ #}
 
         {% if template == 'product' %}
 
@@ -2760,10 +2346,10 @@ DOMContentLoaded.addEventOrExecute(() => {
                     Toolbar: {
                         items: {
                             close: {
-                                html: '<svg class="icon-inline icon-lg svg-icon-invert"><use xlink:href="#times"/></svg>',
+                                html: '<svg class="icon-inline icon-lg svg-icon-text"><use xlink:href="#times"/></svg>',
                             },
                             counter: {
-                                class: 'mt-3',
+                                class: 'pt-2 mt-1',
                                 type: 'div',
                                 html: '<span data-fancybox-index=""></span>&nbsp;/&nbsp;<span data-fancybox-count=""></span>',
                                 position: 'center',
@@ -2774,11 +2360,11 @@ DOMContentLoaded.addEventOrExecute(() => {
                         Navigation: {
                             classNames: {
                                 button: 'btn',
-                                next: 'swiper-button-absolute swiper-button-next',
-                                prev: 'swiper-button-absolute swiper-button-prev',
+                                next: 'swiper-button-next',
+                                prev: 'swiper-button-prev',
                             },
-                            prevTpl: '<svg class="icon-inline icon-2x-half svg-icon-invert icon-flip-horizontal"><use xlink:href="#arrow-long"/></svg>',
-                            nextTpl: '<svg class="icon-inline icon-2x-half svg-icon-invert"><use xlink:href="#arrow-long"/></svg>',
+                            prevTpl: '<svg class="icon-inline icon-2x svg-icon-invert icon-flip-horizontal"><use xlink:href="#arrow-long"/></svg>',
+                            nextTpl: '<svg class="icon-inline icon-2x svg-icon-invert"><use xlink:href="#arrow-long"/></svg>',
                         },
                     },
                     Thumbs: { autoStart: false },
@@ -2786,12 +2372,14 @@ DOMContentLoaded.addEventOrExecute(() => {
                         shouldClose: (fancybox, slide) => {
                             {# Update position of the slider #}
                             productSwiper.slideTo( fancybox.getSlide().index, 0 );
+                            jQueryNuvem(".js-product-thumb").removeClass("selected");
+                            var $product_thumbnail = jQueryNuvem(".js-product-thumb[data-thumb-loop='"+fancybox.getSlide().index+"']").addClass("selected");
+                            if($product_thumbnail.length){
+                                $product_thumbnail.addClass("selected");
+                            }else{
+                                jQueryNuvem(".js-product-thumb[data-thumb-loop='4']").addClass("selected");
+                            }
                         },
-                        {% if native_videos_enabled %}
-                            "Carousel.change": (fancybox) => {
-                                pauseAllVideos();
-                            },
-                        {% endif %}
                     },
                 });
             {% endblock %}
@@ -2805,42 +2393,29 @@ DOMContentLoaded.addEventOrExecute(() => {
             createSwiper(
                 '.js-swiper-product', {
                     lazy: true,
-                    slidesPerView: 'auto',
+                    slidesPerView: 1,
                     threshold: 5,
                     centerInsufficientSlides: true,
                     watchOverflow: true,
                     pagination: {
                         el: '.js-swiper-product-pagination',
-                        type: 'fraction'
+                        type: 'fraction',
                     },
-                    navigation: {
-                        nextEl: '.js-swiper-product-next',
-                        prevEl: '.js-swiper-product-prev',
-                    },
-     
                     on: {
-                        {% if product.video_url and template == 'product' %}
-                            init: function () {
+                        init: function () {
+                            jQueryNuvem(".js-product-slider-placeholder").hide();
+                            jQueryNuvem(".js-swiper-product").css("visibility", "visible").css("height", "auto");
+                            {% if product.video_url and template == 'product' %}
                                 if (window.innerWidth < 768) {
                                     productSwiperHeight = jQueryNuvem(".js-swiper-product").height();
                                     jQueryNuvem(".js-product-video-slide").height(productSwiperHeight);
                                 }
-                            },
+                            {% endif %}
+                        },
+                        {% if product.video_url and template == 'product' %}
                             slideChangeTransitionEnd: function () {
-                                const $parent = jQueryNuvem(this.el).closest(".js-product-detail");
-                                const $labelsFloatingGroup = $parent.find(".js-labels-floating-group");
-                                if(jQueryNuvem(".js-product-video-slide").hasClass("swiper-slide-active")){
-                                    $labelsFloatingGroup.fadeOut(100);
-                                }else{
-                                    $labelsFloatingGroup.fadeIn(100);
-                                }
                                 jQueryNuvem('.js-video').show();
                                 jQueryNuvem('.js-video-iframe').hide().find("iframe").remove();
-                            },
-                        {% endif %}
-                        {% if native_videos_enabled %}
-                            slideChange: function () {
-                                pauseAllVideos();
                             },
                         {% endif %}
                     },
@@ -2872,27 +2447,31 @@ DOMContentLoaded.addEventOrExecute(() => {
                     var slideToGo = parseInt(thumbLoop);
                     productSwiper.slideTo(slideToGo);
                     if(jQueryNuvem(e.currentTarget).hasClass("js-product-thumb-modal")){
-                        var video_id = jQueryNuvem(e.currentTarget).data("video_id");
-                        if(video_id){
-                            jQueryNuvem('#trigger-video-modal-' + video_id).trigger('click');
-                            return;
-                        }
                         jQueryNuvem('.js-swiper-product').find("[data-image-position='"+slideToGo+"'] .js-product-slide-link").trigger('click');
                     }
                 });
+
             }
+        }
+
+        if (window.innerWidth > 767) {
+            var directionVal = 'vertical';
+        }else{
+            var directionVal = 'horizontal';
         }
 
         createSwiper('.js-swiper-product-thumbs', {
             lazy: true,
             watchOverflow: true,
             threshold: 5,
-            direction: 'vertical',
+            direction: directionVal,
+            observer: true,
             navigation: {
                 nextEl: '.js-swiper-product-thumbs-next',
                 prevEl: '.js-swiper-product-thumbs-prev',
             },
             slidesPerView: 'auto',
+            spaceBetween: 16,
             on: {
                 afterInit: function () {
                     hideSwiperControls(".js-swiper-product-thumbs-prev", ".js-swiper-product-thumbs-next");
@@ -2906,12 +2485,12 @@ DOMContentLoaded.addEventOrExecute(() => {
 
         jQueryNuvem('.js-pinterest-share').on("click", function(e){
             e.preventDefault();
-            jQueryNuvem(".pinterest-hidden a").get()[0].click();
+            window.open(jQueryNuvem(".js-pinterest-hidden a").attr("href"), "_blank");
         });
 
-	{% endif %}
+    {% endif %}
 
-    {# Product quantity #}
+    {# /* // Product quantity */ #}
 
     jQueryNuvem(document).on("click", ".js-quantity .js-quantity-up", function (e) {
         $quantity_input = jQueryNuvem(this).closest(".js-quantity").find(".js-quantity-input");
@@ -2927,88 +2506,68 @@ DOMContentLoaded.addEventOrExecute(() => {
     });
 
 
-	{#/*============================================================================
-	  #Cart
-	==============================================================================*/ #}
-
-    {% if cart.free_shipping.min_price_free_shipping.min_price %}
-
-        {# Updates free progress on page load #}
-
-        LS.freeShippingProgress(true);
-
-    {% endif %}
-
-    {# /* // Position of cart page summary */ #}
-
-    var headHeight = jQueryNuvem(".js-head-main").outerHeight();
-
-    if (window.innerWidth > 768) {
-        {% if settings.head_fix_desktop %}
-            jQueryNuvem("#cart-sticky-summary").css("top" , (headHeight + 10).toString() + 'px');
-        {% else %}
-            jQueryNuvem("#cart-sticky-summary").css("top" , "10px");
-        {% endif %}
-    }
-
-
     {# /* // Add to cart */ #}
 
     function getQuickShopImgSrc(element){
-        const image = jQueryNuvem(element).closest('.js-quickshop-container').find('img');
-        return String(image.attr('srcset')); 
+        const image = jQueryNuvem(element).closest('.js-product-item-private').find('img');
+        return String(image.attr('srcset'));
     }
 
     jQueryNuvem(document).on("click", ".js-addtocart:not(.js-addtocart-placeholder)", function (e) {
 
         {# Button variables for transitions on add to cart #}
 
-        var $productContainer = jQueryNuvem(this).closest('.js-product-container');
-        var $productVariants = $productContainer.find(".js-variation-option");
-        var $productButton = $productContainer.find("input[type='submit'].js-addtocart");
-        var isQuickShop = $productContainer.hasClass('js-quickshop-container');
-        if (isQuickShop) {
-            var $productButtonContainer = $productButton.closest(".js-item-submit-container");
-        }
+        const $productContainer = jQueryNuvem(this).closest('.js-product-container');
+        const $productVariants = $productContainer.find(".js-variation-option");
+        const $productButton = $productContainer.find("input[type='submit'].js-addtocart");
+        const productButtonWidth = $productButton.first(el => el.offsetWidth);
+        const productButtonHeight = $productButton.first(el => el.offsetHeight);
+
+        {# Define if event comes from quickshop, product page or cross selling #}
+
+        const isQuickShop = $productContainer.hasClass('js-product-item-private');
         var isCrossSelling = $productContainer.hasClass('js-cross-selling-container');
-        var $quickshopBagIcon = $productButton.next(".js-quickshop-bag");
-        var $productButtonPlaceholder = $productContainer.find(".js-addtocart-placeholder");
-        var $productButtonText = $productButtonPlaceholder.find(".js-addtocart-text");
-        var $productButtonAdding = $productButtonPlaceholder.find(".js-addtocart-adding");
-        var $productButtonSuccess = $productButtonPlaceholder.find(".js-addtocart-success");
+        const $productButtonContainer = $productButton.closest(".js-item-submit-container");
+        const $productButtonPlaceholder = $productContainer.find(".js-addtocart-placeholder");
+        const $productButtonText = $productButtonPlaceholder.find(".js-addtocart-text");
+        const $productButtonAdding = $productButtonPlaceholder.find(".js-addtocart-adding");
+        const $productButtonSuccess = $productButtonPlaceholder.find(".js-addtocart-success");
 
         {# Added item information for notification #}
 
-        if (isCrossSelling) {
-            var imageSrc = $productContainer.find('.js-cross-selling-product-image').attr('src');
-            var quantity = $productContainer.data('quantity')
-            var name = $productContainer.find('.js-cross-selling-product-name').text();
-            var price = $productContainer.find('.js-cross-selling-promo-price').text();
-            var addedToCartCopy = $productContainer.data('add-to-cart-translation');
-        } else if (!isQuickShop) {
-            if(jQueryNuvem(".js-product-slide-img.js-active-variant").length) {
-                var $activeVariantImg = $productContainer.find('.js-product-slide-img.js-active-variant');
-                var imageSrc = $activeVariantImg.attr('srcset') || $activeVariantImg.data('srcset');
-            } else {
-                var $defaultImg = $productContainer.find('.js-product-slide-img');
-                var imageSrc = $defaultImg.attr('srcset') || $defaultImg.data('srcset');
-            }
-            
-            imageSrc = imageSrc ? imageSrc.split(' ')[0] : '';
-            var quantity = $productContainer.find('.js-quantity-input').val();
-            var name = $productContainer.find('.js-product-name').text();
-            var price = $productContainer.find('.js-price-display').text();
-            var addedToCartCopy = "{{ 'Agregar al carrito' | translate }}";
+        let imageSrc;
+        const $activeVariantImg = $productContainer.find('.js-product-slide-img.js-active-variant');
+        const $defaultImg = $productContainer.find('.js-product-slide-img');
+
+        if($activeVariantImg.length) {
+            imageSrc = $activeVariantImg.attr('srcset') || $activeVariantImg.data('srcset');
         } else {
-            var imageSrc = getQuickShopImgSrc(this);
-            var quantity = 1;
-            var name = $productContainer.find('.js-item-name').text();
-            var price = $productContainer.find('.js-price-display').text().trim();
-            var addedToCartCopy = "{{ 'Comprar' | translate }}";
+            imageSrc = $defaultImg.attr('srcset') || $defaultImg.data('srcset');
+        }
+
+        imageSrc = imageSrc ? imageSrc.split(' ')[0] : '';
+
+        let quantity = $productContainer.find('.js-quantity-input').val();
+        let name = $productContainer.find('.js-product-name').text();
+        let price = $productContainer.find('.js-price-display').text();
+        let addedToCartCopy = "{{ 'Agregar al carrito' | translate }}";
+
+        if (isCrossSelling) {
+            imageSrc = $productContainer.find('.js-cross-selling-product-image').attr('src');
+            quantity = $productContainer.data('quantity')
+            name = $productContainer.find('.js-cross-selling-product-name').text();
+            price = $productContainer.find('.js-cross-selling-promo-price').text();
+            addedToCartCopy = $productContainer.data('add-to-cart-translation');
+        } else if (isQuickShop) {
+            imageSrc = getQuickShopImgSrc(this);
+            quantity = 1;
+            name = $productContainer.find('.js-item-name').text();
+            price = $productContainer.find('.js-price-display').text().trim();
+            addedToCartCopy = "{{ 'Comprar' | translate }}";
             if ($productContainer.hasClass("js-quickshop-has-variants")) {
-                var addedToCartCopy = "{{ 'Agregar al carrito' | translate }}";
+                addedToCartCopy = "{{ 'Agregar al carrito' | translate }}";
             }else{
-                var addedToCartCopy = "{{ 'Comprar' | translate }}";
+                addedToCartCopy = "{{ 'Comprar' | translate }}";
             }
         }
 
@@ -3021,11 +2580,11 @@ DOMContentLoaded.addEventOrExecute(() => {
             {# Hide real button and show button placeholder during event #}
 
             $productButton.hide();
-            $quickshopBagIcon.hide();
             if (isQuickShop) {
                 $productButtonContainer.hide();
             }
-            $productButtonPlaceholder.css('display' , 'block');
+
+            $productButtonPlaceholder.width(productButtonWidth+20).height(productButtonHeight).css('display' , 'block');
             $productButtonText.fadeOut();
             $productButtonAdding.addClass("active");
 
@@ -3036,7 +2595,6 @@ DOMContentLoaded.addEventOrExecute(() => {
                 $productButtonText.fadeIn();
                 $productButtonPlaceholder.removeAttr("style").hide();
                 $productButton.show();
-                $quickshopBagIcon.show();
                 if (isQuickShop) {
                     $productButtonContainer.show();
                 }
@@ -3048,7 +2606,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 setTimeout(function() {
                     restore_button_initial_state();
                 }, 500);
-            }
+            };
 
             {# Handle subscribable product submit #}
 
@@ -3063,22 +2621,22 @@ DOMContentLoaded.addEventOrExecute(() => {
 
                     {# Fill notification info #}
 
-                    jQueryNuvem('.js-cart-notification-item-img').attr('srcset', imageSrc);
-                    jQueryNuvem('.js-cart-notification-item-name').text(name);
-                    jQueryNuvem('.js-cart-notification-item-quantity').text(quantity);
-                    jQueryNuvem('.js-cart-notification-item-price').text(price);
+                    jQueryNuvem('.js-cart-notification-item-image-private').attr('srcset', imageSrc);
+                    jQueryNuvem('.js-cart-notification-item-name-private').text(name);
+                    jQueryNuvem('.js-cart-notification-item-quantity-private').text(quantity);
+                    jQueryNuvem('.js-cart-notification-item-price-private').text(price);
 
                     if($productVariants.length){
-                        var output = [];
+                        const output = [];
 
                         $productVariants.each( function(el){
-                            var variants = jQueryNuvem(el);
+                            const variants = jQueryNuvem(el);
                             output.push(variants.val());
                         });
-                        jQueryNuvem(".js-cart-notification-item-variant-container").show();
-                        jQueryNuvem(".js-cart-notification-item-variant").text(output.join(', '))
+                        jQueryNuvem(".js-cart-notification-item-variant-container-private").show();
+                        jQueryNuvem(".js-cart-notification-item-variant-private").text(output.join(', '))
                     }else{
-                        jQueryNuvem(".js-cart-notification-item-variant-container").hide();
+                        jQueryNuvem(".js-cart-notification-item-variant-container-private").hide();
                     }
 
                     {# Set products amount wording visibility #}
@@ -3086,49 +2644,17 @@ DOMContentLoaded.addEventOrExecute(() => {
                     var cartItemsBadge = jQueryNuvem(".js-cart-widget-amount");
                     var cartItemsMoney = jQueryNuvem(".js-cart-widget-total");
                     var cartItemsAmount = cartItemsBadge.text();
-
-                    cartItemsBadge.removeClass("d-none d-md-inline-block");
                     
                     if (window.innerWidth > 768) {
                         cartItemsMoney.removeClass("d-none d-md-inline-block");
                     }
 
                     if(cartItemsAmount > 1){
-                        jQueryNuvem(".js-cart-counts-plural").show();
-                        jQueryNuvem(".js-cart-counts-singular").hide();
+                        jQueryNuvem(".js-cart-counts-plural-private").show();
+                        jQueryNuvem(".js-cart-counts-singular-private").hide();
                     }else{
-                        jQueryNuvem(".js-cart-counts-singular").show();
-                        jQueryNuvem(".js-cart-counts-plural").hide();
-                    }
-
-                    {# Show button placeholder with transitions #}
-
-                    $productButtonAdding.removeClass("active");
-                    $productButtonSuccess.addClass("active");
-                    if (isQuickShop) {
-                        $productButtonContainer.show();
-                    }
-
-                    setTimeout(function(){
-                        $productButtonSuccess.removeClass("active");
-                        $productButtonText.fadeIn();
-                    },2000);
-                    setTimeout(function(){
-                        $productButtonPlaceholder.removeAttr("style").hide();
-                        $productButton.show();
-                        $quickshopBagIcon.show();
-                    },3000);
-
-                    $productContainer.find(".js-added-to-cart-product-message").slideDown();
-
-                    if (isQuickShop) {
-                        jQueryNuvem("#quickshop-modal").removeClass('modal-show');
-                        jQueryNuvem(".js-modal-overlay[data-modal-id='#quickshop-modal']").hide();
-                        jQueryNuvem("body").removeClass("overflow-none");
-                        restoreQuickshopForm();
-                        if (window.innerWidth < 768) {
-                            cleanURLHash();
-                        }
+                        jQueryNuvem(".js-cart-counts-singular-private").show();
+                        jQueryNuvem(".js-cart-counts-plural-private").hide();
                     }
 
                     let notificationWithRelatedProducts = false;
@@ -3141,7 +2667,7 @@ DOMContentLoaded.addEventOrExecute(() => {
 
                             jQueryNuvem('.js-related-products-notification-container').html("");
 
-                            modalOpen('#related-products-notification');
+                            modalHandler.modalOpen("#related-products-notification");
 
                             jQueryNuvem('.js-related-products-notification-container').html(html_notification_related_products).show();
 
@@ -3152,7 +2678,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                             function calculateRelatedNotificationLoopVal(sectionSelector) {
                                 let productsAmount = jQueryNuvem(sectionSelector).attr("data-related-amount");
                                 let loopVal = false;
-                                const applyLoop = (window.innerWidth < 768 && productsAmount > 2) || (window.innerWidth > 768 && productsAmount > 4);
+                                const applyLoop = (window.innerWidth < 768 && productsAmount > 3) || (window.innerWidth > 768 && productsAmount > 4);
                                 
                                 if (applyLoop) {
                                     loopVal = true;
@@ -3165,34 +2691,39 @@ DOMContentLoaded.addEventOrExecute(() => {
 
                             // Create new swiper on add to cart
 
-                            createSwiper('.js-swiper-related-products-notification', {
-                                lazy: true,
-                                loop: cartRelatedLoopVal,
-                                watchOverflow: true,
-                                threshold: 5,
-                                watchSlideProgress: true,
-                                watchSlidesVisibility: true,
-                                spaceBetween: 15,
-                                centeredSlides: true,
-                                slideVisibleClass: 'js-swiper-slide-visible',
-                                slidesPerView: 2.25,
-                                navigation: {
-                                    nextEl: '.js-swiper-related-products-notification-next',
-                                    prevEl: '.js-swiper-related-products-notification-prev',
-                                },
-                                on: {
-                                    afterInit: function () {
-                                        hideSwiperControls(".js-swiper-related-products-notification-prev", ".js-swiper-related-products-notification-next");
+                            setTimeout(function(){
+                                createSwiper('.js-swiper-related-products-notification', {
+                                    lazy: true,
+                                    loop: cartRelatedLoopVal,
+                                    watchOverflow: true,
+                                    threshold: 5,
+                                    watchSlideProgress: true,
+                                    watchSlidesVisibility: true,
+                                    spaceBetween: itemSwiperSpaceBetween,
+                                    slideVisibleClass: 'js-swiper-slide-visible',
+                                    slidesPerView: 3,
+                                    slidesPerGroup: 3,
+                                    navigation: {
+                                        nextEl: '.js-swiper-related-products-notification-next',
+                                        prevEl: '.js-swiper-related-products-notification-prev',
                                     },
-                                },
-                                breakpoints: {
-                                    768: {
-                                        centeredSlides: false,
-                                        slidesPerView: 4,
+                                    pagination: {
+                                        el: '.js-swiper-related-notification-pagination',
+                                        clickable: true,
+                                    },
+                                    on: {
+                                        afterInit: function () {
+                                            hideSwiperControls(".js-swiper-related-products-notification-prev", ".js-swiper-related-products-notification-next");
+                                        },
+                                    },
+                                    breakpoints: {
+                                        768: {
+                                            slidesPerView: 4,
+                                            slidesPerGroup: 4,
+                                        }
                                     }
-                                }
-                            });
-
+                                });  
+                            },200);                          
                         }
                         
                         notificationWithRelatedProducts = html_notification_related_products != null;
@@ -3219,24 +2750,24 @@ DOMContentLoaded.addEventOrExecute(() => {
 
                             {# Open cart on add to cart #}
 
-                            modalOpen('#modal-cart', 'openFullScreenWithoutClick');
+                            modalHandler.modalOpen('#modal-cart');
 
                         }else{
 
                             {# Show added to cart notification #}
 
                             setTimeout(function(){
-                                jQueryNuvem(".js-alert-added-to-cart").show().addClass("notification-visible").removeClass("notification-hidden");
+                                jQueryNuvem(".js-alert-add-to-cart-private").show().addClass("notification-visible").removeClass("notification-hidden");
                             },500);
 
                             if (!cookieService.get('first_product_added_successfully')) {
                                 cookieService.set('first_product_added_successfully', 1, 7 );
                             } else{
                                 setTimeout(function(){
-                                    jQueryNuvem(".js-alert-added-to-cart").removeClass("notification-visible").addClass("notification-hidden");
+                                    jQueryNuvem(".js-alert-add-to-cart-private").removeClass("notification-visible").addClass("notification-hidden");
                                     setTimeout(function(){
-                                        jQueryNuvem('.js-cart-notification-item-img').attr('src', '');
-                                        jQueryNuvem(".js-alert-added-to-cart").hide();
+                                        jQueryNuvem('.js-cart-notification-item-image-private').attr('src', '');
+                                        jQueryNuvem(".js-alert-add-to-cart-private").hide();
                                     },2000);
                                 },8000);
                             }
@@ -3247,7 +2778,7 @@ DOMContentLoaded.addEventOrExecute(() => {
 
                     if (html_notification_cross_selling != null) {
                         jQueryNuvem('.js-cross-selling-modal-body').html("");
-                        modalOpen('#js-cross-selling-modal');
+                        modalHandler.modalOpen('#js-cross-selling-modal');
                         jQueryNuvem('.js-cross-selling-modal-body').html(html_notification_cross_selling).show();
                     }
 
@@ -3259,30 +2790,35 @@ DOMContentLoaded.addEventOrExecute(() => {
                         LS.fillCrossSelling(crossSellingContainer);
                     }
 
-                    {# Update shipping input zipcode on add to cart #}
+                    {# Show button placeholder with transitions #}
 
-                    {# Use zipcode from input if user is in product page, or use zipcode cookie if is not #}
+                    $productButtonAdding.removeClass("active");
+                    $productButtonSuccess.addClass("active");
+                    setTimeout(function(){
+                        $productButtonSuccess.removeClass("active");
+                        $productButtonText.fadeIn();
+                    },2000);
+                    setTimeout(function(){
+                        $productButtonPlaceholder.removeAttr("style").hide();
+                        $productButton.show();
+                        if (isQuickShop) {
+                            $productButtonContainer.show();
+                        }
+                    },3000);
 
-                    if (jQueryNuvem("#product-shipping-container .js-shipping-input").val()) {
-                        zipcode_on_addtocart = jQueryNuvem("#product-shipping-container .js-shipping-input").val();
-                        jQueryNuvem("#cart-shipping-container .js-shipping-input").val(zipcode_on_addtocart);
-                        jQueryNuvem(".js-shipping-calculator-current-zip").text(zipcode_on_addtocart);
-                    } else if (cookieService.get('calculator_zipcode')){
-                        var zipcode_from_cookie = cookieService.get('calculator_zipcode');
-                        jQueryNuvem('.js-shipping-input').val(zipcode_from_cookie);
-                        jQueryNuvem(".js-shipping-calculator-current-zip").text(zipcode_from_cookie);
+                    $productContainer.find(".js-added-to-cart-product-message").slideDown();
+
+                    if (isQuickShop) {
+                        jQueryNuvem("#quickshop-modal").removeClass('modal-visible');
+                        jQueryNuvem(".js-modal-overlay-private[data-target='#quickshop-modal']").hide();
+                        jQueryNuvem("body").removeClass("modal-open");
+                        restoreQuickshopForm();
                     }
-
-
-                    {# Update free shipping wording #}
-
-                    jQueryNuvem(".js-fs-add-this-product").hide();
-                    jQueryNuvem(".js-fs-add-one-more").show();
 
                     {# Automatically close the cross-selling modal by triggering its close button #}
 
                     if (isCrossSelling) {
-                        jQueryNuvem('#js-cross-selling-modal .js-modal-close').trigger('click');
+                        jQueryNuvem('#js-cross-selling-modal .js-modal-close-private').trigger('click');
                     }
                 }
                 var callback_error = function(){
@@ -3293,7 +2829,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 LS.addToCartEnhanced(
                     $prod_form,
                     addedToCartCopy,
-                    '{{ "Agregando" | translate }}',
+                    '{{ "Agregando..." | translate }}',
                     '{{ "No hay más stock de este producto." | translate }}',
                     {{ store.editable_ajax_cart_enabled ? 'true' : 'false' }},
                         callback_add_to_cart,
@@ -3303,6 +2839,164 @@ DOMContentLoaded.addEventOrExecute(() => {
         }
     });
 
+    {# /* Open cart after add to cart recommendations dismiss */ #}
+
+    jQueryNuvem(".js-open-cart-modal").on("click", function (e) {
+        modalHandler.modalOpen("#modal-cart");
+    });
+    
+
+    {# /* // Add to cart notification / Follow order notification on non fixed header */ #}
+
+    {% if not settings.head_fix_desktop %}
+
+        if (window.innerWidth > 768) {
+            const logoBarHeight = jQueryNuvem(".js-head-row").outerHeight();
+            const fixedCartNotificationPosition = adBarsHeight + logoBarHeight - 16; 
+            const fixedOrderNotificationPosition = jQueryNuvem(".js-head-main").outerHeight(); 
+            const $addedToCartNotification = jQueryNuvem(".js-alert-add-to-cart-private");
+            const $topNotification = jQueryNuvem(".js-notification-status-page-private");
+
+            $addedToCartNotification.css("top", fixedCartNotificationPosition.toString() + 'px');
+            $topNotification.css("top", fixedOrderNotificationPosition.toString() + 'px');
+
+            !function () {
+                window.addEventListener("scroll", function (e) {
+                    if (window.pageYOffset == 0) {
+                        $addedToCartNotification.css("top" , fixedCartNotificationPosition.toString() + 'px');
+                        $topNotification.css("top" , fixedOrderNotificationPosition.toString() + 'px');
+                    } else {
+                        $addedToCartNotification.css("top" , "24px");
+                        $topNotification.css("top" , "0px");
+                    }
+                });
+            }();
+        }
+
+    {% endif %}
+
+    {% if template == 'product' %}
+
+        {% set columns_desktop = settings.grid_columns_desktop %}
+        {% set columns_mobile = settings.grid_columns_mobile %}
+        var slidesPerViewDesktopVal = {% if columns_desktop == 6 %}6{% elseif columns_desktop == 5 %}5{% else %}4{% endif %};
+        var slidesPerViewMobileVal = {% if columns_mobile == 1 %}1{% else %}2{% endif %};
+
+        {# /* // Product Related */ #}
+
+        // Set loop for related products products sliders
+
+        function calculateRelatedLoopVal(sectionSelector) {
+            let productsAmount = jQueryNuvem(sectionSelector).attr("data-related-amount");
+            let loopVal = false;
+            const applyLoop = (window.innerWidth < 768 && productsAmount > slidesPerViewMobileVal) || (window.innerWidth > 768 && productsAmount > slidesPerViewDesktopVal);
+            
+            if (applyLoop) {
+                loopVal = true;
+            }
+            
+            return loopVal;
+        }
+
+        let alternativeLoopVal = calculateRelatedLoopVal(".js-related-products");
+        let complementaryLoopVal = calculateRelatedLoopVal(".js-complementary-products");
+
+        {# Alternative products #}
+
+        createSwiper('.js-swiper-related', {
+            lazy: true,
+            loop: alternativeLoopVal,
+            watchOverflow: true,
+            threshold: 5,
+            watchSlideProgress: true,
+            watchSlidesVisibility: true,
+            spaceBetween: itemSwiperSpaceBetween,
+            slideVisibleClass: 'js-swiper-slide-visible',
+            slidesPerView: slidesPerViewMobileVal,
+            slidesPerGroup: slidesPerViewMobileVal,
+            navigation: {
+                nextEl: '.js-swiper-related-next',
+                prevEl: '.js-swiper-related-prev',
+            },
+            pagination: {
+                el: '.js-swiper-related-pagination',
+                clickable: true,
+            },
+            on: {
+                afterInit: function () {
+                    hideSwiperControls(".js-swiper-related-prev", ".js-swiper-related-next");
+                },
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: slidesPerViewDesktopVal,
+                    slidesPerGroup: slidesPerViewDesktopVal,
+                }
+            }
+        });
+
+        {# Complementary products #}
+
+        createSwiper('.js-swiper-complementary', {
+            lazy: true,
+            loop: complementaryLoopVal,
+            watchOverflow: true,
+            threshold: 5,
+            watchSlideProgress: true,
+            watchSlidesVisibility: true,
+            spaceBetween: itemSwiperSpaceBetween,
+            slideVisibleClass: 'js-swiper-slide-visible',
+            slidesPerView: slidesPerViewMobileVal,
+            slidesPerGroup: slidesPerViewMobileVal,
+            navigation: {
+                nextEl: '.js-swiper-complementary-next',
+                prevEl: '.js-swiper-complementary-prev',
+            },
+            pagination: {
+                el: '.js-swiper-complementary-pagination',
+                clickable: true,
+            },
+            on: {
+                afterInit: function () {
+                    hideSwiperControls(".js-swiper-complementary-prev", ".js-swiper-complementary-next");
+                },
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: slidesPerViewDesktopVal,
+                    slidesPerGroup: slidesPerViewDesktopVal,
+                }
+            }
+        });
+
+    {% endif %}
+
+    {#/*============================================================================
+      #Cart
+    ==============================================================================*/ #}
+
+    {# /* // Free shipping bar */ #}
+    
+    {% if cart.free_shipping.min_price_free_shipping.min_price %}
+
+        {# Updates free progress on page load #}
+
+        LS.freeShippingProgress(true);
+
+    {% endif %}
+
+    {# /* // Position of cart page summary */ #}
+
+    if (window.innerWidth > 768) {
+        {% if settings.head_fix_desktop %}
+            setTimeout(function(){
+                const cart_summary_offset = jQueryNuvem(".js-head-main").outerHeight();
+                jQueryNuvem("#cart-sticky-summary").css("top" , (cart_summary_offset + 16).toString() + 'px');
+            },200);
+        {% else %}
+            jQueryNuvem("#cart-sticky-summary").css("top" , "16px");
+        {% endif %}
+    }
 
     {# /* // Cart quantitiy changes */ #}
 
@@ -3327,27 +3021,6 @@ DOMContentLoaded.addEventOrExecute(() => {
         }
     });
 
-    {# /* // Empty cart alert */ #}
-
-    jQueryNuvem(".js-trigger-empty-cart-alert").on("click", function (e) {
-        e.preventDefault();
-        let emptyCartAlert = jQueryNuvem(".js-mobile-nav-empty-cart-alert").fadeIn(100);
-        setTimeout(() => emptyCartAlert.fadeOut(500), 1500);
-    });
-
-    {# /* // Update amount wording */ #}
-
-    document.addEventListener( 'cart.released', () => {
-        const cart_amount = jQueryNuvem(".js-cart-widget-amount").text();
-        if(cart_amount == 1) {
-            jQueryNuvem(".js-amount-one-item").show();
-            jQueryNuvem(".js-amount-many-items").hide();
-        }else{
-            jQueryNuvem(".js-amount-one-item").hide();
-            jQueryNuvem(".js-amount-many-items").show();
-        }
-    });
-
     {# /* // Go to checkout */ #}
 
     {# Clear cart notification cookie after consumers continues to checkout #}
@@ -3356,23 +3029,22 @@ DOMContentLoaded.addEventOrExecute(() => {
         cookieService.remove('first_product_added_successfully');
     });
 
-
-	{#/*============================================================================
-	  #Shipping calculator
-	==============================================================================*/ #}
+    {#/*============================================================================
+      #Shipping calculator
+    ==============================================================================*/ #}
 
     {# /* // Update calculated cost wording */ #}
-
+    
     {% if settings.shipping_calculator_cart_page %}
         if (jQueryNuvem('.js-selected-shipping-method').length) {
-            var shipping_cost = jQueryNuvem('.js-selected-shipping-method').data("cost");
-            var $shippingCost = jQueryNuvem("#shipping-cost");
+            const shipping_cost = jQueryNuvem('.js-selected-shipping-method').data("cost");
+            const $shippingCost = jQueryNuvem("#shipping-cost");
             $shippingCost.text(shipping_cost);
             $shippingCost.removeClass('opacity-40');
         }
     {% endif %}
 
-	{# /* // Select and save shipping function */ #}
+    {# /* // Select and save shipping function */ #}
 
     selectShippingOption = function(elem, save_option) {
         jQueryNuvem(".js-shipping-method, .js-branch-method").removeClass('js-selected-shipping-method');
@@ -3380,18 +3052,21 @@ DOMContentLoaded.addEventOrExecute(() => {
 
         {% if settings.shipping_calculator_cart_page %}
 
-            var shipping_cost = jQueryNuvem(elem).data("cost");
-            var shipping_price_clean = jQueryNuvem(elem).data("price");
+            jQueryNuvem(".js-shipping-radio").removeClass("selected");
+            jQueryNuvem(elem).closest(".js-shipping-radio").addClass("selected");
+
+            let shipping_cost = jQueryNuvem(elem).data("cost");
+            let shipping_price_clean = jQueryNuvem(elem).data("price");
 
             if(shipping_price_clean = 0.00){
-                var shipping_cost = '{{ Gratis | translate }}'
+                shipping_cost = '{{ Gratis | translate }}'
             }
 
             // Updates shipping (ship and pickup) cost on cart
-            var $shippingCost = jQueryNuvem("#shipping-cost");
+            const $shippingCost = jQueryNuvem("#shipping-cost");
             $shippingCost.text(shipping_cost);
             $shippingCost.removeClass('opacity-40');
-
+        
         {% endif %}
 
         if (save_option) {
@@ -3415,7 +3090,7 @@ DOMContentLoaded.addEventOrExecute(() => {
 
         {# If there is a cookie saved based on previous calcualtion, add it to the shipping input to triggert automatic calculation #}
 
-        var zipcode_from_cookie = cookieService.get('calculator_zipcode');
+        const zipcode_from_cookie = cookieService.get('calculator_zipcode');
 
         {% if settings.ajax_cart %}
 
@@ -3445,19 +3120,12 @@ DOMContentLoaded.addEventOrExecute(() => {
         jQueryNuvem(".js-shipping-calculator-form").addClass("transition-up-active");
     }
 
-    {# Remove shipping suboptions from DOM to avoid duplicated modals #}
-
-    removeShippingSuboptions = function(){
-        var shipping_suboptions_id = jQueryNuvem(".js-modal-shipping-suboptions").attr("id");
-        jQueryNuvem("#" + shipping_suboptions_id).remove();
-        jQueryNuvem('.js-modal-overlay[data-modal-id="#' + shipping_suboptions_id + '"').remove();
-    };
 
     {# /* // Calculate shipping function */ #}
 
 
     jQueryNuvem(".js-calculate-shipping").on("click", function (e) {
-	    e.preventDefault();
+        e.preventDefault();
 
         {# Take the Zip code to all shipping calculators on screen #}
         let shipping_input_val = jQueryNuvem(e.currentTarget).closest(".js-shipping-calculator-form").find(".js-shipping-input").val();
@@ -3474,22 +3142,21 @@ DOMContentLoaded.addEventOrExecute(() => {
         }
 
         jQueryNuvem(".js-shipping-calculator-current-zip").html(shipping_input_val);
-        removeShippingSuboptions();
-	});
+    });
 
-	{# /* // Calculate shipping by submit */ #}
+    {# /* // Calculate shipping by submit */ #}
 
     jQueryNuvem(".js-shipping-input").on('keydown', function (e) {
-	    var key = e.which ? e.which : e.keyCode;
-	    var enterKey = 13;
-	    if (key === enterKey) {
-	        e.preventDefault();
+        const key = e.which ? e.which : e.keyCode;
+        const enterKey = 13;
+        if (key === enterKey) {
+            e.preventDefault();
             jQueryNuvem(e.currentTarget).closest(".js-shipping-calculator-form").find(".js-calculate-shipping").trigger('click');
-	        if (window.innerWidth < 768) {
+            if (window.innerWidth < 768) {
                 jQueryNuvem(e.currentTarget).trigger('blur');
-	        }
-	    }
-	});
+            }
+        }
+    });
 
     {# /* // Shipping and branch click */ #}
 
@@ -3513,7 +3180,7 @@ DOMContentLoaded.addEventOrExecute(() => {
     {# /* // Toggle more shipping options */ #}
 
     jQueryNuvem(document).on("click", ".js-toggle-more-shipping-options", function(e) {
-	    e.preventDefault();
+        e.preventDefault();
 
         {# Toggle other options depending if they are pickup or delivery for cart and product at the same time #}
 
@@ -3524,7 +3191,7 @@ DOMContentLoaded.addEventOrExecute(() => {
             jQueryNuvem(".js-other-shipping-options").slideToggle(600);
             jQueryNuvem(".js-show-more-shipping-options .js-shipping-see-less, .js-show-more-shipping-options .js-shipping-see-more").toggle();
         }
-	});
+    });
 
     {# /* // Calculate shipping on page load */ #}
 
@@ -3539,16 +3206,13 @@ DOMContentLoaded.addEventOrExecute(() => {
                     jQueryNuvem('#cart-shipping-container').find(".js-shipping-input").val(),
                     '{{store.shipping_calculator_url | escape('js')}}',
                     jQueryNuvem("#cart-shipping-container").closest(".js-shipping-calculator-container") );
-                removeShippingSuboptions();
-                toggleAccordion("#cart-shipping-container .js-toggle-shipping");
             }, 100);
         }
-
-        if (jQueryNuvem(".js-branch-method").hasClass('js-selected-shipping-method')) {
-            {% if store.branches|length > 1 %}
-                toggleAccordion("#cart-shipping-container .js-toggle-branches");
-            {% endif %}
-        }
+        {% if store.branches|length > 1 %}
+            if (jQueryNuvem(".js-branch-method").hasClass('js-selected-shipping-method')) {
+                window.toggleAccordionPrivate("#cart-shipping-container .js-toggle-branches");
+            }
+        {% endif %}
     };
 
     {% if cart.has_shippable_products %}
@@ -3565,17 +3229,22 @@ DOMContentLoaded.addEventOrExecute(() => {
         jQueryNuvem(".js-shipping-calculator-form").addClass("transition-up-active");
     });
 
-	{# /* // Shipping provinces */ #}
+    {# /* // Shipping provinces */ #}
 
-	{% if provinces_json %}
+    {% if provinces_json %}
         jQueryNuvem('select[name="country"]').on("change", function (e) {
-		    var provinces = {{ provinces_json | default('{}') | raw }};
-		    LS.swapProvinces(provinces[jQueryNuvem(e.currentTarget).val()]);
-		}).trigger('change');
-	{% endif %}
+            const provinces = {{ provinces_json | default('{}') | raw }};
+            LS.swapProvinces(provinces[jQueryNuvem(e.currentTarget).val()]);
+        }).trigger('change');
+    {% endif %}
 
 
     {# /* // Change store country: From invalid zipcode message */ #}
+
+    changeLang = function(element) {
+        const selected_country_url = element.find("option").filter((el) => el.selected).attr("data-country-url");
+        location.href = selected_country_url;
+    };
 
     jQueryNuvem(document).on("click", ".js-save-shipping-country", function(e) {
 
@@ -3590,44 +3259,16 @@ DOMContentLoaded.addEventOrExecute(() => {
     });
 
     {#/*============================================================================
-      #Forms
+      #Empty screens
     ==============================================================================*/ #}
 
-    {# IOS form CSS to avoid autozoom on focus #}
-
-    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    if (isIOS) {
-        var ios_input_fields = jQueryNuvem("input[type='text'], input[type='number'], input[type='password'], input[type='tel'], textarea, input[type='search'], input[type='hidden'], input[type='email']");
-        ios_input_fields.addClass("form-control-ios");
-        jQueryNuvem(".js-quantity").addClass("form-group-quantity-ios");
-        jQueryNuvem(".js-cart-quantity-container").addClass("cart-quantity-container-ios");
-        jQueryNuvem(".js-search-form").toggleClass("search-container-ios");
-        jQueryNuvem(".js-price-filter-btn").addClass("price-btn-ios");
-        jQueryNuvem(".js-price-filter-empty").addClass("input-clear-content-ios");
-        jQueryNuvem(".js-newsletter").addClass("newsletter-container-ios");
-        jQueryNuvem(".js-shipping-calculator-form").addClass("shipping-container-ios");
-    }
-
-    {#/*============================================================================
-      #Footer
-    ==============================================================================*/ #}
-
-    {% if store.afip %}
-
-        {# Add alt attribute to external AFIP logo to improve SEO #}
-
-        jQueryNuvem('img[src*="www.afip.gob.ar"]').attr('alt', '{{ "Logo de AFIP" | translate }}');
-
-    {% endif %}
-
-
-    {#/*============================================================================
-      #Empty placeholders
-    ==============================================================================*/ #}
+    {% set show_help = not has_products %}
 
     {% if template == 'home' %}
 
-        {# /* // Home slider */ #}
+        {# /* // Home */ #}
+
+        {# Home slider #}
 
         var width = window.innerWidth;
         if (width > 767) {
@@ -3649,7 +3290,10 @@ DOMContentLoaded.addEventOrExecute(() => {
             autoplay: slider_empty_autoplay,
             pagination: {
                 el: '.js-swiper-empty-home-pagination',
-                type: 'fraction',
+                clickable: true,
+                renderBullet: function (index, className) {
+                  return '<span class="' + className + '">' + (index + 1) + '</span>';
+                },
             },
             navigation: {
                 nextEl: '.js-swiper-empty-home-next',
@@ -3662,70 +3306,104 @@ DOMContentLoaded.addEventOrExecute(() => {
             },
         });
 
-    {% endif %}
+        {# Brands slider #}
 
-    {% if template == '404' or template == 'home' %}
-
-
-        {# /* // Product slider */ #}
-
-        createSwiper('.js-swiper-product-demo', {
+        createSwiper('.js-swiper-empty-brands', {
             lazy: true,
-            slidesPerView: 'auto',
             watchOverflow: true,
+            centerInsufficientSlides: true,
+            threshold: 5,
+            slidesPerView: 3.5,
+            spaceBetween: 24,
             navigation: {
-                nextEl: '.js-swiper-product-next-demo',
-                prevEl: '.js-swiper-product-prev-demo',
+                nextEl: '.js-swiper-empty-brands-next',
+                prevEl: '.js-swiper-empty-brands-prev',
             },
-            pagination: {
-                el: '.js-swiper-product-pagination-demo',
-                type: 'fraction',
+            on: {
+                afterInit: function () {
+                    hideSwiperControls(".js-swiper-brands-prev", ".js-swiper-brands-next");
+                },
             },
             breakpoints: {
                 768: {
-                    slidesPerView: 'auto',
+                    slidesPerView: 10,
                 }
             },
         });
 
-        createSwiper('.js-swiper-product-thumbs-demo', {
+        {# Testimonials slider #}
+
+        createSwiper('.js-swiper-empty-testimonials', {
             lazy: true,
+            centerInsufficientSlides: true,
+            slidesPerView: 1.15,
             watchOverflow: true,
             threshold: 5,
-            direction: 'vertical',
+            spaceBetween: itemSwiperSpaceBetween,
             navigation: {
-                nextEl: '.js-swiper-product-thumbs-next-demo',
-                prevEl: '.js-swiper-product-thumbs-prev-demo',
+                nextEl: '.js-swiper-empty-testimonials-next',
+                prevEl: '.js-swiper-empty-testimonials-prev',
             },
-            slidesPerView: 'auto',
+            pagination: {
+                el: '.js-swiper-empty-testimonials-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 48,
+                }
+            },
+        });
+
+        {# Informatives slider #}
+
+        createSwiper('.js-empty-informative-banners', {
+            centerInsufficientSlides: true,
+            watchOverflow: true,
+            threshold: 5,
+            spaceBetween: itemSwiperSpaceBetween,
+            pagination: {
+                el: '.js-empty-informative-banners-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 4,
+                }
+            }
         });
 
     {% endif %}
-    
-    {% if template == '404' %}
+
+    {# /* // 404 & Search without results */ #}
+
+    {% if template == '404' and show_help %}
 
         {# /* // Product Related */ #}
 
-        createSwiper('.js-swiper-related-demo', {
+        createSwiper('.js-swiper-related-empty', {
             lazy: true,
             loop: true,
             watchOverflow: true,
-            slidesPerView: slidesPerViewMobileVal,
             watchSlideProgress: true,
             watchSlidesVisibility: true,
             spaceBetween: itemSwiperSpaceBetween,
             slideVisibleClass: 'js-swiper-slide-visible',
+            slidesPerView: 2,
+            slidesPerGroup: 2,
             navigation: {
-                nextEl: '.js-swiper-related-next-demo',
-                prevEl: '.js-swiper-related-prev-demo',
+                nextEl: '.js-swiper-related-empty-next',
+                prevEl: '.js-swiper-related-empty-prev',
             },
             pagination: {
-                el: '.js-swiper-related-pagination-demo',
-                type: 'fraction',
+                el: '.js-swiper-related-empty-pagination',
+                clickable: true,
             },
             breakpoints: {
-                640: {
-                    slidesPerView: slidesPerViewDesktopVal,
+                768: {
+                    slidesPerView: 4,
+                    slidesPerGroup: 4,
                 }
             }
         });
@@ -3733,7 +3411,7 @@ DOMContentLoaded.addEventOrExecute(() => {
         {# /* 404 handling to show the example product */ #}
 
         if (/\/product\/example\/?$/.test(window.location.pathname)) {
-            document.title = "{{ 'Producto de ejemplo' | translate }}";
+            document.title = "{{ "Producto de ejemplo" | translate | escape('js') }}";
             jQueryNuvem("#page-error").hide();
             jQueryNuvem("#product-example").show();
         } else {
@@ -3742,4 +3420,46 @@ DOMContentLoaded.addEventOrExecute(() => {
 
     {% endif %}
 
+    {% if template == '404' or (template == 'search' and not products) %}
+
+        {% set featured_columns_desktop = settings.grid_columns_desktop %}
+        {% set featured_columns_mobile = settings.grid_columns_mobile %}
+        var slidesPerViewFeaturedDesktopVal = {% if featured_columns_desktop == 4 %}4{% elseif featured_columns_desktop == 5 %}5{% else %}6{% endif %};
+        var slidesPerViewFeaturedMobileVal = {% if featured_columns_mobile == 1 %}1{% else %}2{% endif %};
+
+        window.swiperLoader('.js-swiper-featured', {
+            lazy: lazyValue,
+            watchOverflow: watchOverflowVal,
+            centerInsufficientSlides: centerInsufficientSlidesVal,
+            threshold: 5,
+            watchSlideProgress: true,
+            watchSlidesVisibility: true,
+            slideVisibleClass: 'js-swiper-slide-visible',
+            spaceBetween: itemSwiperSpaceBetween,
+        {% if sections.primary.products | length > 4 %}
+            loop: true,
+        {% endif %}
+            navigation: {
+                nextEl: '.js-swiper-featured-next',
+                prevEl: '.js-swiper-featured-prev',
+            },
+            pagination: {
+                el: '.js-swiper-featured-pagination',
+                clickable: true,
+            },
+            on: {
+                afterInit: function () {
+                    hideSwiperControls(".js-swiper-featured-prev", ".js-swiper-featured-next");
+                },
+            },
+            slidesPerView: slidesPerViewFeaturedMobileVal,
+            breakpoints: {
+                768: {
+                    slidesPerView: slidesPerViewFeaturedDesktopVal,
+                    slidesPerGroup: slidesPerViewFeaturedDesktopVal,
+                }
+            },
+        });
+
+    {% endif %}
 });

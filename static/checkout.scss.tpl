@@ -1,95 +1,158 @@
 {% if store.allows_checkout_styling %}
 
 {#/*============================================================================
-checkout.scss.tpl - El Pescador
+checkout.scss.tpl
 
-    -Este arquivo contém todos os estilos do tema relacionados ao checkout
-     baseados nas configurações definidas pelo usuário em config/settings.txt
-    -O restante dos estilos pode ser encontrado em:
-        -static/css/style-colors.scss --> Estilos de cores e fontes relacionados ao config/settings.txt
-        -static/css/style-async.scss --> Estilos não críticos carregados de forma assíncrona
-        -static/css/style-critical.scss --> CSS crítico renderizado inline antes do resto do site
+    -This file contains all the theme styles related to the checkout based on settings defined by user from config/settings.txt
+    -Rest of styling can be found in:
+        -static/css/style-async.css --> For non critical styles witch will be loaded asynchronously
+        -static/css/style-critical.css --> For critical CSS rendered inline before the rest of the site
 
 ==============================================================================*/#}
 
 {#/*============================================================================
-  Global - Configurações Globais
+  Global
 ==============================================================================*/#}
 
-{# /* // Cores - El Pescador */ #}
+:root {
 
-$accent-brand-color: {{ settings.accent_color | default('rgb(77, 190, 207)' | raw ) }};
-$foreground-color: {{ settings.text_color | default('rgb(102, 102, 102)' | raw ) }};
-$background-color: {{ settings.background_color | default('rgb(252, 252, 252)' | raw ) }};
+  {#/*============================================================================
+    # Checkout tokens
+  ==============================================================================*/#}
 
-{% if settings.header_colors %}
-  $header-background: {{ settings.header_background_color }};
-  $header-foreground: {{ settings.header_foreground_color }};
-{% else %}
-  $header-background: {{ settings.background_color }};
-  $header-foreground: {{ settings.text_color }};
-{% endif %}
+  {#### Colors settings #}
 
-$button-background: {{ settings.button_background_color }};
-$button-foreground: {{ settings.button_foreground_color }};
+  {# Main colors #}
 
-$label-background: {{ settings.label_background_color }};
-$label-foreground: {{ settings.label_foreground_color }};
+  {% set main_background = settings.background_color %}
+  {% set main_foreground = settings.text_color %}
+  {% set accent_color = settings.accent_color %}
 
-{# /* // Tipografia - Fontes */ #}
+  {% set button_background = settings.button_background_color %}
+  {% set button_foreground = settings.button_foreground_color %}
+  
+  {% set label_background = settings.label_background_color %}
+  {% set label_foreground = settings.label_foreground_color %}
 
-$heading-font: {{ settings.font_headings | default('Golos Text') | raw }};
-$body-font: {{ settings.font_rest | default('Golos Text') | raw }};
+  {% set header_background = settings.header_colors ? settings.header_background_color : main_background %}
+  {% set header_foreground = settings.header_colors ? settings.header_foreground_color : main_foreground %}
 
-{# /* // Caixas e Containers */ #}
-$box-border-color: rgba($foreground-color, .5);
-$box-radius: 0;
+  {#### Color tokens #}
 
-$box-background: lighten($background-color, 10%);
-$box-shadow: 0 0 5px rgba($foreground-color,.2);
+  {# Auxiliar opacity hex levels #}
+  {% set opacity_05 = '0D' %}
+  {% set opacity_10 = '1A' %}
+  {% set opacity_15 = '26' %}
+  {% set opacity_20 = '33' %}
+  {% set opacity_30 = '4D' %}
+  {% set opacity_50 = '80' %}
+  {% set opacity_60 = '99' %}
+  {% set opacity_80 = 'CC' %}
 
-{# /* // Funções SCSS */ #}
+  {# Accent color #}
+  --accent-color: {{ accent_color }};
+  --accent-color-opacity-05: {{ accent_color }}{{ opacity_05 }};
+  --accent-color-opacity-10: {{ accent_color }}{{ opacity_10 }};
+  --accent-color-opacity-15: {{ accent_color }}{{ opacity_15 }};
+  --accent-color-opacity-20: {{ accent_color }}{{ opacity_20 }};
+  --accent-color-opacity-30: {{ accent_color }}{{ opacity_30 }};
+  --accent-color-opacity-50: {{ accent_color }}{{ opacity_50 }};
+  --accent-color-opacity-60: {{ accent_color }}{{ opacity_60 }};
+  --accent-color-opacity-80: {{ accent_color }}{{ opacity_80 }};
 
-@function set-background-color($background-color) {
-  @if lightness($background-color) > 95% {
-    @return lighten($background-color, 10%);
-  } @else {
-    @return desaturate(lighten($background-color, 7%), 5%);
-  }
+  {# Foreground color #}
+  --main-foreground: {{ main_foreground }};
+  --main-foreground-opacity-05: {{ main_foreground }}{{ opacity_05 }};
+  --main-foreground-opacity-10: {{ main_foreground }}{{ opacity_10 }};
+  --main-foreground-opacity-15: {{ main_foreground }}{{ opacity_15 }};
+  --main-foreground-opacity-20: {{ main_foreground }}{{ opacity_20 }};
+  --main-foreground-opacity-30: {{ main_foreground }}{{ opacity_30 }};
+  --main-foreground-opacity-50: {{ main_foreground }}{{ opacity_50 }};
+  --main-foreground-opacity-60: {{ main_foreground }}{{ opacity_60 }};
+  --main-foreground-opacity-80: {{ main_foreground }}{{ opacity_80 }};
+
+  {# Background color #}
+  --main-background: {{ main_background }};
+  --main-background-opacity-05: {{ main_background }}{{ opacity_05 }};
+  --main-background-opacity-10: {{ main_background }}{{ opacity_10 }};
+  --main-background-opacity-15: {{ main_background }}{{ opacity_15 }};
+  --main-background-opacity-20: {{ main_background }}{{ opacity_20 }};
+  --main-background-opacity-30: {{ main_background }}{{ opacity_30 }};
+  --main-background-opacity-50: {{ main_background }}{{ opacity_50 }};
+  --main-background-opacity-60: {{ main_background }}{{ opacity_60 }};
+  --main-background-opacity-80: {{ main_background }}{{ opacity_80 }};
+
+  {#### Component tokens #}
+
+  {# General #}
+  --border-radius: 4px;
+  --box-border-radius: var(--border-radius);
+  --border-color: var(--main-foreground-opacity-50);
+  --box-border-color: var(--main-foreground-opacity-10);
+
+  {# Buttons #}
+  --button-foreground: {{ button_foreground }};
+  --button-background: {{ button_background }};
+  --button-border-color: var(--button-background);
+  --button-border-radius: var(--border-radius);
+
+  {# Labels #}
+  --label-foreground: {{ label_foreground }};
+  --label-background: {{ label_background }};
+
+  {# Header #}
+  --header-foreground: {{ header_foreground }};
+  --header-background: {{ header_background }};
+  --header-logo-max-width: 100%;
+  --header-logo-max-height: 40px;
+
+  {# Footer #}
+  --footer-foreground: {{ settings.footer_colors ? settings.footer_foreground_color : main_foreground }};
+  --footer-background: {{ settings.footer_colors ? settings.footer_background_color : main_background }};
+
+  {#### Typography #}
+
+  {# Headings #}
+  --heading-font: {{ settings.font_headings | default('Lexend') | raw }};
+  --heading-font-weight: 400;
+  --heading-text-transform: uppercase;
+  --heading-letter-spacing: normal;
+
+  {# Header #}
+  --header-logo-font: var(--heading-font);
+  --header-logo-font-size: 20px;
+  --header-logo-font-weight: 700;
+  --header-logo-text-transform: none;
+  --header-logo-letter-spacing: normal;
+
+  {# Body #}
+  --body-font: {{ settings.font_rest | default('Lexend') | raw }};
+
+  {#### Misc tokens #}
+
+  {# Font sizes #}
+  --font-base: 1rem;
+  --font-medium: 0.875rem;
+  --font-small: 0.75rem;
+  --font-smallest: 0.625rem;
+
+  {# Danger #}
+  --danger: #c13a3a;
 }
 
-@function set-input-color($background-color, $foreground-color) {
-  @if lightness($background-color) > 70% {
-    @return desaturate(lighten($foreground-color, 5%), 80%);
-  } @else {
-    @return desaturate(lighten($background-color, 5%), 80%);
-  }
-}
-
-{# /* // Mixins - Prefixos de navegadores */ #}
+{# /* // Mixins */ #}
 
 @mixin prefix($property, $value, $prefixes: ()) {
-	@each $prefix in $prefixes {
-    	#{'-' + $prefix + '-' + $property}: $value;
-	}
-   	#{$property}: $value;
+    @each $prefix in $prefixes {
+        #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
 }
 
 {#/*============================================================================
-  React - Estilos do Checkout React
+  React
 ==============================================================================*/#}
 
-{# /* // Caixa - Configuração de sombra e fundo */ #}
-
-$box-background: lighten($background-color, 10%);
-$box-text-shadow: null;
-@if lightness($foreground-color) > 95% {
-  $box-text-shadow: 0 2px 1px rgba(darken($foreground-color, 80%), 0.1);
-} @else {
-  $box-text-shadow: 0 2px 1px rgba(lighten($foreground-color, 80%), 0.1);
-}
-
-$base-red: #c13a3a;
 
 $xs: 0;
 $sm: 576px;
@@ -97,151 +160,59 @@ $md: 768px;
 $lg: 992px;
 $xl: 1200px;
 
-{#/*============================================================================
-  # Tokens do Checkout - Variáveis CSS
-==============================================================================*/#}
-:root {
-  {#### Tokens de cores - El Pescador #}
-
-  {% set accent_color = settings.accent_color %}
-  {% set main_foreground = settings.text_color %}
-  {% set main_background = settings.background_color %}
-
-  {# Níveis de opacidade em hexadecimal #}
-  {% set opacity_05 = '0D' %}
-  {% set opacity_10 = '1A' %}
-  {% set opacity_20 = '33' %}
-  {% set opacity_30 = '4D' %}
-  {% set opacity_50 = '80' %}
-  {% set opacity_60 = '99' %}
-  {% set opacity_80 = 'CC' %}
-
-  {# Cor de destaque - El Pescador #}
-  --accent-color: {{ accent_color }};
-  --accent-color-opacity-05: {{ accent_color }}{{ opacity_05 }};
-  --accent-color-opacity-10: {{ accent_color }}{{ opacity_10 }};
-  --accent-color-opacity-20: {{ accent_color }}{{ opacity_20 }};
-  --accent-color-opacity-30: {{ accent_color }}{{ opacity_30 }};
-  --accent-color-opacity-50: {{ accent_color }}{{ opacity_50 }};
-  --accent-color-opacity-60: {{ accent_color }}{{ opacity_60 }};
-  --accent-color-opacity-80: {{ accent_color }}{{ opacity_80 }};
-
-  {# Cor do texto principal #}
-  --main-foreground: {{ main_foreground }};
-  --main-foreground-opacity-05: {{ main_foreground }}{{ opacity_05 }};
-  --main-foreground-opacity-10: {{ main_foreground }}{{ opacity_10 }};
-  --main-foreground-opacity-20: {{ main_foreground }}{{ opacity_20 }};
-  --main-foreground-opacity-30: {{ main_foreground }}{{ opacity_30 }};
-  --main-foreground-opacity-50: {{ main_foreground }}{{ opacity_50 }};
-  --main-foreground-opacity-60: {{ main_foreground }}{{ opacity_60 }};
-  --main-foreground-opacity-80: {{ main_foreground }}{{ opacity_80 }};
-
-  {# Cor de fundo principal #}
-  --main-background: {{ main_background }};
-  --main-background-opacity-05: {{ main_background }}{{ opacity_05 }};
-  --main-background-opacity-10: {{ main_background }}{{ opacity_10 }};
-  --main-background-opacity-20: {{ main_background }}{{ opacity_20 }};
-  --main-background-opacity-30: {{ main_background }}{{ opacity_30 }};
-  --main-background-opacity-50: {{ main_background }}{{ opacity_50 }};
-  --main-background-opacity-60: {{ main_background }}{{ opacity_60 }};
-  --main-background-opacity-80: {{ main_background }}{{ opacity_80 }};
-
-  {#### Tokens de componentes - El Pescador #}
-
-  {# Geral - Bordas e raios #}
-  --border-radius: 0;
-  --box-border-radius: var(--border-radius);
-  --border-color: var(--main-foreground-opacity-50);
-
-  {# Botões - Cores e estilos #}
-  --button-foreground: {{ settings.button_foreground_color }};
-  --button-background: {{ settings.button_background_color }};
-  --button-border-color: {{ settings.button_background_color }};
-  --button-border-radius: var(--border-radius);
-
-  {# Etiquetas - Promoções e destaques #}
-  --label-foreground: {{ settings.label_foreground_color }};
-  --label-background: {{ settings.label_background_color }};
-
-  {# Cabeçalho do checkout #}
-  --header-foreground: {{ settings.header_colors ? settings.header_foreground_color : 'var(--main-foreground)' }};
-  --header-background: {{ settings.header_colors ? settings.header_background_color : 'var(--main-background)' }};
-  --header-logo-max-width: 100%;
-  --header-logo-max-height: 40px;
-
-  {# Rodapé do checkout #}
-  --footer-foreground: {{ settings.footer_colors ? settings.footer_foreground_color : 'var(--main-foreground)' }};
-  --footer-background: {{ settings.footer_colors ? settings.footer_background_color : 'var(--main-background)' }};
-
-  {#### Tipografia - El Pescador #}
-
-  {# Títulos e cabeçalhos #}
-  --heading-font: {{ settings.font_headings | default('Golos Text') | raw }};
-  --heading-font-weight: 400;
-  --heading-text-transform: uppercase;
-  --heading-letter-spacing: normal;
-
-  {# Logo no cabeçalho #}
-  --header-logo-font: var(--heading-font);
-  --header-logo-font-size: 20px;
-  --header-logo-font-weight: 700;
-  --header-logo-text-transform: none;
-  --header-logo-letter-spacing: normal;
-}
-
 body {
-  font-family: $body-font;
-  color: $foreground-color;
-  background-color: $background-color;
-  font-size: 14px;
+  font-family: var(--body-font);
+  color: var(--main-foreground);
+  background-color: var(--main-background);
+  font-size: var(--font-medium);
 }
 a {
-  color: $foreground-color;
+  color: var(--main-foreground);
   text-decoration: none;
   &:hover, &:focus {
-    color: rgba($foreground-color, .6);
+    color: var(--main-foreground-opacity-60);
     
     svg {
-      fill: $foreground-color;
+      fill: var(--main-foreground);
     }
   }
 
   svg {
-    fill: $accent-brand-color;
+    fill: var(--accent-color);
   }
 }
 
-{# /* // Texto - Títulos e parágrafos */ #}
+{# /* // Text */ #}
 
 .title {
-  color: $foreground-color;
+  color: var(--main-foreground);
 }
 
 .heading-small {
-  font-size: 18px;
+  font-size: var(--font-medium);
   font-weight: normal;
 }
 
 .text-small {
-  font-size: 12px;
+  font-size: var(--font-small);
 }
 
-{# /* // Cabeçalho - Header do checkout */ #}
+{# /* // Header */ #}
 
-.header {
-  background-color: lighten($background-color, 10%);
-  border-color: $accent-brand-color;
+.header { 
+  background-color: var(--main-background);
+  border-color: var(--accent-color);
 }
 
 .security-seal {
-  color: $header-foreground;
+  color: var(--header-foreground);
 }
 
-{# /* // Barra do cabeçalho - Logo e navegação */ #}
+{# /* // Headbar */ #}
 
 .headbar {
-  padding: 8px 0;
-  background: $header-background;
+  padding: 0;
+  background: var(--header-background);
   box-shadow: none;
 
   .container {
@@ -276,96 +247,94 @@ a {
 }
 
 .headbar-logo-text {
-  display: inline-block;
   float: none;
-  color: $header-foreground;
+  color: var(--header-foreground);
   font-weight: 700;
-  margin: 10px 0;
 
   &:hover {
-    color: $header-foreground;
+    color: var(--header-foreground);
     opacity: .8;
   }
 
   &:focus {
-    color: $background-color;
+    color: var(--main-background);
   }
 }
 
 .headbar-continue {
   margin: 0 !important;
   font-weight: 400;
-  color: $header-foreground;
+  color: var(--header-foreground);
   &:hover,
   &:focus {
-    color: $header-foreground;
+    color: var(--header-foreground);
     opacity: .8;
 
     .headbar-continue-icon {
-      fill: $header-foreground;
+      fill: var(--header-foreground);
     }
   }
   &-icon {
     margin-left: 5px;
-    fill: $header-foreground;
+    fill: var(--header-foreground);
   }
 }
 
-{# /* // Formulários - Campos e validação */ #}
+{# /* // Form */ #}
 
 .form-group {
   margin-bottom: 15px;
 }
 .form-control {
-  background: $background-color;
-  border-color: $box-border-color;
-  color: $foreground-color;
-  font-family: $body-font;
-  border-radius: $box-radius;
+  background: var(--main-background);
+  border-color: var(--border-color);
+  color: var(--main-foreground);
+  font-family: var(--body-font);
+  border-radius: var(--border-radius);
 
   &:focus {
-    border-color: $foreground-color;
+    border-color: var(--main-foreground);
     outline: none;    
   }
 }
 .form-group.form-group-error .form-control {
-  border-radius: $box-radius;
+  border-radius: var(--border-radius);
 }
 .form-options-content {
-  font-size: 12px;
+  font-size: var(--font-small);
   line-height: 16px;
-  color: rgba($foreground-color, .6);
+  color: var(--main-foreground-opacity-60);
   border: 0;
 }
 .form-group input[type="radio"] + .form-options-content .unchecked {
-  fill: darken($background-color, 10%);
+  fill: var(--main-foreground-opacity-10);
 }
 .form-group input[type="radio"] + .form-options-content .checked {
-  fill: $accent-brand-color;
+  fill: var(--accent-color);
 }
 .form-group input[type="radio"]:checked + .form-options-content {
-  border: 1px solid $accent-brand-color;
-  border-color: darken($background-color, 10%);
+  border: 1px solid var(--accent-color);
+  border-color: var(--main-foreground-opacity-10);
   
   + .form-options-accordion {
-    border-color: darken($background-color, 10%);
+    border-color: var(--main-foreground-opacity-10);
   }
   
   .checked {
-    fill: $accent-brand-color;
+    fill: var(--accent-color);
   }
 }
 .form-group input[type="checkbox"]:checked + .form-options-content .checked {
-  fill: $foreground-color;
+  fill: var(--main-foreground);
 }
 .form-group input[disabled] + .form-options-content {
-  border-color: darken($background-color, 10%) !important;
+  border-color: var(--main-foreground-opacity-10) !important;
   
   .form-options-label {
-    color: $foreground-color !important;
+    color: var(--main-foreground) !important;
   }
   .checked {
-    fill: $foreground-color !important;
+    fill: var(--main-foreground) !important;
   }
 }
 .form-group input[type="checkbox"] + .form-options-content .form-group-icon {
@@ -378,10 +347,10 @@ a {
 }
 .form-group input[type="checkbox"] + .form-options-content .unchecked {
   width: 13px;
-  fill: $foreground-color;
+  fill: var(--main-foreground);
 }
 
-{# /* // Campos de entrada - Inputs e labels flutuantes */ #}
+{# /* // Input */ #}
 
 .has-float-label>span,
 .has-float-label label {
@@ -394,95 +363,93 @@ a {
 }
 
 .input-label {
-  color: $foreground-color;
+  color: var(--main-foreground);
 }
 
 .select-icon {
-  fill: $foreground-color;
+  fill: var(--main-foreground);
   svg {
     width: 10px;
   }
 }
 
-{# /* // Botões - Estilos de botões do checkout */ #}
+{# /* // Buttons */ #}
 
 .btn {
-  border-radius: $box-radius;
+  border-radius: var(--border-radius);
 }
 .btn-primary {
-  padding: 13px;
-  color: $button-foreground;
-  background: $button-background;
-  border-radius: $box-radius;
-  font-size: 12px;
+  padding: 15px;
+  color: var(--button-foreground);
+  background: var(--button-background);
+  border-radius: var(--border-radius);
+  font-size: var(--font-medium);
   line-height: 18px;
-  letter-spacing: 1px;
-  text-transform: none! important;
+  text-transform: none !important;
 
   &:hover,
   &:focus,
   &:active {
-    color: $button-foreground;
-    background: $button-background;
+    color: var(--button-foreground);
+    background: var(--button-background);
     opacity: 0.9;
   }
 }
 .btn-secondary {
   min-width: auto;
   padding: 0;
-  color: $foreground-color;
-  font-size: 12px;
+  color: var(--main-foreground);
+  font-size: var(--font-small);
   line-height: 10px;
   border: 0;
-  border-radius: $box-radius;
-  background: $background-color;
+  border-radius: var(--border-radius);
+  background: var(--main-background);
   text-decoration: underline;
 
   &:hover,
   &:focus,
   &:active,
   &:active:focus {
-    background: $background-color;
-    color: $foreground-color;
-    border-color: $foreground-color;
+    background: var(--main-background);
+    color: var(--main-foreground);
     opacity: .8;
 
     .btn-icon-right {
-      fill: $foreground-color;
+      fill: var(--button-background);
     }
   }
   .btn-icon-right {
-    fill: $accent-brand-color;
+    fill: var(--accent-color);
   }
 }
 .btn-transparent {
-  color: $foreground-color;
+  color: var(--main-foreground);
 
   &:hover {
-    color: $foreground-color;
+    color: var(--main-foreground);
     opacity: .6;
     
     .btn-icon-right {
-      fill: $foreground-color;
+      fill: var(--main-foreground);
     }
   }
 
   .btn-icon-right {
     width: 10px;
-    fill: $foreground-color;
+    fill: var(--main-foreground);
   }
 }
 
 .btn-link {
-  color: $foreground-color;
-  font-size: 12px;
+  color: var(--main-foreground);
+  font-size: var(--font-small);
   font-weight: normal;
   text-transform: initial;
   &:hover {
-    color: rgba($foreground-color, .6);
+    color: var(--main-foreground-opacity-60);
 
     svg {
-      fill: rgba($foreground-color, .6);
+      fill: var(--main-foreground-opacity-60);
     }
   }
 }
@@ -492,29 +459,30 @@ a {
 }
 
 .btn-picker {
-  border-color: $box-border-color;
-  border-radius: $box-radius;
+  border-color: var(--border-color);
+  border-radius: var(--border-radius);
 }
 
 .login-info {
   margin: 10px 0 0;
-  font-size: 12px;
+  font-size: var(--font-small);
   text-align: left;
 }
 
-{# /* // Navegação estrutural - Breadcrumb */ #}
+{# /* // Breadcrumb */ #}
 
 .breadcrumb {
   max-width: 100%;
+  margin: 0;
   li .breadcrumb-step {
     margin: 0;
-    font-size: 10px;
-    color: rgba($foreground-color, .6);
+    font-size: var(--font-small);
+    color: var(--main-foreground-opacity-60);
     background: none;
     text-transform: none;
 
     &.active {
-      color: $foreground-color;
+      color: var(--main-foreground);
       background: none;
 
       &:before,
@@ -522,13 +490,13 @@ a {
         position: relative;
         margin: 0 5px;
         border: 0;
-        content: ".";
+        content: ">";
         opacity: .6;
       }
     }
 
     &.visited {
-      color: rgba($foreground-color, .6);
+      color: var(--main-foreground-opacity-60);
       background: none;
     }
   }
@@ -538,34 +506,30 @@ a {
   }
 }
 
-{# /* // Acordeão - Seções expansíveis */ #}
+{# /* // Accordion */ #}
 
 .accordion {
-  color: $foreground-color;
-  background-color: $background-color;
-  border-radius: $box-radius;
-  box-shadow: 0 1px 3px -1px rgba($foreground-color,0.04);
-  border-color: rgba($foreground-color, .15); 
+  color: var(--main-foreground);
+  background-color: var(--main-background);
+  border-radius: var(--border-radius);
+  box-shadow: 0 1px 3px -1px var(--main-foreground-opacity-10);
+  border-color: var(--main-foreground-opacity-15); 
 }
 
 .accordion-section-header-icon {
-  fill: $foreground-color;
+  fill: var(--main-foreground);
 }
 
 .accordion-rotate-icon {
-  fill: $foreground-color;
+  fill: var(--main-foreground);
 }
 
-{# /* // Resumo do pedido - Summary */ #}
+{# /* // Summary */ #}
 
 .summary {
   top: 0;
 }
 .summary-img {
-  margin: 10px 0 10px 10px;
-  &-wrap {
-    padding: 0 !important;
-  }
   &-thumb {
     left: 0;
     border-radius: 0;
@@ -577,29 +541,30 @@ a {
 }
 
 .mobile-discount-coupon_btn {
-  border-radius: $box-radius;
-  border-color: darken($background-color, 10%);
-  color: lighten($foreground-color, 20%);
+  border-radius: var(--border-radius);
+  border-color: var(--main-foreground-opacity-10);
+  color: var(--main-foreground-opacity-80);
   
   .icon {
-    color: lighten($foreground-color, 20%);
+    color: var(--main-foreground-opacity-80);
   }
 }
 
 .panel.summary-details {
+  background: var(--main-background);
   overflow: hidden;
 }
 .summary-container {
   padding: 10px 15px;
-  background: $background-color;
-  border-top: 1px solid rgba($foreground-color,.2);
-  border-bottom: 1px solid rgba($foreground-color,.2);
+  background: var(--main-background);
+  border-top: 1px solid var(--main-foreground-opacity-20);
+  border-bottom: 1px solid var(--main-foreground-opacity-20);
   box-shadow: none;
 }
 .summary-total {
-  font-size: 16px;
+  font-size: var(--font-base);
   font-weight: 700;
-  color: $foreground-color;
+  color: var(--main-foreground);
   background: none;
 }
 
@@ -607,21 +572,24 @@ a {
   width: auto;
   background: none;
   .summary-arrow-icon {
-    fill: $foreground-color;
+    fill: var(--main-foreground);
   }
 }
 
 .summary-title {
-  color: $foreground-color;
-  font-size: 12px;
+  color: var(--main-foreground);
+  font-size: var(--font-small);
   text-decoration: underline;
 }
 
 .summary-coupon {
   padding: 0;
+  &+.breadcrumb {
+    margin: 0;
+  }
 }
 
-{# /* // Botões de rádio - Seleção de opções */ #}
+{# /* // Radio */ #}
 
 .radio-group {
 
@@ -634,10 +602,10 @@ a {
       border: 0;
       &.active {
         .description {
-          color: $background-color;
+          color: var(--main-background);
         }
         .payment-item-discount {
-          color: $background-color;
+          color: var(--main-background);
         }
       }
       .description {
@@ -650,27 +618,39 @@ a {
 }
 
 .radio input:checked + .selector:before {
-  background-image: radial-gradient(circle, $foreground-color 0%, $foreground-color 40%, transparent 50%, transparent 100%);
-  border-color: $box-border-color;
+  background-image: none;
+  border-color: var(--main-foreground);
+  border-radius: var(--border-radius);
 }
 .radio input:disabled:checked + .selector:before {
   background-image: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 50%, transparent 50%, transparent 100%);
+}
+.radio input:checked + .selector:after {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  width: 7px;
+  height: 7px;
+  background: var(--main-foreground);
+  content: '';
 }
 .radio .selector {
   position: relative;
 
   &:before {
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     margin: 1px 15px 0 0;
-    border-color: rgba($foreground-color, 0.5);
+    background-color: var(--main-background);
+    border-color: var(--main-foreground);
+    border-radius: var(--border-radius);
   }
 }
 
 .radio-content {
   margin-bottom: 20px;
   padding: 10px 0 0;
-  background: $background-color;
+  background: var(--main-background);
   border: 0;
   box-shadow: none;
 
@@ -685,8 +665,8 @@ a {
 .shipping-option {
   position: relative;
   padding: 15px;
-  background: rgba($foreground-color, .03);
-  border-radius: $box-radius;
+  background: var(--main-foreground-opacity-05);
+  border-radius: 0;
   border: 0;
 
   &.active {
@@ -706,15 +686,15 @@ a {
   }
 }
 
-{# /* // Painéis - Containers de conteúdo */ #}
+{# /* // Panel */ #}
 
 .panel {
   padding: 0;
-  color: $foreground-color;
-  background-color: $background-color;
+  color: var(--main-foreground);
+  background-color: var(--main-background);
   box-shadow: none;
   border: 0;
-  border-radius: $box-radius;
+  border-radius: 0;
   &.panel-with-header {
     padding-top: 5px;
     p {
@@ -730,18 +710,17 @@ a {
 }
 .panel-header {
   margin: 0 !important;
-  font-size: 14px;
-  color: $foreground-color;
+  font-size: var(--font-base);
+  color: var(--main-foreground);
   text-align: left;
   border: 0;
   text-shadow: none;
-  text-transform: uppercase;
 }
 .panel-header-tooltip {
   padding: 0 5px;
 }
 .panel-header-sticky {
-  background-color: $background-color;
+  background-color: var(--main-background);
 }
 .panel-header-button {
   position: absolute;
@@ -752,46 +731,43 @@ a {
 }
 .panel-subheader {
   margin: 5px 0 10px 0;
-  font-size: 12px;
+  font-size: var(--font-small);
   font-weight: normal;
 }
 .panel-footer {
-  background: darken($background-color, 2%);
+  background: var(--main-foreground-opacity-05);
   &-wa {
-    border-color: darken($background-color, 5%);
+    border-color: var(--main-foreground-opacity-05);
   }
 }
 .panel-footer-form {
   input {
-    border-color: $foreground-color;
+    border-color: var(--main-foreground);
   }
   .input-group-addon {
-    background: $background-color;
-    border-color: $foreground-color;
+    background: var(--main-background);
+    border-color: var(--main-foreground);
   }
   .disabled {
-    background: darken($background-color, 15%) !important;
+    background: var(--main-foreground-opacity-10) !important;
   }
 }
 
-{# /* // Tabelas - Listagem de itens do pedido */ #}
+{# /* // Table */ #}
 
-.table.table-scrollable {
-  padding: 0;
-  td {
+.table.table-scrollable td {
     padding: 10px 15px;
-  }
 }
 
 .table-footer {
-  font-size: 18px;
-  color: $foreground-color;
+  font-size: var(--font-base);
+  color: var(--main-foreground);
   border: 0;
 }
 
 .table-subtotal {
-  margin: 10px 0;
-  padding: 0;
+  margin: 0;
+  padding: 10px 0;
   border: 0;
   td {
     padding: 5px 15px;
@@ -803,24 +779,24 @@ a {
 
 .table .table-discount-coupon,
 .table .table-discount-promotion {
-  color: $accent-brand-color;
+  color: var(--accent-color);
   border: 0;
 }
 
-{# /* // Opções de frete - Seleção de entrega */ #}
+{# /* // Shipping Options */ #}
 
 .shipping-options {
-  color: lighten($foreground-color, 7%);
+  color: var(--main-foreground-opacity-80);
 
   .radio-group {
-    border-radius: $box-radius;
-    box-shadow: 0 1px 3px -1px rgba($foreground-color,0.04);
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px -1px var(--main-foreground-opacity-10);
     overflow: hidden;
   }
 
   .btn {
     margin: 0;
-    background: $background-color;
+    background: var(--main-background);
   }
 
 }
@@ -845,8 +821,8 @@ a {
 .shipping-method-item-desc,
 .shipping-method-item-name {
   max-width: 70%;
-  color: $foreground-color;
-  font-size: 12px;
+  color: var(--main-foreground);
+  font-size: var(--font-small);
   font-weight: normal;
 }
 
@@ -857,38 +833,37 @@ a {
 .shipping-method-item-price {
   float: right;
   font-weight: normal;
-  color: $foreground-color;
+  color: var(--main-foreground);
   text-align: right;
 }
 
 .price-striked {
   display: block;
   margin: 5px 0 0 !important;
-  font-size: 10px;
-  color: rgba($foreground-color, .6);
+  font-size: var(--font-smallest);
+  color: var(--main-foreground-opacity-60);
 }
 
-{# /* // Cupom de desconto - Campo de aplicação */ #}
+{# /* // Discount Coupon */ #}
 
 .box-discount-coupon {
-  margin-top: 10px;
-}
-.box-discount-coupon button {
-  color: $foreground-color;
-  background: none;
-
-  &:hover {
-    opacity: .6;
+  margin-top: -1px;
+  button {
+    color: var(--main-foreground);
     background: none;
-  }
-  svg {
-    fill: $foreground-color;
+
+    &:hover {
+      opacity: .6;
+      background: none;
+    }
+    svg {
+      fill: var(--main-foreground);
+    }
   }
 }
 .box-discount-coupon-applied {
-  margin-top: 10px;
   padding: 10px 15px;
-  color: $foreground-color;
+  color: var(--main-foreground);
   background: none;
   border-radius: 0;
   font-size: 8px;
@@ -898,9 +873,9 @@ a {
 
   .btn-link {
     padding-top: 3px;
-    color: $foreground-color;
+    color: var(--main-foreground);
     &:hover {
-      color: rgba($foreground-color, .6);
+      color: var(--main-foreground-opacity-60);
     }
   }
   .coupon-icon {
@@ -909,39 +884,41 @@ a {
 }
 
 
-{# /* // Suporte - Informações de contato */ #}
+{# /* // Support */ #}
 
 .support {
   margin: 0;
-  padding: 15px;
+  padding: 20px 0;
   svg {
     width: 14px;
     vertical-align: middle;
-    fill: $foreground-color;
+    fill: var(--main-foreground);
   }
   .btn-secondary {
     margin: 0 0 15px 0 !important;
   }
 }
 
-{# /* // Detalhes do usuário - Informações do cliente */ #}
+{# /* // User Detail */ #}
 
 .user-detail {
   margin: 0 !important;
   padding: 15px 15px 15px 0;
+  background: var(--main-background);
+  border-radius: var(--border-radius);
   &-icon {
     width: 40px;
     svg {
       left: initial;
       width: 15px;
       height: 16px;
-      fill: $foreground-color;
+      fill: var(--main-foreground);
     }
   }
   &-content {
     width: calc(100% - 50px);
     .text-semi-bold {
-      font-size: 10px;
+      font-size: var(--font-smallest);
       font-weight: 400;
       letter-spacing: 1px;
     }
@@ -949,71 +926,71 @@ a {
 }
   
 
-{# /* // Histórico - Rastreamento do pedido */ #}
+{# /* // History */ #}
 
 .history-item-done .history-item-title {
-  color: $accent-brand-color;
+  color: var(--accent-color);
 }
 .history-item-failure .history-item-title {
-  color: $base-red;
+  color: var(--danger);
 }
 .history-item-progress-icon svg {
   width: 20px;
-  fill: rgba($foreground-color, .3);
+  fill: var(--main-foreground-opacity-30);
 }
 .history-item-progress-icon:after {
   top: 20px;
   margin-left: -11px;
-  fill: rgba($foreground-color, .3);
-  border-left: 2px solid rgba($foreground-color, .3);
+  fill: var(--main-foreground-opacity-30);
+  border-left: 2px solid var(--main-foreground-opacity-30);
 }
 .history-item-progress-icon-failure svg {
-  fill: $base-red;
+  fill: var(--danger);
 }
 .history-item-progress-icon-success svg {
-  fill: $accent-brand-color;
+  fill: var(--accent-color);
 }
 .history-item-progress-icon-success:after {
-  border-color: $foreground-color;
+  border-color: var(--accent-color);
 }
 
-{# /* // Pedido cancelado - Histórico de cancelamento */ #}
+{# /* // History Canceled */ #}
 
 .history-canceled {
-  border-top-right-radius: $box-radius;
-  border-top-left-radius: $box-radius;
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
 }
 .history-canceled-header {
-  border-color: rgba($box-border-color, 0.7);
-  border-top-left-radius: $box-radius;
-  border-top-right-radius: $box-radius;
+  border-color: var(--border-color);
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 }
 .history-canceled-icon svg {
-  fill: darken($background-color, 45%);
+  fill: var(--main-foreground-opacity-50);
 }
 
-{# /* // Pagamento offline - Boleto e PIX */ #}
+{# /* // Offline Payment */ #}
 
 .ticket-coupon {
-  background: darken($background-color, 4%);
-  border-color: $box-border-color;
+  background: var(--main-foreground-opacity-05);
+  border-color: var(--border-color);
 }
 
-{# /* // Compra rápida - Comprar sem registro */ #}
+{# /* // Buy fast */ #}
 .panel-buy-fast {
-  color: $foreground-color;
-  fill: $foreground-color;
-  background: $background-color;
-  border: 1px solid rgba($foreground-color, .15);
-  border-radius: $box-radius;
+  color: var(--main-foreground);
+  fill: var(--main-foreground);
+  background: var(--main-background);
+  border: 1px solid var(--main-foreground-opacity-15);
+  border-radius: var(--border-radius);
   box-shadow: none;
 }
 
-{# /* // Status, Destino e Cadastro - Páginas de sucesso */ #}
+{# /* // Status, Destination & Sign Up */ #}
 
 .success-order-id {
   padding-top: 52px;
-  font-size: 12px;
+  font-size: var(--font-small);
   text-transform: uppercase;
   .opacity-50 {
     opacity: 1 !important;
@@ -1023,14 +1000,14 @@ a {
 .status,
 .destination,
 .signup {
-  padding: 15px !important;
+  padding: 15px 0 !important;
   &-icon {
     width: 10px;
     margin: 0;
     svg {
       left: initial;
       width: 15px;
-      fill: $foreground-color;
+      fill: var(--main-foreground);
     }
   }
   &-content {
@@ -1041,29 +1018,28 @@ a {
 
 .status,
 .orderstatus {
+  margin: 0;
+  background: var(--main-background);
 }
 
 .destination {
   align-items: initial;
 }
 
-.destination-content .heading-small {
+.destination-content .m-top-half {
   margin-top: 2px!important;
 }
 
-.orderstatus {
-  padding: 15px !important;
-  .destination {
+.orderstatus .destination {
     padding: 10px 0 0;
     border: 0;
-  }
 }
 
 .signup .icon-inside-input.align-right-password {
   right: 15px;
 }
 
-{# /* // Rastreamento - Acompanhamento de entrega */ #}
+{# /* // Tracking */ #}
 
 .history-item-progress {
   width: 70px;
@@ -1077,48 +1053,48 @@ a {
 
 .history-item-message {
   max-width: 100%;
-  font-size: 10px;
+  font-size: var(--font-smallest);
 }
 
 .tracking-item-time {
-  color: $foreground-color;
+  color: var(--main-foreground);
 }
 
-{# /* // WhatsApp - Opt-in de notificações */ #}
+{# /* // WhatsApp Opt-in */ #}
 
-.whatsapp-form input,
+.whatsapp-form input, 
 .whatsapp-form .input-group-addon {
-  border-color: $accent-brand-color;
+  border-color: var(--accent-color);
 }
 
-{# /* // Utilitários - Classes auxiliares */ #}
+{# /* // Helpers */ #}
 
 .border-top {
-  border-color: rgba($box-border-color, .4);
+  border-color: var(--border-color);
 }
 
-{# /* // Erros - Mensagens de erro e validação */ #}
+{# /* // Errors */ #}
 
 .alert-danger-bagged {
   margin-top: 5px;
-  border-radius: $box-radius;
+  border-radius: var(--border-radius);
   float: left;
   background: none;
   color: #cc4845;
 }
 
 .general-error {
-  background: $base-red;
-  border-color: lighten($base-red, 10%);
+  background: var(--danger);
+  border-color: var(--danger);
 }
 
-{# /* // Badge - Etiquetas de notificação */ #}
+{# /* // Badge */ #}
 
 .badge {
   border: 0;
 }
 
-{# /* // Pagamento - Opções e métodos de pagamento */ #}
+{# /* // Payment */ #}
 
 .payment-category-label {
   font-size: 8px;
@@ -1136,90 +1112,90 @@ a {
   clear: initial;
   margin: -1px 0 0 10px;
   padding: 4px 6px;
-  color: $label-foreground;
-  background: $label-background;
+  color: var(--label-foreground);
+  background: var(--label-background);
   border-radius: 6px;
-  font-size: 10px;
+  font-size: var(--font-smallest);
   text-transform: uppercase;
 }
 
 .payment-option {
-  border-radius: $box-radius;
-  color: $foreground-color;
-  background: rgba($foreground-color, .03);
+  border-radius: 0;
+  color: var(--main-foreground);
+  background-color: var(--main-foreground-opacity-05);
   border: 0;
 }
 
 .radio-content.payment-option-content {
-  background: darken($background-color, 2%);
-  border: 1px solid rgba($foreground-color, .1);
+  background: var(--main-background);
+  border: 1px solid var(--main-foreground-opacity-10);
   border-top: 0;
-  border-radius: 0 0 $box-radius $box-radius;
+  border-radius: 0;
 }
 
 
-{# /* // Overlay - Camadas de sobreposição */ #}
+{# /* // Overlay */ #}
 
 .overlay {
-  background: rgba(darken($background-color, 10%), 0.6);
+  background: var(--main-foreground-opacity-15);
 }
 .overlay-title {
-  color: rgba($foreground-color, .7);
+  color: var(--main-foreground-opacity-60);
 }
 
-{# /* // Seletor de lista - Lista de opções clicáveis */ #}
+{# /* // List Picker */ #}
 
 .list-picker .unchecked {
-  fill: $foreground-color;
+  fill: var(--main-foreground);
 }
 .list-picker li {
-  border-color: $box-border-color;
-  background: lighten($background-color, 10%);
+  border-color: var(--border-color);
+  background: var(--main-background);
 
   &:hover {
-    color: $accent-brand-color;
+    color: var(--accent-color);
   }
 
   &.active {
-    background: $background-color;
-    color: $accent-brand-color;
+    background: var(--main-background);
+    color: var(--accent-color);
 
     .checked {
-      fill: $accent-brand-color;
+      fill: var(--accent-color);
     }
   }
 }
 
 .list-picker-content {
-  background: lighten($background-color, 10%);
-  border-color: $box-border-color;
+  background: var(--main-background);
+  border-color: var(--border-color);
 }
 
-{# /* // Carregamento - Indicadores de loading */ #}
+{# /* // Loading */ #}
 
 .loading {
-  background: rgba(darken($background-color, 2%), 0.5);
-  color: $accent-brand-color;
+  background: var(--main-background-opacity-50);
+  color: var(--accent-color);
 }
 .loading-spinner {
-  color: $accent-brand-color;
+  color: var(--accent-color);
 }
 .loading-skeleton-radio {
   margin: 0 0 10px 0;
   padding: 15px;
-  border-color: rgba($foreground-color, .15);
-  border-radius: $box-radius;
+  border-color: var(--main-foreground-opacity-15);
+  border-radius: 0;
 }
 
-{# /* // Spinner - Animação de carregamento */ #}
+{# /* // Spinner */ #}
 
 .round-spinner {
-  border-color: $accent-brand-color;
-  border-left-color: darken($accent-brand-color, 5%);
+  border-color: var(--accent-color);
+  border-left-color: var(--accent-color-opacity-50);
   
   &:after {
-    border-color: $accent-brand-color;
-    border-left-color: darken($accent-brand-color, 5%);
+    border-color: var(--accent-color);
+    border-left-color: var(--accent-color-opacity-50);
   }
 }
 
@@ -1229,83 +1205,83 @@ a {
 }
 
 .spinner-inverted > .spinner-elem {
-  background: $button-foreground;
+  background: var(--button-foreground);
 }
 
-{# /* // Modal - Janelas de diálogo */ #}
+{# /* // Modal */ #}
 
 .modal-dialog,
 .modal .modal-dialog {
-  background: $background-color;
-  fill: $foreground-color;
+  background: var(--main-background);
+  fill: var(--main-foreground);
 }
 
 .modal .modal-header .modal-close {
-  color: $foreground-color;
+  color: var(--main-foreground);
   text-shadow: none;
 }
 
-{# /* // Lista - Itens de lista */ #}
+{# /* // List */ #}
 
 .list-group-item {
-  border-color: rgba($foreground-color, .15);
+  border-color: var(--main-foreground-opacity-15);
 }
 
-{# /* // Anúncios - Banners de aviso */ #}
+{# /* // Announcement */ #}
 
 .announcement {
-  color: darken($accent-brand-color, 10%);
+  color: var(--accent-color-opacity-80);
 
   &-bg {
-    background: $accent-brand-color;
-    box-shadow: 0px 3px 5px -1px rgba(darken($accent-brand-color, 20%), 0.35);
-    border-radius: $box-radius;
+    background: var(--accent-color);
+    box-shadow: 0px 3px 5px -1px var(--accent-color-opacity-10);
+    border-radius: var(--border-radius);
   }
 
   &-close {
-    color: $accent-brand-color;
+    color: var(--accent-color);
   }
 }
 
-{# /* // Alertas - Mensagens de feedback */ #}
+{# /* // Alert */ #}
 
 .alert {
+  border-radius: var(--border-radius);
   &-info {
-    background-color: rgba($accent-brand-color, .15);
-    border-color: rgba($accent-brand-color, .2);
-    color: $accent-brand-color;
+    background-color: var(--accent-color-opacity-15);
+    border-color: var(--accent-color-opacity-20);
+    color: var(--accent-color);
     .alert-icon {
-      fill: $accent-brand-color;
+      fill: var(--accent-color);
     }
-  }
-  .alert-icon {
-    width: 12px;
-    min-width: auto;
   }
 }
 
-{# /* // Chip - Etiquetas pequenas */ #}
+{# /* // Chip */ #}
 
 .chip {
-  background-color: rgba($accent-brand-color, .15);
-  color: $accent-brand-color;
+  background-color: var(--accent-color-opacity-15);
+  color: var(--accent-color);
   border-radius: 5px;
 }
 
-{# /* // Bloco de revisão detalhada - Resumo do pedido */ #}
+{# /* // Review Block Detailed  */ #}
 .price--display__free {
-  color: $accent-brand-color;
+  color: var(--accent-color);
 }
 
 .review-block-detailed {
   margin: 0 !important;
+  background: var(--main-background);
   border: none;
-  border-radius: $box-radius;
+  border-radius: var(--border-radius);
   &-item {
     width: 100%;
-    padding: 0 15px;
     background: transparent;
     border-radius: 0;
+    &.review-block-dropdown {
+        padding-top: 0;
+    }
   }
 }
 
@@ -1313,58 +1289,55 @@ a {
   flex-basis: 30px;
 }
 
-{# /* // Tooltip - Dicas de contexto */ #}
+{# /* // Tooltip */ #}
 
 .tooltip-icon {
-  fill: $foreground-color;
+  fill: var(--main-foreground);
 }
 
-{# /* // Abas - Navegação por tabs */ #}
+{# /* // Tabs */ #}
 
 .tabs-wrapper {
-  border-top-right-radius: $box-radius;
-  border-top-left-radius: $box-radius;
-  background: darken($background-color, 5%);
-  border-bottom-color: darken($background-color, 10%);
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+  background: var(--main-foreground-opacity-05);
+  border-bottom-color: var(--main-foreground-opacity-10);
 }
 
 .tab-item.active {
-  color: $accent-brand-color;
+  color: var(--accent-color);
   font-weight: bold;
 }
 
 .tab-indicator {
-  background-color: $accent-brand-color;
+  background-color: var(--accent-color);
 }
 
 {#/*============================================================================
-  #Media queries - Responsividade
+  #Media queries
 ==============================================================================*/ #}
 
-{# /* // Largura máxima 576px - Dispositivos móveis */ #}
+{# /* // Max width 576px */ #}
 
 @media (max-width: $sm) {
 
-  .headbar {
-    padding: 0;
-    .container .row .col {
-      flex-basis: auto;
-      &.text-left {
-        flex: 0 0 100%;
-        max-width: 100%;
-        order: 2;
-        margin: 0;
-        padding: 10px 15px;
-        {% if settings.logo_position_mobile == 'center' %}
-          text-align: center !important;
-        {% else %}
-          text-align: left !important;
-        {% endif %}
-      }
-      &.text-right {
-        background: $accent-brand-color;
+  .headbar .container .row .col {
+    flex-basis: auto;
+    &.text-left {
+      flex: 0 0 100%;
+      max-width: 100%;
+      order: 2;
+      margin: 0;
+      padding: 10px 15px;
+      {% if settings.logo_position_mobile == 'center' %}
         text-align: center !important;
-      }
+      {% else %}
+        text-align: left !important;
+      {% endif %}
+    }
+    &.text-right {
+      background: #aac67b;
+      text-align: center !important;
     }
   }
 
@@ -1394,11 +1367,11 @@ a {
   }
 
   .box-discount-coupon-applied {
-    border: 1px solid rgba($foreground-color,.2) !important;
+    border: 1px solid var(--main-foreground-opacity-20) !important;
   }
   .box-discount-coupon .form-control {
-    border: 1px solid rgba($foreground-color,.2);
-    border-radius: $box-radius;
+    border: 1px solid var(--main-foreground-opacity-20);
+    border-radius: var(--border-radius);
   }
   .summary .panel {
     border: 0;
@@ -1407,7 +1380,7 @@ a {
     padding: 0;
   }
   .summary-coupon {
-    padding-top: 50px;
+    padding-top: 65px;
   }
 
   .btn-primary {
@@ -1416,10 +1389,6 @@ a {
 
   .panel.summary-details {
     border: 0;
-  }
-
-  .user-detail-icon {
-    width: 70px;
   }
 
   .payment-list-item .accordion-section-header-label {
@@ -1435,17 +1404,22 @@ a {
     margin: 8px 0 0;
   }
 
+  .user-detail-icon {
+    width: 20px;
+    margin-right: 10px;
+  }
+
   .user-detail-content {
     width: calc(100% - 80px);
   }
 
   .orderstatus-footer {
-    background: $background-color;
+    background: var(--main-background);
   }
 
 }
 
-{# /* // Largura mínima 768px - Tablets e desktops */ #}
+{# /* // Min width 768px */ #}
 
 @media (min-width: $md) {
 
@@ -1453,18 +1427,26 @@ a {
     max-width: 1000px;
   }
 
+  .headbar {
+    padding: 8px 0;
+  }
+
   .success-order-id {
-    padding-top: 20px;
+    padding-top: 0;
+  }
+
+  .table.table-scrollable {
+    padding: 0;
   }
 
 }
 
-{# /* // Largura máxima 0px - Telas muito pequenas */ #}
+{# /* // Max width 0px */ #}
 
 @media (max-width: $xs) {
 
   .modal-xs {
-    background: $background-color;
+    background: var(--main-background);
   }
 
 }

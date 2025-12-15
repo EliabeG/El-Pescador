@@ -6,27 +6,22 @@
 	{% endif %}
 
 	{% for product in product_type %}
-		<section id="single-product" class="js-product-container section-main-product-home" data-variants="{{product.variants_object | json_encode }}" data-store="home-product-main">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-7 pb-3 pr-md-2">
+		<section id="single-product" class="js-product-container section-home" data-variants="{{product.variants_object | json_encode }}" data-store="home-product-main">
+			<div class="container mt-3 py-4">
+				<div class="product-columns mb-4">
+					<div class="product-images mb-4 mb-md-0" data-store="product-image-{{ product.id }}">
 						{% include 'snipplets/product/product-image.tpl' with { home_main_product: true } %}
 					</div>
-					<div class="col" data-store="product-info-{{ product.id }}">
+					<div class="product-info" data-store="product-info-{{ product.id }}">
 						{% include 'snipplets/product/product-form.tpl' with { home_main_product: true } %}
 						{% if product.description is not empty %}
-							<div class="{% if settings.product_stock %}mt-2 mt-md-1{% else %}mt-4 mt-md-2{% endif %}">
+							<div class="mt-2">
 								{# Product description #}
 								<div class="js-product-description product-description user-content font-small">
 									{{ product.description }}
 								</div>
 								<div class="js-view-description" style="display: none;">
-									<div class="btn-link font-small mt-1">
-										{% if settings.positive_color_background %}
-											{% set view_description_icon_class = 'icon-inline icon-lg svg-icon-invert ml-1' %}
-										 {% else %}
-											{% set view_description_icon_class = 'icon-inline icon-lg svg-icon-text ml-1' %}
-										{% endif %}
+									<div class="btn-link mt-3">
 										<span class="js-view-more">
 											{{ "Ver más" | translate }}
 										</span>

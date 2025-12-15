@@ -1,5 +1,5 @@
 {% set selected_option = loop.first or cart.shipping_option == option.name %}
-<div class="js-shipping-suboption mt-4 {{suboptions.name}}">
+<div class="js-shipping-suboption mt-2 {{suboptions.name}}">
 
     {% if suboptions.options %}
 
@@ -7,27 +7,43 @@
 
         {% set modal_id_val = (suboptions.name | sanitize) ~ '-pickup-modal-' ~ random() %}
 
-        <div data-toggle="#{{ modal_id_val }}" class="js-modal-open js-open-over-modal btn-link font-small">
-            {{ 'Ver direcciones' | translate }}
-        </div>
+        <button data-target="#{{ modal_id_val }}" class="js-modal-open-private btn btn-link font-small">{{ 'Ver direcciones' | translate }}</button>
 
-        {% embed "snipplets/modal.tpl" with{modal_id: modal_id_val, modal_class: 'bottom modal-centered-small js-modal-shipping-suboptions', modal_position: 'center', modal_transition: 'slide', modal_header_title: true, modal_footer: false, modal_width: 'centered', modal_zindex_top: true} %}
-            {% block modal_head %}
-                {{ 'Puntos de retiro' | translate }}
-            {% endblock %}
-            {% block modal_body %}
-                <ul class="pl-3 mt-0 mb-4">
-                    {% for option in suboptions.options %}
-                        <li class="text-capitalize mb-2">{{ option.name | lower }}</li>
-                    {% endfor %}
-                </ul>
-                <div class="mt-3"><span class="opacity-50">{{ 'Cercanos al CP:'}}</span> <span class="font-weight-bold">{{cart.shipping_zipcode}}</span></div>
-                <div class="mt-2 pb-2 font-small">
-                    <svg class="icon-inline svg-icon-text"><use xlink:href="#info-circle"/></svg>
-                    <i>{{ "Vas a poder elegir estas opciones antes de finalizar tu compra" | translate }}</i>
-                </div>
-            {% endblock %}
-        {% endembed %}
+        {% set pickup_points_list %}
+            <ul class="font-medium mb-4 pl-3 m-0">
+                {% for option in suboptions.options %}
+                    <li class="text-capitalize mb-2">{{ option.name | lower }}</li>
+                {% endfor %}
+            </ul>
+            <div class="mt-3 font-medium">
+                <span>{{ 'Cercanos al CP:'}}</span> <span class="font-weight-bold">{{cart.shipping_zipcode}}</span>
+            </div>
+            <div class="mt-2 pb-2 font-small">
+                <svg class="icon-inline svg-icon-text"><use xlink:href="#info-circle"/></svg>
+                <i>{{ "Vas a poder elegir estas opciones antes de finalizar tu compra" | translate }}</i>
+            </div>
+        {% endset %}
+
+        {{ component(
+            'modal',{
+                modal_id: modal_id_val,
+                data_component: modal_id_val,
+                layout: {
+                    width_mobile: 'small',
+                    width_desktop: 'small',
+                },
+                content: {
+                    title: 'Puntos de retiro' | translate,
+                    body: pickup_points_list,
+                },
+                icons: {
+                    close_icon_id: 'times',
+                },
+                modal_classes: {
+                    close_icon: 'icon-inline',
+                }
+            }) 
+        }}
 
     {% else %}
         <input type="hidden" name="{{suboptions.name}}"/>

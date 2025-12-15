@@ -1,103 +1,164 @@
-{# /*============================================================================
-  El Pescador - Modais do Header Profissional
+{# Modal Hamburger #}
 
-  PLANO DE MELHORIAS (10 etapas):
-  1. ✅ Adicionar classes ep- para consistência
-  2. ✅ Melhorar modal de busca
-  3. ✅ Melhorar modal de menu
-  4. ✅ Melhorar modal do carrinho
-  5. ✅ Adicionar títulos traduzidos
-  6. ✅ Melhorar transições
-  7. ✅ Responsividade otimizada
-  8. ✅ Melhorar acessibilidade
-  9. ✅ Melhorar produtos relacionados
-  10. ✅ Melhorar cross-selling modal
-==============================================================================*/ #}
+{{ component(
+	'modal',{
+		modal_id: 'nav-hamburger',
+		data_component: 'nav-hamburger',
+		position: {
+			appear_from: 'left',
+		},
+		content: {
+			body: include('snipplets/navigation/navigation-panel.tpl', {primary_links: true}),
+			footer: include('snipplets/navigation/navigation-panel.tpl'),
+		},
+		icons: {
+			close_icon_id: 'times',
+		},
+		modal_classes: {
+			modal: 'modal-nav-hamburger modal-nav-main',
+			header: 'no-title',
+			close_icon: 'icon-inline icon-lg',
+		}
+	}) 
+}}
 
-{% if settings.search_type_mobile == 'search_icon' or settings.logo_position_desktop == 'left' %}
-
-    {# Modal Search #}
-    {% embed "snipplets/modal.tpl" with{modal_id: 'nav-search', modal_class: 'nav-search ep-modal-search', modal_header_class: 'd-none d-md-block', modal_body_class: 'p-0 h-100', modal_width: 'docked-md-small', modal_transition: 'fade', modal_mobile_full_screen: true, modal_position_desktop: 'right' } %}
-        {% block modal_head %}
-            {% block page_header_text %}{{ "O que voce procura?" | translate }}{% endblock page_header_text %}
-        {% endblock %}
-        {% block modal_body %}
-            {% include "snipplets/header/header-search.tpl" with {search_modal: true} %}
-        {% endblock %}
-    {% endembed %}
-
+{# Languages modal #}
+{% if languages | length > 1 %}
+	{{ component(
+		'modal',{
+			modal_id: 'modal-languages',
+			data_component: 'modal-languages',
+			layout: {
+				width_mobile: 'small',
+				width_desktop: 'small',
+			},
+			content: {
+				title: 'Idiomas y monedas' | translate,
+				body: include('snipplets/navigation/navigation-languages.tpl'),
+			},
+			icons: {
+				close_icon_id: 'times',
+			},
+			modal_classes: {
+				close_icon: 'icon-inline',
+			}
+		})
+	}}
 {% endif %}
+{% if not store.is_catalog and settings.ajax_cart and template != 'cart' %} 
+	
+	{# Cart modal #}
 
-{% set modal_with_desktop_only_overlay_val = false %}
+	{{ component(
+		'modal',{
+			modal_id: 'modal-cart',
+			data_component: 'cart',
+			custom_data_attribute: 'cart-open-type',
+			custom_data_attribute_value: settings.cart_open_type,
+			form: true,
+			form_action: store.cart_url,
+			form_data_store: 'cart-form',
+			position: {
+				dock_desktop: true,
+				appear_from: 'right',
+			},
+			layout: {
+				width_desktop: 'small',
+			},
+			content: {
+				title: "Carrito de compras" | translate,
+				body: include('snipplets/cart/cart-panel.tpl'),
+			},
+			icons: {
+				close_icon_id: 'times',
+			},
+			modal_classes: {
+				modal: '',
+				close_icon: 'icon-inline icon-2x',
+			}
+		}) 
+	}}
 
-{# Modal Hamburger Menu #}
-{% embed "snipplets/modal.tpl" with{modal_id: 'nav-hamburger', modal_class: 'nav-hamburger ep-modal-menu pb-0', modal_position: 'left', modal_transition: 'slide', modal_width: 'drawer', modal_mobile_full_screen: false, modal_header_class: 'js-toggle-menu-close', modal_body_class: 'nav-body ep-nav-body', modal_footer_class: 'hamburger-footer ep-menu-footer mb-0 p-0', modal_header_title: false, modal_close_floating: true, modal_fixed_footer: true, modal_footer: true, desktop_overlay_only: modal_with_desktop_only_overlay_val} %}
-    {% block modal_body %}
-        {% if settings.search_type_mobile == 'hidden' %}
-            <div class="d-block d-md-none position-relative ep-menu-search">
-                {% include "snipplets/header/header-search.tpl" %}
-            </div>
-        {% endif %}
-        {% include "snipplets/navigation/navigation-panel.tpl" with {hamburger: true, primary_links: true} %}
-    {% endblock %}
-    {% block modal_foot %}
-        {% include "snipplets/navigation/navigation-panel.tpl" with {mobile: true} %}
-    {% endblock %}
-{% endembed %}
+	{% if settings.add_to_cart_recommendations %}
 
-{# Modal Cart #}
-{% if not store.is_catalog and settings.ajax_cart and template != 'cart' %}
+		{# Recommended products on add to cart #}
 
-    {# Cart Ajax #}
-    {% embed "snipplets/modal.tpl" with{
-        modal_id: 'modal-cart',
-        modal_class: 'cart ep-modal-cart',
-        modal_position: 'right',
-        modal_position_desktop: 'right',
-        modal_transition: 'slide',
-        modal_width: 'docked-md',
-        modal_form_action: store.cart_url,
-        modal_form_class: 'js-ajax-cart-panel h-100',
-        modal_body_class: 'h-100',
-        modal_mobile_full_screen: true,
-        modal_url: 'modal-fullscreen-cart',
-        modal_form_hook: 'cart-form',
-        data_component:'cart',
-        custom_data_attribute: 'cart-open-type',
-        custom_data_attribute_value: settings.cart_open_type,
-        desktop_overlay_only: modal_with_desktop_only_overlay_val
-    } %}
-        {% block modal_head %}
-            {% block page_header_text %}
-                <svg class="icon-inline mr-2"><use xlink:href="#bag"/></svg>
-                {{ "Carrinho de Compras" | translate }}
-            {% endblock page_header_text %}
-        {% endblock %}
-        {% block modal_body %}
-            {% snipplet "cart-panel.tpl" %}
-        {% endblock %}
-    {% endembed %}
+		{% set recommendations_content %}
+			
+			{# Product added info #}
 
-    {% if settings.add_to_cart_recommendations %}
+			{{ component(
+				'notification',{
+					type: 'add_to_cart',
+					related_products: true,
+					modal_dismiss_target: 'related-products-notification',
+					notification_classes: {
+						notification_cart_container: 'd-md-grid grid-1-auto',
+						notification: 'p-0 mb-3',
+						cart_item_image_container: 'mr-3',
+						cart_item_image: 'img-absolute-centered-vertically',
+						cart_item_name: 'mb-1',
+						cart_item: 'd-grid grid-auto-1',
+						cart_item_info_container: 'font-medium font-md-small',
+						cart_item_price_container: 'mb-1',
+						notification_cart_products_amount: 'pr-3',
+						notification_cart_totals_container: 'd-grid grid-1-auto mb-2 pb-1',
+						notification_cart_total: 'js-cart-widget-total',
+						notification_cart_button: 'js-open-cart-modal btn btn-primary btn-block',
+					}
+				}) 
+			}}
+			
+			{# Product added recommendations #}
 
-        {# Recommended products on add to cart #}
-        {% embed "snipplets/modal.tpl" with{modal_id: 'related-products-notification', modal_class: 'bottom modal-overflow-none modal-bottom-sheet h-auto ep-modal-related', modal_position: 'bottom', modal_transition: 'slide', modal_footer: false, modal_width: 'centered-md modal-centered-md-600px', modal_body_class: 'modal-scrollable'} %}
-            {% block modal_head %}
-                {% block page_header_text %}
-                    <svg class="icon-inline mr-2 text-accent"><use xlink:href="#check"/></svg>
-                    {{ 'Adicionado ao carrinho!' | translate }}
-                {% endblock page_header_text %}
-            {% endblock %}
-            {% block modal_body %}
+			<div class="js-related-products-notification-container" style="display: none"></div>
+		{% endset %}
 
-                {# Product added info #}
-                {% include "snipplets/notification-cart.tpl" with {related_products: true} %}
 
-                {# Product added recommendations #}
-                <div class="js-related-products-notification-container ep-related-container" style="display: none"></div>
+		{{ component(
+			'modal',{
+				modal_id: 'related-products-notification',
+				layout: {
+					width_desktop: '600px',
+				},
+				content: {
+					title: "¡Agregado al carrito!" | translate,
+					body: recommendations_content,
+				},
+				icons: {
+					close_icon_id: 'times',
+				},
+				modal_classes: {
+					modal: 'h-auto',
+					close_icon: 'icon-inline icon-2x',
+				}
+			}) 
+		}}
+	{% endif %}
 
-            {% endblock %}
-        {% endembed %}
-    {% endif %}
+	{# Cross selling promotion notification on add to cart #}
 
+	{{ component(
+		'modal',{
+			modal_id: 'js-cross-selling-modal',
+			position: {
+				appear_from: 'bottom',
+			},
+			content: {
+				title: '¡Descuento exclusivo!' | translate,
+				body: '<div class="js-cross-selling-modal-body" style="display: none"></div>'
+			},
+			icons: {
+				close_icon_id: 'times',
+			},
+			layout: {
+				width_desktop: 'small'
+			},
+			modal_classes: {
+				modal: 'modal-nav-main bottom modal-bottom-sheet h-auto overflow-none modal-body-scrollable-auto modal-max-98vh',
+				header: 'p-quarter full-width',
+				close_icon: 'icon-inline icon-lg',
+			}
+		}) 
+	}}
 {% endif %}

@@ -1,63 +1,66 @@
-<div id="shoppingCartPage" data-minimum="{{ settings.cart_minimum_value }}" data-store="cart-page">
-    {% embed "snipplets/page-header.tpl" with {'breadcrumbs': true} %}
+<div id="shoppingCartPage" data-minimum="{{ settings.cart_minimum_value }}" data-store="cart-page" class="container">
+    {% embed "snipplets/page-header.tpl" %}
         {% block page_header_text %}{{ "Carrito de compras" | translate }}{% endblock page_header_text %}
     {% endembed %}
     
-    <form action="{{ store.cart_url }}" method="post" class="visible-when-content-ready container mb-5" data-store="cart-form" data-component="cart">
+    <form action="{{ store.cart_url }}" method="post" class="visible-when-content-ready mb-5" data-store="cart-form" data-component="cart">
 
         {# Cart alerts #}
 
         {% if error.add %}
-            <div class="alert alert-warning">
-                {{ component('alert', {
-                    'type': 'warning',
-                    'message': 'our_components.cart.error_messages.' ~ error.add
-                }) }}
-            </div>
+            {{ component('alert', {
+                'type': 'warning',
+                'message': 'our_components.cart.error_messages.' ~ error.add
+            }) }}
         {% endif %}
         {% for error in error.update %}
             <div class="alert alert-warning">{{ "No podemos ofrecerte {1} unidades de {2}. Solamente tenemos {3} unidades." | translate(error.requested, error.item.name, error.stock) }}</div>
         {% endfor %}
         {% if cart.items %}
-
-            {# Cart header #}
+            <div class="cart-page-content">
+                <div class="cart-page-products">
+                    
+                    {# Cart table header #}
             
-            <div class="cart-row font-small mb-3 d-none d-md-block">
-                <div class="row no-gutters">
-                    <div class="cart-img-col-title">
-                        <span class="js-cart-products-heading-plural" {% if cart.items_count == 1 %}style="display: none;"{% endif %}>{{ 'Productos' | translate }}</span>
-                        <span class="js-cart-products-heading-singular" {% if cart.items_count > 1 %}style="display: none;"{% endif %}>{{ 'Producto' | translate }}</span>
-                    </div>
-                    <div class="col pl-3">
-                        <div class="row">
-                            <div class="col-7 offset-5 p-0 text-right">
-                                <div class="row">
-                                    <div class="col-3 text-center">{{ 'Cantidad' | translate }}</div>
-                                    <div class="col-4 p-0 text-center ">{{ 'Precio' | translate }}</div>
-                                    <div class="col-4 p-0 text-center">{{ 'Subtotal' | translate }}</div>
-                                </div>
-                            </div>
+                    <div class="cart-page-table-header pb-3 mb-3 font-medium bottom-line d-none d-md-grid">
+                        <div>{{ 'Productos' | translate }}</div>
+                        <div class="cart-page-table-header-totals">
+                            <div>{{ 'Cantidad' | translate }}</div>
+                            <div>{{ 'Precio' | translate }}</div>
+                            <div>{{ 'Subtotal' | translate }}</div>
                         </div>
                     </div>
-                    <div class="cart-delete-col-title"></div>
-                </div>
-            </div>
-            <div class="js-ajax-cart-list">
 
-                {# Cart items #}
+                    {# Cart table items #}
 
-                {% if cart.items %}
-                  {% for item in cart.items %}
-                    {% include "snipplets/cart-item-ajax.tpl" with {'cart_page': true} %}
-                  {% endfor %}
-                {% endif %}
-            </div>
-            <div class="row justify-content-between mt-4">
-                <div class="col-md-4">
-                    {% include "snipplets/shipping/cart-fulfillment.tpl" with {'cart_page': true} %}
+                    <div class="js-ajax-cart-list mb-4">
+                        {% if cart.items %}
+                          {% for item in cart.items %}
+                            {% include "snipplets/cart-item-ajax.tpl" with {'cart_page': true} %}
+                          {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="cart-page-fulfillment">
+
+                        {# Check if store has free shipping without regions or categories #}
+
+                        {% set has_free_shipping = cart.free_shipping.cart_has_free_shipping or cart.free_shipping.min_price_free_shipping.min_price %}
+                        {% set has_free_shipping_bar = has_free_shipping and cart.free_shipping.min_price_free_shipping.min_price_raw > 0 %}
+
+                        {% if has_free_shipping_bar %}
+                          {# includes free shipping progress bar: only if store has free shipping with a minimum #}
+                          <div class="mb-3 d-md-none">
+                            {% include "snipplets/shipping/shipping-free-rest.tpl" %}
+                          </div>
+                        {% endif %}
+                        
+                        {# Cart shipping and pickup #}
+
+                        {% include "snipplets/cart/cart-fulfillment.tpl" %}
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    {% include "snipplets/cart-totals.tpl" with {'cart_page': true} %}
+                <div class="cart-page-summary">
+                    {% include "snipplets/cart/cart-summary.tpl" with {cart_page: true} %}
                 </div>
             </div>
         {% else %}

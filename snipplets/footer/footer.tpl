@@ -1,17 +1,6 @@
 {# /*============================================================================
   El Pescador - Footer Profissional
-
-  PLANO DE MELHORIAS (10 etapas):
-  1. ✅ Adicionar seção de garantias/diferenciais
-  2. ✅ Melhorar estrutura visual em colunas
-  3. ✅ Adicionar badges de segurança
-  4. ✅ Melhorar apresentação de contatos
-  5. ✅ Adicionar horário de atendimento
-  6. ✅ Melhorar newsletter com benefício claro
-  7. ✅ Adicionar seção "Sobre a El Pescador"
-  8. ✅ Melhorar espaçamentos e cores
-  9. ✅ Adicionar selo de site seguro
-  10. ✅ Melhorar responsividade
+  Design: Preto + Ciano
 ==============================================================================*/ #}
 
 {% set has_social_network = store.facebook or store.twitter or store.pinterest or store.instagram or store.tiktok or store.youtube %}
@@ -27,53 +16,53 @@
 {% set has_seal_logos = store.afip or ebit or settings.custom_seal_code or ("seal_img.jpg" | has_custom_image) %}
 {% set show_help = not has_products and not has_social_network %}
 
-{# Barra de Diferenciais El Pescador #}
-<section class="ep-footer-trust py-4" data-store="footer-trust">
+{# Barra de Diferenciais - Verde Escuro #}
+<section class="ep-footer-trust py-4" data-store="footer-trust" style="background: #1D4E4F;">
 	<div class="container">
 		<div class="row justify-content-center text-center">
 			<div class="col-6 col-md-3 mb-3 mb-md-0">
 				<div class="ep-trust-item">
-					<svg class="icon-inline icon-2x mb-2 ep-trust-icon"><use xlink:href="#security"/></svg>
-					<div class="font-small font-weight-bold">{{ "Compra Segura" | translate }}</div>
-					<div class="font-smallest opacity-70">{{ "Site 100% protegido" | translate }}</div>
+					<svg class="icon-inline icon-2x mb-2" style="color: #00D4FF;"><use xlink:href="#security"/></svg>
+					<div class="font-small font-weight-bold" style="color: #fff;">{{ "Compra Segura" | translate }}</div>
+					<div class="font-smallest" style="color: rgba(255,255,255,0.7);">{{ "Site 100% protegido" | translate }}</div>
 				</div>
 			</div>
 			<div class="col-6 col-md-3 mb-3 mb-md-0">
 				<div class="ep-trust-item">
-					<svg class="icon-inline icon-2x mb-2 ep-trust-icon"><use xlink:href="#box-alt"/></svg>
-					<div class="font-small font-weight-bold">{{ "Envio Rapido" | translate }}</div>
-					<div class="font-smallest opacity-70">{{ "Para todo o Brasil" | translate }}</div>
+					<svg class="icon-inline icon-2x mb-2" style="color: #00D4FF;"><use xlink:href="#box-alt"/></svg>
+					<div class="font-small font-weight-bold" style="color: #fff;">{{ "Envio Rapido" | translate }}</div>
+					<div class="font-smallest" style="color: rgba(255,255,255,0.7);">{{ "Para todo o Brasil" | translate }}</div>
 				</div>
 			</div>
 			<div class="col-6 col-md-3 mb-3 mb-md-0">
 				<div class="ep-trust-item">
-					<svg class="icon-inline icon-2x mb-2 ep-trust-icon"><use xlink:href="#returns"/></svg>
-					<div class="font-small font-weight-bold">{{ "Troca Garantida" | translate }}</div>
-					<div class="font-smallest opacity-70">{{ "Ate 7 dias" | translate }}</div>
+					<svg class="icon-inline icon-2x mb-2" style="color: #00D4FF;"><use xlink:href="#returns"/></svg>
+					<div class="font-small font-weight-bold" style="color: #fff;">{{ "Troca Garantida" | translate }}</div>
+					<div class="font-smallest" style="color: rgba(255,255,255,0.7);">{{ "Ate 7 dias" | translate }}</div>
 				</div>
 			</div>
 			<div class="col-6 col-md-3">
 				<div class="ep-trust-item">
-					<svg class="icon-inline icon-2x mb-2 ep-trust-icon"><use xlink:href="#whatsapp-line"/></svg>
-					<div class="font-small font-weight-bold">{{ "Atendimento" | translate }}</div>
-					<div class="font-smallest opacity-70">{{ "Seg-Sex 9h as 18h" | translate }}</div>
+					<svg class="icon-inline icon-2x mb-2" style="color: #00D4FF;"><use xlink:href="#whatsapp-line"/></svg>
+					<div class="font-small font-weight-bold" style="color: #fff;">{{ "Atendimento" | translate }}</div>
+					<div class="font-smallest" style="color: rgba(255,255,255,0.7);">{{ "Seg-Sex 9h as 18h" | translate }}</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<footer class="js-footer js-hide-footer-while-scrolling display-when-content-ready overflow-none ep-footer {% if settings.footer_colors %}footer-colors{% endif %}" data-store="footer">
+<footer class="js-footer js-hide-footer-while-scrolling display-when-content-ready overflow-none ep-footer {% if settings.footer_colors %}footer-colors{% endif %}" data-store="footer" style="background: #000;">
 	<div class="container py-5">
 		<div class="row">
 			{# Coluna 1: Logo e Sobre #}
 			<div class="col-12 col-md-4 mb-4 mb-md-0 text-center text-md-left">
 				{% if has_footer_logo and template != 'password' %}
 					<div class="mb-3">
-						<img src="{{ 'images/empty-placeholder.png' | static_url }}" data-src="{{ 'footer_logo.jpg' | static_url('large') }}" alt="{{ store.name }}" title="{{ store.name }}" class="footer-logo-img lazyload">
+						<img src="{{ 'images/empty-placeholder.png' | static_url }}" data-src="{{ 'footer_logo.jpg' | static_url('large') }}" alt="{{ store.name }}" title="{{ store.name }}" class="footer-logo-img lazyload" style="max-width: 120px; border-radius: 50%; border: 2px solid #00D4FF;">
 					</div>
 				{% endif %}
-				<p class="ep-footer-about font-small opacity-80 mb-3">
+				<p class="font-small mb-3" style="color: rgba(255,255,255,0.8);">
 					{{ "Especialistas em equipamentos de pesca desde 2010. Qualidade e confianca para sua melhor experiencia." | translate }}
 				</p>
 				{% if has_social_network %}
@@ -87,7 +76,7 @@
 			<div class="col-6 col-md-2 mb-4 mb-md-0">
 				{% if template != 'password' %}
 					{% if has_footer_menu %}
-						<h4 class="ep-footer-title h6 mb-3 font-weight-bold">{{ "Links Uteis" | translate }}</h4>
+						<h4 class="h6 mb-3 font-weight-bold" style="color: #00D4FF; font-family: 'Oswald', sans-serif; text-transform: uppercase;">{{ "Links Uteis" | translate }}</h4>
 						<div class="ep-footer-links">
 							{% include "snipplets/navigation/navigation-foot.tpl" %}
 						</div>
@@ -98,7 +87,7 @@
 			{# Coluna 3: Contato #}
 			<div class="col-6 col-md-3 mb-4 mb-md-0">
 				{% if has_footer_contact_info %}
-					<h4 class="ep-footer-title h6 mb-3 font-weight-bold">{{ "Contato" | translate }}</h4>
+					<h4 class="h6 mb-3 font-weight-bold" style="color: #00D4FF; font-family: 'Oswald', sans-serif; text-transform: uppercase;">{{ "Contato" | translate }}</h4>
 					<div class="ep-footer-contact">
 						{% include "snipplets/contact-links.tpl" with {footer: true, with_icons: true} %}
 					</div>
@@ -109,8 +98,8 @@
 			<div class="col-12 col-md-3">
 				{% if template != 'password' %}
 					{% if settings.news_show %}
-						<h4 class="ep-footer-title h6 mb-3 font-weight-bold">{{ "Ofertas Exclusivas" | translate }}</h4>
-						<p class="font-small opacity-80 mb-2">{{ "Cadastre-se e receba promocoes especiais!" | translate }}</p>
+						<h4 class="h6 mb-3 font-weight-bold" style="color: #00D4FF; font-family: 'Oswald', sans-serif; text-transform: uppercase;">{{ "Ofertas Exclusivas" | translate }}</h4>
+						<p class="font-small mb-2" style="color: rgba(255,255,255,0.8);">{{ "Cadastre-se e receba promocoes especiais!" | translate }}</p>
 						<div class="ep-newsletter">
 							{% include 'snipplets/newsletter.tpl' %}
 						</div>
@@ -120,7 +109,7 @@
 		</div>
 
 		{# Separador #}
-		<hr class="ep-footer-divider my-4 opacity-20">
+		<hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
 
 		{# Logos de Pagamento e Envio #}
 		{% if template != 'password' %}
@@ -128,7 +117,7 @@
 				<div class="row mb-4 text-center">
 					{% if has_payment_logos %}
 						<div class="col-12 col-md-6 mb-3 mb-md-0">
-							<h5 class="font-small font-weight-bold mb-2">{{ "Formas de Pagamento" | translate }}</h5>
+							<h5 class="font-small font-weight-bold mb-2" style="color: #fff;">{{ "Formas de Pagamento" | translate }}</h5>
 							<div class="footer-payments-shipping-logos d-inline-block align-middle">
 								{{ component('payment-shipping-logos', {'type' : 'payments'}) }}
 							</div>
@@ -137,7 +126,7 @@
 
 					{% if has_shipping_logos %}
 						<div class="col-12 col-md-6">
-							<h5 class="font-small font-weight-bold mb-2">{{ "Envio por" | translate }}</h5>
+							<h5 class="font-small font-weight-bold mb-2" style="color: #fff;">{{ "Envio por" | translate }}</h5>
 							<div class="footer-payments-shipping-logos d-inline-block align-middle">
 								{{ component('payment-shipping-logos', {'type' : 'shipping'}) }}
 							</div>
@@ -149,7 +138,7 @@
 			{# Language selector #}
 			{% if has_languages %}
 				<div class="text-center mb-3">
-					<a href="#" data-toggle="#languages" class="js-modal-open btn-link font-small">{{ "Idiomas y monedas" | translate }}</a>
+					<a href="#" data-toggle="#languages" class="js-modal-open btn-link font-small" style="color: #00D4FF;">{{ "Idiomas y monedas" | translate }}</a>
 					{% embed "snipplets/modal.tpl" with{modal_id: 'languages', modal_class: 'bottom modal-centered-small', modal_position: 'center', modal_transition: 'slide', modal_header_title: true, modal_footer: false, modal_width: 'centered', modal_zindex_top: true} %}
 						{% block modal_head %}
 							{{ 'Idiomas y monedas' | translate }}
@@ -201,27 +190,15 @@
 		{% endif %}
 
 		{# Copyright e Creditos #}
-		<div class="ep-footer-bottom text-center pt-3">
+		<div class="ep-footer-bottom text-center pt-3" style="border-top: 1px solid rgba(255,255,255,0.1);">
 			<div class="mb-2">
-				{#
-				La leyenda que aparece debajo de esta linea de código debe mantenerse
-				con las mismas palabras y con su apropiado link a Tienda Nube;
-				como especifican nuestros términos de uso: http://www.tiendanube.com/terminos-de-uso .
-				Si quieres puedes modificar el estilo y posición de la leyenda para que se adapte a
-				tu sitio. Pero debe mantenerse visible para los visitantes y con el link funcional.
-				Os créditos que aparece debaixo da linha de código deverá ser mantida com as mesmas
-				palavras e com seu link para Nuvem Shop; como especificam nossos Termos de Uso:
-				http://www.nuvemshop.com.br/termos-de-uso. Se você quiser poderá alterar o estilo
-				e a posição dos créditos para que ele se adque ao seu site. Porém você precisa
-				manter visivél e com um link funcionando.
-				#}
 				{{ new_powered_by_link }}
 			</div>
-			<div class="d-inline-block mr-md-2 font-smallest opacity-70">
+			<div class="d-inline-block mr-md-2 font-smallest" style="color: rgba(255,255,255,0.7);">
 				{{ "Copyright {1} - {2}. Todos los derechos reservados." | translate( (store.business_name ? store.business_name : store.name) ~ (store.business_id ? ' - ' ~ store.business_id : ''), "now" | date('Y') ) }}
 			</div>
 			{{ component('claim-info', {
-					container_classes: "d-md-inline-block mt-md-0 mt-3 font-smallest opacity-70",
+					container_classes: "d-md-inline-block mt-md-0 mt-3 font-smallest",
 					divider_classes: "mx-1 d-none d-md-inline-block",
 					text_classes: {text_consumer_defense: 'd-inline-block mb-2'},
 					link_classes: {

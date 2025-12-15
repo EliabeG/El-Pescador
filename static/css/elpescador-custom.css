@@ -1,23 +1,36 @@
 /* ============================================
    EL PESCADOR - CSS CUSTOMIZADO
-   Nova Identidade: Navy Blue + Laranja + Branco
+   Loja de Artigos de Pesca Profissional
+
+   Paleta Alternativa: Navy Blue + Laranja + Branco
+   Uso: Componentes personalizados e seções especiais
+
+   Nota: Para cores principais do tema, usar style-tokens.tpl
    ============================================ */
 
 :root {
+    /* Cores principais - El Pescador */
     --ep-navy: #1B3A57;
     --ep-navy-dark: #152D45;
     --ep-orange: #E67E22;
     --ep-orange-dark: #D35400;
+
+    /* Cores neutras */
     --ep-gray-light: #F5F7FA;
     --ep-gray: #95A5A6;
     --ep-text: #2C3E50;
     --ep-white: #FFFFFF;
     --ep-border: #E8E8E8;
+
+    /* Cor de destaque */
     --ep-gold: #F39C12;
+
+    /* Transições e animações */
+    --ep-transition: 0.3s ease;
 }
 
 /* ============================================
-   CONTAINER
+   CONTAINER - Layout principal
 ============================================ */
 
 .ep-container {
@@ -27,7 +40,28 @@
 }
 
 /* ============================================
-   HERO SECTION - Design Limpo
+   ACESSIBILIDADE - Foco e navegação
+============================================ */
+
+.ep-btn:focus,
+.ep-product-btn:focus,
+.ep-category-card:focus {
+    outline: 2px solid var(--ep-orange);
+    outline-offset: 2px;
+}
+
+/* Redução de movimento para acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .ep-btn,
+    .ep-category-card,
+    .ep-product-card {
+        transition: none;
+    }
+}
+
+/* ============================================
+   HERO SECTION - Banner principal
+   Design limpo e impactante para pesca
 ============================================ */
 
 .ep-hero {
@@ -97,7 +131,8 @@
 }
 
 /* ============================================
-   BOTOES - El Pescador
+   BOTÕES - El Pescador
+   Estilo consistente para ações principais
 ============================================ */
 
 .ep-btn {
@@ -137,7 +172,8 @@
 }
 
 /* ============================================
-   SECAO DE CATEGORIAS
+   SEÇÃO DE CATEGORIAS
+   Grid de categorias de produtos de pesca
 ============================================ */
 
 .ep-categories {
@@ -234,7 +270,8 @@
 }
 
 /* ============================================
-   PRODUTOS
+   PRODUTOS - Cards de produto
+   Exibição de artigos de pesca
 ============================================ */
 
 .ep-products {
@@ -375,7 +412,8 @@
 }
 
 /* ============================================
-   MARCAS
+   MARCAS - Parceiros e fabricantes
+   Logos de marcas de equipamentos de pesca
 ============================================ */
 
 .ep-brands {
@@ -421,7 +459,8 @@
 }
 
 /* ============================================
-   RESPONSIVO
+   RESPONSIVO - Media Queries
+   Adaptação para diferentes dispositivos
 ============================================ */
 
 @media (max-width: 1024px) {

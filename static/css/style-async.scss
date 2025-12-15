@@ -1,63 +1,64 @@
 /*============================================================================
-style-async.scss
+style-async.scss - El Pescador
 
-    -This file contains all the theme non critical styles wich will be loaded asynchronously
-    -Rest of styling can be found in:
-        -static/css/style-colors.scss --> For color and font styles related to config/settings.txt
-        -static/css/style-critical.scss --> For critical CSS rendered inline before the rest of the site
+    -Este arquivo contém todos os estilos não críticos do tema que serão
+     carregados de forma assíncrona para melhor performance
+    -O restante dos estilos pode ser encontrado em:
+        -static/css/style-colors.scss --> Estilos de cores e fontes baseados em config/settings.txt
+        -static/css/style-critical.scss --> CSS crítico renderizado inline antes do resto do site
 
 ==============================================================================*/
 
 /*============================================================================
-  Table of Contents
+  Índice de Conteúdos - El Pescador
 
-  #Components
-    // Margin and Padding
-    // Mixins and variables
-    // Animations
-    // Buttons
+  #Componentes
+    // Margens e Espaçamentos
+    // Mixins e variáveis
+    // Animações
+    // Botões
     // Chips
-    // Forms
-    // Alerts and notifications
-    // Progress bar
-    // Modals
-    // Tabs
+    // Formulários
+    // Alertas e notificações
+    // Barra de progresso
+    // Modais
+    // Abas
     // Cards
     // Captcha
-  #Header and nav
-    // Header
-    // Nav
-    // Utilities
-    // Search
-  #Footer
-    // Nav
-    // Social
-    // Legal
-  #Home page
-    // Instafeed
+  #Cabeçalho e navegação
+    // Cabeçalho
+    // Navegação
+    // Utilitários
+    // Busca
+  #Rodapé
+    // Navegação
+    // Redes sociais
+    // Informações legais
+  #Página inicial
+    // Feed do Instagram
     // Banners
-    // Brands
-    // Informative banners
+    // Marcas
+    // Banners informativos
     // Newsletter
     // Placeholder
-  #Product grid
-    // Filters
-  #Product detail
-  	// Image
-  	// Form and info
-  #Cart detail
-    // Table
-    // Totals
-  #Contact page
+  #Grade de produtos
+    // Filtros
+  #Detalhes do produto
+    // Imagem
+    // Formulário e informações
+  #Detalhes do carrinho
+    // Tabela
+    // Totais
+  #Página de contato
   #Media queries
-    // Min width 768px
-    //// Components
-    //// Footer
-  #Critical path utilities
+    // Largura mínima 768px
+    //// Componentes
+    //// Rodapé
+  #Utilitários de caminho crítico
 
 ==============================================================================*/
 
-/* // Margin and Padding */
+/* // Margens e Espaçamentos */
 
 %section-margin {
   margin-bottom: 40px;
@@ -72,9 +73,9 @@ style-async.scss
   margin-top: -70px;
 }
 
-/* // Mixins and variables */
+/* // Mixins e variáveis */
 
-/* This mixin adds browser prefixes to a CSS property */
+/* Mixin para adicionar prefixos de navegador a propriedades CSS */
 
 @mixin prefix($property, $value, $prefixes: ()) {
   @each $prefix in $prefixes {
@@ -102,7 +103,7 @@ style-async.scss
   border-radius: 10px;
 }
 
-/* // Animations */
+/* // Animações - Transições e efeitos */
 
 .transition-soft {
   @include prefix(transition, all 0.3s ease, webkit ms moz o);
@@ -132,7 +133,7 @@ style-async.scss
   }
 }
 
-/* // Buttons */
+/* // Botões - Estilos de transição */
 
 .btn-transition {
   position: relative;
@@ -153,7 +154,7 @@ style-async.scss
   }
 }
 
-/* // Chips */
+/* // Chips - Etiquetas de filtro */
 
 .chip {
   position: relative;
@@ -181,7 +182,7 @@ style-async.scss
   }
 }
 
-/* // Forms */
+/* // Formulários - Campos e inputs */
 
 .form-group .form-label{
   float: left;
@@ -278,7 +279,7 @@ button{
   padding: 0;
 }
 
-/* // Alerts and notifications */
+/* // Alertas e notificações */
 
 .alert {
   clear: both;
@@ -337,7 +338,7 @@ button{
   cursor: pointer;
 }
 
-/* // Progress bar */
+/* // Barra de progresso */
 
 .bar-progress {
   position: relative;
@@ -390,7 +391,7 @@ button{
   }
 }
 
-/* // Modals */
+/* // Modais - Janelas de diálogo */
 
 .modal {
   position: fixed;
@@ -594,7 +595,7 @@ button{
   }
 }
 
-/* // Tabs */
+/* // Abas - Navegação por tabs */
 
 
 .tab-group{
@@ -620,7 +621,7 @@ button{
   display: block;
 }
 
-/* // Cards */
+/* // Cards - Cartões de conteúdo */
 
 .card {
 	position: relative;
@@ -672,7 +673,7 @@ button{
 	padding: 15px;
 }
 
-/* // Captcha */
+/* // Captcha - Verificação de segurança */
 
 .g-recaptcha > div {
   margin: 20px auto;
@@ -686,7 +687,7 @@ button{
   #Header and nav
 ==============================================================================*/
 
-/* // Header */
+/* // Cabeçalho - Header do site */
 
 
 .head-main {
@@ -707,7 +708,7 @@ button{
   margin-left: -20%;
 }
 
-/* // Nav */
+/* // Navegação - Menu principal */
 
 .modal-full-width {
   width: 100%;
@@ -875,7 +876,7 @@ button{
   transition-delay: 0s;
 }
 
-/* // Search */
+/* // Busca - Campo de pesquisa */
 
 .modal-nav-search {
   .search-container {
@@ -992,7 +993,7 @@ footer {
   }
 }
 
-/* // Nav */
+/* // Navegação - Menu principal */
 
 .footer-menu {
   &-item{
@@ -1008,7 +1009,7 @@ footer {
   max-height: 40px;
 }
 
-/* // Social */
+/* // Redes sociais - Ícones e links */
 
 .social-icon {
   display: inline-block;
@@ -1021,7 +1022,7 @@ footer {
   opacity: .8;
 }
 
-/* // Legal */
+/* // Informações legais - Copyright e políticas */
 
 .footer-payments-shipping-logos img {
   width: auto;
@@ -1059,7 +1060,7 @@ footer {
   #Home Page
 ==============================================================================*/
 
-/* // Instafeed */
+/* // Feed do Instagram - Integração social */
 
 .instafeed-link {
   position: relative;
@@ -1102,7 +1103,7 @@ footer {
 }
 
 
-/* // Banners */
+/* // Banners - Destaques e promoções */
 
 .textbanner {
   .textbanner-image-effect,
@@ -1123,7 +1124,7 @@ footer {
   @include prefix(transition, all 0.3s ease, webkit ms moz o);
 }
 
-/* // Brands */
+/* // Marcas - Logos de parceiros */
 
 .section-brands-home,
 .section-categories-home,
@@ -1142,7 +1143,7 @@ footer {
   }
 }
 
-/* // Testimonials */
+/* // Depoimentos - Avaliações de clientes */
 
 .section-testimonials-home {
   padding: 20px 0;
@@ -1171,7 +1172,7 @@ footer {
 }
 
 
-/* // Informative banners */
+/* // Banners informativos - Serviços e diferenciais */
 
 .section-informative-banners {
   padding: 40px 0;
@@ -1184,7 +1185,7 @@ footer {
   vertical-align: top;
 }
 
-/* // Newsletter */
+/* // Newsletter - Cadastro de e-mail */
 
 .section-newsletter-home .newsletter {
   display: block;
@@ -1221,7 +1222,7 @@ footer {
   margin-top: -7px;
 }
 
-/* // Placeholder */
+/* // Placeholder - Estados de carregamento */
 
 .placeholder-overlay {
     position: absolute;
@@ -1255,7 +1256,7 @@ footer {
   #Product Grid
 ==============================================================================*/
 
-/* // Filters */
+/* // Filtros - Refinamento de busca */
 
 .filters-overlay {
   position: fixed;
@@ -1331,7 +1332,7 @@ footer {
   margin-top: 15px;
 }
 
-/* // Image */
+/* // Imagem - Galeria de produto */
 
 .fancybox__container .has-inline .fancybox__content {
   width: 100%;
@@ -1470,7 +1471,7 @@ footer {
 }
 
 
-/* // Totals */
+/* // Totais - Resumo do carrinho */
 
 .cart-subtotal{
   float: right;
@@ -1521,7 +1522,7 @@ footer {
   #Media queries
 ==============================================================================*/
 
-/* // Min width 768px */
+/* // Largura mínima 768px - Tablets e desktops */
 
 @media (min-width: 768px) { 
 
@@ -1806,7 +1807,7 @@ footer {
   }
 }
 
-/* // Max width 767px */
+/* // Largura máxima 767px - Dispositivos móveis */
 
 @media (max-width: 767px) {
   .product-image-limited {

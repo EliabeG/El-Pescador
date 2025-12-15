@@ -1,63 +1,64 @@
 {#/*============================================================================
-    #Specific store JS functions: product variants, cart, shipping, etc
+    #Funções JS específicas da loja - El Pescador
+    Variantes de produto, carrinho, frete, etc
 ==============================================================================*/#}
 
 {#/*============================================================================
 
-	Table of Contents
+	Índice de Conteúdos - El Pescador
 
-	#Lazy load
-	#Notifications and tooltips
-	#Modals
-	#Cards
-	#Accordions
-	#Header and nav
-		// Header
-		// Nav
-	#Sliders
-		// Home slider
-		// Products slider
-		// Main categories
-		// Brands slider
-		// Product related
-		// Banner services slider
+	#Lazy load - Carregamento preguiçoso de imagens
+	#Notificações e tooltips
+	#Modais - Janelas de diálogo
+	#Cards - Cartões de conteúdo
+	#Acordeões - Seções expansíveis
+	#Cabeçalho e navegação
+		// Cabeçalho
+		// Navegação
+	#Sliders - Carrosséis
+		// Slider da home
+		// Slider de produtos
+		// Categorias principais
+		// Slider de marcas
+		// Produtos relacionados
+		// Slider de serviços
 	#Social
-		// Youtube video
-	#Product grid
-		// Fixed category controls
-		// Filters
-		// Product item slider
-		// Infinite scroll
+		// Vídeo do Youtube
+	#Grade de produtos
+		// Controles fixos de categoria
+		// Filtros
+		// Slider de itens de produto
+		// Rolagem infinita
 		// Quickshop
-	#Product detail functions
-		// Installments
-		// Change Variant
-		// Submit to contact form
-		// Product labels on variant change
-		// Color and size variants change
-		// Custom mobile variants change
-		// Submit to contact
-		// Product slider
-		// Pinterest sharing
-		// Add to cart
-		// Product quantity
-	#Cart
-		// Toggle cart 
-		// Add to cart
-		// Cart quantitiy changes
-		// Empty cart alert
-	#Shipping calculator
-		// Select and save shipping function
-		// Calculate shipping function
-		// Calculate shipping by submit
-		// Shipping and branch click
-		// Select shipping first option on results
-		// Toggle more shipping options
-		// Calculate shipping on page load
-		// Shipping provinces
-		// Change store country
-	#Forms
-	#Footer
+	#Funções de detalhes do produto
+		// Parcelamento
+		// Mudança de variante
+		// Enviar para formulário de contato
+		// Etiquetas de produto na mudança de variante
+		// Mudança de variantes de cor e tamanho
+		// Mudança de variantes customizadas mobile
+		// Enviar para contato
+		// Slider de produto
+		// Compartilhamento no Pinterest
+		// Adicionar ao carrinho
+		// Quantidade do produto
+	#Carrinho
+		// Alternar carrinho
+		// Adicionar ao carrinho
+		// Mudanças de quantidade no carrinho
+		// Alerta de carrinho vazio
+	#Calculadora de frete
+		// Selecionar e salvar função de frete
+		// Função de cálculo de frete
+		// Calcular frete ao enviar
+		// Clique em frete e filial
+		// Selecionar primeira opção de frete nos resultados
+		// Alternar mais opções de frete
+		// Calcular frete ao carregar página
+		// Províncias de frete
+		// Mudar país da loja
+	#Formulários
+	#Rodapé
 	#Empty placeholders
 
 ==============================================================================*/#}

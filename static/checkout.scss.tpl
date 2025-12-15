@@ -1,21 +1,22 @@
 {% if store.allows_checkout_styling %}
 
 {#/*============================================================================
-checkout.scss.tpl
+checkout.scss.tpl - El Pescador
 
-    -This file contains all the theme styles related to the checkout based on settings defined by user from config/settings.txt
-    -Rest of styling can be found in:
-        -static/css/style-colors.scss --> For color and font styles related to config/settings.txt
-        -static/css/style-async.scss --> For non critical styles witch will be loaded asynchronously
-        -static/css/style-critical.scss --> For critical CSS rendered inline before the rest of the site
+    -Este arquivo contém todos os estilos do tema relacionados ao checkout
+     baseados nas configurações definidas pelo usuário em config/settings.txt
+    -O restante dos estilos pode ser encontrado em:
+        -static/css/style-colors.scss --> Estilos de cores e fontes relacionados ao config/settings.txt
+        -static/css/style-async.scss --> Estilos não críticos carregados de forma assíncrona
+        -static/css/style-critical.scss --> CSS crítico renderizado inline antes do resto do site
 
 ==============================================================================*/#}
 
 {#/*============================================================================
-  Global
+  Global - Configurações Globais
 ==============================================================================*/#}
 
-{# /* // Colors */ #}
+{# /* // Cores - El Pescador */ #}
 
 $accent-brand-color: {{ settings.accent_color | default('rgb(77, 190, 207)' | raw ) }};
 $foreground-color: {{ settings.text_color | default('rgb(102, 102, 102)' | raw ) }};
@@ -35,19 +36,19 @@ $button-foreground: {{ settings.button_foreground_color }};
 $label-background: {{ settings.label_background_color }};
 $label-foreground: {{ settings.label_foreground_color }};
 
-{# /* // Font */ #}
+{# /* // Tipografia - Fontes */ #}
 
 $heading-font: {{ settings.font_headings | default('Golos Text') | raw }};
 $body-font: {{ settings.font_rest | default('Golos Text') | raw }};
 
-{# /* // Box */ #}
+{# /* // Caixas e Containers */ #}
 $box-border-color: rgba($foreground-color, .5);
 $box-radius: 0;
 
 $box-background: lighten($background-color, 10%);
 $box-shadow: 0 0 5px rgba($foreground-color,.2);
 
-{# /* // Functions */ #}
+{# /* // Funções SCSS */ #}
 
 @function set-background-color($background-color) {
   @if lightness($background-color) > 95% {
@@ -65,7 +66,7 @@ $box-shadow: 0 0 5px rgba($foreground-color,.2);
   }
 }
 
-{# /* // Mixins */ #}
+{# /* // Mixins - Prefixos de navegadores */ #}
 
 @mixin prefix($property, $value, $prefixes: ()) {
 	@each $prefix in $prefixes {
@@ -75,10 +76,10 @@ $box-shadow: 0 0 5px rgba($foreground-color,.2);
 }
 
 {#/*============================================================================
-  React
+  React - Estilos do Checkout React
 ==============================================================================*/#}
 
-{# /* // Box */ #}
+{# /* // Caixa - Configuração de sombra e fundo */ #}
 
 $box-background: lighten($background-color, 10%);
 $box-text-shadow: null;
@@ -97,16 +98,16 @@ $lg: 992px;
 $xl: 1200px;
 
 {#/*============================================================================
-  # Checkout tokens
+  # Tokens do Checkout - Variáveis CSS
 ==============================================================================*/#}
 :root {
-  {#### Color tokens #}
+  {#### Tokens de cores - El Pescador #}
 
   {% set accent_color = settings.accent_color %}
   {% set main_foreground = settings.text_color %}
   {% set main_background = settings.background_color %}
 
-  {# Auxiliar opacity hex levels #}
+  {# Níveis de opacidade em hexadecimal #}
   {% set opacity_05 = '0D' %}
   {% set opacity_10 = '1A' %}
   {% set opacity_20 = '33' %}
@@ -115,7 +116,7 @@ $xl: 1200px;
   {% set opacity_60 = '99' %}
   {% set opacity_80 = 'CC' %}
 
-  {# Accent color #}
+  {# Cor de destaque - El Pescador #}
   --accent-color: {{ accent_color }};
   --accent-color-opacity-05: {{ accent_color }}{{ opacity_05 }};
   --accent-color-opacity-10: {{ accent_color }}{{ opacity_10 }};
@@ -125,7 +126,7 @@ $xl: 1200px;
   --accent-color-opacity-60: {{ accent_color }}{{ opacity_60 }};
   --accent-color-opacity-80: {{ accent_color }}{{ opacity_80 }};
 
-  {# Foreground color #}
+  {# Cor do texto principal #}
   --main-foreground: {{ main_foreground }};
   --main-foreground-opacity-05: {{ main_foreground }}{{ opacity_05 }};
   --main-foreground-opacity-10: {{ main_foreground }}{{ opacity_10 }};
@@ -135,7 +136,7 @@ $xl: 1200px;
   --main-foreground-opacity-60: {{ main_foreground }}{{ opacity_60 }};
   --main-foreground-opacity-80: {{ main_foreground }}{{ opacity_80 }};
 
-  {# Background color #}
+  {# Cor de fundo principal #}
   --main-background: {{ main_background }};
   --main-background-opacity-05: {{ main_background }}{{ opacity_05 }};
   --main-background-opacity-10: {{ main_background }}{{ opacity_10 }};
@@ -145,42 +146,42 @@ $xl: 1200px;
   --main-background-opacity-60: {{ main_background }}{{ opacity_60 }};
   --main-background-opacity-80: {{ main_background }}{{ opacity_80 }};
 
-  {#### Component tokens #}
+  {#### Tokens de componentes - El Pescador #}
 
-  {# General #}
+  {# Geral - Bordas e raios #}
   --border-radius: 0;
   --box-border-radius: var(--border-radius);
   --border-color: var(--main-foreground-opacity-50);
 
-  {# Buttons #}
+  {# Botões - Cores e estilos #}
   --button-foreground: {{ settings.button_foreground_color }};
   --button-background: {{ settings.button_background_color }};
   --button-border-color: {{ settings.button_background_color }};
   --button-border-radius: var(--border-radius);
 
-  {# Labels #}
+  {# Etiquetas - Promoções e destaques #}
   --label-foreground: {{ settings.label_foreground_color }};
   --label-background: {{ settings.label_background_color }};
 
-  {# Header #}
+  {# Cabeçalho do checkout #}
   --header-foreground: {{ settings.header_colors ? settings.header_foreground_color : 'var(--main-foreground)' }};
   --header-background: {{ settings.header_colors ? settings.header_background_color : 'var(--main-background)' }};
   --header-logo-max-width: 100%;
   --header-logo-max-height: 40px;
 
-  {# Footer #}
+  {# Rodapé do checkout #}
   --footer-foreground: {{ settings.footer_colors ? settings.footer_foreground_color : 'var(--main-foreground)' }};
   --footer-background: {{ settings.footer_colors ? settings.footer_background_color : 'var(--main-background)' }};
 
-  {#### Typography #}
+  {#### Tipografia - El Pescador #}
 
-  {# Headings #}
+  {# Títulos e cabeçalhos #}
   --heading-font: {{ settings.font_headings | default('Golos Text') | raw }};
   --heading-font-weight: 400;
   --heading-text-transform: uppercase;
   --heading-letter-spacing: normal;
 
-  {# Header #}
+  {# Logo no cabeçalho #}
   --header-logo-font: var(--heading-font);
   --header-logo-font-size: 20px;
   --header-logo-font-weight: 700;
@@ -210,7 +211,7 @@ a {
   }
 }
 
-{# /* // Text */ #}
+{# /* // Texto - Títulos e parágrafos */ #}
 
 .title {
   color: $foreground-color;
@@ -225,9 +226,9 @@ a {
   font-size: 12px;
 }
 
-{# /* // Header */ #}
+{# /* // Cabeçalho - Header do checkout */ #}
 
-.header { 
+.header {
   background-color: lighten($background-color, 10%);
   border-color: $accent-brand-color;
 }
@@ -236,7 +237,7 @@ a {
   color: $header-foreground;
 }
 
-{# /* // Headbar */ #}
+{# /* // Barra do cabeçalho - Logo e navegação */ #}
 
 .headbar {
   padding: 8px 0;
@@ -310,7 +311,7 @@ a {
   }
 }
 
-{# /* // Form */ #}
+{# /* // Formulários - Campos e validação */ #}
 
 .form-group {
   margin-bottom: 15px;
@@ -380,7 +381,7 @@ a {
   fill: $foreground-color;
 }
 
-{# /* // Input */ #}
+{# /* // Campos de entrada - Inputs e labels flutuantes */ #}
 
 .has-float-label>span,
 .has-float-label label {
@@ -403,7 +404,7 @@ a {
   }
 }
 
-{# /* // Buttons */ #}
+{# /* // Botões - Estilos de botões do checkout */ #}
 
 .btn {
   border-radius: $box-radius;
@@ -501,7 +502,7 @@ a {
   text-align: left;
 }
 
-{# /* // Breadcrumb */ #}
+{# /* // Navegação estrutural - Breadcrumb */ #}
 
 .breadcrumb {
   max-width: 100%;
@@ -537,7 +538,7 @@ a {
   }
 }
 
-{# /* // Accordion */ #}
+{# /* // Acordeão - Seções expansíveis */ #}
 
 .accordion {
   color: $foreground-color;
@@ -555,7 +556,7 @@ a {
   fill: $foreground-color;
 }
 
-{# /* // Summary */ #}
+{# /* // Resumo do pedido - Summary */ #}
 
 .summary {
   top: 0;
@@ -620,7 +621,7 @@ a {
   padding: 0;
 }
 
-{# /* // Radio */ #}
+{# /* // Botões de rádio - Seleção de opções */ #}
 
 .radio-group {
 
@@ -705,7 +706,7 @@ a {
   }
 }
 
-{# /* // Panel */ #}
+{# /* // Painéis - Containers de conteúdo */ #}
 
 .panel {
   padding: 0;
@@ -773,7 +774,7 @@ a {
   }
 }
 
-{# /* // Table */ #}
+{# /* // Tabelas - Listagem de itens do pedido */ #}
 
 .table.table-scrollable {
   padding: 0;
@@ -806,7 +807,7 @@ a {
   border: 0;
 }
 
-{# /* // Shipping Options */ #}
+{# /* // Opções de frete - Seleção de entrega */ #}
 
 .shipping-options {
   color: lighten($foreground-color, 7%);
@@ -867,7 +868,7 @@ a {
   color: rgba($foreground-color, .6);
 }
 
-{# /* // Discount Coupon */ #}
+{# /* // Cupom de desconto - Campo de aplicação */ #}
 
 .box-discount-coupon {
   margin-top: 10px;
@@ -908,7 +909,7 @@ a {
 }
 
 
-{# /* // Support */ #}
+{# /* // Suporte - Informações de contato */ #}
 
 .support {
   margin: 0;
@@ -923,7 +924,7 @@ a {
   }
 }
 
-{# /* // User Detail */ #}
+{# /* // Detalhes do usuário - Informações do cliente */ #}
 
 .user-detail {
   margin: 0 !important;
@@ -948,7 +949,7 @@ a {
 }
   
 
-{# /* // History */ #}
+{# /* // Histórico - Rastreamento do pedido */ #}
 
 .history-item-done .history-item-title {
   color: $accent-brand-color;
@@ -976,7 +977,7 @@ a {
   border-color: $foreground-color;
 }
 
-{# /* // History Canceled */ #}
+{# /* // Pedido cancelado - Histórico de cancelamento */ #}
 
 .history-canceled {
   border-top-right-radius: $box-radius;
@@ -991,14 +992,14 @@ a {
   fill: darken($background-color, 45%);
 }
 
-{# /* // Offline Payment */ #}
+{# /* // Pagamento offline - Boleto e PIX */ #}
 
 .ticket-coupon {
   background: darken($background-color, 4%);
   border-color: $box-border-color;
 }
 
-{# /* // Buy fast */ #}
+{# /* // Compra rápida - Comprar sem registro */ #}
 .panel-buy-fast {
   color: $foreground-color;
   fill: $foreground-color;
@@ -1008,7 +1009,7 @@ a {
   box-shadow: none;
 }
 
-{# /* // Status, Destination & Sign Up */ #}
+{# /* // Status, Destino e Cadastro - Páginas de sucesso */ #}
 
 .success-order-id {
   padding-top: 52px;
@@ -1062,7 +1063,7 @@ a {
   right: 15px;
 }
 
-{# /* // Tracking */ #}
+{# /* // Rastreamento - Acompanhamento de entrega */ #}
 
 .history-item-progress {
   width: 70px;
@@ -1083,20 +1084,20 @@ a {
   color: $foreground-color;
 }
 
-{# /* // WhatsApp Opt-in */ #}
+{# /* // WhatsApp - Opt-in de notificações */ #}
 
-.whatsapp-form input, 
+.whatsapp-form input,
 .whatsapp-form .input-group-addon {
   border-color: $accent-brand-color;
 }
 
-{# /* // Helpers */ #}
+{# /* // Utilitários - Classes auxiliares */ #}
 
 .border-top {
   border-color: rgba($box-border-color, .4);
 }
 
-{# /* // Errors */ #}
+{# /* // Erros - Mensagens de erro e validação */ #}
 
 .alert-danger-bagged {
   margin-top: 5px;
@@ -1111,13 +1112,13 @@ a {
   border-color: lighten($base-red, 10%);
 }
 
-{# /* // Badge */ #}
+{# /* // Badge - Etiquetas de notificação */ #}
 
 .badge {
   border: 0;
 }
 
-{# /* // Payment */ #}
+{# /* // Pagamento - Opções e métodos de pagamento */ #}
 
 .payment-category-label {
   font-size: 8px;
@@ -1157,7 +1158,7 @@ a {
 }
 
 
-{# /* // Overlay */ #}
+{# /* // Overlay - Camadas de sobreposição */ #}
 
 .overlay {
   background: rgba(darken($background-color, 10%), 0.6);
@@ -1166,7 +1167,7 @@ a {
   color: rgba($foreground-color, .7);
 }
 
-{# /* // List Picker */ #}
+{# /* // Seletor de lista - Lista de opções clicáveis */ #}
 
 .list-picker .unchecked {
   fill: $foreground-color;
@@ -1194,7 +1195,7 @@ a {
   border-color: $box-border-color;
 }
 
-{# /* // Loading */ #}
+{# /* // Carregamento - Indicadores de loading */ #}
 
 .loading {
   background: rgba(darken($background-color, 2%), 0.5);
@@ -1210,7 +1211,7 @@ a {
   border-radius: $box-radius;
 }
 
-{# /* // Spinner */ #}
+{# /* // Spinner - Animação de carregamento */ #}
 
 .round-spinner {
   border-color: $accent-brand-color;
@@ -1231,7 +1232,7 @@ a {
   background: $button-foreground;
 }
 
-{# /* // Modal */ #}
+{# /* // Modal - Janelas de diálogo */ #}
 
 .modal-dialog,
 .modal .modal-dialog {
@@ -1244,13 +1245,13 @@ a {
   text-shadow: none;
 }
 
-{# /* // List */ #}
+{# /* // Lista - Itens de lista */ #}
 
 .list-group-item {
   border-color: rgba($foreground-color, .15);
 }
 
-{# /* // Announcement */ #}
+{# /* // Anúncios - Banners de aviso */ #}
 
 .announcement {
   color: darken($accent-brand-color, 10%);
@@ -1266,7 +1267,7 @@ a {
   }
 }
 
-{# /* // Alert */ #}
+{# /* // Alertas - Mensagens de feedback */ #}
 
 .alert {
   &-info {
@@ -1283,7 +1284,7 @@ a {
   }
 }
 
-{# /* // Chip */ #}
+{# /* // Chip - Etiquetas pequenas */ #}
 
 .chip {
   background-color: rgba($accent-brand-color, .15);
@@ -1291,7 +1292,7 @@ a {
   border-radius: 5px;
 }
 
-{# /* // Review Block Detailed  */ #}
+{# /* // Bloco de revisão detalhada - Resumo do pedido */ #}
 .price--display__free {
   color: $accent-brand-color;
 }
@@ -1312,13 +1313,13 @@ a {
   flex-basis: 30px;
 }
 
-{# /* // Tooltip */ #}
+{# /* // Tooltip - Dicas de contexto */ #}
 
 .tooltip-icon {
   fill: $foreground-color;
 }
 
-{# /* // Tabs */ #}
+{# /* // Abas - Navegação por tabs */ #}
 
 .tabs-wrapper {
   border-top-right-radius: $box-radius;
@@ -1337,10 +1338,10 @@ a {
 }
 
 {#/*============================================================================
-  #Media queries
+  #Media queries - Responsividade
 ==============================================================================*/ #}
 
-{# /* // Max width 576px */ #}
+{# /* // Largura máxima 576px - Dispositivos móveis */ #}
 
 @media (max-width: $sm) {
 
@@ -1361,7 +1362,7 @@ a {
         {% endif %}
       }
       &.text-right {
-        background: #aac67b;
+        background: $accent-brand-color;
         text-align: center !important;
       }
     }
@@ -1444,7 +1445,7 @@ a {
 
 }
 
-{# /* // Min width 768px */ #}
+{# /* // Largura mínima 768px - Tablets e desktops */ #}
 
 @media (min-width: $md) {
 
@@ -1458,7 +1459,7 @@ a {
 
 }
 
-{# /* // Max width 0px */ #}
+{# /* // Largura máxima 0px - Telas muito pequenas */ #}
 
 @media (max-width: $xs) {
 

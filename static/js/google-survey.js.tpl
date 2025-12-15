@@ -1,5 +1,7 @@
 {#/*============================================================================
-    #Google survey JS for Tienda Nube Survey
+    #Google Survey JS - El Pescador
+    Badge de avaliações do Google Merchant Center
+    Exibe selo de avaliações da loja (se configurado)
 ==============================================================================*/#}
 
 {% if store.google_merchant_id %}

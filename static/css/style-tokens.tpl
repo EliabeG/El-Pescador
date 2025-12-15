@@ -1,12 +1,12 @@
-{# /* Style tokens - El Pescador Theme */ #}
+{# /* Style tokens - El Pescador - Loja de Artigos de Pesca */ #}
 
 :root {
 
   {#/*============================================================================
-    #Colors - El Pescador (Direct CSS - No Template Variables)
+    #Cores - El Pescador (CSS Direto - Sem Variáveis de Template)
   ==============================================================================*/#}
 
-  /* Main colors - El Pescador */
+  /* Cores principais - El Pescador */
   --main-foreground: #1C2833;
   --main-background: #FFFFFF;
 
@@ -18,7 +18,7 @@
   --label-background: #E74C3C;
   --label-foreground: #FFFFFF;
 
-  /* Header/Footer/Navigation - El Pescador */
+  /* Cabeçalho/Rodapé/Navegação - El Pescador */
   --adbar-background: #000000;
   --adbar-foreground: #00D4FF;
 
@@ -35,7 +35,7 @@
   --services-background: #1D4E4F;
   --services-foreground: #FFFFFF;
 
-  /* Color shades - opacity variants */
+  /* Variantes de cor - Opacidades */
   --main-foreground-opacity-03: #1C283308;
   --main-foreground-opacity-05: #1C28330D;
   --main-foreground-opacity-07: #1C283312;
@@ -65,20 +65,20 @@
   --footer-foreground-opacity-60: #FFFFFF99;
   --footer-foreground-opacity-80: #FFFFFFCC;
 
-  /* Alert colors */
+  /* Cores de alerta - Feedback do sistema */
   --success: #4bb98c;
   --danger: #dd7774;
   --warning: #dc8f38;
   --info: #71b5dc;
 
   {#/*============================================================================
-    #Fonts - El Pescador (Oswald + Open Sans)
+    #Tipografia - El Pescador (Oswald + Open Sans)
   ==============================================================================*/#}
 
   --heading-font: "Oswald", sans-serif;
   --body-font: "Open Sans", sans-serif;
 
-  /* Font sizes */
+  /* Tamanhos de fonte */
   --h1: 32px;
   --h1-huge: 34px;
   --h1-huge-md: 48px;
@@ -99,7 +99,7 @@
   --title-font-weight: 700;
 
   {#/*============================================================================
-    #Width
+    #Larguras - Container e layout
   ==============================================================================*/#}
 
   --container-width: 1260px;
@@ -107,7 +107,7 @@
   --container-width-medium: 960px;
 
   {#/*============================================================================
-    #Spacing
+    #Espaçamentos - Gutters e margens
   ==============================================================================*/#}
 
   --gutter: 15px;
@@ -119,7 +119,7 @@
   --gutter-double: calc(var(--gutter) * 2);
 
   {#/*============================================================================
-    #Misc
+    #Diversos - Bordas, sombras e utilitários
   ==============================================================================*/#}
 
   --border-radius: 4px;

@@ -1,69 +1,71 @@
 /*============================================================================
-style-colors.scss
+style-colors.scss - El Pescador
 
-    -This file contains all the theme styles related to settings defined by user from config/settings.txt
-    -Rest of styling can be found in:
-        --static/css/style-async.scss --> For non critical styles witch will be loaded asynchronously
-        --static/css/style-critical.scss --> For critical CSS rendered inline before the rest of the site
+    -Este arquivo contém todos os estilos do tema relacionados às configurações
+     definidas pelo usuário em config/settings.txt
+    -O restante dos estilos pode ser encontrado em:
+        --static/css/style-async.scss --> Estilos não críticos carregados de forma assíncrona
+        --static/css/style-critical.scss --> CSS crítico renderizado inline antes do resto do site
 
 ==============================================================================*/
 
  /*============================================================================
-  Table of Contents
-  #Components
-    // Margin and Padding
+  Índice de Conteúdos - El Pescador
+
+  #Componentes
+    // Margens e Espaçamentos
     // Mixins
-    // SVG Icons
-    // Texts
-    // Animations
+    // Ícones SVG
+    // Textos
+    // Animações
     // Wrappers
     // Placeholders
-    // Dividers    
-    // Headings
-    // Buttons
+    // Divisores
+    // Títulos
+    // Botões
     // Links
     // Chips
-    // Progress bar 
-    // Modals
-    // Forms
-    // Alerts and Notifications
+    // Barra de progresso
+    // Modais
+    // Formulários
+    // Alertas e Notificações
     // Tooltip
-    // Images
-    // Tables
-    // Tabs
+    // Imagens
+    // Tabelas
+    // Abas
     // Cards
     // Sliders
-  #Home page
-    // Home banners
-    // Video
-    // Instafeed
+  #Página inicial
+    // Banners da home
+    // Vídeo
+    // Feed do Instagram
     // Newsletter
-  #Product grid
-    // Category controls
-    // Grid item
-    // Labels
-  #Product detail
-    // Image
-    // Form and info
-  #Header and nav
-    // Header
-    // Utilities
-    // Search
-    // Nav
-  #Footer
+  #Grade de produtos
+    // Controles de categoria
+    // Item da grade
+    // Etiquetas
+  #Detalhes do produto
+    // Imagem
+    // Formulário e informações
+  #Cabeçalho e navegação
+    // Cabeçalho
+    // Utilitários
+    // Busca
+    // Navegação
+  #Rodapé
     // Copyright
   #Media queries
-    // Min width 768px
-    //// Components
-    //// Product grid
+    // Largura mínima 768px
+    //// Componentes
+    //// Grade de produtos
 
 ==============================================================================*/
 
 /*============================================================================
-  #Components
+  #Componentes - El Pescador
 ==============================================================================*/
 
-/* // Margin and Padding */
+/* // Margens e Espaçamentos */
 
 %section-margin {
   margin-bottom: 70px;
@@ -75,7 +77,7 @@ style-colors.scss
   margin-bottom: 10px;
 }
 
-/* // Mixins */
+/* // Mixins - Funções SCSS reutilizáveis */
 
 @mixin text-decoration-none(){
   text-decoration: none;
@@ -100,7 +102,7 @@ style-colors.scss
 	box-shadow: 0 0 3px #ccc;
 }
 
-/* This mixin adds browser prefixes to a CSS property */
+/* Mixin para adicionar prefixos de navegador a propriedades CSS */
 
 @mixin prefix($property, $value, $prefixes: ()) {
 	@each $prefix in $prefixes {
@@ -121,7 +123,7 @@ style-colors.scss
   border-radius: 10px;
 }
 
-/* // SVG Icons */
+/* // Ícones SVG - Cores e estilos */
 
 .svg-icon-text{
   fill: var(--main-foreground);
@@ -159,7 +161,7 @@ style-colors.scss
   --icon-alert-warning: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M270.2 160h35.5c3.4 0 6.1 2.8 6 6.2l-7.5 196c-.1 3.2-2.8 5.8-6 5.8h-20.5c-3.2 0-5.9-2.5-6-5.8l-7.5-196c-.1-3.4 2.6-6.2 6-6.2zM288 388c-15.5 0-28 12.5-28 28s12.5 28 28 28 28-12.5 28-28-12.5-28-28-28zm281.5 52L329.6 24c-18.4-32-64.7-32-83.2 0L6.5 440c-18.4 31.9 4.6 72 41.6 72H528c36.8 0 60-40 41.5-72zM528 480H48c-12.3 0-20-13.3-13.9-24l240-416c6.1-10.6 21.6-10.7 27.7 0l240 416c6.2 10.6-1.5 24-13.8 24z"/></svg>');
 }
 
-/* // Texts */
+/* // Textos - Cores e estilos de texto */
 
 .text-secondary {
   color: var(--main-background);
@@ -170,13 +172,13 @@ style-colors.scss
   color: var(--accent-color)!important;
 }
 
-/* // Animations */
+/* // Animações - Transições e efeitos */
 
 %simplefade {
   transition: all 0.5s ease;
 }
 
-/* // Wrappers */
+/* // Wrappers - Containers principais */
 
 body{
   color: var(--main-foreground);
@@ -193,7 +195,7 @@ body{
   padding: 15px;
 }
 
-/* // Placeholders */
+/* // Placeholders - Estados de carregamento */
 
 .placeholder-color{
   background-color:var(--main-foreground-opacity-20);
@@ -236,7 +238,7 @@ body{
 }
 
 
-/* // Dividers */
+/* // Divisores - Linhas separadoras */
 
 .divider{
   margin-top: 20px;
@@ -284,7 +286,7 @@ h6,.h6{
   font-weight: var(--title-font-weight);
 }
 
-/* // Buttons */
+/* // Botões - Estilos e cores */
 
 .btn{
   margin: 0;
@@ -511,7 +513,7 @@ button{
   }
 }
 
-/* // Links */
+/* // Links - Cores e estados */
 
 a {
   color: var(--main-foreground);
@@ -570,13 +572,13 @@ a {
   }
 }
 
-/* // Accordions */
+/* // Acordeões - Seções expansíveis */
 
 .accordion{
   border-bottom: var(--border-solid) var(--main-foreground-opacity-10);
 }
 
-/* // Chips */
+/* // Chips - Etiquetas de filtro */
 
 .chip{
   color: var(--main-foreground);
@@ -585,7 +587,7 @@ a {
   border: 1px solid var(--main-foreground);
 }
 
-/* // Progress bar */
+/* // Barra de progresso - Frete grátis */
 
 .bar-progress {
   background: var(--main-foreground-opacity-10);
@@ -599,7 +601,7 @@ a {
   }
 }
 
-/* // Modals */
+/* // Modais - Janelas de diálogo */
 
 .modal{
   color: var(--main-foreground);
@@ -640,7 +642,7 @@ a {
   }
 }
 
-/* // Forms */
+/* // Formulários - Campos e inputs */
 
 input,
 textarea {
@@ -918,7 +920,7 @@ input[type=number] {
   @include prefix(mask-image, var(--icon-password-show), webkit ms moz o);
 }
 
-/* // Alerts and notifications */
+/* // Alertas e notificações */
 
 .alert{
   border: var(--border-solid);
@@ -1017,7 +1019,7 @@ input[type=number] {
     }
 }
 
-/* // Tooltip */
+/* // Tooltip - Dicas de contexto */
 
 .tooltip{
   background: var(--main-background);
@@ -1043,7 +1045,7 @@ input[type=number] {
   }
 }
 
-/* // Images */
+/* // Imagens - Thumbnails e badges */
 
 .card-img{
   &-pill {
@@ -1055,7 +1057,7 @@ input[type=number] {
   }
 }
 
-/* // Tables */
+/* // Tabelas - Dados tabulares */
 
 .table{
   background-color: var(--main-background);
@@ -1079,7 +1081,7 @@ input[type=number] {
   }
 }
 
-/* // Tabs */
+/* // Abas - Navegação por tabs */
 
 .tab-group{
   .tab{
@@ -1103,7 +1105,7 @@ input[type=number] {
   background-color: var(--main-foreground-opacity-03)
 }
 
-/* // Sliders */
+/* // Sliders - Carrosséis de conteúdo */
 
 .swiper-text {
   @extend %simplefade;
@@ -1156,7 +1158,7 @@ input[type=number] {
   #Home Page
 ==============================================================================*/
 
-/* // Home banners */
+/* // Banners da home - Destaques e promoções */
 
 .textbanner-text.over-image {
   color: var(--main-foreground);
@@ -1176,7 +1178,7 @@ input[type=number] {
   background: var(--main-foreground-opacity-30);
 }
 
-/* // Video */
+/* // Vídeo - Player de vídeo */
 
 .embed-responsive {
   background: var(--main-foreground);
@@ -1201,7 +1203,7 @@ input[type=number] {
   background: linear-gradient(transparent, var(--main-foreground-opacity-40));
 }
 
-/* // Instafeed */
+/* // Feed do Instagram - Integração social */
 .instafeed-title {
   color: var(--main-foreground);
 }
@@ -1211,7 +1213,7 @@ input[type=number] {
   background: var(--main-foreground-opacity-40);
 }
 
-/* // Newsletter */
+/* // Newsletter - Cadastro de e-mail */
 
 .section-newsletter-home {
   background: var(--main-foreground-opacity-10);
@@ -1258,7 +1260,7 @@ input[type=number] {
   }
 }
 
-/* // Informative banners */
+/* // Banners informativos - Serviços e diferenciais */
 
 .section-informative-banners-colors {
   background: var(--services-background);
@@ -1276,7 +1278,7 @@ input[type=number] {
   #Product grid
 ==============================================================================*/
 
-/* // Category controls */
+/* // Controles de categoria - Filtros e ordenação */
 
 .category-controls {
   background-color: var(--main-background);
@@ -1291,7 +1293,7 @@ input[type=number] {
   background-color: var(--main-background-opacity-95);
 }
 
-/* // Grid item */
+/* // Item da grade - Card de produto */
 
 .item {
   @include prefix(transition, all 0.4s ease, webkit ms moz o);
@@ -1314,7 +1316,7 @@ input[type=number] {
   background-color: var(--main-background);
 }
 
-/* // Labels */
+/* // Etiquetas - Promoções e destaques */
 
 .label {
   background: var(--main-background);
@@ -1338,7 +1340,7 @@ input[type=number] {
   #Product detail
 ==============================================================================*/
 
-/* // Image */
+/* // Imagem do produto - Galeria */
 
 .product-video-container {
   background-color: var(--main-foreground-opacity-07);
@@ -1357,7 +1359,7 @@ input[type=number] {
   filter: none;
 }
 
-/* // Form and info */
+/* // Formulário e informações - Detalhes do produto */
     
 .social-share {
   @extend %element-margin;
@@ -1370,7 +1372,7 @@ input[type=number] {
   #Contact page
 ==============================================================================*/
 
-/* // Data contact */
+/* // Dados de contato - Página de contato */
 
 .contact-item {
   @extend %element-margin;
@@ -1387,7 +1389,7 @@ input[type=number] {
   #Header and nav
 ==============================================================================*/
 
-/* // Header */
+/* // Cabeçalho - Header principal */
 
 .head-main {
   color: var(--header-foreground);
@@ -1528,7 +1530,7 @@ input[type=number] {
   fill: var(--adbar-foreground);
 }
 
-/* // Nav */
+/* // Navegação - Menu e dropdowns */
 
 .desktop-dropdown {
   background-color: var(--main-background);
@@ -1552,7 +1554,7 @@ input[type=number] {
   background: var(--main-foreground);
 }
 
-/* // Search */
+/* // Busca - Campo de pesquisa */
 
 .search-btn {
   color: var(--main-foreground);
@@ -1687,7 +1689,7 @@ footer {
   #Media queries
 ==============================================================================*/
 
-/* // Min width 768px */
+/* // Largura mínima 768px - Tablets e desktops */
 
 @media (min-width: 768px) { 
 

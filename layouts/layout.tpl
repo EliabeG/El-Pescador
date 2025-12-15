@@ -1,15 +1,89 @@
+{#/*============================================================================
+    El Pescador - Loja de Pesca
+    Arquivo: layout.tpl
+    Descrição: Template principal que define a estrutura HTML base da loja
+
+    ÍNDICE:
+    ============================================================================
+    1. DOCTYPE e Cabeçalho HTML
+       - Atributos de namespaces (XHTML, Facebook, OpenGraph)
+       - Detecção de idioma ativo
+
+    2. Meta Tags e SEO
+       - Charset e compatibilidade
+       - Viewport responsivo
+       - Título e descrição da página
+
+    3. Resource Hints (Otimização de Performance)
+       - Preconnect para recursos externos
+       - DNS-prefetch para domínios críticos
+
+    4. Carregamento de Fontes (Google Fonts)
+       - Oswald: Títulos e destaques
+       - Open Sans: Corpo de texto
+
+    5. CSS Crítico (Above-the-fold)
+       - Tokens de design
+       - Estilos críticos inline
+       - Cores do tema
+
+    6. CSS Assíncrono (Below-the-fold)
+       - Estilos carregados de forma não-bloqueante
+
+    7. CSS Customizado El Pescador
+       - Paleta: Navy Blue (#1B3A57) + Laranja (#E67E22) + Cinza (#F5F7FA)
+       - Estilos específicos da marca
+
+    8. JavaScript Pré-HTML
+       - jQuery condicional
+       - Scripts da plataforma
+
+    9. Corpo da Página (Body)
+       - Ícones SVG
+       - Header (cabeçalho)
+       - Conteúdo do template
+       - Footer (rodapé)
+
+    10. JavaScript Pós-HTML
+        - Bibliotecas externas
+        - Scripts da loja
+        - Códigos de rastreamento
+    ============================================================================
+*/#}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" lang="{% for language in languages %}{% if language.active %}{{ language.lang }}{% endif %}{% endfor %}">
     <head>
+        {#/*============================================================================
+            Seção 3: Resource Hints - Otimização de Performance
+            - Preconnect: Estabelece conexão antecipada com domínios externos
+            - DNS-prefetch: Resolve DNS antecipadamente para carregamento mais rápido
+        ==============================================================================*/#}
+
         <link rel="preconnect" href="{{ store_resource_hints }}" />
         <link rel="dns-prefetch" href="{{ store_resource_hints }}" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        {#/*============================================================================
+            Seção 2: Meta Tags e SEO
+            - Charset UTF-8 para suporte a caracteres especiais (acentos PT-BR)
+            - Compatibilidade com navegadores IE/Edge
+            - Viewport para design responsivo
+            - Título e descrição para SEO
+        ==============================================================================*/#}
+
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#1B3A57" />
         <title>{{ page_title }}</title>
         <meta name="description" content="{{ page_description }}" />
+
+        {#/*============================================================================
+            Configuração de Fontes Itálicas
+            - Detecta se alguma seção da home usa texto em itálico
+            - Carrega peso adicional de fonte conforme necessário
+        ==============================================================================*/#}
 
         {% set welcome_italic_font = settings.welcome_text and settings.welcome_italic %}
         {% set institutional_italic_font = settings.institutional_text and settings.institutional_italic %}
@@ -18,26 +92,48 @@
         {% set italic_font = params.preview or (not params.preview and template == 'home' and welcome_italic_font or institutional_italic_font or testimonial_italic_font) %}
         {% set google_fonts_weights = italic_font ? '400,400italic,700' : '400,700' %}
 
-        {# El Pescador - Force Oswald and Open Sans fonts #}
+        {#/*============================================================================
+            Seção 4: Carregamento de Fontes - Google Fonts
+            - Oswald: Fonte para títulos (pesos 400, 500, 700)
+            - Open Sans: Fonte para corpo de texto (pesos 400, 600, 700)
+            - font-display: swap para evitar FOIT (Flash of Invisible Text)
+        ==============================================================================*/#}
+
         <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap" />
         <link rel="preload" href="{{ 'css/style-critical.scss' | static_url }}" as="style" />
         <link rel="preload" href="{{ 'css/style-colors.scss' | static_url }}" as="style" />
 
-        {# Preload LCP home, category and product page elements #}
-        
+        {#/*============================================================================
+            Preload de Imagens LCP (Largest Contentful Paint)
+            - Pré-carrega imagens principais das páginas home, categoria e produto
+            - Melhora a métrica LCP do Core Web Vitals
+        ==============================================================================*/#}
+
         {% snipplet 'preload-images.tpl' %}
+
+        {#/*============================================================================
+            Componente de Meta Tags Sociais
+            - Open Graph (Facebook, LinkedIn)
+            - Twitter Cards
+            - Compartilhamento em redes sociais
+        ==============================================================================*/#}
 
         {{ component('social-meta') }}
 
         {#/*============================================================================
-            #CSS and fonts
+            Seção 5: CSS Crítico e Fontes
+            - Estilos necessários para renderizar elementos acima da dobra
+            - Carregados inline para evitar bloqueio de renderização
         ==============================================================================*/#}
 
-        {# Critical CSS needed to show first elements of store while CSS async is loading #}
-
         <style>
-            {# Font families - El Pescador forced fonts #}
+            {#/*----------------------------------------------------------------
+                Definição de Font-Faces - El Pescador
+                - Oswald: Fonte display para títulos
+                - Open Sans: Fonte sans-serif para texto
+                - font-display: swap garante texto visível durante carregamento
+            ----------------------------------------------------------------*/#}
 
             @font-face {
                 font-family: 'Oswald';
@@ -52,40 +148,157 @@
                 font-display: swap;
             }
 
-            {# General CSS Tokens #}
+            {#/*----------------------------------------------------------------
+                Tokens de Design CSS
+                - Variáveis CSS globais (cores, espaçamentos, tipografia)
+                - Importados do arquivo style-tokens.tpl
+            ----------------------------------------------------------------*/#}
 
             {% include "static/css/style-tokens.tpl" %}
 
         </style>
 
-        {# Critical CSS #}
+        {#/*============================================================================
+            CSS Crítico Inline
+            - Estilos essenciais para o primeiro carregamento (above-the-fold)
+            - Minimiza o tempo até First Contentful Paint (FCP)
+        ==============================================================================*/#}
 
         {{ 'css/style-critical.scss' | static_url | static_inline }}
 
-        {# Colors and fonts used from settings.txt and defined on theme customization #}
+        {#/*============================================================================
+            Cores e Fontes do Tema
+            - Variáveis definidas no settings.txt
+            - Personalizadas pelo admin na customização do tema
+        ==============================================================================*/#}
 
         {{ 'css/style-colors.scss' | static_url | static_inline }}
 
-        {# Load async styling not mandatory for first meaningfull paint #}
+        {#/*============================================================================
+            Seção 6: CSS Assíncrono (Below-the-fold)
+            - Carregado de forma não-bloqueante usando técnica de preload
+            - media="print" + onload converte para media="all" após carregamento
+            - Melhora performance percebida
+        ==============================================================================*/#}
 
         <link rel="stylesheet" href="{{ 'css/style-async.scss' | static_url }}" media="print" onload="this.media='all'">
 
-        {# El Pescador - CSS Customizado (carregado como arquivo externo) #}
+        {#/*============================================================================
+            CSS Customizado El Pescador - Arquivo Externo
+            - Estilos específicos da marca em arquivo separado
+            - Mantém organização e facilita manutenção
+        ==============================================================================*/#}
+
         {{ 'css/elpescador-custom.css' | static_url | css_tag }}
 
-        {# Loads custom CSS added from Advanced Settings on the admin´s theme customization screen #}
+        {#/*============================================================================
+            CSS Personalizado do Administrador
+            - Código CSS adicionado via Configurações Avançadas no painel admin
+            - Permite customizações sem editar arquivos do tema
+        ==============================================================================*/#}
 
         <style>
             {{ settings.css_code | raw }}
         </style>
 
-        {# El Pescador - CSS Override - Nova Identidade Visual (Natureza/Pesca) #}
+        {#/*============================================================================
+            Seção 7: CSS Override El Pescador
+            Nova Identidade Visual - Tema Natureza/Pesca
+
+            ÍNDICE DE SEÇÕES CSS:
+            ============================================================================
+            1. VARIÁVEIS CSS (:root)
+               - Cores da plataforma (--main-*, --button-*, etc.)
+               - Cores El Pescador (--ep-navy, --ep-orange, etc.)
+
+            2. FONTES GLOBAIS
+               - Body: Open Sans
+               - Headings: Oswald
+
+            3. BARRA DE ANÚNCIOS (AdBar)
+               - Fundo Navy Blue
+               - Texto branco
+
+            4. CABEÇALHO (Header)
+               - Fundo Navy Blue
+               - Campo de busca translúcido
+               - Contador do carrinho
+
+            5. NAVEGAÇÃO
+               - Desktop: Menu horizontal
+               - Mobile: Menu hamburger modal
+
+            6. HERO / SLIDER / WELCOME
+               - Gradiente Navy Blue
+               - Overlay suave
+               - CTAs em laranja
+
+            7. SEÇÃO DE SERVIÇOS
+               - Fundo branco
+               - Ícones Navy Blue
+
+            8. CARDS DE PRODUTOS
+               - Layout flexbox
+               - Imagem quadrada (aspect-ratio 1:1)
+               - Preço em Navy Blue
+               - Botão comprar em laranja
+
+            9. ESPAÇAMENTO
+               - Padding de seções
+               - Gap do grid
+
+            10. TÍTULOS DE SEÇÃO
+                - Fonte Oswald
+                - Linha decorativa laranja
+
+            11. CATEGORIAS
+                - Cards com borda
+
+            12. BOTÕES GERAIS
+                - Primário: Laranja
+                - Secundário: Outline Navy
+
+            13. DEPOIMENTOS
+                - Estrelas douradas
+                - Avatar circular
+
+            14. NEWSLETTER
+                - Fundo Navy Blue
+                - Input + botão inline
+
+            15. RODAPÉ (Footer)
+                - Fundo Navy Blue
+                - Rodapé inferior mais escuro
+
+            16. ELEMENTOS GERAIS
+                - Links, breadcrumb
+                - WhatsApp, modal
+
+            17. SWIPER / CARROSSEL
+                - Navegação e paginação
+
+            18. OVERRIDES AGRESSIVOS
+                - Remoção de cores conflitantes
+                - Forçar paleta El Pescador
+
+            19. GRID RESPONSIVO
+                - Desktop: 3 colunas
+                - Tablet: 2 colunas
+                - Mobile: 1 coluna
+
+            20. ACESSIBILIDADE
+                - Focus visible
+                - Reduced motion
+            ============================================================================
+        */#}
+
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Open+Sans:wght@400;600;700&display=swap');
 
             /* ============================================
-               CSS VARIÁVEIS - El Pescador
-               Nova Paleta: Branco + Navy Blue + Laranja
+               1. VARIÁVEIS CSS - El Pescador
+               Paleta: Branco + Navy Blue (#1B3A57) + Laranja (#E67E22)
+               Atualiza variáveis da plataforma Nuvemshop
             ============================================ */
 
             :root {
@@ -109,19 +322,23 @@
                 --heading-font: "Oswald", sans-serif !important;
                 --body-font: "Open Sans", sans-serif !important;
 
-                /* Cores El Pescador */
-                --ep-navy: #1B3A57;
-                --ep-navy-dark: #152D45;
-                --ep-orange: #E67E22;
-                --ep-orange-dark: #D35400;
-                --ep-gray-light: #F5F7FA;
-                --ep-gray: #95A5A6;
-                --ep-text: #2C3E50;
-                --ep-white: #FFFFFF;
+                /* Variáveis Customizadas El Pescador */
+                --ep-navy: #1B3A57;          /* Azul marinho principal */
+                --ep-navy-dark: #152D45;     /* Azul marinho escuro (footer bottom) */
+                --ep-orange: #E67E22;        /* Laranja principal (CTAs) */
+                --ep-orange-dark: #D35400;   /* Laranja escuro (hover) */
+                --ep-gray-light: #F5F7FA;    /* Cinza claro (fundo) */
+                --ep-gray: #95A5A6;          /* Cinza médio (textos secundários) */
+                --ep-text: #2C3E50;          /* Cor do texto principal */
+                --ep-white: #FFFFFF;         /* Branco */
+
+                /* Transições e animações */
+                --ep-transition: 0.3s ease;
             }
 
             /* ============================================
-               FONTES GLOBAIS
+               2. FONTES GLOBAIS
+               Oswald para títulos, Open Sans para corpo
             ============================================ */
 
             body {
@@ -137,7 +354,9 @@
             }
 
             /* ============================================
-               AD BAR - Barra de Anúncios (Navy Blue)
+               3. BARRA DE ANÚNCIOS (AdBar)
+               Fundo Navy Blue com texto branco
+               Hover em laranja para links
             ============================================ */
 
             .section-adbar {
@@ -159,7 +378,10 @@
             }
 
             /* ============================================
-               HEADER - Cabeçalho (Navy Blue)
+               4. CABEÇALHO (Header)
+               Fundo Navy Blue com elementos brancos
+               Campo de busca translúcido
+               Contador do carrinho em laranja
             ============================================ */
 
             .head-main {
@@ -195,7 +417,10 @@
             }
 
             /* ============================================
-               NAVEGAÇÃO (Navy Blue)
+               5. NAVEGAÇÃO
+               Desktop: Menu horizontal Navy Blue
+               Mobile: Modal hamburger
+               Dropdown com hover laranja
             ============================================ */
 
             .desktop-nav-col,
@@ -239,10 +464,13 @@
             }
 
             /* ============================================
-               HERO / SLIDER / WELCOME - Design Limpo
+               6. HERO / SLIDER / WELCOME
+               Gradiente Navy Blue (#1B3A57 → #2C5282)
+               Overlay suave para legibilidade
+               Botões CTA em laranja
             ============================================ */
 
-            /* Hero com gradiente suave navy */
+            /* Gradiente de fundo Navy Blue */
             .section-slider,
             .section-slider-home,
             .section-welcome,
@@ -252,7 +480,7 @@
                 padding: 60px 0 !important;
             }
 
-            /* Overlay suave */
+            /* Overlay escuro para melhor contraste do texto */
             .section-slider::before,
             .section-slider-home::before,
             .section-welcome::before,
@@ -267,7 +495,7 @@
                 z-index: 1 !important;
             }
 
-            /* Conteúdo acima do overlay */
+            /* Z-index elevado para conteúdo acima do overlay */
             .section-slider .container,
             .section-slider-home .container,
             .section-welcome .container,
@@ -276,7 +504,7 @@
                 z-index: 2 !important;
             }
 
-            /* Textos do Hero - SEM logo grande */
+            /* Tipografia do Hero - Texto branco com sombra sutil */
             .section-slider,
             .section-slider h1,
             .section-slider h2,
@@ -298,7 +526,7 @@
                 text-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
             }
 
-            /* Título principal - Frase impactante */
+            /* Título principal do Hero - Grande e impactante */
             .section-welcome-home h2,
             .section-welcome h2,
             .section-slider h1 {
@@ -308,7 +536,7 @@
                 line-height: 1.2 !important;
             }
 
-            /* Subtítulo */
+            /* Subtítulo em laranja com tracking espaçado */
             .section-slider .subtitle,
             .section-welcome .h5,
             .section-welcome h5,
@@ -321,7 +549,7 @@
                 font-weight: 600 !important;
             }
 
-            /* Botões CTA no Hero - LARANJA */
+            /* Botões CTA primários do Hero - Laranja sólido */
             .section-slider .btn-primary,
             .section-welcome .btn-primary,
             .section-welcome-home .btn-primary {
@@ -366,7 +594,9 @@
             }
 
             /* ============================================
-               SEÇÃO DE SERVIÇOS - FUNDO BRANCO
+               7. SEÇÃO DE SERVIÇOS / BANNERS INFORMATIVOS
+               Fundo branco com bordas sutis
+               Ícones Navy Blue em círculo cinza
             ============================================ */
 
             .section-informative-banners,
@@ -391,7 +621,7 @@
                 color: #1B3A57 !important;
             }
 
-            /* Ícones com círculo navy */
+            /* Container de ícones - Círculo cinza claro */
             .section-informative-banners .service-icon-container,
             .section-informative-banners .banner-service-icon {
                 background-color: #F5F7FA !important;
@@ -400,10 +630,13 @@
             }
 
             /* ============================================
-               PRODUTOS - GRID ALINHADO
+               8. CARDS DE PRODUTOS
+               Layout flexbox para alinhamento vertical
+               Imagem quadrada (aspect-ratio 1:1)
+               Preço Navy Blue, botão laranja
             ============================================ */
 
-            /* Card de produto - fundo branco */
+            /* Card de produto - Container flexbox */
             .item-product {
                 display: flex !important;
                 flex-direction: column !important;
@@ -421,7 +654,7 @@
                 transform: translateY(-3px) !important;
             }
 
-            /* Container da imagem - SEMPRE QUADRADO */
+            /* Container da imagem - Proporção 1:1 (quadrado) */
             .item-product .item-image,
             .item-product .product-image-container,
             .item-product > a:first-child {
@@ -432,7 +665,7 @@
                 background: #FFFFFF !important;
             }
 
-            /* Imagem preenche o container quadrado */
+            /* Imagem centralizada com object-fit: contain */
             .item-product .item-image img,
             .item-product .img-fluid,
             .item-product picture img {
@@ -444,7 +677,7 @@
                 padding: 10px !important;
             }
 
-            /* INFO DO PRODUTO */
+            /* Área de informações do produto - Flexbox vertical */
             .item-product .item-info,
             .item-product .item-description {
                 flex: 1 !important;
@@ -454,7 +687,7 @@
                 text-align: left !important;
             }
 
-            /* Nome do produto - SEM MAIÚSCULAS */
+            /* Nome do produto - Truncado em 2 linhas (line-clamp) */
             .item-product .item-name,
             .item-product .item-name a,
             .item-product h3,
@@ -474,7 +707,7 @@
                 margin-bottom: 8px !important;
             }
 
-            /* PREÇO - Navy Blue */
+            /* Preço atual - Navy Blue, fonte Oswald bold */
             .item-product .item-price,
             .item-product .js-price-display,
             .item-product .price,
@@ -487,6 +720,7 @@
                 margin-bottom: 5px !important;
             }
 
+            /* Preço comparativo (riscado) - Cinza */
             .item-product .price-compare,
             .item-product .js-compare-price-display {
                 color: #95A5A6 !important;
@@ -495,7 +729,7 @@
                 margin-bottom: 3px !important;
             }
 
-            /* Badge de desconto - Laranja */
+            /* Badge de desconto - Laranja posicionado no canto superior */
             .item-product .label,
             .item-product .js-offer-label,
             .product-label,
@@ -514,7 +748,7 @@
                 z-index: 2 !important;
             }
 
-            /* BOTÃO COMPRAR - LARANJA */
+            /* Botão Comprar/Adicionar ao carrinho - Laranja */
             .item-product .btn,
             .item-product .js-addtocart,
             .item-product .btn-product,
@@ -538,7 +772,7 @@
                 color: #FFFFFF !important;
             }
 
-            /* Botão Ver Carrinho */
+            /* Botão Ver Carrinho - Mantém laranja */
             .js-cart-widget .btn,
             .cart-btn,
             a[href*="cart"] .btn {
@@ -547,7 +781,9 @@
             }
 
             /* ============================================
-               ESPAÇAMENTO - White Space
+               9. ESPAÇAMENTO E LAYOUT
+               Padding de seções e gap do grid
+               Garante respiração visual adequada
             ============================================ */
 
             section,
@@ -579,7 +815,9 @@
             }
 
             /* ============================================
-               TÍTULOS DE SEÇÃO
+               10. TÍTULOS DE SEÇÃO
+               Fonte Oswald com linha decorativa laranja
+               Centralizado com pseudo-elemento ::after
             ============================================ */
 
             .section-title,
@@ -596,7 +834,7 @@
                 padding-bottom: 15px !important;
             }
 
-            /* Linha decorativa - Laranja */
+            /* Linha decorativa via ::after - Laranja 50px */
             .section-title::after,
             section > h2::after {
                 content: '' !important;
@@ -616,7 +854,9 @@
             }
 
             /* ============================================
-               CATEGORIAS
+               11. CATEGORIAS
+               Cards brancos com borda sutil
+               Título em Oswald uppercase
             ============================================ */
 
             .section-categories,
@@ -644,7 +884,9 @@
             }
 
             /* ============================================
-               BOTÕES GERAIS
+               12. BOTÕES GERAIS
+               Primário: Fundo laranja, texto branco
+               Secundário: Outline Navy Blue
             ============================================ */
 
             .btn-primary {
@@ -684,7 +926,9 @@
             }
 
             /* ============================================
-               DEPOIMENTOS - Com Estrelas
+               13. DEPOIMENTOS / TESTEMUNHOS
+               Estrelas douradas via pseudo-elemento
+               Avatar circular Navy Blue
             ============================================ */
 
             .section-testimonials-home {
@@ -699,7 +943,7 @@
                 text-align: center !important;
             }
 
-            /* Estrelas de avaliação */
+            /* Estrelas 5/5 via ::before - Dourado #F39C12 */
             .section-testimonials-home .testimonial-item::before,
             .testimonial-card::before {
                 content: '★★★★★' !important;
@@ -725,7 +969,7 @@
                 margin-top: 15px !important;
             }
 
-            /* Avatar */
+            /* Avatar circular - Fundo Navy com inicial branca */
             .section-testimonials-home .testimonial-avatar,
             .testimonial-card .avatar {
                 width: 60px !important;
@@ -741,7 +985,9 @@
             }
 
             /* ============================================
-               NEWSLETTER - Navy Blue, Compacto
+               14. NEWSLETTER
+               Fundo Navy Blue com formulário inline
+               Input branco + botão laranja
             ============================================ */
 
             .section-newsletter-home,
@@ -775,7 +1021,9 @@
             }
 
             /* ============================================
-               FOOTER - Navy Blue
+               15. RODAPÉ (Footer)
+               Fundo Navy Blue (#1B3A57)
+               Rodapé inferior mais escuro (#152D45)
             ============================================ */
 
             footer,
@@ -802,7 +1050,7 @@
                 color: #E67E22 !important;
             }
 
-            /* Rodapé inferior - mais escuro */
+            /* Rodapé inferior (copyright) - Navy escuro */
             .footer-bottom,
             footer .copyright {
                 background-color: #152D45 !important;
@@ -810,7 +1058,9 @@
             }
 
             /* ============================================
-               ELEMENTOS GERAIS
+               16. ELEMENTOS GERAIS
+               Links, breadcrumb, WhatsApp
+               Cores consistentes com a paleta
             ============================================ */
 
             .text-accent,
@@ -831,18 +1081,14 @@
                 background-color: #25D366 !important;
             }
 
-            /* ============================================
-               MODAL
-            ============================================ */
+            /* Modal - Header Navy Blue */
 
             .modal-header {
                 background-color: #1B3A57 !important;
                 color: #FFFFFF !important;
             }
 
-            /* ============================================
-               LINKS E INTERAÇÕES
-            ============================================ */
+            /* Links globais - Navy Blue com hover laranja */
 
             a {
                 color: #1B3A57 !important;
@@ -853,7 +1099,9 @@
             }
 
             /* ============================================
-               SWIPER / CARROSSEL
+               17. SWIPER / CARROSSEL
+               Navegação Navy Blue
+               Paginação bullet laranja quando ativo
             ============================================ */
 
             .swiper-button-prev,
@@ -866,10 +1114,12 @@
             }
 
             /* ============================================
-               OVERRIDE AGRESSIVO - REMOVER TODO CIANO
+               18. OVERRIDES AGRESSIVOS
+               Remove cores conflitantes do tema base
+               Força paleta El Pescador em todos elementos
             ============================================ */
 
-            /* Todos os botões - forçar laranja */
+            /* Borda laranja em todos os botões */
             .btn,
             button,
             [class*="btn-"],
@@ -901,7 +1151,7 @@
                 border-color: #D35400 !important;
             }
 
-            /* Botões outline/secondary - borda navy, não ciano */
+            /* Botões secundários - Outline branco (usado em áreas Navy) */
             .btn-secondary,
             .btn-outline-primary,
             .btn-link,
@@ -920,7 +1170,7 @@
                 border-color: #FFFFFF !important;
             }
 
-            /* Títulos de seção - span em laranja */
+            /* Títulos de seção - Destaque span em laranja */
             .section-title span,
             .home-section-title span,
             h2 span,
@@ -928,7 +1178,7 @@
                 color: #E67E22 !important;
             }
 
-            /* Remover qualquer cor ciano restante */
+            /* Remove qualquer cor ciano/cyan conflitante */
             [style*="#00D4FF"],
             [style*="#00d4ff"],
             [style*="cyan"] {
@@ -937,7 +1187,14 @@
                 background-color: transparent !important;
             }
 
-            /* Grid de produtos - 3 COLUNAS FORÇADO */
+            /* ============================================
+               19. GRID RESPONSIVO DE PRODUTOS
+               Desktop: 3 colunas (33.333%)
+               Tablet: 2 colunas (50%)
+               Mobile: 1 coluna (100%)
+            ============================================ */
+
+            /* Grid container - Flexbox 3 colunas */
             .section-featured-home .row,
             .section-products-home .row,
             .js-products-featured-grid,
@@ -967,7 +1224,7 @@
                 width: 33.333% !important;
             }
 
-            /* Produtos menores */
+            /* Ajustes de tamanho para cards no grid */
             .item-product .item-image,
             .item-product .product-image-container,
             .item-product > a:first-child {
@@ -1000,6 +1257,7 @@
                 font-size: 12px !important;
             }
 
+            /* Breakpoint Tablet (≤768px) - 2 colunas */
             @media (max-width: 768px) {
                 .section-featured-home .row > div,
                 .section-featured-home .row > [class*="col"],
@@ -1015,6 +1273,7 @@
                 }
             }
 
+            /* Breakpoint Mobile (≤480px) - 1 coluna */
             @media (max-width: 480px) {
                 .section-featured-home .row > div,
                 .section-featured-home .row > [class*="col"],
@@ -1029,85 +1288,193 @@
                     width: 100% !important;
                 }
             }
+
+            /* ============================================
+               20. ACESSIBILIDADE
+               Focus visible para navegação via teclado
+               Respeita preferência de movimento reduzido
+            ============================================ */
+
+            /* Estado de foco visível - Outline laranja */
+            *:focus-visible {
+                outline: 2px solid var(--ep-orange, #E67E22) !important;
+                outline-offset: 2px !important;
+            }
+
+            /* Skip link para navegação via teclado */
+            .skip-link {
+                position: absolute;
+                top: -40px;
+                left: 0;
+                background: var(--ep-navy, #1B3A57);
+                color: #FFFFFF;
+                padding: 8px 16px;
+                z-index: 9999;
+                transition: top 0.3s;
+            }
+
+            .skip-link:focus {
+                top: 0;
+            }
+
+            /* Respeita preferência de movimento reduzido */
+            @media (prefers-reduced-motion: reduce) {
+                *,
+                *::before,
+                *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
+                }
+            }
+
+            /* Alto contraste para melhor legibilidade */
+            @media (prefers-contrast: high) {
+                .item-product {
+                    border: 2px solid #2C3E50 !important;
+                }
+
+                .btn-primary {
+                    border: 2px solid #000000 !important;
+                }
+            }
         </style>
 
         {#/*============================================================================
-            #Javascript: Needed before HTML loads
+            Seção 8: JavaScript Pré-HTML (Carregado no Head)
+            - Configurações de carregamento assíncrono
+            - jQuery condicional
+            - Scripts privados da plataforma Nuvemshop
+            - Dados estruturados (Schema.org)
         ==============================================================================*/#}
 
-        {# Defines if async JS will be used by using script_tag(true) #}
+        {#/*----------------------------------------------------------------
+            Configuração de JavaScript Assíncrono
+            - async_js = true: Usa script_tag(true) para carregamento não-bloqueante
+            - nojquery = true: Usa jQuery moderno (1.11.1), não 1.5 legacy
+        ----------------------------------------------------------------*/#}
 
         {% set async_js = true %}
-
-        {# Defines the usage of jquery loaded below, if nojquery = true is deleted it will fallback to jquery 1.5 #}
-
         {% set nojquery = true %}
 
-        {# Jquery async by adding script_tag(true) #}
+        {#/*----------------------------------------------------------------
+            Carregamento Condicional do jQuery
+            - Carrega jQuery 1.11.1 do CDN Google se necessário
+            - Usa script_tag(true) para carregamento assíncrono
+        ----------------------------------------------------------------*/#}
 
         {% if load_jquery %}
-
             {{ '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' | script_tag(true) }}
-
         {% endif %}
 
-        {# Loads private Tiendanube JS #}
+        {#/*----------------------------------------------------------------
+            Scripts Privados da Plataforma Nuvemshop
+            - API de carrinho, checkout, analytics, etc.
+            - Injetados via head_content
+        ----------------------------------------------------------------*/#}
 
         {% head_content %}
 
-        {# Structured data to provide information for Google about the page content #}
+        {#/*----------------------------------------------------------------
+            Dados Estruturados (Schema.org / JSON-LD)
+            - Informações da loja para Google
+            - Produtos, organização, breadcrumb
+            - Melhora SEO e Rich Snippets
+        ----------------------------------------------------------------*/#}
 
         {{ component('structured-data') }}
 
     </head>
+    {#/*============================================================================
+        Seção 9: Corpo da Página (Body)
+        - Ícones SVG do tema
+        - Scripts de redes sociais (Facebook, Pinterest)
+        - Header, conteúdo principal, Footer
+        - Elementos auxiliares (quickshop, WhatsApp)
+    ==============================================================================*/#}
+
     <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}">
 
-        {# Theme icons #}
+        {#/*----------------------------------------------------------------
+            Ícones SVG do Tema
+            - Sprite SVG com todos os ícones usados no tema
+            - Carregado inline para acesso imediato via <use>
+        ----------------------------------------------------------------*/#}
 
         {% include "snipplets/svg/icons.tpl" %}
 
-        {# Facebook comments on product page #}
+        {#/*----------------------------------------------------------------
+            Scripts de Redes Sociais (Página de Produto)
+            - Facebook: SDK para caixa de comentários
+            - Pinterest: Botão de compartilhamento/pin
+        ----------------------------------------------------------------*/#}
 
         {% if template == 'product' %}
-
-            {# Facebook comment box JS #}
             {% if settings.show_product_fb_comment_box %}
                 {{ fb_js }}
             {% endif %}
-
-            {# Pinterest share button JS #}
             {{ pin_js }}
-
         {% endif %}
 
-        {# Back to admin bar #}
+        {#/*----------------------------------------------------------------
+            Barra de Administração
+            - Link "Voltar ao Admin" para lojistas logados
+            - Visível apenas quando acessando loja pelo painel admin
+        ----------------------------------------------------------------*/#}
 
         {{back_to_admin}}
 
-        {# Header = Advertising + Nav + Logo + Search + Ajax Cart #}
+        {#/*----------------------------------------------------------------
+            Cabeçalho (Header)
+            - Barra de anúncios (AdBar)
+            - Navegação principal
+            - Logo, busca e carrinho
+        ----------------------------------------------------------------*/#}
 
         {% snipplet "header/header.tpl" %}
 
-        {# Page content #}
+        {#/*----------------------------------------------------------------
+            Conteúdo Principal da Página
+            - Renderiza o template específico (home, product, category, etc.)
+            - Conteúdo dinâmico baseado na rota atual
+        ----------------------------------------------------------------*/#}
 
         {% template_content %}
 
-        {# Quickshop modal #}
+        {#/*----------------------------------------------------------------
+            Modal de Visualização Rápida (Quickshop)
+            - Modal para ver detalhes do produto sem sair da página
+            - Inclui variantes, preço e botão de compra
+        ----------------------------------------------------------------*/#}
 
         {% snipplet "grid/quick-shop.tpl" %}
 
-        {# WhatsApp chat button #}
+        {#/*----------------------------------------------------------------
+            Botão Flutuante do WhatsApp
+            - Botão fixo no canto da tela
+            - Abre chat direto com a loja
+        ----------------------------------------------------------------*/#}
 
         {% snipplet "whatsapp-chat.tpl" %}
 
-        {# Footer #}
+        {#/*----------------------------------------------------------------
+            Rodapé (Footer)
+            - Links institucionais
+            - Redes sociais
+            - Newsletter
+            - Informações de contato
+        ----------------------------------------------------------------*/#}
 
         {% snipplet "footer/footer.tpl" %}
 
+        {#/*----------------------------------------------------------------
+            Dados de Frete Grátis (Hidden)
+            - Elementos ocultos com dados para cálculo de frete grátis
+            - Usados pelo JavaScript para exibir mensagens de progresso
+        ----------------------------------------------------------------*/#}
+
         {% if cart.free_shipping.cart_has_free_shipping or cart.free_shipping.min_price_free_shipping.min_price %}
-
-            {# Minimum used for free shipping progress messages. Located on header so it can be accesed everywhere with shipping calculator active or inactive #}
-
             <span class="js-ship-free-min hidden" data-pricemin="{{ cart.free_shipping.min_price_free_shipping.min_price_raw }}"></span>
             <span class="js-free-shipping-config hidden" data-config="{{ cart.free_shipping.allFreeConfigurations }}"></span>
             <span class="js-cart-subtotal hidden" data-priceraw="{{ cart.subtotal }}"></span>
@@ -1115,36 +1482,61 @@
         {% endif %}
 
         {#/*============================================================================
-            #Javascript: Needed after HTML loads
+            Seção 10: JavaScript Pós-HTML
+            - Bibliotecas externas (sem dependências e com jQuery)
+            - Funções específicas da loja
+            - Google Survey e códigos de rastreamento
         ==============================================================================*/#}
 
-        {# Javascript used in the store #}
-
         <script type="text/javascript">
-
-            {# Libraries that do NOT depend on other libraries, e.g: Jquery #}
+            {#/*----------------------------------------------------------------
+                Bibliotecas Sem Dependências
+                - Carregadas primeiro, não dependem de jQuery
+                - Ex: polyfills, utilitários puros
+            ----------------------------------------------------------------*/#}
 
             {% include "static/js/external-no-dependencies.js.tpl" %}
 
-            {# LS.ready.then function waits to Jquery and private Tiendanube JS to be loaded before executing what´s inside #}
+            {#/*----------------------------------------------------------------
+                Execução Após Carregamento do jQuery
+                - LS.ready.then aguarda jQuery e scripts da Nuvemshop
+                - Garante que dependências estão disponíveis
+            ----------------------------------------------------------------*/#}
 
             LS.ready.then(function(){
-
-                {# Libraries that requires Jquery to work #}
+                {#/*------------------------------------------------------------
+                    Bibliotecas que Requerem jQuery
+                    - Bootstrap, Swiper, plugins diversos
+                ------------------------------------------------------------*/#}
 
                 {% include "static/js/external.js.tpl" %}
 
-                {# Specific store JS functions: product variants, cart, shipping, etc #}
+                {#/*------------------------------------------------------------
+                    Funções JavaScript da Loja
+                    - Variantes de produto
+                    - Carrinho de compras (AJAX)
+                    - Calculadora de frete
+                    - Interações de UI
+                ------------------------------------------------------------*/#}
 
                 {% include "static/js/store.js.tpl" %}
             });
         </script>
 
-        {# Google survey JS for Tiendanube Survey #}
+        {#/*----------------------------------------------------------------
+            Google Merchant Center Survey
+            - Pesquisa de satisfação do Google
+            - Exibida para clientes após compra
+        ----------------------------------------------------------------*/#}
 
         {% include "static/js/google-survey.js.tpl" %}
 
-        {# Store external codes added from admin #}
+        {#/*----------------------------------------------------------------
+            Códigos de Rastreamento Externos
+            - Scripts adicionados pelo admin via painel
+            - Google Analytics, Facebook Pixel, etc.
+            - Injetados no body após carregamento
+        ----------------------------------------------------------------*/#}
 
         {% if store.assorted_js %}
             <script>
@@ -1154,5 +1546,6 @@
                 });
             </script>
         {% endif %}
+
     </body>
 </html>
